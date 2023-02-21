@@ -4,7 +4,7 @@
 ## Members:
  1. Phan Chí Thọ: https://gitlab.com/TomNewbie (17232)
  2. Trần Nguyễn Minh Quân: https://gitlab.com/17640 (17640)
- 3. Lê Hoàng Kim Thanh https://gitlab.com/Kimthanh11 (18047)
+ 3. Lê Hoàng Kim Thanh https://gitlab.com/Kimthanh11 (18047) (Leader)
  4. Nguyễn Lê Anh Quân https://gitlab.com/WataNekko (18875)
  5. Phạm Nguyễn Đan Quỳnh  https://gitlab.com/pndquyynh (17937) 
  6. Lê Hoàng Đăng Nguyên https://gitlab.com/NguyenLe1605 (17028)
