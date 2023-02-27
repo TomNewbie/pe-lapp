@@ -1,5 +1,5 @@
 # vgupe2023_team2
-## Project:
+## Project: [LAPP](https://docs.google.com/document/d/1-nmSOiMTKfd_a97TnvdPY18_VqLa1RAgG1yS37_zXLo/edit)
 
 ## Members:
  1. Phan Chí Thọ: https://gitlab.com/TomNewbie (17232)
