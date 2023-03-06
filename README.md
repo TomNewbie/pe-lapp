@@ -19,7 +19,7 @@ Use-Case Diagram
 
 - 18 use cases
 
-<img src="images/usecase.drawio.png" width="500">
+<img src="images/usecase2.png" width="500">
 
 
 ### Actor: Teacher
