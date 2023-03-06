@@ -17,9 +17,9 @@ Use-Case Diagram
 
 - 2 Primary Actors: Teacher and Student
 
-- 17 use cases
+- 18 use cases
 
-<img src="images/usecase.jpg" width="500">
+<img src="images/usecase.drawio.png" width="500">
 
 
 ### Actor: Teacher
