@@ -17,9 +17,9 @@ Use-Case Diagram
 
 - 2 Primary Actors: Teacher and Student
 
-- 18 use cases
+- 16 use cases
 
-<img src="images/usecase2.png" width="500">
+<img src="images/usecase3.png" width="500">
 
 
 ### Actor: Teacher
@@ -181,15 +181,15 @@ Use-Case Diagram
 | Created By |  Minh Quan |
 | Date Created | 28/02/2023 |
 | Last Updated By | Quan Tran Nguyen Minh|
-| Date Last Updated | 05/03/2023 |
+| Date Last Updated | 06/03/2023 |
 
 
 |Actors|  Teacher|
 |-----| -----|
-|Description|  Teacher can track student’s activities by seeing how much time they spend on the exercises, tasks,...|
+|Description|  Teacher can track student’s activities by seeing whether student submits exercise on time or late|
 |Trigger|  Teacher clicks the “Track Activity” button|
 |Preconditions|  |
-|Postconditions|  Teacher knows the progress of student by knowing how much time he/she spends on exercises, tasks, whether he/she finishes the exercises or not…|
+|Postconditions|  Teacher knows the progress of student by knowing who submits exercise late or on time|
 |Priority|  high|
 |Normal Flow| 1. Teacher searches for the student’s name/id that of whom he/she wants to see the learning activities, progress|
 | | 2. Teacher clicks the “Track Activities” button to see the student’s activities/progress|
@@ -198,47 +198,8 @@ Use-Case Diagram
 |Special Requirements|  |
 |Notes and Issues| |
 
-
-#### 6. Answer questions
-| Use Case ID | Answer questions_6 |
-| ------------| ---------------|
-| Use Case Name | Answer questions | 
-| Created By |  Minh Quan |
-| Date Created | 28/02/2023 |
-| Last Updated By | Quan Tran Nguyen Minh|
-| Date Last Updated | 05/03/2023 |
-
-
-|Actors| Teacher|
-|-----| -----|
-Description| Teacher answers students’ questions in the chatbox|
-|Trigger| Teacher clicks the “Track Activity” button|
-|Preconditions| The Student must already attend the Course|
-||There exists a student posing a question|
-|Postconditions| Teacher has answered the Student’s question and the teacher's answer message has been successfully delivered to the Student.|
-|Priority| high|
-|Normal Flow|  1. Teacher clicks the Student’s name on the chat list that he/she wants to reply first |
-||2. Teacher write message contents|
-||3. Teacher clicks “Send Message”|
-||4. The System delivers the message and notify Teacher that his/her reply has delivered successfully|
-|Alternative Flows|At step 1,|
-||1.1. Teacher searches Student’s name|
-||1.2. Teacher selects a Student to answer question|
-||Continue to step 2 as in the Normal Flow|
-||At step 2, |
-||2.1. Teacher clicks “Attachment”|
-||2.2. Teacher selects a media (audio, images)|
-||2.3. Teacher chooses the media|
-||Continue to step 3 as in the Normal Flow|
-|Exceptions|At step 2.2, if there is no media, show a pop-up to notify teacher, then end|
-||At step 2.2, if the file type (pdf, mp3, wav…) of the selected media is not supported by the system, then show a pop-up to notify teacher, then end|
-||At step 2.2, if the capacity of the selected media exceeds the allowable capacity of the system, then show a pop-up to notify teacher, then end|
-|Special Requirements| |
-|Notes and Issues||
-
-
-#### 7. Upload exercise
-| Use Case ID | Upload exercise_7 |
+#### 6. Upload exercise
+| Use Case ID | Upload exercise_6 |
 | ------------| ---------------|
 | Use Case Name | Upload exercise | 
 | Created By |  Minh Quan |
@@ -267,8 +228,8 @@ Description| Teacher answers students’ questions in the chatbox|
 
 
 
-#### 8. Delete Exercise:
-| Use Case ID | Delete Exercise_8 |
+#### 7. Delete Exercise:
+| Use Case ID | Delete Exercise_7 |
 | ------------| ---------------|
 | Use Case Name | Delete Exercise | 
 | Created By |  Minh Quan |
@@ -302,8 +263,8 @@ Description| Teacher answers students’ questions in the chatbox|
 |Notes and Issues||
 
 
-#### 9. Modify Exercise:
-| Use Case ID | Modify Exercise_9 |
+#### 8. Modify Exercise:
+| Use Case ID | Modify Exercise_8 |
 | ------------| ---------------|
 | Use Case Name | Modify Exercise | 
 | Created By |  Minh Quan |
@@ -338,8 +299,8 @@ Description| Teacher answers students’ questions in the chatbox|
 |Notes and Issues||
 
 
-#### 10. Evaluate Students’ Performance
-| Use Case ID | Evaluate Students’ Performance_10 |
+#### 9. Evaluate Students’ Performance
+| Use Case ID | Evaluate Students’ Performance_9 |
 | ------------| ---------------|
 | Use Case Name | Evaluate Students’ Performance | 
 | Created By |  Minh Quan |
@@ -369,8 +330,8 @@ Description| Teacher answers students’ questions in the chatbox|
 ### Actor: Teacher and Student
 
 
-#### 11. Log in
-|Use Case ID| Log in_11 |
+#### 10. Log in
+|Use Case ID| Log in_10 |
 |----------|--------| 
 |Use Case Name|  Log in |
 |Created By| Minh Quan |
@@ -401,8 +362,8 @@ Description| Teacher answers students’ questions in the chatbox|
 
 
 
-#### 12. Log out
-|Use Case ID| Log out_12 |
+#### 11. Log out
+|Use Case ID| Log out_11 |
 |----------|--------| 
 |Use Case Name|  Log out |
 |Created By| Minh Quan |
@@ -426,23 +387,61 @@ Description| Teacher answers students’ questions in the chatbox|
 |Notes and Issues||
 
 
+ 
+#### 12. Send message
+|Use Case ID| Send message_12 |
+|----------|--------| 
+|Use Case Name|  Send message |
+|Created By| Minh Quan |
+|Date Created| 06/03/2023 |
+|Last Updated By|  Minh Quan|
+|Date Last Updated|  06/03/2023|
+
+|Actors| Teacher|
+|-----| -----|
+Description| Teacher answers students’ questions in the chatbox|
+|Trigger| |
+|Preconditions| The Student must already attend the Course|
+||There exists a student posing a question|
+|Postconditions| Teacher has answered the Student’s question and the teacher's answer message has been successfully delivered to the Student.|
+|Priority| high|
+|Normal Flow|  1. Teacher clicks the Student’s name on the chat list that he/she wants to reply first |
+||2. Teacher write message contents|
+||3. Teacher clicks “Send Message”|
+||4. The System delivers the message and notify Teacher that his/her reply has delivered successfully|
+|Alternative Flows|At step 1,|
+||1.1. Teacher searches Student’s name|
+||1.2. Teacher selects a Student to answer question|
+||Continue to step 2 as in the Normal Flow|
+||At step 2, |
+||2.1. Teacher clicks “Attachment”|
+||2.2. Teacher selects a media (audio, images)|
+||2.3. Teacher chooses the media|
+||Continue to step 3 as in the Normal Flow|
+|Exceptions|At step 2.2, if there is no media, show a pop-up to notify teacher, then end|
+||At step 2.2, if the file type (pdf, mp3, wav…) of the selected media is not supported by the system, then show a pop-up to notify teacher, then end|
+||At step 2.2, if the capacity of the selected media exceeds the allowable capacity of the system, then show a pop-up to notify teacher, then end|
+|Special Requirements| |
+|Notes and Issues||
+
+
 
 ### Actor: Student
 
 
-#### 13. Attend Course
+#### 13. Register Course
 |Use Case ID| Attend Course_13 |
 |----------|--------| 
 |Use Case Name|  Attend Course |
 |Created By| Minh Quan |
 |Date Created| 28/02/2023 |
 |Last Updated By|  Tho Phan Chi|
-|Date Last Updated|  05/03/2023|
+|Date Last Updated|  06/03/2023|
 
 
-|Actors|  Attend Course|
+|Actors|  Student|
 |----------|--------| 
-|Description|  Student can attend Course available|
+|Description|  Student can register Course available|
 |Trigger|  Student clicks the “Register to a Course” button|
 |Preconditions|  |
 |Postconditions|  Student successfully joins the Course and access to all the materials, exercises in the Course|
@@ -491,40 +490,12 @@ Description|  Student can track his/her own progress to see how much of the cour
 |Notes and Issues| |
 
 
-#### 15. Post Questions
-|Use Case ID|  Post Question_15 |
-|----------|--------| 
-|Use Case Name|  Post Question |
-|Created By| Minh Quan |
-|Date Created| 28/02/2023 |
-|Last Updated By|  Thanh Le Hoang Kim|
-|Date Last Updated|  05/03/2023|
-
-|Actors| Student|
-|-----| -----|
-|Description| Student can post questions to the chatbox to ask teacher|
-|Trigger| Student goes to the chat box to send question to teacher|
-|Preconditions| The student and lecturer have registered in the system|
-|Postconditions| The teacher is notified about the questions and answer to them|
-|Priority| high|
-|Normal Flow|1. Student choose the teacher he/she wants to ask|
-||2. Student write message contents|
-||3. Student clicks “Send Message”|
-||4. The System delivers the message and notify student that his/her question has delivered successfully|
-|Alternative Flows|At step 2,|
-||2.1. Teacher clicks “Attachment”|
-||2.2. Teacher selects a media (audio, images)|
-||2.3. Teacher chooses the media|
-||Continue to step 3 as in the Normal Flow|
-|Exceptions|At step 2.2, if there is no media, show a pop-up to notify teacher, then end|
-||At step 2.2, if the file type (pdf, mp3, wav…) of the selected media is not supported by the system, then show a pop-up to notify teacher, then end|
-|Special Requirements| |
-|Notes and Issues|We do not have enough time to do chatbox so maybe we can help the actor search for the mail and chat on different platform|
 
 
-#### 16. Do Exercise
 
-|Use Case ID| Leave Course_16 |
+#### 15. Do Exercise
+
+|Use Case ID| Leave Course_15 |
 |----------|--------| 
 |Use Case Name| Leave Course |
 |Created By| Minh Quan |
@@ -551,43 +522,16 @@ Description|  Student can track his/her own progress to see how much of the cour
 
 
 
-#### 17. Leave Course
-| Use Case ID | Leave Course_17 |
-| ------------| ---------------|
-| Use Case Name | Leave Course | 
-| Created By |  Minh Quan |
-| Date Created | 28/02/2023 |
-| Last Updated By | Thanh Le Hoang Kim|
-| Date Last Updated | 05/03/2023 |
- 
 
- 
-| Actors | Student |
-| -------| -------|
-| Description | Student can leave the course after he/she has accomplished it or when he/she don’t want to complete the course|
-| Trigger | Student clicks the “Leave Course” button |
-| Preconditions |  The student has registered for the course|
-| Postconditions |  The student do not have access to the material of the course anymore|
-||The student is removed from the student list of the course|
-||The teacher will be notified |
-| Priority | low |
-| Normal Flow | 1. Student clicks the “Leave Course” button  |
-||2. A popup appears asking “Are you sure to leave the course?” |
-| | 3. Student confirms leaving the course |
-| Alternative Flows |  |
-| Exceptions | Cancel leave course|
-||At step 2, the student choose not leave, then end|
-| Special Requirements |  |
-| Notes and Issues | |
 
-#### 18. Find contact information
-| Use Case ID | Find contact information_18 |
+#### 16. Find contact information
+| Use Case ID | Find contact information_16 |
 | ------------| ---------------|
 | Use Case Name | Leave Course | 
 | Created By |  Thanh Le Hoang Kim |
 | Date Created |  05/03/2023|
-| Last Updated By | |
-| Date Last Updated | |
+| Last Updated By | Thanh Le Hoang Kim |
+| Date Last Updated | 05/03/2023|
 
 
 | Actors|  Student / Lecturer|
