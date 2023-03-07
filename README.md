@@ -15,14 +15,14 @@
 
 Use-Case Diagram
 
-- 2 Primary Actors: Teacher and Student
+- 2 Primary Actors: Lecturer and Student
 
 - 16 use cases
 
-<img src="images/usecase3.png" width="500">
+<img src="images/usecase4.png" width="500">
 
 
-### Actor: Teacher
+### Actor: Lecturer
 
 
 #### 1. Create Course:
@@ -35,10 +35,10 @@ Use-Case Diagram
 | Date Last Updated |  05/03/2023|
 
 
-|Actors|  Teacher|
+|Actors|  Lecturer|
 |-----| -----|
-|Description|  Teacher creates course for students to join|
-|Trigger|  Teacher clicks the “Create Course” button|
+|Description|  Lecturer creates course for students to join|
+|Trigger|  Lecturer clicks the “Create Course” button|
 |Preconditions|  The lecturer is logged in to the site with their account.|
 ||The lecturer has the necessary permissions to create a course.|
 ||The lecturer has all the necessary information and materials to create the course.|
@@ -51,12 +51,12 @@ Use-Case Diagram
 ||3. The lecturer adds a course image or video to make the course more attractive to |potential students.
 ||4. The lecturer saves the course information.|
 ||5. The course is now published and available for students to join.|
-|Alternative Flows| Alternative Flow 1: The teacher cancels the creation of the new course|
-||1. The teacher decides to cancel the creation of the new course|
-||2. The teacher clicks the “Cancel” button|
+|Alternative Flows| Alternative Flow 1: The lecturer cancels the creation of the new course|
+||1. The lecturer decides to cancel the creation of the new course|
+||2. The lecturer clicks the “Cancel” button|
 ||3. Confirmation box is shown|
-||4. The creation of the new course is canceled and the teacher is redirected back to the home page |
-|Exceptions| The teacher encounters an error when creating the new course. |
+||4. The creation of the new course is canceled and the lecturer is redirected back to the home page |
+|Exceptions| The lecturer encounters an error when creating the new course. |
 ||1. An error occurs while creating the course (such as missing information or invalid data) |
 ||2. The system prompts the lecturer to correct the errors before publishing the new course. |
 |Special Requirements|  |
@@ -73,28 +73,28 @@ Use-Case Diagram
 | Date Last Updated | 05/03/2023|
 
 
-|Actors| Teacher|
+|Actors| Lecturer|
 |-----| -----|
-|Description| Teacher modifies the Course to reflect changes in the course content, structure, or schedule|
-|Trigger| Teacher clicks the “Modify Course” button|
-|Preconditions| The teacher  must be logged in to the learning system.|
-||The teacher must have permission to modify the course.|
-|Postconditions| The course has been modified to reflect the teacher's changes, or remains unchanged if modifications were not saved.|
+|Description| Lecturer modifies the Course to reflect changes in the course content, structure, or schedule|
+|Trigger| Lecturer clicks the “Modify Course” button|
+|Preconditions| The lecturer  must be logged in to the learning system.|
+||The lecturer must have permission to modify the course.|
+|Postconditions| The course has been modified to reflect the lecturer's changes, or remains unchanged if modifications were not saved.|
 ||Students enrolled in the course can access the updated course information.|
 |Priority| medium|
-|Normal Flow|1. The teacher selects the course they wish to modify from the list of courses available to them.|
-||2. The teacher navigates to the course editing interface within the learning system.|
-||3. The teacher makes the necessary changes to the course content, structure, or schedule, using the editing tools provided by the learning system. |
-||4. The teacher saves the changes to the course.|
+|Normal Flow|1. The lecturer selects the course they wish to modify from the list of courses available to them.|
+||2. The lecturer navigates to the course editing interface within the learning system.|
+||3. The lecturer makes the necessary changes to the course content, structure, or schedule, using the editing tools provided by the learning system. |
+||4. The lecturer saves the changes to the course.|
 ||5. The learning system confirms that the changes have been saved and updates the course information accordingly. |
-|Alternative Flows|Alternate Scenario 1: teacher cancels course modifications.|
-||1. The teacher decides not to make the changes to the course after all.|
-||2. The teacher navigates away from the course editing interface without saving any changes.|
+|Alternative Flows|Alternate Scenario 1: lecturer cancels course modifications.|
+||1. The lecturer decides not to make the changes to the course after all.|
+||2. The lecturer navigates away from the course editing interface without saving any changes.|
 ||3. The learning system confirms that no changes were made to the course.|
-|Exceptions|Teacher encounters an error when trying to modify the course.|
-||1. The teacher receives an error message when attempting to save changes to the course.|
-||2. The learning system provides the teacher with information about the error and suggestions for resolving it.|
-||3. The teacher  makes the necessary changes to resolve the error and tries again to save the modifications to the course.|
+|Exceptions|Lectuer encounters an error when trying to modify the course.|
+||1. The lecturer receives an error message when attempting to save changes to the course.|
+||2. The learning system provides the lecturer with information about the error and suggestions for resolving it.|
+||3. The lecturer  makes the necessary changes to resolve the error and tries again to save the modifications to the course.|
 |Special Requirements| |
 |Notes and Issues||
 
@@ -109,30 +109,30 @@ Use-Case Diagram
 | Date Last Updated | 05/03/2023|
 
 
-|Actors| Teacher|
+|Actors| Lecturer|
 |-----| -----|
-|Description| Teacher can upload materials to the Course|
-|Trigger| Teacher clicks the “Upload Material” button|
-|Preconditions|The teacher must be logged in to the learning system.|
-||The teacher must have permission to upload materials.|
+|Description| Lecturer can upload materials to the Course|
+|Trigger| Lecturer clicks the “Upload Material” button|
+|Preconditions|The lecturer must be logged in to the learning system.|
+||The lecturer must have permission to upload materials.|
 ||The course is already existed.|
-|Postconditions| The material has been uploaded to the learning system and can be accessed by the teacher and students enrolled in the course.|
+|Postconditions| The material has been uploaded to the learning system and can be accessed by the lecturer and students enrolled in the course.|
 |Priority| high|
-|Normal Flow|1. The teacher selects the course they wish to upload materials for from the list of courses available to them.|
-||2. The teacher navigates to the materials upload interface within the learning system.|
-||3. The teacher selects the type of material they wish to upload (e.g., document, video, audio).|
-||4. The teacher selects the file they wish to upload from their computer or other device.|
-||5. The teacher adds a title and description for the material.|
-||6. The teacher clicks the "upload" button.|
+|Normal Flow|1. The lecturer selects the course they wish to upload materials for from the list of courses available to them.|
+||2. The lecturer navigates to the materials upload interface within the learning system.|
+||3. The lecturer selects the type of material they wish to upload (e.g., document, video, audio).|
+||4. The lecturer selects the file they wish to upload from their computer or other device.|
+||5. The lecturer adds a title and description for the material.|
+||6. The lecturer clicks the "upload" button.|
 ||7. The learning system confirms that the file has been uploaded. |
-|Alternative Flows|Alternate Scenario 1: Teacher cancels material upload.|
-||1. The teacher decides not to upload the material after all.|
-||2. The teacher navigates away from the materials upload interface without uploading any files.|
+|Alternative Flows|Alternate Scenario 1: lecturer cancels material upload.|
+||1. The lecturer decides not to upload the material after all.|
+||2. The lecturer navigates away from the materials upload interface without uploading any files.|
 ||3. The learning system confirms that no files were uploaded.|
-|Exceptions| Teacher encounters an error when trying to upload materials.|
-||1. The teacher receives an error message when attempting to upload the file.|
-||2. The learning system provides the teacher with information about the error and suggestions for resolving it.|
-||3. The teacher makes the necessary changes to resolve the error and tries again to upload the file.|
+|Exceptions| Lecturer encounters an error when trying to upload materials.|
+||1. The lecturer receives an error message when attempting to upload the file.|
+||2. The learning system provides the lecturer with information about the error and suggestions for resolving it.|
+||3. The lecturer makes the necessary changes to resolve the error and tries again to upload the file.|
 |Special Requirements|  |
 |Notes and Issues||
 
@@ -147,30 +147,30 @@ Use-Case Diagram
 | Date Last Updated | 05/03/2023|
 
 
-|Actors|  Teacher|
+|Actors|  Lecturer|
 |-----| -----|
-|Description|  Teacher can modify the materials that he/she has uploaded before|
-|Trigger|  Teacher clicks the “Modify” button|
+|Description|  Lecturer can modify the materials that he/she has uploaded before|
+|Trigger|  Lecturer clicks the “Modify” button|
 |Preconditions|  There exists a material in the first place|
-||The teacher must be logged in to the learning system.|
-||The teacher must have permission to modify materials.|
+||The lecturer must be logged in to the learning system.|
+||The lecturer must have permission to modify materials.|
 |Postconditions|  The materials are modified and updated so that all students can see them|
-||The teacher can update the link to the material in the course content or share it with students via another method.|
+||The lecturer can update the link to the material in the course content or share it with students via another method.|
 |Priority|  high|
-|Normal Flow| 1. The teacher selects the course they wish to modify materials for from the list of courses available to them.|
-||2. The teacher navigates to the materials editing interface within the learning system.|
-||3. The teacher selects the material they wish to modify.|
-||4. The teacher makes the necessary changes to the material using the editing tools provided by the learning system.|
-||5. The teacher saves the changes to the material.|
+|Normal Flow| 1. The lecturer selects the course they wish to modify materials for from the list of courses available to them.|
+||2. The lecturer navigates to the materials editing interface within the learning system.|
+||3. The lecturer selects the material they wish to modify.|
+||4. The lecturer makes the necessary changes to the material using the editing tools provided by the learning system.|
+||5. The lecturer saves the changes to the material.|
 ||6. The learning system confirms that the changes have been saved and updates the material information accordingly.|
-|Alternative Flows| Alternate Scenario 1: Teacher cancels material modifications.|
-||1. The teacher decides not to make changes to the material after all.|
-||2. The teacher navigates away from the materials editing interface without saving any changes.|
+|Alternative Flows| Alternate Scenario 1: Lecturer cancels material modifications.|
+||1. The lecturer decides not to make changes to the material after all.|
+||2. The lecturer navigates away from the materials editing interface without saving any changes.|
 ||3. The learning system confirms that no changes were made to the material.|
-|Exceptions| Teacher encounters an error when trying to modify materials.|
-||1. The teacher receives an error message when attempting to save changes to the material.|
-||2. The learning system provides the teacher with information about the error and suggestions for resolving it.|
-||3. The teacher makes the necessary changes to resolve the error and tries again to save the modifications to the material.|
+|Exceptions| Lecturer encounters an error when trying to modify materials.|
+||1. The lecturer receives an error message when attempting to save changes to the material.|
+||2. The learning system provides the lecturer with information about the error and suggestions for resolving it.|
+||3. The lecturer makes the necessary changes to resolve the error and tries again to save the modifications to the material.|
 |Special Requirements|  |
 |Notes and Issues| |
 
@@ -184,17 +184,23 @@ Use-Case Diagram
 | Date Last Updated | 06/03/2023 |
 
 
-|Actors|  Teacher|
+|Actors|  Lecturer|
 |-----| -----|
-|Description|  Teacher can track student’s activities by seeing whether student submits exercise on time or late|
-|Trigger|  Teacher clicks the “Track Activity” button|
-|Preconditions|  |
-|Postconditions|  Teacher knows the progress of student by knowing who submits exercise late or on time|
+|Description|  Lecturer can track student’s activities by seeing whether student submits exercise on time or late or not do homework|
+|Trigger|  Lecturer clicks the “Track Activities” button|
+|Preconditions|  There must be a table called “Submission” table in Database, which holds information about: Student’s id, Submitted file, Submitted Time|
+|Postconditions|  Lecturer knows who submits exercise on time, and who submits exercise late and who did not do homework|
 |Priority|  high|
-|Normal Flow| 1. Teacher searches for the student’s name/id that of whom he/she wants to see the learning activities, progress|
-| | 2. Teacher clicks the “Track Activities” button to see the student’s activities/progress|
+|Normal Flow| 1. Teacher clicks the “Track Activities” button|
+||2. The system gets the ID of Students who have already submitted Exercise from Database|
+||3. The system gets submitted time of that Student from Database|
+||4. The System gets the Due Time of the Exercise from Database|
+||5. The System compares the Submitted Time and Due Time|
+||6. The System creates a table to list ID, Student’s name, Submission Status (On time, Late, Not Submit)|
 |Alternative Flows| |
-|Exceptions| |
+|Exceptions| At step 2, if no ID, then label that Student to be “Not Submit”|
+||At step 5, if Submitted Time <= Due Time, then label that Student to be “On Time”|
+||At step 5, if Submitted Time > Due Time, then label that Student to be “Late”|
 |Special Requirements|  |
 |Notes and Issues| |
 
@@ -205,23 +211,24 @@ Use-Case Diagram
 | Created By |  Minh Quan |
 | Date Created | 28/02/2023 |
 | Last Updated By | Quan Tran Nguyen Minh|
-| Date Last Updated | 03/03/2023 |
+| Date Last Updated | 07/03/2023 |
 
 
-| Actors | Teacher |
+| Actors | Lecturer |
 | ------- | ------ |
-| Description | Teacher uploads exercise to the Course |
-| Trigger | Teacher clicks the “Upload Exercise” button |
+| Description | Lecturer uploads exercise to the Course |
+| Trigger | Lecturer clicks the “Upload Exercise” button |
 | Preconditions | There exists a Course |
-| Postconditions | Exercises are uploaded to the Course and students are informed of the exercise |
+| Postconditions | Exercises are uploaded to the Course and stored in Database (with the Exercise file and die time for submission) and students are informed of the new Exercise |
 | Priority | high |
-| Normal Flow |1. Teacher clicks the “Upload Exercise” button |
-| | 2. Teacher chooses the Exercise file to upload|
-||3. Teacher clicks “Submit” to confirm the uploading|
-||4. The system notifies teacher that Exercise is uploaded successfully|
-||5. The system notifies the Students in the Course of the new Exercise|
+| Normal Flow |1. Lecturer clicks the “Upload Exercise” button |
+| | 2. Lecturer chooses the Exercise file to upload|
+||3. Lecturer enters the due time for the Exercise submission|
+||4. The system stores the Exercise file and due time to Database|
+||5. The system notifies Lecturers that the Exercise is uploaded successfully|
+||6. The system notifies Students that there is a new Exercise with a due time|
 | Alternative Flows | |
-| Exceptions | At step 2, if there is no file, then show a pop-up to notify teacher, then end|
+| Exceptions | At step 2, if there is no file, then show a pop-up to notify lecturer, then end|
 | Special Requirements |  |
 | Notes and Issues | |
 
@@ -238,10 +245,10 @@ Use-Case Diagram
 | Date Last Updated | 05/03/2023 |
 
 
-|Actors| Teacher|
+|Actors| Lecturer|
 |----------|--------| 
-|Description| Teacher can delete the exercises if they are irrelevant |
-|Trigger| Teacher clicks the “Delete Exercise” button|
+|Description| Lecturer can delete the exercises if they are irrelevant |
+|Trigger| Lecturer clicks the “Delete Exercise” button|
 |Preconditions| The lecturer is logged in to the site with their account.|
 ||The lecturer has the necessary permissions to delete exercises in a course.|
 ||The course containing the exercise and the exercise to be deleted has already been created and published.|
@@ -256,7 +263,7 @@ Use-Case Diagram
 ||1. The lecturer decides to cancel the exercise deletion|
 ||2. The lecturer clicks the “Cancel” button|
 ||3. The exercise is not deleted|
-|Exceptions|The teacher encounters an error when deleting.|
+|Exceptions|The lecturer encounters an error when deleting.|
 ||An error occurs while deleting the exercise|
 ||The system informs the lecturer of the error and provides guidance on how to proceed.|
 |Special Requirements| |
@@ -272,19 +279,19 @@ Use-Case Diagram
 | Last Updated By | Quan Nguyen Le Anh|
 | Date Last Updated | 05/03/2023 |
 
-|Actors| Teacher|
+|Actors| Lecturer|
 |----------|--------| 
-|Description| Teacher makes changes to the existing exercise|
-|Trigger| Teacher clicks the “Modify Exercise” button|
+|Description| Lecturer makes changes to the existing exercise|
+|Trigger| Lecturer clicks the “Modify Exercise” button|
 |Preconditions| The lecturer is logged in to the site with their account.|
 ||The lecturer has the necessary permissions to modify exercises in a course.|
 ||The course containing the exercise and the exercise to be modified has already been created and published.|
 |Postconditions| The exercise is modified and updated|
 |Priority| medium|
-|Normal Flow|1. The teacher navigates to the course page containing the exercise they wish to modify.|
-||2. The teacher clicks on the "Edit Exercise" button for the specific exercise they want to modify. |
+|Normal Flow|1. The lecturer navigates to the course page containing the exercise they wish to modify.|
+||2. The lecturer clicks on the "Edit Exercise" button for the specific exercise they want to modify. |
 ||3. The system displays the existing exercise information (such as the exercise prompt, instructions, sample solution, etc.).|
-||4. The teacher modifies the exercise information as desired.|
+||4. The lecturer modifies the exercise information as desired.|
 ||5. The lecturer saves the modified exercise information.|
 ||6. The system updates the exercise information and notifies the lecturer of the successful modification.|
 |Alternative Flows|Alternative Flow 1: Cancel modification|
@@ -292,7 +299,7 @@ Use-Case Diagram
 ||2. The lecturer clicks the “Cancel” button|
 ||3. Confirmation box is shown|
 ||4. The modification is not saved|
-|Exceptions|The teacher encounters an error when modifying.|
+|Exceptions|The lecturer encounters an error when modifying.|
 ||1. An error occurs while modifying the exercise (such as missing information or invalid data)|
 ||2. The system prompts the lecturer to correct the errors before submitting the modification.|
 |Special Requirements| |
@@ -309,25 +316,25 @@ Use-Case Diagram
 | Date Last Updated | 05/03/2023 |
 
 
-|Actors| Teacher|
+|Actors| Lecturer|
 |----------|--------| 
-|Description| Teacher can evaluate students’ performance to determine he/she passes the |Course or not at the end of the Course|
-|Trigger| Teacher clicks the “Evaluate Performance” button|
+|Description| Lecturer can evaluate students’ performance to determine he/she passes the |Course or not at the end of the Course|
+|Trigger| Lecturer clicks the “Evaluate Performance” button|
 |Preconditions| |
-|Postconditions| Teacher can see the performance (how many exercises are accomplished, % of progress,...) |
+|Postconditions| Lecturer can see the performance (how many exercises are accomplished, % of progress,...) |
 |Priority| high|
-|Normal Flow|1. Teacher searches for the student’s id/name|
-||2. Teacher clicks the “Evaluate Performance” button to see the student’s performance|
+|Normal Flow|1. Lecturer searches for the student’s id/name|
+||2. Lecturer clicks the “Evaluate Performance” button to see the student’s performance|
 ||3. A green notification text with percentage to demonstrate that the student is pass the course|
 |Alternative Flows|The student didn’t pass the course|
 ||3.1 A red notification text with percentage to show the student didn’t pass the course|
 |Exceptions|Student ID not found|
-||2.1 System notifies teachers that the ID not found|
+||2.1 System notifies lecturers that the ID not found|
 ||2.2 Back to step 1|
 |Special Requirements| |
 |Notes and Issues||
 
-### Actor: Teacher and Student
+### Actor: Lecturer and Student
 
 
 #### 10. Log in
@@ -337,26 +344,22 @@ Use-Case Diagram
 |Created By| Minh Quan |
 |Date Created| 28/02/2023 |
 |Last Updated By|  Tho Phan Chi|
-|Date Last Updated|  05/03/2023|
+|Date Last Updated|  07/03/2023|
 
 
-|Actors| Teacher, Student|
+|Actors| Lecturer, Student|
 |----------|--------| 
-|Description| Teacher/Student logs in to the system using his/her account|
-|Trigger| Teacher/Student clicks the “Log in” button|
-|Preconditions| Teacher/Student has already created an account|
-|Postconditions| Teacher/Student logs in successfully and go to the Teacher’s / Student’s view/interface|
+|Description| Lecturer/Student logs in to the system using his/her account|
+|Trigger| Lecturer/Student clicks the “Log in” button|
+|Preconditions| Lecturer/Student has already created an account|
+|Postconditions| Lecturer/Student logs in successfully and go to the Lecturer’s / Student’s view/interface|
 |Priority| high|
-|Normal Flow|1. Teacher/Student feeds in his/her id/username and password|
-||2. Teacher/Student clicks the “Log in” button|
-|Alternative Flows|1.1 Teacher/ Student click forget password|
-||1.2 Go to step 2.3|
-|Exceptions|At step 2, if teacher/Student fails to log in, then send notification|
-||2.1. The system prompts the user to click “Forgot Password”|
-||2.2. User clicks “Forgot Password” button|
-||2.3. The system sends the OTP code to the email/phone number that user used to create |account
-||2.4. User creates new password|
-||2.5. User logs in with new password|
+|Normal Flow|1. Lecturer/Student clicks the “Log in” button|
+||2. Another screen appear and direct user to Google login page (OAuth)|
+||3. User will login the Google account|
+||4. After login successfully, it will return back to the system and notify that successfully log in |
+|Alternative Flows||
+|Exceptions||
 |Special Requirements| |
 |Notes and Issues||
 
@@ -372,15 +375,15 @@ Use-Case Diagram
 |Date Last Updated|  05/03/2023|
 
 
-|Actors| Teacher, Student|
+|Actors| Lecturer, Student|
 |----------|--------| 
-|Description| Teacher/Student logs out off the account after finishing work|
-|Trigger| Teacher/Student clicks the “Log out” button|
+|Description| Lecturer/Student logs out off the account after finishing work|
+|Trigger| Lecturer/Student clicks the “Log out” button|
 |Preconditions| |
-|Postconditions| Teacher/Student successfully logs out|
+|Postconditions| Lecturer/Student successfully logs out|
 |Priority| high|
-|Normal Flow|1. Teacher/Student clicks the “Log out” button|
-||2. Teacher/Student confirms logging out and log out|
+|Normal Flow|1. Lecturer/Student clicks the “Log out” button|
+||2. Lecturer/Student confirms logging out and log out|
 |Alternative Flows||
 |Exceptions||
 |Special Requirements| |
@@ -395,32 +398,30 @@ Use-Case Diagram
 |Created By| Minh Quan |
 |Date Created| 06/03/2023 |
 |Last Updated By|  Minh Quan|
-|Date Last Updated|  06/03/2023|
+|Date Last Updated|  07/03/2023|
 
-|Actors| Teacher|
+|Actors| User (Lecturer or Student)|
 |-----| -----|
-Description| Teacher answers students’ questions in the chatbox|
-|Trigger| |
-|Preconditions| The Student must already attend the Course|
+Description| Users, including both Lecturer and Student, can discuss to each other via email, which can be searched on the system|
+|Trigger| User clicks the “Send message” button|
+|Preconditions| User must log in to the system already|
+||Emails of all users must be stored in Database|
 ||There exists a student posing a question|
-|Postconditions| Teacher has answered the Student’s question and the teacher's answer message has been successfully delivered to the Student.|
+|Postconditions|Sender and Receiver will be notified about the message status (delivered)|
 |Priority| high|
-|Normal Flow|  1. Teacher clicks the Student’s name on the chat list that he/she wants to reply first |
-||2. Teacher write message contents|
-||3. Teacher clicks “Send Message”|
-||4. The System delivers the message and notify Teacher that his/her reply has delivered successfully|
-|Alternative Flows|At step 1,|
-||1.1. Teacher searches Student’s name|
-||1.2. Teacher selects a Student to answer question|
-||Continue to step 2 as in the Normal Flow|
-||At step 2, |
-||2.1. Teacher clicks “Attachment”|
-||2.2. Teacher selects a media (audio, images)|
-||2.3. Teacher chooses the media|
-||Continue to step 3 as in the Normal Flow|
-|Exceptions|At step 2.2, if there is no media, show a pop-up to notify teacher, then end|
-||At step 2.2, if the file type (pdf, mp3, wav…) of the selected media is not supported by the system, then show a pop-up to notify teacher, then end|
-||At step 2.2, if the capacity of the selected media exceeds the allowable capacity of the system, then show a pop-up to notify teacher, then end|
+|Normal Flow|  1. User selects a Receiver by clicking on a name on the Member List |
+||2. The system displays the gmail tab with the email of the Receiver|
+||3. User writes message contents|
+||4. User clicks “Send Message” button|
+||5. The gmail delivers the message and notifies Sender when the message is delivered successfully|
+||6. The gmail notifies Receiver that there is a new message|
+|Alternative Flows|At step 3,|
+||3.1. Sender clicks “Attachment”|
+||3.2. Sender selects a media (audio, images)|
+||Continue to step 4 as in the Normal Flow|
+|Exceptions|At step 3.2, if there is no media, show a pop-up to notify Sender, then end|
+||At step 3.2, if the file type (pdf, mp3, wav…) of the selected media is not supported by the gmail (example: .zip file type), then show a pop-up to notify Sender, then end|
+||At step 3.2, if the file size is larger than the allowable file size on gmail, then show a pop-up to notify Sender, then end|
 |Special Requirements| |
 |Notes and Issues||
 
@@ -493,29 +494,31 @@ Description|  Student can track his/her own progress to see how much of the cour
 
 
 
-#### 15. Do Exercise
+#### 15. Submit Exercise
 
-|Use Case ID| Leave Course_15 |
+|Use Case ID| Submit Exercise_15 |
 |----------|--------| 
-|Use Case Name| Leave Course |
+|Use Case Name| Submit Exercise |
 |Created By| Minh Quan |
 |Date Created| 28/02/2023 |
-|Last Updated By|  Thanh Le Hoang Kim|
-|Date Last Updated|  05/03/2023|
+|Last Updated By|  Quynh Pham Nguyen Dan|
+|Date Last Updated|  07/03/2023|
 
 | Actors | Student |
 | ------ | ------ |
-| Description | Student can do exercise and submit them on the Course |
-| Trigger | Student clicks the “Submit Exercise” button |
-| Preconditions | The exercise has been uploaded by the teacher |
+| Description | Student can submit exercise on the Course |
+| Trigger | Student clicks the “Submit Exercise” button which located on the right hand side of each exercise|
+| Preconditions | The exercise has been uploaded by the lecturer |
 | Postconditions | Student has successfully submitted the exercise |
 ||The lecturer can see the submitted file on the system|
 | Priority | high |
 | Normal Flow | 1. Student clicks the “Submit Exercise” button |
-| | 2. Student uploads the solution file |
-| | 3. Student confirms submission|
+||2. A pop up appear, which shows the media to choose|
+||3. The student choose media to upload|
+| | 4. Student clicks on the “Submit” button to submit |
 | Alternative Flows| |
-| Exceptions | At step 2, if the capacity of the selected media exceeds the allowable capacity of the system, then show a pop-up to notify student, then end|
+| Exceptions | At step 3, if the capacity of the selected media exceeds the allowable capacity of the system, then show a pop-up to notify student, then end|
+||At step 2 No media exist, A popup appear to notify student, then end|
 | Special Requirements | The file format can be image, audio, video, pdf|
 | Notes and Issues| |
 
