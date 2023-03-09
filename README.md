@@ -13,14 +13,14 @@
 
 ## Use case
 
-Use-Case Diagram
+Use-Case Diagrams and Sequence diagrams
 
 - 2 Primary Actors: Lecturer and Student
 
 - 16 use cases
-
-<img src="images/usecase4.png" width="500">
-
+<p align="center">
+<img src="images/use-case/usecase4.png" width="500">
+</p>
 
 ### Actor: Lecturer
 
@@ -62,6 +62,9 @@ Use-Case Diagram
 |Special Requirements|  |
 |Notes and Issues| |
 
+<p align="center">
+<img src="images/sequence/create-course.png" width="500">
+</p>
 
 #### 2. Modify Course:
 | Use Case ID | Modify Course_2 |
@@ -98,6 +101,9 @@ Use-Case Diagram
 |Special Requirements| |
 |Notes and Issues||
 
+<p align="center">
+<img src="images/sequence/modify-course.png" width="500">
+</p>
 
 #### 3. Upload materials
 | Use Case ID | Upload materials_3 |
@@ -136,6 +142,7 @@ Use-Case Diagram
 |Special Requirements|  |
 |Notes and Issues||
 
+For uploading materials and modifying materials requirement, the sequence diagrams are similar to modifying course requirements, so I don’t draw those.
 
 #### 4. Modify Material:
 | Use Case ID | Modify Material_4 |
@@ -174,6 +181,8 @@ Use-Case Diagram
 |Special Requirements|  |
 |Notes and Issues| |
 
+For uploading materials and modifying materials requirement, the sequence diagrams are similar to modifying course requirements, so I don’t draw those.
+
 #### 5. Track Students’ Activities:
 | Use Case ID | Track Students’ Activities_5 |
 | ------------| ---------------|
@@ -204,6 +213,10 @@ Use-Case Diagram
 |Special Requirements|  |
 |Notes and Issues| |
 
+<p align="center">
+<img src="images/sequence/track-activity.jpg" width="500">
+</p>
+
 #### 6. Upload exercise
 | Use Case ID | Upload exercise_6 |
 | ------------| ---------------|
@@ -232,8 +245,9 @@ Use-Case Diagram
 | Special Requirements |  |
 | Notes and Issues | |
 
-
-
+<p align="center">
+<img src="images/sequence/upload-exercise.jpg" width="500">
+</p>
 
 #### 7. Delete Exercise:
 | Use Case ID | Delete Exercise_7 |
@@ -269,6 +283,9 @@ Use-Case Diagram
 |Special Requirements| |
 |Notes and Issues||
 
+<p align="center">
+<img src="images/sequence/delete-exercise.png" width="500">
+</p>
 
 #### 8. Modify Exercise:
 | Use Case ID | Modify Exercise_8 |
@@ -305,6 +322,9 @@ Use-Case Diagram
 |Special Requirements| |
 |Notes and Issues||
 
+<p align="center">
+<img src="images/sequence/modify-exercise.png" width="500">
+</p>
 
 #### 9. Evaluate Students’ Performance
 | Use Case ID | Evaluate Students’ Performance_9 |
@@ -333,6 +353,11 @@ Use-Case Diagram
 ||2.2 Back to step 1|
 |Special Requirements| |
 |Notes and Issues||
+
+
+<p align="center">
+<img src="images/sequence/evaluate.jpg" width="500">
+</p>
 
 ### Actor: Lecturer and Student
 
@@ -363,7 +388,9 @@ Use-Case Diagram
 |Special Requirements| |
 |Notes and Issues||
 
-
+<p align="center">
+<img src="images/sequence/log-in.png" width="500">
+</p>
 
 #### 11. Log out
 |Use Case ID| Log out_11 |
@@ -389,7 +416,9 @@ Use-Case Diagram
 |Special Requirements| |
 |Notes and Issues||
 
-
+<p align="center">
+<img src="images/sequence/log-out.png" width="500">
+</p>
  
 #### 12. Send message
 |Use Case ID| Send message_12 |
@@ -427,10 +456,47 @@ Description| Users, including both Lecturer and Student, can discuss to each oth
 
 
 
+#### 13. Find contact information
+| Use Case ID | Find contact information_16 |
+| ------------| ---------------|
+| Use Case Name | Leave Course | 
+| Created By |  Thanh Le Hoang Kim |
+| Date Created |  05/03/2023|
+| Last Updated By | Thanh Le Hoang Kim |
+| Date Last Updated | 05/03/2023|
+
+
+| Actors|  Student / Lecturer|
+| ------------| ---------------|
+| Description| Students and lecturers can find the email of people they want to reach.|
+| Trigger|  Student/lecturer click the button search on the All course interface|
+| Preconditions|  The student and lecturer have registered in the system|
+| Postconditions|  The lecturer/student can know the email of the people they search |
+| Priority|  high|
+| Normal Flow| 1. Actor enters the name of people they want to search|
+||2. Student click on the Search icon or click “Enter”|
+||3. All profiles of people having the input name appear, but in full name, full position, lecturer or student|
+||4. The actor click on the desired profile|
+||5. The actor can copy the email to send email via Google Mail or other email providers|
+| Alternative Flows| 1.1 Actor enter name but with typo|
+||1.2 Return to step 3 but with name having the similar pattern as the input name|
+| Exceptions| 1.1 Actor enter name does not exist on the system|
+||1.2 The system show a popup ‘Can not find this name’, the actor click OK|
+||Return to step 1|
+| Special Requirements| We can apply typeahead to suggest name for the actors|
+| Notes and Issues| |
+
+The sequence for send message and find contact
+<p align="center">
+<p align="center">
+<img src="images/sequence/send-message.jpg" width="500">
+</p>
+</p>
+
 ### Actor: Student
 
 
-#### 13. Register Course
+#### 14. Register Course
 |Use Case ID| Attend Course_13 |
 |----------|--------| 
 |Use Case Name|  Attend Course |
@@ -463,7 +529,11 @@ Description| Users, including both Lecturer and Student, can discuss to each oth
 |Special Requirements|  |
 |Notes and Issues| |
 
-#### 14. Track Course Progress
+<p align="center">
+<img src="images/sequence/register-course.png" width="500">
+</p>
+
+#### 15. Track Course Progress
 |Use Case ID| Track Course_14 |
 |----------|--------| 
 |Use Case Name|  Track Course |
@@ -490,11 +560,13 @@ Description|  Student can track his/her own progress to see how much of the cour
 |Special Requirements|  Only student and the lecturer of the course know the course progress of the student|
 |Notes and Issues| |
 
+<p align="center">
+<img src="images/sequence/track-course.jpg" width="500">
+</p>
 
 
 
-
-#### 15. Submit Exercise
+#### 16. Submit Exercise
 
 |Use Case ID| Submit Exercise_15 |
 |----------|--------| 
@@ -522,40 +594,17 @@ Description|  Student can track his/her own progress to see how much of the cour
 | Special Requirements | The file format can be image, audio, video, pdf|
 | Notes and Issues| |
 
+<p align="center">
+<img src="images/sequence/submit-exercise.jpg" width="500">
+</p>
 
 
+## ER diagram
 
+<p align="center">
+<img src="images/ER.jpg" width="500">
+</p>
 
-
-#### 16. Find contact information
-| Use Case ID | Find contact information_16 |
-| ------------| ---------------|
-| Use Case Name | Leave Course | 
-| Created By |  Thanh Le Hoang Kim |
-| Date Created |  05/03/2023|
-| Last Updated By | Thanh Le Hoang Kim |
-| Date Last Updated | 05/03/2023|
-
-
-| Actors|  Student / Lecturer|
-| ------------| ---------------|
-| Description| Students and lecturers can find the email of people they want to reach.|
-| Trigger|  Student/lecturer click the button search on the All course interface|
-| Preconditions|  The student and lecturer have registered in the system|
-| Postconditions|  The lecturer/student can know the email of the people they search |
-| Priority|  high|
-| Normal Flow| 1. Actor enters the name of people they want to search|
-||2. Student click on the Search icon or click “Enter”|
-||3. All profiles of people having the input name appear, but in full name, full position, lecturer or student|
-||4. The actor click on the desired profile|
-||5. The actor can copy the email to send email via Google Mail or other email providers|
-| Alternative Flows| 1.1 Actor enter name but with typo|
-||1.2 Return to step 3 but with name having the similar pattern as the input name|
-| Exceptions| 1.1 Actor enter name does not exist on the system|
-||1.2 The system show a popup ‘Can not find this name’, the actor click OK|
-||Return to step 1|
-| Special Requirements| We can apply typeahead to suggest name for the actors|
-| Notes and Issues| |
 
 
 ## Getting started
