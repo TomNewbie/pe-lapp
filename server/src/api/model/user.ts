@@ -19,4 +19,9 @@ const userSchema = new Schema<IUser>({
   avatar: {
     type: String,
   },
+  role: {
+    type: String,
+    enum: ["student", "teacher"],
+  },
 });
+export const User = mongoose.model("user", userSchema);
