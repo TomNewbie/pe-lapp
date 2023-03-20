@@ -1,7 +1,7 @@
 import { Footer } from "../../../components";
 const Login = () => {
   return (
-    <div>
+    <div class="text-black">
       LOG IN
       <Footer></Footer>
     </div>
