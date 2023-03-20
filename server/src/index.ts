@@ -1,7 +1,7 @@
 import { db } from "./config/database";
 import express from "express";
 import cors from "cors";
-import { indexRouter } from "./api/route";
+import { router } from "./api/route";
 const app = express();
 const port = 3001;
 
@@ -17,4 +17,4 @@ db.then((kaka) => {
   console.log(err);
 });
 
-app.use(indexRouter);
+app.use("/api", router);

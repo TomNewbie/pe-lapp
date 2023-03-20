@@ -3,5 +3,6 @@ import { authRouter } from "./auth";
 
 const router = Router();
 
-router.use("/api", authRouter);
-export { router as indexRouter };
+router.use(authRouter);
+
+export { router };
