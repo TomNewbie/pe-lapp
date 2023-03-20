@@ -18,10 +18,12 @@ const userSchema = new Schema<IUser>({
   },
   avatar: {
     type: String,
+    required: true,
   },
   role: {
     type: String,
     enum: ["student", "teacher"],
+    required: true,
   },
 });
 export const User = mongoose.model("user", userSchema);
