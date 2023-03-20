@@ -1,21 +1,15 @@
 import { User } from "../model/user";
-import { IUser } from "../types/user";
+import { IGoogleUser, IUser } from "../types/user";
 
-const checkNewUser = async (user: IUser): Promise<boolean | Error> => {
-  try {
-    const userExist = await User.findOne({ email: user.email });
-    // console.log(userExist);
-    if (!userExist) {
-      User.create({ name: user.name, email: user.email, role: user.role });
-      console.log("user created");
-      return true;
-    }
-    console.log("asdasdasd");
-    return false;
-  } catch (error) {
-    console.log(error);
-    return error as Error;
-  }
+const getUser = (email: string): Promise<IUser | null> => {
+  return User.findOne({ email });
 };
 
-export const userService = { checkNewUser };
+const addUser = async (user: IGoogleUser) => {
+  const role = user.email.split("@")[1].includes("student")
+    ? "student"
+    : "teacher";
+  await User.create({ ...user, role });
+};
+
+export { getUser, addUser };

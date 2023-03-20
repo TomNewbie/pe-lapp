@@ -1,6 +1,5 @@
 import { Response, Request, NextFunction } from "express";
-import { userService } from "../service/user";
-import { Role } from "../types/user";
+import { addUser, getUser } from "../service/user";
 
 const login = async (
   req: Request,
@@ -9,15 +8,12 @@ const login = async (
 ): Promise<void> => {
   const email = "god-kakaka@vgu.edu.vn";
   const name = "IamGod";
+  const avatar = "";
 
-  const role: Role = email.split("@")[1].includes("student")
-    ? "student"
-    : "teacher";
-  try {
-    await userService.checkNewUser({ email, name, role });
-  } catch (error) {
-    next(error);
+  if (!(await getUser(email))) {
+    addUser({ email, name, avatar });
   }
+
   const jwt = "ahsdjuioadjkasdas";
   res.status(200).json({ jwt });
 };
