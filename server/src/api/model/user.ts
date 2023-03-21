@@ -1,29 +1,57 @@
 import mongoose from "mongoose";
-import { IUser } from "../types/user";
+import { ILecturer, IStudent } from "../types/user";
+
 const { Schema } = mongoose;
-const userSchema = new Schema<IUser>({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  major: {
-    type: String,
-  },
-  phone_number: {
-    type: String,
-  },
-  avatar: {
-    type: String,
-    required: true,
-  },
-  role: {
-    type: String,
-    enum: ["student", "teacher"],
-    required: true,
-  },
-});
-export const User = mongoose.model("user", userSchema);
+
+export const Student = mongoose.model(
+  "student",
+  new Schema<IStudent>({
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    avatar: {
+      type: String,
+      required: true,
+    },
+    phone_number: {
+      type: String,
+    },
+    major: {
+      type: String,
+    },
+    intake: {
+      type: Number,
+    },
+  })
+);
+
+export const Lecturer = mongoose.model(
+  "lecturer",
+  new Schema<ILecturer>({
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    avatar: {
+      type: String,
+      required: true,
+    },
+    phone_number: {
+      type: String,
+    },
+    faculty: {
+      type: String,
+    },
+  })
+);

@@ -5,9 +5,14 @@ export interface IGoogleUser {
 }
 
 export interface IUser extends IGoogleUser {
-  role: Role;
-  major?: string;
   phone_number?: string;
 }
 
-export type Role = "student" | "teacher";
+export interface IStudent extends IUser {
+  major?: string;
+  intake?: number;
+}
+
+export interface ILecturer extends IUser {
+  faculty?: string;
+}

@@ -1,7 +1,7 @@
-import { User } from "../model/user";
+import { IUser } from "../model/user";
 import { IGoogleUser, IUser } from "../types/user";
 
-const getUser = (email: string): Promise<IUser | null> => {
+const getUser = (email: string): Promise<User | null> => {
   return User.findOne({ email });
 };
 
