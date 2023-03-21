@@ -31,7 +31,7 @@ const loginCallback = async (
   const { name, email, picture: avatar } = ticket.getPayload()!;
 
   if (!(await getUser(email!))) {
-    addUser({ email: email!, name: name!, avatar: avatar! });
+    await addUser({ email: email!, name: name!, avatar: avatar! });
   }
 
   const accessToken = jwt.sign({ email }, jwt_secret!);
