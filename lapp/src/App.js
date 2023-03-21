@@ -1,9 +1,11 @@
-import { Footer } from "./components";
-import { Login } from "./pages/common";
+import { NavbarStudent } from "./components";
+// import { Login } from "./pages/common";
+import {NavbarLecturers} from "./components";
 function App() {
   return (
     <div className="App">
-      <Login></Login>
+      {/* <Login></Login> */}
+      <NavbarStudent></NavbarStudent>
     </div>
   );
 }
