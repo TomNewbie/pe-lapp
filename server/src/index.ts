@@ -10,14 +10,14 @@ import cors from "cors";
 
 const app = express();
 const port = process.env.PORT!;
-
+const domain = process.env.SERVER_DOMAIN;
 app.use(express.json());
 app.use(cors());
 
 db.then((kaka) => {
   // console.log(kaka);
   app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+    console.log(`Server running on ${domain}:${port}`);
   });
 }).catch((err) => {
   console.log(err);
