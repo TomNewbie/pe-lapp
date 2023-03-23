@@ -1,11 +1,12 @@
-import { NavbarStudent } from "./components";
+// import { NavbarStudent } from "./components";
 // import { Login } from "./pages/common";
-import {NavbarLecturers} from "./components";
+import {Dropdown} from "./components";
 function App() {
   return (
     <div className="App">
       {/* <Login></Login> */}
-      <NavbarStudent></NavbarStudent>
+      {/* <NavbarStudent></NavbarStudent> */}
+      <Dropdown></Dropdown>
     </div>
   );
 }
