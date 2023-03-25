@@ -4,7 +4,7 @@ import { ILecturer, IStudent } from "../types/user";
 const { Schema } = mongoose;
 
 export const Student = mongoose.model(
-  "student",
+  "Student",
   new Schema<IStudent>({
     name: {
       type: String,
@@ -32,7 +32,7 @@ export const Student = mongoose.model(
 );
 
 export const Lecturer = mongoose.model(
-  "lecturer",
+  "Lecturer",
   new Schema<ILecturer>({
     name: {
       type: String,

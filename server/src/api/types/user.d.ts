@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 export interface IGoogleUser {
   name: string;
   email: string;
@@ -15,4 +17,9 @@ export interface IStudent extends IUser {
 
 export interface ILecturer extends IUser {
   faculty?: string;
+}
+
+export interface IParticipant {
+  id: Types.ObjectId;
+  progress: number;
 }
