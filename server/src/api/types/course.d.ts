@@ -4,10 +4,10 @@ import { ILecturer, IParticipant } from "./user";
 
 export interface ICourse {
   name: string;
-  content: IRichText;
+  content?: Types.ObjectId | string;
   picture: string;
   semester: string;
-  duration: number;
-  lecturer: Types.ObjectId;
-  participants: Types.DocumentArray<IParticipant>;
+  duration: string;
+  lecturer: Types.ObjectId | string;
+  participants?: Types.DocumentArray<IParticipant>;
 }

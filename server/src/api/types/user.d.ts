@@ -1,6 +1,5 @@
-import { Types } from "mongoose";
-
 export interface IGoogleUser {
+  _id?: string;
   name: string;
   email: string;
   avatar: string;
@@ -20,6 +19,6 @@ export interface ILecturer extends IUser {
 }
 
 export interface IParticipant {
-  id: Types.ObjectId;
+  id: string;
   progress: number;
 }

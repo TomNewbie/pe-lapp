@@ -11,6 +11,7 @@ export const Course = mongoose.model(
       type: mongoose.Schema.Types.ObjectId,
       ref: "RichText",
       required: true,
+      index: true,
     },
     picture: {
       type: String,
@@ -21,13 +22,21 @@ export const Course = mongoose.model(
       required: true,
     },
     duration: {
-      type: Number,
+      type: String,
       required: true,
     },
     lecturer: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Lecturer",
-      required: true,
+      email: {
+        type: String,
+        ref: "Lecturer",
+        required: true,
+        index: true,
+      },
+      name: {
+        type: String,
+        ref: "Lecturer",
+        required: true,
+      },
     },
     participants: [
       {
@@ -35,6 +44,7 @@ export const Course = mongoose.model(
           type: mongoose.Schema.Types.ObjectId,
           ref: "Student",
           required: true,
+          index: true,
         },
         progress: {
           type: Number,

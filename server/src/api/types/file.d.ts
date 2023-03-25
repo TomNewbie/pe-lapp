@@ -11,7 +11,3 @@ export interface IExercise extends IFile {
 }
 
 export interface IMaterial extends IFile {}
-
-export interface IRichText {
-  content: string;
-}

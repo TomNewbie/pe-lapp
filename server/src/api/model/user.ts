@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { ILecturer, IStudent } from "../types/user";
 
 const { Schema } = mongoose;
-
+// _id as email
 export const Student = mongoose.model(
   "Student",
   new Schema<IStudent>({
@@ -10,11 +10,11 @@ export const Student = mongoose.model(
       type: String,
       required: true,
     },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
+    // email: {
+    //   type: String,
+    //   required: true,
+    //   unique: true,
+    // },
     avatar: {
       type: String,
       required: true,
@@ -38,11 +38,11 @@ export const Lecturer = mongoose.model(
       type: String,
       required: true,
     },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
+    // email: {
+    //   type: String,
+    //   required: true,
+    //   unique: true,
+    // },
     avatar: {
       type: String,
       required: true,
