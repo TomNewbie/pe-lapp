@@ -7,7 +7,7 @@ function App() {
       {/* <Login></Login> */}
       <NavbarStudent></NavbarStudent>
       {/* <Dropdown></Dropdown> */}
-      <SearchBox />
+      {/* <SearchBox /> */}
     </div>
   );
 }
