@@ -10,11 +10,9 @@ export const Student = mongoose.model(
       type: String,
       required: true,
     },
-    // email: {
-    //   type: String,
-    //   required: true,
-    //   unique: true,
-    // },
+    _id: {
+      type: String,
+    },
     avatar: {
       type: String,
       required: true,
@@ -38,11 +36,9 @@ export const Lecturer = mongoose.model(
       type: String,
       required: true,
     },
-    // email: {
-    //   type: String,
-    //   required: true,
-    //   unique: true,
-    // },
+    _id: {
+      type: String,
+    },
     avatar: {
       type: String,
       required: true,
