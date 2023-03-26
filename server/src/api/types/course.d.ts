@@ -8,6 +8,6 @@ export interface ICourse {
   picture: string;
   semester: string;
   duration: string;
-  lecturer: Types.ObjectId | string;
+  lecturer: string;
   participants?: Types.DocumentArray<IParticipant>;
 }

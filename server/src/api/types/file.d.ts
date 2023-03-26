@@ -1,13 +1,18 @@
+import { InferSchemaType } from "mongoose";
+import { material, Material } from "../model/material";
+
 export interface IFile {
   name: string;
   description: string;
-  creation_date: Date;
+  createdAt: Date;
   file: string;
 }
 
-export interface IExercise extends IFile {
-  status: "done" | "not done";
-  deadline: Date;
-}
+// export interface IExercise extends IFile {
+//   status: "done" | "not done";
+//   deadline: Date;
+// }
 
-export interface IMaterial extends IFile {}
+// export interface IMaterial extends IFile {}
+export type Material = InferSchemaType<typeof material>;
+export type Exercise = InferSchemaType<typeof exercise>;
