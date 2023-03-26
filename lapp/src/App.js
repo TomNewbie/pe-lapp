@@ -1,6 +1,6 @@
 // import { NavbarStudent } from "./components";
 // import { Login } from "./pages/common";
-import {Dropdown, SearchBox} from "./components";
+import { Dropdown, SearchBox } from "./components";
 function App() {
   return (
     <div className="App">
