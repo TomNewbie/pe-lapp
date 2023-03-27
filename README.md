@@ -595,7 +595,7 @@ The sequence for send message and find contact
 ## ER diagram
 
 <p align="center">
-<img src="images/ER2.png" width="500">
+<img src="images/ER1.png" width="500">
 </p>
 
 ## Getting started
