@@ -40,8 +40,8 @@ export const Course = mongoose.model(
     },
     participants: [
       {
-        id: {
-          type: mongoose.Schema.Types.ObjectId,
+        email: {
+          type: String,
           ref: "Student",
           required: true,
           index: true,
