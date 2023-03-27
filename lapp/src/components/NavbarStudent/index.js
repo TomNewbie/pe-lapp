@@ -7,8 +7,8 @@ const NavbarStudent = () => {
         <div className="ml-8">
           <img src="/navbar_img/Logo.png" alt ="logo"/>
         </div>
-        <div className="absolute ml-60">
-          <ul className="flex items-center gap-[3vw]">
+        <div className="absolute ml-72">
+          <ul className="flex items-center gap-x-32 grid-cols-2">
             <li>
               <a className="text-dongle text-2xl hover:text-white" href="#" >Home</a>
             </li>

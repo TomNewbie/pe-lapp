@@ -1,6 +1,7 @@
 import { NavbarStudent } from "./components";
-// import { Login } from "./pages/common";
-import { SearchBox } from "./components";
+// // import { Login } from "./pages/common";
+// import { SearchBox } from "./components";
+// import { NavbarLecturer } from "./components";
 function App() {
   return (
     <div className="App">
@@ -8,6 +9,7 @@ function App() {
       <NavbarStudent></NavbarStudent>
       {/* <Dropdown></Dropdown> */}
       {/* <SearchBox /> */}
+      {/* <NavbarLecturer></NavbarLecturer> */}
     </div>
   );
 }
