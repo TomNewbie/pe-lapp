@@ -37,7 +37,7 @@ Use-Case Diagrams and Sequence diagrams
 | Date Last Updated | 05/03/2023         |
 
 | Actors               | Lecturer                                                                                           |
-| -------------------- | -------------------------------------------------------------------------------------------------- |
+| -------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
 | Description          | Lecturer creates course for students to join                                                       |
 | Trigger              | Lecturer clicks the “Create Course” button                                                         |
 | Preconditions        | The lecturer is logged in to the site with their account.                                          |
@@ -335,26 +335,24 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Use Case Name     | Evaluate Students’ Performance   |
 | Created By        | Minh Quan                        |
 | Date Created      | 28/02/2023                       |
-| Last Updated By   | Tho Phan Chi                     |
-| Date Last Updated | 05/03/2023                       |
+| Last Updated By   | Minh Quan                        |
+| Date Last Updated | 25/03/2023                       |
 
-| Actors               | Lecturer                                                                                  |
-| -------------------- | ----------------------------------------------------------------------------------------- |
-| Description          | Lecturer can evaluate students’ performance to determine he/she passes the                | Course or not at the end of the Course |
-| Trigger              | Teacher clicks the “Evaluate Performance” button in the specific course page              |
-| Preconditions        |                                                                                           |
-| Postconditions       | Lecturer can see the performance (how many exercises are accomplished, % of progress,...) |
-| Priority             | high                                                                                      |
-| Normal Flow          | 1. Teacher clicks the “Evaluate Performance” button to see the student’s performance      |
-|                      | 2. A list of student who attending the class will appear                                  |
-|                      | 3. The teacher click pass or not pass button next to each name                            |
-| Alternative Flows    | The student didn’t pass the course                                                        |
-|                      | 3.1 A red notification text with percentage to show the student didn’t pass the course    |
-| Exceptions           | Student ID not found                                                                      |
-|                      | 2.1 System notifies lecturers that the ID not found                                       |
-|                      | 2.2 Back to step 1                                                                        |
-| Special Requirements |                                                                                           |
-| Notes and Issues     |                                                                                           |
+| Actors               | Lecturer                                                                                                          |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Description          | Lecturer can evaluate students’ performance to determine he/she passes the Course or not at the end of the Course |
+| Trigger              | Teacher clicks the “Evaluate Performance” button in the specific course page                                      |
+| Preconditions        |                                                                                                                   |
+| Postconditions       | Lecturer can see the performance (how many exercises are accomplished, % of progress,...)                         |
+| Priority             | high                                                                                                              |
+| Normal Flow          | 1. Teacher clicks the “Evaluate Performance” button to see the student’s performance                              |
+|                      | 2. A list of student who attending the class will appear                                                          |
+|                      | 3. The teacher click pass or not pass button next to each name                                                    |
+| Alternative Flows    | The student didn’t pass the course                                                                                |
+|                      | 3.1 A red notification text with percentage to show the student didn’t pass the course                            |
+| Exceptions           |                                                                                                                   |
+| Special Requirements |                                                                                                                   |
+| Notes and Issues     |                                                                                                                   |
 
 <p align="center">
 <img src="images/sequence/evaluate.png" width="500">
@@ -542,7 +540,7 @@ The sequence for send message and find contact
 | Date Last Updated | 05/03/2023         |
 
 | Actors               | Student                                                                                                                                                  |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | --------------- |
 | Description          | Student can track his/her own progress to see how much of the course he/                                                                                 | she | has accomlished |
 | Trigger              | Student clicks the “Progress” button on each course page                                                                                                 |
 | Preconditions        | Student has already registered for that course                                                                                                           |
@@ -597,7 +595,7 @@ The sequence for send message and find contact
 ## ER diagram
 
 <p align="center">
-<img src="images/ER1.png" width="500">
+<img src="images/ER2.png" width="500">
 </p>
 
 ## Getting started
