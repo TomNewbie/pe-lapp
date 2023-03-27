@@ -37,7 +37,7 @@ Use-Case Diagrams and Sequence diagrams
 | Date Last Updated | 05/03/2023         |
 
 | Actors               | Lecturer                                                                                           |
-| -------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| -------------------- | -------------------------------------------------------------------------------------------------- |
 | Description          | Lecturer creates course for students to join                                                       |
 | Trigger              | Lecturer clicks the “Create Course” button                                                         |
 | Preconditions        | The lecturer is logged in to the site with their account.                                          |
