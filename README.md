@@ -21,7 +21,7 @@ Use-Case Diagrams and Sequence diagrams
 
 - 16 use cases
 <p align="center">
-<img src="images/use-case/usecase4.png" width="500">
+<img src="images/use-case/usecase5.png" width="500">
 </p>
 
 ### Actor: Lecturer
@@ -339,7 +339,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Date Last Updated | 05/03/2023                       |
 
 | Actors               | Lecturer                                                                                  |
-| -------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------- |
+| -------------------- | ----------------------------------------------------------------------------------------- |
 | Description          | Lecturer can evaluate students’ performance to determine he/she passes the                | Course or not at the end of the Course |
 | Trigger              | Teacher clicks the “Evaluate Performance” button in the specific course page              |
 | Preconditions        |                                                                                           |
@@ -357,7 +357,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Notes and Issues     |                                                                                           |
 
 <p align="center">
-<img src="images/sequence/evaluate.jpg" width="500">
+<img src="images/sequence/evaluate.png" width="500">
 </p>
 
 ### Actor: Lecturer and Student
@@ -542,7 +542,7 @@ The sequence for send message and find contact
 | Date Last Updated | 05/03/2023         |
 
 | Actors               | Student                                                                                                                                                  |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | --------------- |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Description          | Student can track his/her own progress to see how much of the course he/                                                                                 | she | has accomlished |
 | Trigger              | Student clicks the “Progress” button on each course page                                                                                                 |
 | Preconditions        | Student has already registered for that course                                                                                                           |
@@ -597,7 +597,7 @@ The sequence for send message and find contact
 ## ER diagram
 
 <p align="center">
-<img src="images/ER.jpg" width="500">
+<img src="images/ER1.png" width="500">
 </p>
 
 ## Getting started
