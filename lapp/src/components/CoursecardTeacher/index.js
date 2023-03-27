@@ -1,10 +1,10 @@
-const CoursecardStudent = () => {
+const CoursecardTeacher= () => {
     return ( 
       
 <div class = "card">
 
-   <div class="max-w-sm bg-[#DE5D83]/50 rounded-3xl h-67 w-44 ">
-         <img class = "w-fit h-2/3" src="/Coursecard_img/CourseStuPic.png" alt="Course Picture" />
+   <div class="max-w-sm bg-[#EC9A86]/80 rounded-3xl h-67 w-44 ">
+         <img class = "w-fit h-2/3" src="/Coursecard_img/CourseTePic.png" alt="Course Picture" />
    
    
    <div class="container content-around">
@@ -17,8 +17,8 @@ const CoursecardStudent = () => {
       </div>
             
       <div class = "flex flex-row ml-8">
-         <img class ="w-4 h-4" src="/Coursecard_img/progress.png" alt="Progress: " />
-         <p class="text-center ml-2 tracking-tight dark:text-[#1b1c1e]"> % Progress</p>
+         <img class ="w-5 h-5" src="/Coursecard_img/Icon.png" alt="Course: " />
+         <p class="text-center ml-2 tracking-tight dark:text-[#1b1c1e]"> Course</p>
       </div>  
    </div>
    </div>
@@ -26,4 +26,4 @@ const CoursecardStudent = () => {
    );
 }
  
-export default CoursecardStudent;
+export default CoursecardTeacher;
