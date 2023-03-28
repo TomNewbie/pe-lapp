@@ -1,3 +1,4 @@
+import SearchBox1 from "../SearchBox";
 import SearchBox from "../SearchBox";
 
 const NavbarStudent = () => {
@@ -10,19 +11,19 @@ const NavbarStudent = () => {
         <div className="absolute ml-72">
           <ul className="flex items-center gap-x-32 grid-cols-2">
             <li>
-              <a className="text-dongle text-2xl hover:text-white" href="#" >Home</a>
+              <a className="text-dongle text-4xl hover:text-white" href="#" >Home</a>
             </li>
             <li>
-              <a className="text-dongle text-2xl hover:text-white" href="#" >Courses</a>
+              <a className="text-dongle text-4xl hover:text-white" href="#" >Courses</a>
             </li>
             <li>
-              <a className="text-dongle text-2xl hover:text-white" href="#" >Lecturers</a>
+              <a className="text-dongle text-4xl hover:text-white" href="#" >Lecturers</a>
             </li>
           </ul>
         </div>
         <div className="absolute right-40 mr-40">
           <div className="search_box">
-            <SearchBox size1={200} size2={50}></SearchBox>
+            <SearchBox1></SearchBox1>
           </div>
         </div>
         <div className="absolute right-44">
