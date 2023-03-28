@@ -3,9 +3,9 @@ import SearchBox from "../SearchBox";
 const NavbarStudent = () => {
   return (
   <header className="bg-[#CC6666]/20">
-      <nav className="relative flex items-center max-w-full">
+      <nav className="relative flex items-center max-w-full h-20">
         <div className="ml-8">
-          <img src="/navbar_img/Logo.png" alt ="logo"/>
+          <img src="/navbar_img/Logo.png" alt ="logo" width={50} height={50}/>
         </div>
         <div className="absolute ml-72">
           <ul className="flex items-center gap-x-32 grid-cols-2">
