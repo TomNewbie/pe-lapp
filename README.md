@@ -34,7 +34,7 @@ Use-Case Diagrams and Sequence diagrams
 | Created By        | Minh Quan          |
 | Date Created      | 28/02/2023         |
 | Last Updated By   | Quan Nguyen Le Anh |
-| Date Last Updated | 05/03/2023         |
+| Date Last Updated | 28/03/2023         |
 
 | Actors               | Lecturer                                                                                           |
 | -------------------- | -------------------------------------------------------------------------------------------------- | 
