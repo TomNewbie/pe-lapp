@@ -3,7 +3,7 @@ const CoursecardTeacher= () => {
       
 <div class = "card">
 
-   <div class="max-w-sm bg-[#EC9A86]/80 rounded-3xl h-67 w-44 ">
+   <div class="max-w-sm bg-[#EC9A86]/80 rounded-3xl h-67 w-44 shadow-xl ">
          <img class = "w-fit h-2/3" src="/Coursecard_img/CourseTePic.png" alt="Course Picture" />
    
    
@@ -17,8 +17,8 @@ const CoursecardTeacher= () => {
       </div>
             
       <div class = "flex flex-row ml-8">
-         <img class ="w-5 h-5" src="/Coursecard_img/Icon.png" alt="Course: " />
-         <p class="text-center ml-2 tracking-tight dark:text-[#1b1c1e]"> Course</p>
+         <img class ="w-5 h-5" src="/Coursecard_img/Icon.png" alt="Semester:: " />
+         <p class="text-center ml-2 tracking-tight dark:text-[#1b1c1e]"> Semester </p>
       </div>  
    </div>
    </div>

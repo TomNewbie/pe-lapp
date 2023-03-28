@@ -3,7 +3,7 @@ const CoursecardStudent = () => {
       
 <div class = "card">
 
-   <div class="max-w-sm bg-[#DE5D83]/50 rounded-3xl h-67 w-44 ">
+   <div class="max-w-sm bg-[#DE5D83]/50 rounded-3xl h-67 w-44 shadow-xl">
          <img class = "w-fit h-2/3" src="/Coursecard_img/CourseStuPic.png" alt="Course Picture" />
    
    
@@ -12,8 +12,8 @@ const CoursecardStudent = () => {
       <h1 class= "text-center text-2xl font-bold tracking-tight dark:text-[#1b1c1e]">Course Name</h1> 
       
       <div class = "flex flex-row ml-8">
-         <img class ="w-4 h-4" src="/Coursecard_img/human.png" alt="Participants: " />
-         <p class="text-center ml-2 tracking-tight dark:text-[#1b1c1e]"> #participants</p>
+         <img class ="w-4 h-4" src="/Coursecard_img/human.png" alt="Lecturer: " />
+         <p class="text-center ml-2 tracking-tight dark:text-[#1b1c1e]"> Lecturer's Name </p>
       </div>
             
       <div class = "flex flex-row ml-8">
