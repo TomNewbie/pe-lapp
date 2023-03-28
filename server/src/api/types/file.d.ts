@@ -1,4 +1,5 @@
 import { InferSchemaType } from "mongoose";
+import { exercise } from "../model/exercise";
 import { material, Material } from "../model/material";
 
 export interface IFile {

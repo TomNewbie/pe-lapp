@@ -37,9 +37,9 @@ app.use(errorHandler);
 //     // ...
 //   })
 //   .catch(console.error);
-// async () => {
+// (async () => {
 //   try {
-//     await createCourse({
+//     createCourse({
 //       content: "id123",
 //       duration: "3 months",
 //       lecturer: "Tho Phan",
@@ -48,6 +48,7 @@ app.use(errorHandler);
 //         "https://assets-global.website-files.com/6009ec8cda7f305645c9d91b/60107f2b79293acd59ffcf0d_6002086f72b727fb4e01e3f5_web-design-courses.jpeg",
 //       semester: "WS2022",
 //     });
+//     console.log("ahdsad");
 //   } catch (error) {}
-// };
+// })();
 // getUser("17232@student.vgu.edu.vn").then((user) => console.log(user));

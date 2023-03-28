@@ -1,56 +1,54 @@
 import mongoose, { Schema } from "mongoose";
 import { ICourse } from "../types/course";
-export const Course = mongoose.model(
-  "course",
-  new Schema<ICourse>({
-    name: {
+export const course = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  content: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "RichText",
+    required: true,
+    index: true,
+  },
+  picture: {
+    type: String,
+    required: true,
+  },
+  semester: {
+    type: String,
+    required: true,
+  },
+  duration: {
+    type: String,
+    required: true,
+  },
+  lecturer: {
+    email: {
       type: String,
-      required: true,
-    },
-    content: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "RichText",
+      ref: "Lecturer",
       required: true,
       index: true,
     },
-    picture: {
+    name: {
       type: String,
+      ref: "Lecturer",
       required: true,
     },
-    semester: {
-      type: String,
-      required: true,
-    },
-    duration: {
-      type: String,
-      required: true,
-    },
-    lecturer: {
-      email: {
+  },
+  participants: [
+    {
+      id: {
         type: String,
-        ref: "Lecturer",
+        ref: "Student",
         required: true,
         index: true,
       },
-      name: {
-        type: String,
-        ref: "Lecturer",
+      progress: {
+        type: Number,
         required: true,
       },
     },
-    participants: [
-      {
-        id: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Student",
-          required: true,
-          index: true,
-        },
-        progress: {
-          type: Number,
-          required: true,
-        },
-      },
-    ],
-  })
-);
+  ],
+});
+export const Course = mongoose.model("course", course);
