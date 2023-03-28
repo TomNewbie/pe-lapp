@@ -10,10 +10,10 @@ export const getAllCourseByEmail = async (
   return courses;
 };
 
-export const getDetailCourseByEmail = async (
-  email: String
+export const getCourseContentById = async (
+  id: Types.ObjectId 
 ): Promise<string | null> => {
-  const course = await RichText.findById({ email });
+  const course = await RichText.findById({ id });
   if (!course) {
     throw new Error("Course not found");
   }
