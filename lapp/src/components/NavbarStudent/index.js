@@ -22,7 +22,7 @@ const NavbarStudent = () => {
         </div>
         <div className="absolute right-40 mr-40">
           <div className="search_box">
-            <SearchBox></SearchBox>
+            <SearchBox size1={200} size2={50}></SearchBox>
           </div>
         </div>
         <div className="absolute right-44">
@@ -38,4 +38,5 @@ const NavbarStudent = () => {
   </header>
   );
 };
+
 export default NavbarStudent;
