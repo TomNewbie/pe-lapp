@@ -34,10 +34,10 @@ Use-Case Diagrams and Sequence diagrams
 | Created By        | Minh Quan          |
 | Date Created      | 28/02/2023         |
 | Last Updated By   | Quan Nguyen Le Anh |
-| Date Last Updated | 28/03/2023         |
+| Date Last Updated | 05/03/2023         |
 
 | Actors               | Lecturer                                                                                           |
-| -------------------- | -------------------------------------------------------------------------------------------------- | 
+| ----------------- | ------------------ |
 | Description          | Lecturer creates course for students to join                                                       |
 | Trigger              | Lecturer clicks the “Create Course” button                                                         |
 | Preconditions        | The lecturer is logged in to the site with their account.                                          |
@@ -258,7 +258,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Created By        | Minh Quan          |
 | Date Created      | 28/02/2023         |
 | Last Updated By   | Quan Nguyen Le Anh |
-| Date Last Updated | 28/03/2023         |
+| Date Last Updated | 05/03/2023         |
 
 | Actors               | Lecturer                                                                                                  |
 | -------------------- | --------------------------------------------------------------------------------------------------------- |
@@ -296,7 +296,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Created By        | Minh Quan          |
 | Date Created      | 28/02/2023         |
 | Last Updated By   | Quan Nguyen Le Anh |
-| Date Last Updated | 28/03/2023         |
+| Date Last Updated | 05/03/2023         |
 
 | Actors               | Lecturer                                                                                                                     |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
@@ -540,7 +540,7 @@ The sequence for send message and find contact
 | Date Last Updated | 05/03/2023         |
 
 | Actors               | Student                                                                                                                                                  |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | 
+| ----------------- | ------------------ |
 | Description          | Student can track his/her own progress to see how much of the course he/                                                                                 | she | has accomlished |
 | Trigger              | Student clicks the “Progress” button on each course page                                                                                                 |
 | Preconditions        | Student has already registered for that course                                                                                                           |
