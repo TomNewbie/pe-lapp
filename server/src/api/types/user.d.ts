@@ -19,6 +19,6 @@ export interface ILecturer extends IUser {
 }
 
 export interface IParticipant {
-  id: string;
+  email: string;
   progress: number;
 }

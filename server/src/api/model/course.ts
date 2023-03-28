@@ -38,7 +38,7 @@ export const course = new Schema({
   },
   participants: [
     {
-      id: {
+      email: {
         type: String,
         ref: "Student",
         required: true,
@@ -51,4 +51,3 @@ export const course = new Schema({
     },
   ],
 });
-export const Course = mongoose.model("course", course);
