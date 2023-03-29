@@ -11,6 +11,7 @@ import { Course } from "./api/model/course";
 import { createCourse } from "./api/service/course";
 import { ObjectId } from "mongoose";
 import { getUser } from "./api/service/user";
+import { clientController } from "./api/controller/client";
 
 const app = express();
 const port = process.env.PORT!;
@@ -28,6 +29,7 @@ db.then((kaka) => {
 });
 
 app.use("/api", router);
+app.get("*", clientController.get);
 
 app.use(errorHandler);
 // Student.collection
