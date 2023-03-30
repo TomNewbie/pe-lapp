@@ -1,13 +1,13 @@
 import mongoose, { InferSchemaType } from "mongoose";
 
 const { Schema } = mongoose;
-// _id as email
+
 const student = new Schema({
-  name: {
+  email: {
     type: String,
     required: true,
   },
-  email: {
+  name: {
     type: String,
     required: true,
   },
@@ -33,8 +33,9 @@ const lecturer = new Schema({
     type: String,
     required: true,
   },
-  _id: {
+  email: {
     type: String,
+    required: true,
   },
   avatar: {
     type: String,
