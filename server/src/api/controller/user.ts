@@ -1,7 +1,11 @@
-import { Request, Response } from "express";
+import { Response } from "express";
+import { getUser } from "../service/user";
+import { AuthRequest } from "./auth";
 
-const getUser = (req: Request, res: Response) => {
-  res.send(req.params.id);
+const get = async (req: AuthRequest, res: Response) => {
+  const { id } = req.params;
+  const user = await getUser(id);
+  res.json(user);
 };
 
-export const userController = { getUser };
+export const userController = { get };

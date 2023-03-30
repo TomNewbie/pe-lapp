@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import { client } from "../../config/oauth";
 import { addUser, getUser } from "../service/user";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 const client_id = process.env.CLIENT_ID!;
 const jwt_secret = process.env.JWT_SECRET!;
@@ -38,9 +38,13 @@ const loginCallback = async (
   res.json({ accessToken });
 };
 
+export interface AuthRequest extends Request {
+  user?: JwtPayload;
+}
+
 // Middleware to check if the JWT token is valid
 const authenticateJWT = (
-  req: Request & { user?: string | jwt.JwtPayload },
+  req: AuthRequest,
   res: Response,
   next: NextFunction
 ) => {
@@ -50,8 +54,7 @@ const authenticateJWT = (
     const token = authHeader.split(" ")[1];
 
     jwt.verify(token, jwt_secret, (err, user) => {
-      console.log(user);
-      if (err) {
+      if (err || typeof user !== "object") {
         return res.sendStatus(403);
       }
 
