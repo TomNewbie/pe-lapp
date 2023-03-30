@@ -7,7 +7,8 @@ function App() {
       {/* <Login></Login> */}
       {/* <NavbarStudent></NavbarStudent> */}
       {/* <Dropdown></Dropdown> */}
-      <SearchBox></SearchBox>
+      <SearchBox variant={"big"} />
+      <SearchBox variant={"small"} />
     </div>
   );
 }

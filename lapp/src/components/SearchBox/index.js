@@ -1,21 +1,29 @@
-function SearchBox({ px, py }) {
-  const style = `px-${px} py-${py} border-2 border-black rounded-xl text-xl`;
+function SearchBox({ variant }) {
+  const style = {
+    small: "w-36 h-8 border-2 border-black rounded-xl text-xl",
+    big: "w-56 h-8 border-2 border-black rounded-xl text-xl",
+  };
+  const icon = {
+    small: "absolute ml-28",
+    big: "absolute ml-48",
+  };
   return (
     <div>
       <div className="relative flex items-center">
         <img
           src="/SearchBox/searchicon.svg"
           alt=""
-          className="absolute ml-28"
+          className={icon[variant]}
           width={25}
           height={25}
         />
-        <input type="text" className={style} placeholder=" Search"></input>
+        <input
+          type="text"
+          className={style[variant]}
+          placeholder="Search"
+        ></input>
       </div>
     </div>
   );
 }
-export default function SearchBox1({ px, py }) {
-  return <SearchBox px={10} py={0}></SearchBox>;
-}
-
+export default SearchBox;
