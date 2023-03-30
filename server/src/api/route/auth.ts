@@ -7,5 +7,7 @@ const router = Router();
 router.get("/auth/login", authController.login);
 // Route for Google OAuth callback
 router.get("/auth/login/callback", authController.loginCallback);
+// all other api routes are protected and need authentication
+router.use(authController.authenticateJWT);
 
 export { router as authRouter };
