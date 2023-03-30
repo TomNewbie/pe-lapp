@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { InferSchemaType, Schema } from "mongoose";
 
 export const material = new Schema(
   {
@@ -19,3 +19,5 @@ export const material = new Schema(
 );
 
 export const Material = mongoose.model("Material", material);
+
+export type MaterialType = InferSchemaType<typeof material>;

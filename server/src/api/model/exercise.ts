@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { InferSchemaType, Schema } from "mongoose";
 
 export const exercise = new Schema(
   {
@@ -23,4 +23,6 @@ export const exercise = new Schema(
   { timestamps: true }
 );
 
-export const Material = mongoose.model("Exercise", exercise);
+export const Exercise = mongoose.model("Exercise", exercise);
+
+export type ExerciseType = InferSchemaType<typeof exercise>;

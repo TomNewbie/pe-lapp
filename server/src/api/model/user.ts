@@ -1,53 +1,51 @@
-import mongoose from "mongoose";
-import { ILecturer, IStudent } from "../types/user";
+import mongoose, { InferSchemaType } from "mongoose";
 
 const { Schema } = mongoose;
 // _id as email
-export const Student = mongoose.model(
-  "Student",
-  new Schema<IStudent>({
-    name: {
-      type: String,
-      required: true,
-    },
-    _id: {
-      type: String,
-    },
-    avatar: {
-      type: String,
-      required: true,
-    },
-    phone_number: {
-      type: String,
-    },
-    major: {
-      type: String,
-    },
-    intake: {
-      type: Number,
-    },
-  })
-);
+const student = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  avatar: {
+    type: String,
+    required: true,
+  },
+  phone_number: {
+    type: String,
+  },
+  major: {
+    type: String,
+  },
+  intake: {
+    type: Number,
+  },
+});
+export const Student = mongoose.model("Student", student);
+export type StudentType = InferSchemaType<typeof student>;
 
-export const Lecturer = mongoose.model(
-  "Lecturer",
-  new Schema<ILecturer>({
-    name: {
-      type: String,
-      required: true,
-    },
-    _id: {
-      type: String,
-    },
-    avatar: {
-      type: String,
-      required: true,
-    },
-    phone_number: {
-      type: String,
-    },
-    faculty: {
-      type: String,
-    },
-  })
-);
+const lecturer = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  _id: {
+    type: String,
+  },
+  avatar: {
+    type: String,
+    required: true,
+  },
+  phone_number: {
+    type: String,
+  },
+  faculty: {
+    type: String,
+  },
+});
+export const Lecturer = mongoose.model("Lecturer", lecturer);
+export type LecturerType = InferSchemaType<typeof lecturer>;

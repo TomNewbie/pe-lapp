@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { Lecturer, Student } from "../model/user";
-import { IGoogleUser, IUser } from "../types/user";
 
 const getUser = (email: string): Promise<IUser | null> => {
   return Student.findById(email);

@@ -1,5 +1,4 @@
-import mongoose, { Schema } from "mongoose";
-import { ICourse } from "../types/course";
+import mongoose, { InferSchemaType, Schema } from "mongoose";
 export const course = new Schema({
   name: {
     type: String,
@@ -52,3 +51,5 @@ export const course = new Schema({
   ],
 });
 export const Course = mongoose.model("Course", course);
+
+export type CourseType = InferSchemaType<typeof course>;
