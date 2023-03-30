@@ -19,6 +19,10 @@ export const exercise = new Schema(
       enum: ["done", "not done"],
       required: true,
     },
+    deadline: {
+      type: Date,
+      required: true,
+    },
   },
   { timestamps: true }
 );
