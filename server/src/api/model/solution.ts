@@ -2,19 +2,17 @@ import mongoose, { Schema } from "mongoose";
 
 export const solution = new Schema(
   {
-    student: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Student",
-      required: true,
-    },
-    course: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Course",
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
+    _id: {
+      student: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Student",
+        required: true,
+      },
+      exercise: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Exercise",
+        required: true,
+      },
     },
     file: {
       type: String,
