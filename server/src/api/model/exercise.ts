@@ -23,6 +23,16 @@ export const exercise = new Schema(
       type: Date,
       required: true,
     },
+    lecturer: {
+      type: Schema.Types.ObjectId,
+      ref: "Lecturer",
+      required: true,
+    },
+    course: {
+      type: Schema.Types.ObjectId,
+      ref: "Course",
+      required: true,
+    },
   },
   { timestamps: true }
 );
