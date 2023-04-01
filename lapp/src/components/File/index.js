@@ -1,13 +1,13 @@
 const File = () => {
     return (
         <div>
-            <div className="w-3/4 h-20 rounded-2xl border-4 border-[#7F1734] hover:bg-[#F4C2C2]/20">
-                <div className="flex flex-row my-0.5">
+            <div className="w-4/6 h-20 ml-52 rounded-2xl border-4 border-[#7F1734] hover:bg-[#F4C2C2]/20">
+                <div className="flex flex-row">
                     <img src="/File/file-icon.png" alt ="" 
-                         className="ml-4"></img>
-                    <ul className="ml-7">
-                        <li className="text-2xl font-normal">File</li>
-                        <li className="text-3xl font-semibold">File name</li>
+                         className="ml-8 my-3 h-12 w-12"></img>
+                    <ul className="ml-10 my-2">
+                        <li className="text-2xl font-normal h-6">File</li>
+                        <li className="text-3xl font-semibold h-6">File name</li>
                     </ul>
                 </div>
             </div>
