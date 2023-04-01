@@ -4,3 +4,5 @@ export { default as NavbarLecturer } from "./NavbarLecturer";
 export { default as Dropdown} from "./Dropdown";
 export { default as SearchBox} from "./SearchBox";
 export { default as File} from "./File";
+export { default as Participants} from "./Participants";
+
