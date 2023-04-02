@@ -1,15 +1,15 @@
-// import { NavbarStudent, NavbarLecturer } from "./components";
-// import { Login } from "./pages/common";
-// import { Dropdown, SearchBox } from "./components";
-import { NavbarCourse} from "./components";
+import { Footer } from "./components";
+import { Login } from "./pages/common";
+import { CoursecardStudent } from "./components";
+import { CoursecardTeacher } from "./components";
+import { NavbarStudent } from "./components";
+
 function App() {
   return (
     <div className="App">
-      {/* <Login></Login> */}
-      {/* <NavbarStudent></NavbarStudent> */}
-      {/* <NavbarLecturer /> */}
-      {/* <Dropdown></Dropdown> */}
-      <NavbarCourse></NavbarCourse>
+      <Login></Login>
+      <CoursecardStudent />
+      <CoursecardTeacher />
     </div>
   );
 }
