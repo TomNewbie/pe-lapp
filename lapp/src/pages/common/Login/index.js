@@ -8,7 +8,7 @@ const Login = () => {
           <div className="absolute top-2 ml-14">
             <img src="/login/Logo.png" alt="logo" width={70} height={70} />
           </div>
-          <div className="absolute -top-[116px] -right-64 ">
+          <div className="absolute -top-[116px] right-0">
             <img
               src="/login/Ellipse1.png"
               alt="ellipse"
