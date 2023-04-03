@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 import { Lecturer, Student } from "../model/user";
 
-const getUser = (email: string): Promise<IUser | null> => {
+const getUser = (email: string): Promise<any | null> => {
   return Student.findById(email);
 };
 
-const addUser = async (user: IGoogleUser) => {
+const addUser = async (user: any) => {
   if (user.email.split("@")[1].includes("student")) {
     const test = await Student.create({ _id: user.email, ...user });
     console.log(test);
