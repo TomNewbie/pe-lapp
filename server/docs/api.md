@@ -114,3 +114,23 @@ Statuscode 200. Modify success
 Status code 400. Invalid input
 
 Status code 400. Student cannot modify course
+
+# [GET] /api/auth/login
+
+Request body:
+
+```ts
+{
+    redirectUrl?: string
+}
+```
+
+Response:
+
+```ts
+{
+  accessToken: string;
+}
+```
+
+redirect to `redirectUrl` if exist, else to course page
