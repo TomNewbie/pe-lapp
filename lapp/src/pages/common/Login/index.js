@@ -30,7 +30,7 @@ const Login = () => {
         {/* Start: Intro section */}
         <div class="absolute top-0">
           <div class="grid grid-cols-2">
-            <div className="pl-[50px] pt-44">
+            <div className="pl-12 pt-44">
               <p class="text-dongle text-8xl text-black text-bold pl-0">
                 The best learning
               </p>
@@ -47,7 +47,7 @@ const Login = () => {
               </div>
               {/* End: Log in Button */}
             </div>
-            <div class="absolute right-2 top-[12px]">
+            <div class="absolute right-2 top-3">
               <img src="/login/image.svg" alt="image1" />
             </div>
           </div>
@@ -56,7 +56,7 @@ const Login = () => {
 
         {/* Start: icon section */}
         <div>
-          <div className="absolute top-36 left-[230px]">
+          <div className="absolute top-36 left-56">
             <img
               src="/login/airplane.png"
               alt="airplane"
@@ -65,7 +65,7 @@ const Login = () => {
             />
           </div>
 
-          <div className="absolute top-40 left-[520px]">
+          <div className="absolute ml-96 top-40 left-32">
             <img src="/login/bling.png" alt="bling" width={40} height={40} />
           </div>
 
