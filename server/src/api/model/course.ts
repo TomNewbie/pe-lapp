@@ -5,8 +5,7 @@ export const course = new Schema({
     required: true,
   },
   content: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "RichText",
+    type: String,
     required: true,
     index: true,
   },
@@ -18,26 +17,23 @@ export const course = new Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+  },
   duration: {
     type: String,
     required: true,
   },
-  lecturer: {
-    email: {
-      type: String,
-      ref: "Lecturer",
-      required: true,
-      index: true,
-    },
-    name: {
-      type: String,
-      ref: "Lecturer",
-      required: true,
-    },
+  lecturer_id: {
+    type: String,
+    ref: "Lecturer",
+    required: true,
+    index: true,
   },
   participants: [
     {
-      email: {
+      _id: {
         type: String,
         ref: "Student",
         required: true,
