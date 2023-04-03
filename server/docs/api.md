@@ -7,7 +7,7 @@ Response:
 ```ts
 Array<{
   name: string;
-  lecturer: string;
+  lecturer_name: string;
   progress: number;
   picture: string;
 }>;
@@ -44,7 +44,7 @@ Authorization: JWT
     name: {
     type: String,
     required: true,
-  },
+  },cd
   description: {
     type: String,
     required: true,
@@ -134,3 +134,29 @@ Response:
 ```
 
 redirect to `redirectUrl` if exist, else to course page
+
+# Todo :
+
+# [POST] /api/material
+
+Upload material
+
+# [GET] /api/course/:id
+
+# [PATCH] /api/material/:id
+
+Modify material
+
+# [POST] /api/exercise/:id
+
+Upload exercise
+
+# [GET, DELETE, PATCH] /api/exercise
+
+CUD exercise
+
+# [POST] /api/solution
+
+Upload Solution
+
+#
