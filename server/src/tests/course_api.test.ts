@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import * as mongoose from "mongoose";
-import * as supertest from "supertest";
-import * as app from "../src/app";
+import supertest from "supertest";
+import app from "../app";
 import * as mongoServer from "./utils/memory_mongodb_helper";
 import {courses} from "./utils/initials"
 import {Course} from "../api/model/course";
