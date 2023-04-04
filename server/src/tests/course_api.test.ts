@@ -52,4 +52,36 @@ describe("GET /api/courses", () => {
     expect(res.body).to.have.lengthOf(2);
     expect(res.body).to.have.deep.members(expectedCourses);
   });
-});
+}); 
+
+describe("POST /api/courses/:id", () => {
+  it("should allow for a student to join the course with approriate id", async () => {
+    const student = students[0];
+    const accessToken = jwt.sign({email: student._id}, jwt_secret!);
+    const testCourse = await Course.findOne();
+    const res = await api
+        .post(`/api/courses/${testCourse?._id}`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .expect(201);
+  });
+
+  it("should not allow for a student to join the course with invalid id", async () => {
+    const student = students[0];
+    const accessToken = jwt.sign({email: student._id}, jwt_secret!);
+    const id = "123456"
+    const res = await api
+        .post(`/api/courses/${id}`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .expect(404);
+  });
+
+  it("should not allow for a teacher to join a course", async () => {
+    const lecturer = lecturers[0];
+    const accessToken = jwt.sign({email: lecturer._id}, jwt_secret!);
+    const testCourse = await Course.findOne();
+    const res = await api
+        .post(`/api/courses/${testCourse?._id}`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .expect(400);
+  });
+}); 
