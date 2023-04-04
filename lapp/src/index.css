@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Dongle', sans-serif;
+}
+
+.loginBtn {
+    background-color: rgba(204, 102, 102, 0.7);
+}
+.red {
+    background-color: red;
+}
