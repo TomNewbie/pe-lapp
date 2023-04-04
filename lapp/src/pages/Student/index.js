@@ -1,2 +1,2 @@
-export { default as Profile } from "./Profile/index";
-export { default as AllCoursesStudent } from "./AllCourses/index";
+export { default as Profile } from "./Profile";
+export { default as AllCoursesStudent } from "./AllCourses";

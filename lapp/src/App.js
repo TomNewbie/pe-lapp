@@ -4,10 +4,10 @@ import { Login } from "./pages/common";
 function App() {
   return (
     <div className="App">
-      <Login></Login>
+      {/* <Login></Login> */}
       {/* <AllCoursesStudent></AllCoursesStudent> */}
       {/* <AllCoursesLecturer></AllCoursesLecturer> */}
-      {/* <Profile></Profile> */}
+      <Profile></Profile>
     </div>
   );
 }
