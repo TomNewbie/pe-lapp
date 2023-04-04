@@ -1,10 +1,13 @@
-import { Profile } from "./pages/Student";
+import { Profile, AllCoursesStudent } from "./pages/Student";
+import { AllCoursesLecturer } from "./pages/Lecturer";
 import { Login } from "./pages/common";
 function App() {
   return (
     <div className="App">
-      <Login></Login>
-      {/* <Profile></Profile> */}
+      {/* <Login></Login> */}
+      {/* <AllCoursesStudent></AllCoursesStudent> */}
+      {/* <AllCoursesLecturer></AllCoursesLecturer> */}
+      <Profile></Profile>
     </div>
   );
 }
