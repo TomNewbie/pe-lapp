@@ -4,7 +4,7 @@ export const solution = new Schema(
   {
     _id: {
       student: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "Student",
         required: true,
       },

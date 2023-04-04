@@ -33,7 +33,7 @@ export const course = new Schema({
   },
   participants: [
     {
-      _id: {
+      student_id: {
         type: String,
         ref: "Student",
         required: true,

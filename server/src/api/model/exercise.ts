@@ -24,7 +24,7 @@ export const exercise = new Schema(
       required: true,
     },
     lecturer: {
-      type: Schema.Types.ObjectId,
+      type: String,
       ref: "Lecturer",
       required: true,
     },

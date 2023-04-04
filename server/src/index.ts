@@ -12,6 +12,7 @@ import { createCourse } from "./api/service/course";
 import { ObjectId } from "mongoose";
 import { getUser } from "./api/service/user";
 import { clientController } from "./api/controller/client";
+import { Material } from "./api/model/material";
 
 const app = express();
 const port = process.env.PORT!;
@@ -32,13 +33,13 @@ app.use("/api", router);
 app.get("*", clientController.get);
 
 app.use(errorHandler);
-// Student.collection
-//   .getIndexes()
-//   .then((indexes) => {
-//     console.log("indexes:", indexes);
-//     // ...
-//   })
-//   .catch(console.error);
+Course.collection
+  .getIndexes()
+  .then((indexes) => {
+    console.log("indexes:", indexes);
+    // ...
+  })
+  .catch(console.error);
 // (async () => {
 //   try {
 //     createCourse({

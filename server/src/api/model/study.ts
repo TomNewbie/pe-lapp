@@ -1,11 +1,11 @@
 import mongoose, { Schema } from "mongoose";
 export const study = new Schema({
-  student: {
-    type: mongoose.Schema.Types.ObjectId,
+  student_id: {
+    type: String,
     ref: "Student",
     required: true,
   },
-  course: {
+  course_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Course",
     required: true,
