@@ -14,12 +14,12 @@ export const material = new Schema(
       type: String,
       required: true,
     },
-    lecturer: {
-      type: Schema.Types.ObjectId,
+    lecturer_id: {
+      type: String,
       ref: "Lecturer",
       required: true,
     },
-    course: {
+    course_id: {
       type: Schema.Types.ObjectId,
       ref: "Course",
       required: true,
