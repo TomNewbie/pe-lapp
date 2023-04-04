@@ -4,9 +4,9 @@ import { Login } from "./pages/common";
 function App() {
   return (
     <div className="App">
-      {/* <Login></Login> */}
+      <Login></Login>
       {/* <AllCoursesStudent></AllCoursesStudent> */}
-      <AllCoursesLecturer></AllCoursesLecturer>
+      {/* <AllCoursesLecturer></AllCoursesLecturer> */}
       {/* <Profile></Profile> */}
     </div>
   );
