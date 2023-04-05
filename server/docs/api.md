@@ -44,7 +44,7 @@ Authorization: JWT
     name: {
     type: String,
     required: true,
-  },cd
+  },
   description: {
     type: String,
     required: true,

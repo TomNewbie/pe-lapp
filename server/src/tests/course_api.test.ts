@@ -85,3 +85,127 @@ describe("POST /api/courses/:id", () => {
         .expect(400);
   });
 }); 
+
+describe("POST /api/courses/", () => {
+  const testCourse = {
+    name: "Course C",
+    content: "afjdldj",
+    picture: "http://example.com/image3.jpg",
+    semester: "Fall 2022",
+    duration: "3 months",
+  };
+
+  it("should allow for a lecturer to create a course with approriate id", async () => {
+    const lecturer = lecturers[0];
+    const accessToken = jwt.sign({email: lecturer._id}, jwt_secret!);
+    const res = await api
+        .post(`/api/courses`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send(testCourse)
+        .expect(201);
+    const coursesAtEnd = await Course.find({});
+    expect(coursesAtEnd).to.have.lengthOf(courses.length + 1);
+  });
+
+  it("should not allow for a student to create a course", async () => {
+    const student = students[0];
+    const accessToken = jwt.sign({email: student._id}, jwt_secret!);
+    const res = await api
+        .post(`/api/courses`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send(testCourse)
+        .expect(400);
+    const coursesAtEnd = await Course.find({});
+    expect(coursesAtEnd).to.have.lengthOf(courses.length);
+  });
+
+  it("should not allow for a lecturer to create a course with missing name", async () => {
+    const testCourse = {
+      content: "afjdldj",
+      picture: "http://example.com/image3.jpg",
+      semester: "Fall 2022",
+      duration: "3 months",
+    };
+    const lecturer = lecturers[0];
+    const accessToken = jwt.sign({email: lecturer._id}, jwt_secret!);
+    const res = await api
+        .post(`/api/courses`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send(testCourse)
+        .expect(400);
+    const coursesAtEnd = await Course.find({});
+    expect(coursesAtEnd).to.have.lengthOf(courses.length);
+  });
+
+  it("should not allow for a lecturer to create a course with missing content", async () => {
+    const testCourse = {
+      content: "afjdldj",
+      picture: "http://example.com/image3.jpg",
+      semester: "Fall 2022",
+      duration: "3 months",
+    };
+    const lecturer = lecturers[0];
+    const accessToken = jwt.sign({email: lecturer._id}, jwt_secret!);
+    const res = await api
+        .post(`/api/courses`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send(testCourse)
+        .expect(400);
+    const coursesAtEnd = await Course.find({});
+    expect(coursesAtEnd).to.have.lengthOf(courses.length);
+  });
+
+  it("should not allow for a lecturer to create a course with missing picture", async () => {
+    const testCourse = {
+      name: "Course C",
+      content: "afjdldj",
+      semester: "Fall 2022",
+      duration: "3 months",
+    };
+    const lecturer = lecturers[0];
+    const accessToken = jwt.sign({email: lecturer._id}, jwt_secret!);
+    const res = await api
+        .post(`/api/courses`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send(testCourse)
+        .expect(400);
+    const coursesAtEnd = await Course.find({});
+    expect(coursesAtEnd).to.have.lengthOf(courses.length);
+  });
+
+  it("should not allow for a lecturer to create a course with missing semester", async () => {
+    const testCourse = {
+      name: "Course C",
+      content: "afjdldj",
+      picture: "http://example.com/image3.jpg",
+      duration: "3 months",
+    };
+    const lecturer = lecturers[0];
+    const accessToken = jwt.sign({email: lecturer._id}, jwt_secret!);
+    const res = await api
+        .post(`/api/courses`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send(testCourse)
+        .expect(400);
+    const coursesAtEnd = await Course.find({});
+    expect(coursesAtEnd).to.have.lengthOf(courses.length);
+  });
+
+  it("should not allow for a lecturer to create a course with missing duration", async () => {
+    const testCourse = {
+      name: "Course C",
+      content: "afjdldj",
+      picture: "http://example.com/image3.jpg",
+      semester: "Fall 2022",
+    };
+    const lecturer = lecturers[0];
+    const accessToken = jwt.sign({email: lecturer._id}, jwt_secret!);
+    const res = await api
+        .post(`/api/courses`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send(testCourse)
+        .expect(400);
+    const coursesAtEnd = await Course.find({});
+    expect(coursesAtEnd).to.have.lengthOf(courses.length);
+  });
+}); 
