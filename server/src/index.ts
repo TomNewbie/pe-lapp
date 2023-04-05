@@ -1,7 +1,5 @@
 import app from "./app";
 import { db } from "./config/database";
-// import { env } from "./config/environment"
-// import { Course } from "./api/model/course";
 const port = process.env.PORT;
 const domain = process.env.SERVER_DOMAIN;
 

@@ -1,7 +1,11 @@
+import path from "path"
+import dotenv from "dotenv";
+const envPath = path.resolve(__dirname, '../src/.env');
+dotenv.config({path: envPath});
+
 import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
 import { errorHandler } from "./utils/middleware";
-
 import { router } from "./api/route";
 import cors from "cors";
 import { clientController } from "./api/controller/client";

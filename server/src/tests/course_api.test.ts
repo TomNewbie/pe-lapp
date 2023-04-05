@@ -12,19 +12,17 @@ const jwt_secret = process.env.JWT_SECRET;
 
 before(async () => {
     await mongoServer.connect();
+    await Student.insertMany(students);
+    await Lecturer.insertMany(lecturers);
 });
 
 beforeEach(async () => {
-    await Student.deleteMany();
-    await Lecturer.deleteMany();
     await Course.deleteMany();
-    await Student.insertMany(students);
-    await Lecturer.insertMany(lecturers);
     await Course.insertMany(courses);
 })
 
 after(async () => {
-    await mongoServer.disconnect
+    await mongoServer.disconnect()
 });
 
 describe("GET /api/courses", () => {
