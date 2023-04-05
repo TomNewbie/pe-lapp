@@ -87,7 +87,7 @@ describe("POST /api/courses/:id", () => {
 describe("POST /api/courses/", () => {
   const testCourse = {
     name: "Course C",
-    content: "afjdldj",
+    description: "afjdldj",
     picture: "http://example.com/image3.jpg",
     semester: "Fall 2022",
     duration: "3 months",
@@ -119,7 +119,7 @@ describe("POST /api/courses/", () => {
 
   it("should not allow for a lecturer to create a course with missing name", async () => {
     const testCourse = {
-      content: "afjdldj",
+      description: "afjdldj",
       picture: "http://example.com/image3.jpg",
       semester: "Fall 2022",
       duration: "3 months",
@@ -135,9 +135,9 @@ describe("POST /api/courses/", () => {
     expect(coursesAtEnd).to.have.lengthOf(courses.length);
   });
 
-  it("should not allow for a lecturer to create a course with missing content", async () => {
+  it("should not allow for a lecturer to create a course with missing description", async () => {
     const testCourse = {
-      content: "afjdldj",
+      name: "Course C",
       picture: "http://example.com/image3.jpg",
       semester: "Fall 2022",
       duration: "3 months",
@@ -156,7 +156,7 @@ describe("POST /api/courses/", () => {
   it("should not allow for a lecturer to create a course with missing picture", async () => {
     const testCourse = {
       name: "Course C",
-      content: "afjdldj",
+      description: "afjdldj",
       semester: "Fall 2022",
       duration: "3 months",
     };
@@ -174,7 +174,7 @@ describe("POST /api/courses/", () => {
   it("should not allow for a lecturer to create a course with missing semester", async () => {
     const testCourse = {
       name: "Course C",
-      content: "afjdldj",
+      description: "afjdldj",
       picture: "http://example.com/image3.jpg",
       duration: "3 months",
     };
@@ -192,7 +192,7 @@ describe("POST /api/courses/", () => {
   it("should not allow for a lecturer to create a course with missing duration", async () => {
     const testCourse = {
       name: "Course C",
-      content: "afjdldj",
+      description: "afjdldj",
       picture: "http://example.com/image3.jpg",
       semester: "Fall 2022",
     };
