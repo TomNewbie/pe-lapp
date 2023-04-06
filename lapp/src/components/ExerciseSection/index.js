@@ -1,6 +1,6 @@
 const ExerciseSection = () => {
   return (
-    <div class="flex flex-row border-4 border-[#5C0120] rounded-2xl text-[#1B1C1E] text-dongle not-italic items-center justify-between px-9 py-5 mt-12 mx-52">
+    <div class="flex flex-row border-4 border-[#5C0120] rounded-2xl text-[#1B1C1E] font-dongle not-italic items-center justify-between px-9 py-5 mt-12 mx-52">
       <div class="flex flex-row justify-between space-x-11">
         <img
           src="/ExerciseSection/upload-file.png"
