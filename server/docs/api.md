@@ -20,30 +20,40 @@ Status code: 200
 
 Error 404: Not found
 
-# [GET] /api/courses
+# [GET] /api/courses?start=`s`&num=`n`&search=`search`&sort=`sort`&asc=`asc`
 
-Get courses of a user
+Get the courses of a user. For a student, it will be the courses that they have
+joined. For a lecturer, it will be the courses that they have created.
+
+`s`: query a list starting at the `s`-th course. (0-based index; default to 0)
+`n`: query n courses to return in a list. (default to 1)
+`search`: the string to search/filter the courses by. For a student, this will
+search in the order of course name, lecturer name and semester. For a lecturer,
+this will search only for the course name.
+`sort`: `''` (empty string), `'name'` or `'semester'`. Either not sort the order
+of the courses returned, sort by their course name or by semester, respectively.
+(default to `''`)
+`asc`: `1`, `true`, or any other value. When the value is either `1` or `true`,
+the courses are sorted in the ascending order. Otherwise, sort in the descending
+order. (default to `1`)
 
 Authorization: JWT
 
 Response:
 
-Student:
-
 ```ts
+// Student:
 Array<{
   name: string;
   lecturer_name: string;
-  progress: number;
+  semester: string;
   picture: string;
 }>;
-```
 
-Lecturer:
-
-```ts
+// Lecturer:
 Array<{
   name: string;
+  participant_count: number;
   picture: string;
 }>;
 ```
@@ -52,7 +62,7 @@ Status code: 200
 
 # [POST] /api/course/:id
 
-Join a course by id
+Join a course by `id`.
 
 Request
 
