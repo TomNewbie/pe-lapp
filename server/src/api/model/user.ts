@@ -1,6 +1,4 @@
-import mongoose, { InferSchemaType } from "mongoose";
-
-const { Schema } = mongoose;
+import mongoose, { InferSchemaType, Schema } from "mongoose";
 
 const student = new Schema(
   {
