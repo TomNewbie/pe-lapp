@@ -1,14 +1,49 @@
+# [GET] /api/student/:id
+
+Get student profile
+
+Response:
+[`StudentType`](../src/api/model/user.ts)
+
+Status code: 200
+
+Error 404: Not found
+
+# [GET] /api/lecturer/:id
+
+Get lecturer profile
+
+Response:
+[`LecturerType`](../src/api/model/user.ts)
+
+Status code: 200
+
+Error 404: Not found
+
 # [GET] /api/courses
+
+Get courses of a user
 
 Authorization: JWT
 
 Response:
+
+Student:
 
 ```ts
 Array<{
   name: string;
   lecturer_name: string;
   progress: number;
+  picture: string;
+}>;
+```
+
+Lecturer:
+
+```ts
+Array<{
+  name: string;
   picture: string;
 }>;
 ```
