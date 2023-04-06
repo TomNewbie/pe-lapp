@@ -26,8 +26,8 @@ const NavbarStudent = () => {
             </li>
           </ul>
         </div>
-        <div className="absolute right-48">
-          <div className="text-2xl text">Hi Student ID,</div>
+        <div className="absolute right-48 mt-1">
+          <div className="text-3xl text">Hi Student ID,</div>
         </div>
         <div className="absolute right-36">
           <img src="/navbar_img/profile_pic.png" alt="profile_pic" />

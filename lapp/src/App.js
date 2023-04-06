@@ -6,8 +6,8 @@ function App() {
   return (
     <div className="App">
       {/* <Login></Login> */}
-      <NavbarStudent></NavbarStudent>
-      {/* <NavbarLecturer /> */}
+      {/* <NavbarStudent></NavbarStudent> */}
+      <NavbarLecturer />
       {/* <Dropdown></Dropdown> */}
       {/* <NavbarCourse></NavbarCourse> */}
     </div>
