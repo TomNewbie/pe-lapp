@@ -215,7 +215,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Notes and Issues     |                                                                                                                                          |
 
 <p align="center">
-<img src="images/sequence/track-activity.jpg" width="500">
+<img src="images/sequence/track-activity.jpeg" width="500">
 </p>
 
 #### 6. Upload exercise
@@ -247,7 +247,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Notes and Issues     |                                                                                                                                                                |
 
 <p align="center">
-<img src="images/sequence/upload-exercise.jpg" width="500">
+<img src="images/sequence/upload-exercise.jpeg" width="500">
 </p>
 
 #### 7. Delete Exercise:
@@ -355,7 +355,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Notes and Issues     |                                                                                                                   |
 
 <p align="center">
-<img src="images/sequence/evaluate.png" width="500">
+<img src="images/sequence/evaluate.jpeg" width="500">
 </p>
 
 ### Actor: Lecturer and Student
@@ -486,7 +486,7 @@ The sequence for send message and find contact
 
 <p align="center">
 <p align="center">
-<img src="images/sequence/send-message.jpg" width="500">
+<img src="images/sequence/send-message.jpeg" width="500">
 </p>
 </p>
 
