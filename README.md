@@ -192,7 +192,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Created By        | Minh Quan                    |
 | Date Created      | 28/02/2023                   |
 | Last Updated By   | Quan Tran Nguyen Minh        |
-| Date Last Updated | 06/03/2023                   |
+| Date Last Updated | 07/04/2023                   |
 
 | Actors               | Lecturer                                                                                                                                 |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
@@ -226,7 +226,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Created By        | Minh Quan             |
 | Date Created      | 28/02/2023            |
 | Last Updated By   | Quan Tran Nguyen Minh |
-| Date Last Updated | 07/03/2023            |
+| Date Last Updated | 07/04/2023            |
 
 | Actors               | Lecturer                                                                                                                                                       |
 | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -336,7 +336,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Created By        | Minh Quan                        |
 | Date Created      | 28/02/2023                       |
 | Last Updated By   | Minh Quan                        |
-| Date Last Updated | 25/03/2023                       |
+| Date Last Updated | 7/04/2023                        |
 
 | Actors               | Lecturer                                                                                                          |
 | -------------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -426,7 +426,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 |Created By| Minh Quan |
 |Date Created| 06/03/2023 |
 |Last Updated By|  Minh Quan|
-|Date Last Updated|  07/03/2023|
+|Date Last Updated|  07/04/2023|
 
 | Actors               | User (Lecturer or Student)                                                                                                                                                  |
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
