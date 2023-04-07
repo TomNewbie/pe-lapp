@@ -11,7 +11,7 @@ function App() {
       {/* <Dropdown></Dropdown> */}
       {/* <SearchBox px={10} py={1}></SearchBox> */}
       {/* <File></File> */}
-      <Participants></Participants>
+      <Participants teacher={"Tran Tuan Anh"} student={"Vuong Khanh Linh"}></Participants>
     </div>
   );
 }
