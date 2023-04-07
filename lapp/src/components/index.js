@@ -6,3 +6,7 @@ export { default as SearchBox } from "./SearchBox";
 export { default as NavbarCourse } from "./NavbarCourse";
 export { default as CoursecardStudent } from "./CoursecardStudent";
 export { default as CoursecardTeacher } from "./CoursecardTeacher";
+export { default as JoinCourse } from "./PopUp/JoinCourse";
+export { default as CreateCourse } from "./PopUp/CreateCourse";
+export { default as PostAnnEx } from "./PopUp/PostAnnEx";
+export { default as SubmitEx } from "./PopUp/SubmitEx";
