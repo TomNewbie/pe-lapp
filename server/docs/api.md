@@ -4,7 +4,7 @@ Get student profile
 
 ### Response:
 
-[`StudentType`](../src/api/model/user.ts)
+[`StudentType`](../stringsrc/api/model/user.ts)
 
 _Status code:_ 200
 
@@ -26,52 +26,91 @@ _Error:_
 
 - 404: Not found
 
-# [GET] /api/courses?s=`start`&n=`num`&q=`query`&sort=`sort`&asc=`asc`
+# [GET] /api/courses
 
 Get the courses of a user. For a student, it will be the courses that they have
 joined. For a lecturer, it will be the courses that they have created.
 
-`start`: query a list starting at the `start + 1`-th course. (0-based index;
-default to 0)  
-`num`: query n courses to return in a list. (default to 1)  
-`query`: the string to search/filter the courses by. For a student, this will
-search in the order of course name, lecturer name and semester. For a lecturer,
-this will search only for the course name.  
-`sort`: `''` (empty string), `'name'` or `'sem'`. Either not sort the order
-of the courses returned, sort by their course name or by semester, respectively.
-(default to `''`)  
-`asc`: `1`, `true`, or any other value. When the value is either `1` or `true`,
-the courses are sorted in the ascending order. Otherwise, sort in the descending
-order. (default to `1`)
+### Request
 
-**Example:** `GET /api/courses?s=6&n=3&q=java&sort=sem&asc=0`  
-(Query courses that contains the string 'java', sorted by semester in descending
-order and return 3 courses, starting from the 7th course found.)
-
-### Request headers:
+##### Headers:
 
 _Authorization:_ JWT
+
+##### Body:
+
+```ts
+type RequestBody = {
+  /**
+   * query a list starting at the `s + 1`-th course. (0-based index; defaults
+   * to 0)
+   */
+  s?: number;
+
+  /**
+   * number of courses to return in a list. If `n` is 0, return ALL courses,
+   * skipping the first `s` courses. (defaults to 0)
+   */
+  n?: number;
+
+  /**
+   * the string to search/filter the courses by. For a student, this will search
+   * in the order of course name, lecturer name and semester. For a lecturer,
+   * this will search only for the course name.
+   */
+  q?: string;
+
+  /**
+   * the sort object (key-value pairs) by which to sort the resulting query. The
+   * keys are the names of the fields appearing in the Response body (see below)
+   * by which to sort. The value of each key is either 1, for ascending, or -1,
+   * for descending. Any field not provided in the sort object is not going to
+   * be sorted.
+   */
+  sort?: {
+    [field: string]: 1 | -1;
+  };
+};
+
+const exampleBody: RequestBody = {
+  s: 6,
+  n: 3,
+  q: "java",
+  sort: {
+    semester: -1,
+  },
+};
+// Query courses that contains the string 'java', sorted by semester in
+// descending order and return 3 courses, starting from the 7th course found
+```
 
 ### Response:
 
 ```ts
 // Student:
-Array<{
+type CoursesOfStudent = Array<{
+  _id: string;
   name: string;
-  lecturer_name: string;
   semester: string;
   picture: string;
+  lecturer_name: string;
 }>;
 
 // Lecturer:
-Array<{
+type CoursesOfLecturer = Array<{
+  _id: string;
   name: string;
-  participant_count: number;
+  semester: string;
   picture: string;
+  participant_count: number;
 }>;
 ```
 
 _Status code:_ 200
+
+_Error:_
+
+- 400: Bad request body
 
 # [POST] /api/course/`:id`
 
