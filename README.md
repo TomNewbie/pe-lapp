@@ -37,7 +37,7 @@ Use-Case Diagrams and Sequence diagrams
 | Date Last Updated | 05/03/2023         |
 
 | Actors               | Lecturer                                                                                           |
-| ----------------- | ------------------ |
+| -------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
 | Description          | Lecturer creates course for students to join                                                       |
 | Trigger              | Lecturer clicks the “Create Course” button                                                         |
 | Preconditions        | The lecturer is logged in to the site with their account.                                          |
@@ -408,7 +408,8 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Postconditions       | Lecturer/Student successfully logs out                         |
 | Priority             | high                                                           |
 | Normal Flow          | 1. Lecturer/Student clicks the “Log out” button                |
-|                      | 2. Lecturer/Student confirms logging out and log out           |
+|                      | 2. Server notify browser to remove login token from user       |
+|                      | 3. Redirect user to the main page                              |
 | Alternative Flows    |                                                                |
 | Exceptions           |                                                                |
 | Special Requirements |                                                                |
@@ -540,7 +541,7 @@ The sequence for send message and find contact
 | Date Last Updated | 05/03/2023         |
 
 | Actors               | Student                                                                                                                                                  |
-| ----------------- | ------------------ |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | --------------- |
 | Description          | Student can track his/her own progress to see how much of the course he/                                                                                 | she | has accomlished |
 | Trigger              | Student clicks the “Progress” button on each course page                                                                                                 |
 | Preconditions        | Student has already registered for that course                                                                                                           |
