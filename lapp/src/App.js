@@ -2,8 +2,8 @@
 // import { Login } from "./pages/common";
 // import { Dropdown, SearchBox } from "./components";
 // import { NavbarCourse} from "./components";
-// import {StudentCourseName} from "./components";
-import {TeacherCourseName} from "./components";
+import {StudentCourseName} from "./components";
+// import {TeacherCourseName} from "./components";
 function App() {
   return (
     <div className="App">
@@ -12,7 +12,8 @@ function App() {
       {/* <NavbarLecturer /> */}
       {/* <Dropdown></Dropdown> */}
       {/* <NavbarCourse></NavbarCourse> */}
-      <TeacherCourseName></TeacherCourseName>
+      {/* <TeacherCourseName name={"Software Engineering"} semester={"Winter 2022"}></TeacherCourseName> */}
+      <StudentCourseName name={"Software Engineering"} teacher={"Tran Tuan Anh"}></StudentCourseName>
     </div>
   );
 }
