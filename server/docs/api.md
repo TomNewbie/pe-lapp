@@ -1,24 +1,30 @@
-# [GET] /api/student/:id
+# [GET] /api/student/`:id`
 
 Get student profile
 
-Response:
+### Response:
+
 [`StudentType`](../src/api/model/user.ts)
 
-Status code: 200
+_Status code:_ 200
 
-Error 404: Not found
+_Error:_
 
-# [GET] /api/lecturer/:id
+- 404: Not found
+
+# [GET] /api/lecturer/`:id`
 
 Get lecturer profile
 
-Response:
+### Response:
+
 [`LecturerType`](../src/api/model/user.ts)
 
-Status code: 200
+_Status code:_ 200
 
-Error 404: Not found
+_Error:_
+
+- 404: Not found
 
 # [GET] /api/courses?s=`start`&n=`num`&q=`query`&sort=`sort`&asc=`asc`
 
@@ -44,7 +50,7 @@ order and return 3 courses, starting from the 7th course found.)
 
 ### Request headers:
 
-Authorization: JWT
+_Authorization:_ JWT
 
 ### Response:
 
@@ -65,23 +71,24 @@ Array<{
 }>;
 ```
 
-Status code: 200
+_Status code:_ 200
 
-# [POST] /api/course/:id
+# [POST] /api/course/`:id`
 
 Join a course by `id`.
 
-Request
+### Request headers
 
-Authorization: JWT
+_Authorization:_ JWT
 
-Response:
+### Response:
 
-Status code: 201. (Created)
+_Status code:_ 201. (Created)
 
-Error: 404. Course not found
+_Error:_
 
-Error: 400. Bad request: Teacher cannot not join course
+- 404: Course not found
+- 400: Bad request: Teacher cannot not join course
 
 # [POST] /api/course/
 
