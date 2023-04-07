@@ -3,27 +3,26 @@ export const course = new Schema({
   name: {
     type: String,
     required: true,
+    default: "New Course",
   },
   content: {
     type: String,
-    required: true,
-    index: true,
+    default: "",
   },
   picture: {
     type: String,
     required: true,
+    default: "https://s3.memeshappen.com/memes/of-course-.jpg",
   },
   semester: {
     type: String,
     required: true,
+    default: "SS2023",
   },
   description: {
     type: String,
     required: true,
-  },
-  duration: {
-    type: String,
-    required: true,
+    default: "Please put in some description",
   },
   lecturer_id: {
     type: String,
@@ -42,6 +41,9 @@ export const course = new Schema({
       progress: {
         type: Number,
         required: true,
+        min: 0,
+        max: 100,
+        default: 0,
       },
     },
   ],

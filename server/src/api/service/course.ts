@@ -11,7 +11,7 @@ export const getAllCourseByEmail = async (
 };
 
 export const getCourseContentById = async (
-  id: Types.ObjectId 
+  id: Types.ObjectId
 ): Promise<string | null> => {
   const course = await RichText.findById({ id });
   if (!course) {
