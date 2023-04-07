@@ -487,7 +487,7 @@ The sequence for send message and find contact
 
 <p align="center">
 <p align="center">
-<img src="images/sequence/send-message.jpeg" width="500">
+<img src="images/sequence/send-message.jpeg" width="1200">
 </p>
 </p>
 
