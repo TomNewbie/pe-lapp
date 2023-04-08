@@ -24,28 +24,6 @@ interface GetCoursesOptions {
   sort?: string;
 }
 
-export function isGetCoursesOptions(val: unknown): val is GetCoursesOptions {
-  if (typeof val !== "object" || val === null) return false;
-  const { start: s, num: n, query: q, sort } = val as GetCoursesOptions;
-
-  if (typeof s !== "undefined" && (typeof s !== "number" || s < 0))
-    return false;
-  if (typeof n !== "undefined" && (typeof n !== "number" || n < 0))
-    return false;
-
-  if (typeof q !== "undefined" && typeof q !== "string") return false;
-
-  if (
-    typeof sort !== "undefined" &&
-    (typeof sort !== "object" ||
-      sort === null ||
-      Object.values(sort).some((v) => v !== 1 && v !== -1))
-  )
-    return false;
-
-  return true;
-}
-
 export async function getCoursesOfUser(
   id: string,
   role: "student",
