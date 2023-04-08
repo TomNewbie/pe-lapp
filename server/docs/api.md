@@ -54,9 +54,10 @@ type RequestBody = {
   n?: number;
 
   /**
-   * the string to search/filter the courses by. For a student, this will search
-   * in the order of course name, lecturer name and semester. For a lecturer,
-   * this will search only for the course name.
+   * the string to search/filter the courses by. Can be a regular expression.
+   * For a student, this will search in the order of course name, lecturer name
+   * and semester. For a lecturer, this will search for the course name and
+   * semester.
    */
   q?: string;
 

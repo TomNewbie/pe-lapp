@@ -32,19 +32,10 @@ export const course = new Schema({
   },
   participants: [
     {
-      student_id: {
-        type: String,
-        ref: "Student",
-        required: true,
-        index: true,
-      },
-      progress: {
-        type: Number,
-        required: true,
-        min: 0,
-        max: 100,
-        default: 0,
-      },
+      type: String,
+      ref: "Student",
+      required: true,
+      index: true,
     },
   ],
 });
