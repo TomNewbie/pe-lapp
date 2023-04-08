@@ -1,4 +1,4 @@
-import { Course, course } from "../model/course";
+import { Course } from "../model/course";
 import { UserRole } from "./user";
 
 type CoursesOfStudent = Array<{
@@ -17,39 +17,16 @@ type CoursesOfLecturer = Array<{
   participant_count: number;
 }>;
 
-type GetCoursesOptions = {
-  /**
-   * query a list starting at the `s + 1`-th course. (0-based index; defaults to 0)
-   */
-  s?: number;
-
-  /**
-   * number of courses to return in a list. (defaults to 1)
-   */
-  n?: number;
-
-  /**
-   * the string to search/filter the courses by. For a student, this will search
-   * in the order of course name, lecturer name and semester. For a lecturer,
-   * this will search only for the course name.
-   */
-  q?: string;
-
-  /**
-   * the sort object (key-value pairs) by which to sort the resulting query. The
-   * keys are the names of the fields appearing in the Response body (see below)
-   * by which to sort. The value of each key is either 1, for ascending, or -1,
-   * for descending. Any field not provided in the sort object is not going to
-   * be sorted.
-   */
-  sort?: {
-    [field: string]: 1 | -1;
-  };
-};
+interface GetCoursesOptions {
+  start?: number;
+  num?: number;
+  query?: string;
+  sort?: string;
+}
 
 export function isGetCoursesOptions(val: unknown): val is GetCoursesOptions {
   if (typeof val !== "object" || val === null) return false;
-  const { s, n, q, sort } = val as GetCoursesOptions;
+  const { start: s, num: n, query: q, sort } = val as GetCoursesOptions;
 
   if (typeof s !== "undefined" && (typeof s !== "number" || s < 0))
     return false;
@@ -87,8 +64,11 @@ export async function getCoursesOfUser(
 export async function getCoursesOfUser(
   id: string,
   role: UserRole,
-  { s = 0, n = 0, q, sort }: GetCoursesOptions = {}
+  { start: s = 0, num: n = 0, query, sort }: GetCoursesOptions = {}
 ): Promise<CoursesOfStudent | CoursesOfLecturer> {
+  const start = Math.max(0, s); // in case is negative
+  const num = Math.max(0, n); // in case is negative
+
   // aggregation pipeline
   const courses = Course.aggregate();
   const project = { _id: 1, name: 1, semester: 1, picture: 1 };
@@ -113,8 +93,8 @@ export async function getCoursesOfUser(
   }
 
   // filter with query string
-  if (q) {
-    const regex = new RegExp(q, "i");
+  if (query) {
+    const regex = new RegExp(query, "i");
 
     if (role === "student") {
       courses.match({
@@ -127,18 +107,10 @@ export async function getCoursesOfUser(
     }
   }
 
-  // sort
-  if (sort && Object.keys(sort).length) {
-    courses.sort(sort);
-  }
-
-  // take courses starting at s
-  courses.skip(s);
-
-  // take n courses
-  if (n) {
-    courses.limit(n);
-  }
+  // filter a page
+  if (sort) courses.sort(sort);
+  if (start) courses.skip(start);
+  if (num) courses.limit(num);
 
   return await courses;
 }
