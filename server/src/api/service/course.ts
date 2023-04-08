@@ -1,3 +1,4 @@
+import { isValidObjectId } from "mongoose";
 import { Course } from "../model/course";
 import { UserRole } from "./user";
 
@@ -92,3 +93,18 @@ export async function getCoursesOfUser(
 
   return await courses;
 }
+
+export const joinCourse = async (
+  studentId: string,
+  courseId: string
+): Promise<"already joined" | "not found" | undefined> => {
+  if (!isValidObjectId(courseId)) return "not found";
+
+  const res = await Course.updateOne(
+    { _id: courseId },
+    { $addToSet: { participants: studentId } }
+  );
+
+  if (res.matchedCount === 0) return "not found";
+  if (res.modifiedCount === 0) return "already joined";
+};

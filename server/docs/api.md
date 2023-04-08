@@ -99,7 +99,8 @@ _Status code:_ 201. (Created)
 _Error:_
 
 - 404: Course not found
-- 400: Bad request: Teacher cannot not join course
+- 400: Lecturers cannot join courses
+- 400: Already joined
 
 # [POST] /api/course/
 

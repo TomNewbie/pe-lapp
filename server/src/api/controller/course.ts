@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { AuthRequest } from "./auth";
-import { getCoursesOfUser } from "../service/course";
+import { getCoursesOfUser, joinCourse } from "../service/course";
 
 const queryToNumber = (val: unknown): number | undefined => {
   if (typeof val === "string") val = val.trim();
@@ -24,6 +24,26 @@ const getAllCourses = async (req: AuthRequest, res: Response) => {
   res.json(courses);
 };
 
-const joinCourse = async (req: AuthRequest, res: Response) => {};
+const join = async (req: AuthRequest, res: Response) => {
+  const { _id: studentId, role } = req.user!;
+  const { id: courseId } = req.params;
 
-export const courseController = { getAllCourses, joinCourse };
+  if (role === "lecturer") {
+    res.status(400).send("Lecturers cannot join courses");
+    return;
+  }
+
+  const err = await joinCourse(studentId, courseId);
+  switch (err) {
+    case "not found":
+      res.status(404).send("Course not found");
+      return;
+    case "already joined":
+      res.status(400).send("Already joined");
+      return;
+  }
+
+  res.sendStatus(201);
+};
+
+export const courseController = { getAllCourses, joinCourse: join };
