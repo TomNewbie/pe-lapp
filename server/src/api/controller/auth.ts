@@ -41,7 +41,7 @@ export const getAccessToken = async ({
   await upsertUser(role, { _id, email, name, avatar });
 
   const jwtUser: JwtUser = { _id, role };
-  const accessToken = jwt.sign(jwtUser, jwt_secret!);
+  const accessToken = jwt.sign(jwtUser, jwt_secret!, { expiresIn: "2h" });
 
   return { ...jwtUser, accessToken };
 };
