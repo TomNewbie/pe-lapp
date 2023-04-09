@@ -46,7 +46,7 @@ const loginCallback = async (
   await upsertUser(role, { _id, email: email!, name: name!, avatar: avatar! });
 
   const jwtUser: JwtUser = { _id, role };
-  const accessToken = jwt.sign(jwtUser, jwt_secret!);
+  const accessToken = jwt.sign(jwtUser, jwt_secret!, { expiresIn: "2h" });
 
   res.json({ accessToken });
 };
