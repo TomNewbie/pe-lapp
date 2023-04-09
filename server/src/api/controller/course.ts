@@ -58,7 +58,7 @@ const createCourse = async (req: AuthRequest, res: Response) => {
     return;
   }
   if (!description) {
-    res.status(400).json({ message: "misisng description name" });
+    res.status(400).json({ message: "missing description name" });
     return;
   }
   if (!semester) {
@@ -78,7 +78,7 @@ const createCourse = async (req: AuthRequest, res: Response) => {
   }
 };
 
-const editCourse = async (req: AuthRequest, res: Response) => {
+const updateCourse = async (req: AuthRequest, res: Response) => {
   const { _id: lecturer_id, role } = req.user!;
   const { id: _id } = req.params;
   const { name, description, semester, content } = req.body;
@@ -90,11 +90,11 @@ const editCourse = async (req: AuthRequest, res: Response) => {
     res.status(400).json({ message: "Missing information to update" });
     return;
   }
-  const course = await courseService.update(
+  const err = await courseService.update(
     { _id, lecturer_id },
     { name, description, semester, content }
   );
-  switch (course) {
+  switch (err) {
     case "not found":
       res.status(404).json({ message: "Course not found" });
       return;
@@ -102,12 +102,12 @@ const editCourse = async (req: AuthRequest, res: Response) => {
       res.status(404).json({ message: "You don't create that course" });
       return;
   }
-  res.status(200).json(course);
+  res.status(200);
 };
 
 export const courseController = {
   getAllCourses,
   joinCourse: join,
   createCourse,
-  editCourse,
+  updateCourse,
 };

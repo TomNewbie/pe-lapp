@@ -150,31 +150,32 @@ Authorization: JWT
 {
     name?: {
     type: String,
-    required: true,
   },
   description?: {
     type: String,
-    required: true,
-    index: true,
   },
   picture?: {
     type: String,
-    required: true,
   },
   semester?: {
     type: String,
-    required: true,
+  },
+  content?: {
+    type: String,
   },
 }
 ```
 
 Response:
 
-Statuscode 200. Modify success
+Statuscode 200. Modify success. Return with json
 
-Status code 400. Invalid input
+```ts{
 
-Status code 400. Student cannot modify course
+}
+```
+
+Status code 400. Modify fail. Return with json `{"message": "error message"}`
 
 # [GET] /api/auth/login
 
