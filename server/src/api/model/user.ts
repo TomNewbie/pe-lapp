@@ -13,10 +13,12 @@ const student = new Schema(
     name: {
       type: String,
       required: true,
+      default: "Student",
     },
     avatar: {
       type: String,
       required: true,
+      default: "https://i.stack.imgur.com/34AD2.jpg",
     },
     phone_number: {
       type: String,
@@ -39,17 +41,19 @@ const lecturer = new Schema(
       type: String,
       required: true,
     },
-    name: {
-      type: String,
-      required: true,
-    },
     email: {
       type: String,
       required: true,
     },
+    name: {
+      type: String,
+      required: true,
+      default: "Lecturer",
+    },
     avatar: {
       type: String,
       required: true,
+      default: "https://i.stack.imgur.com/34AD2.jpg",
     },
     phone_number: {
       type: String,

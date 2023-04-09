@@ -28,6 +28,24 @@ function isJwtUser(obj: unknown): obj is JwtUser {
   );
 }
 
+export const getAccessToken = async ({
+  email,
+  name,
+  avatar,
+}: {
+  email: string;
+  name: string;
+  avatar: string;
+}) => {
+  const [_id, role] = splitEmail(email);
+  await upsertUser(role, { _id, email, name, avatar });
+
+  const jwtUser: JwtUser = { _id, role };
+  const accessToken = jwt.sign(jwtUser, jwt_secret!);
+
+  return { ...jwtUser, accessToken };
+};
+
 const loginCallback = async (
   req: Request,
   res: Response,
@@ -42,11 +60,11 @@ const loginCallback = async (
   });
   const { name, email, picture: avatar } = ticket.getPayload()!;
 
-  const [_id, role] = splitEmail(email!);
-  await upsertUser(role, { _id, email: email!, name: name!, avatar: avatar! });
-
-  const jwtUser: JwtUser = { _id, role };
-  const accessToken = jwt.sign(jwtUser, jwt_secret!);
+  const { accessToken } = await getAccessToken({
+    email: email!,
+    name: name!,
+    avatar: avatar!,
+  });
 
   res.json({ accessToken });
 };

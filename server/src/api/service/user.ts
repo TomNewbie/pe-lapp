@@ -21,10 +21,15 @@ export async function upsertUser(
 ): Promise<void>;
 export async function upsertUser(
   role: UserRole,
-  { _id, ...fields }: StudentType | LecturerType
+  { _id, name, avatar, ...fields }: StudentType | LecturerType
 ): Promise<void> {
   const User = role === "student" ? Student : Lecturer;
-  await User.updateOne({ _id }, fields, { upsert: true });
+  await User.updateOne(
+    { _id },
+    { name: name || undefined, avatar: avatar || undefined, ...fields },
+    // for using default value if name or avatar is empty string ""
+    { upsert: true }
+  );
 }
 
 export const getStudentById = (id: string): Promise<StudentType | null> =>
