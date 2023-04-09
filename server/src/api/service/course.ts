@@ -1,5 +1,5 @@
-import { isValidObjectId } from "mongoose";
-import { Course } from "../model/course";
+import mongoose, { isValidObjectId } from "mongoose";
+import { Course, CourseType, NewCourseType } from "../model/course";
 import { UserRole } from "./user";
 
 type CoursesOfStudent = Array<{
@@ -108,3 +108,16 @@ export const joinCourse = async (
   if (res.matchedCount === 0) return "not found";
   if (res.modifiedCount === 0) return "already joined";
 };
+
+export const create = async (
+  course: NewCourseType
+): Promise<mongoose.Types.ObjectId | null> => {
+  try {
+    const result = await Course.create(course);
+    return result._id;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const courseService = { create };
