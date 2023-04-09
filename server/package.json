@@ -10,7 +10,8 @@
     "start": "node dist/index.js",
     "build": "tsc",
     "mongosh": "source ./.env && mongosh \"$MONGODB_URI\"",
-    "fake-log-in": "ts-node src/utils/fake_log_in.ts"
+    "fake-log-in": "ts-node src/utils/fake_log_in.ts",
+    "tho": "nodemon ./src/utils/fakejwt.ts"
   },
   "keywords": [],
   "author": "",

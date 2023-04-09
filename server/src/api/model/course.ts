@@ -2,12 +2,10 @@ import mongoose, { InferSchemaType, Schema } from "mongoose";
 export const course = new Schema({
   name: {
     type: String,
-    required: true,
-    default: "New Course",
+    required: [true, "Course name is missing"],
   },
   content: {
     type: String,
-    default: "",
   },
   picture: {
     type: String,
@@ -17,12 +15,10 @@ export const course = new Schema({
   semester: {
     type: String,
     required: true,
-    default: "SS2023",
   },
   description: {
     type: String,
-    required: true,
-    default: "Please put in some description",
+    required: [true, "Course description is missing"],
   },
   lecturer_id: {
     type: String,
@@ -42,3 +38,4 @@ export const course = new Schema({
 export const Course = mongoose.model("Course", course);
 
 export type CourseType = InferSchemaType<typeof course>;
+export type NewCourseType = Omit<CourseType, "participants" | "picture">;

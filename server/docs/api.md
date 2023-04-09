@@ -121,10 +121,6 @@ Authorization: JWT
     required: true,
     index: true,
   },
-  picture: {
-    type: String,
-    required: true,
-  },
   semester: {
     type: String,
     required: true,
@@ -134,15 +130,17 @@ Authorization: JWT
 
 Response:
 
-Statuscode 201. Created
+`Status code 201`. Return with json `{ "courseId": "somerandomId" }`. Course ID help to join the course
 
-Status code 400. Invalid input
+`Status code 400`. Invalid input. return with json `{"message" : "error message"}`
 
-Status code 400. Student cannot create course
+`Status code 400`. Student cannot create course. return with json `{"message" : "student can not create course"}`
+
+Regular expression for semester to make sure it is from (WS|SS) 2010 - 2029 (On progress)
 
 # [PATCH] /api/course/:id
 
-Create a course
+Patch a course
 
 Request
 
@@ -164,10 +162,6 @@ Authorization: JWT
     required: true,
   },
   semester?: {
-    type: String,
-    required: true,
-  },
-  duration?: {
     type: String,
     required: true,
   },

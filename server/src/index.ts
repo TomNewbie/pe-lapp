@@ -1,4 +1,5 @@
 import { Course } from "./api/model/course";
+import { Lecturer } from "./api/model/user";
 import app from "./app";
 import { db } from "./config/database";
 const port = process.env.PORT;
@@ -13,3 +14,35 @@ db.then(() => {
   console.log(err);
   process.exit(1);
 });
+
+// const newCourse = new Course({
+//   lecturer_id: "master",
+//   name: "Cooking master class",
+//   quan: "ditmemayuyyyy",
+// });
+
+// newCourse
+//   .save()
+//   .then((res) => console.log(res))
+//   .catch((err) => console.log(err));
+// Course.findOneAndUpdate(
+//   { _id: "642fc61d756945b0c277b65d" },
+//   { content: "jajaja" },
+//   { new: true }
+// )
+//   .then((res) => console.log(res))
+//   .catch((err) => console.log(err));
+// Course.findById("642fc61d756945b0c277b65d");
+// console.log(
+//   Course.findOneAndUpdate(
+//     { _id: "6432d83168639ebcee923007", lecturer_id: "god" },
+//     {
+//       content: "How do I looke",
+//       moonlight: "sunriose",
+//     },
+//     { new: true }
+//   )
+//     .exec()
+//     .then((res) => console.log(res))
+// );
+// findOneAndUpdate dont change_id, must have atleast one attribute to change

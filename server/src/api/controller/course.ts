@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { AuthRequest } from "./auth";
-import { getCoursesOfUser, joinCourse } from "../service/course";
+import { courseService, getCoursesOfUser, joinCourse } from "../service/course";
 
 const queryToNumber = (val: unknown): number | undefined => {
   if (typeof val === "string") val = val.trim();
@@ -46,4 +46,68 @@ const join = async (req: AuthRequest, res: Response) => {
   res.sendStatus(201);
 };
 
-export const courseController = { getAllCourses, joinCourse: join };
+const createCourse = async (req: AuthRequest, res: Response) => {
+  const { _id, role } = req.user!;
+  const { name, description, semester } = req.body;
+  if (role === "student") {
+    res.status(400).json({ message: "student can't create course" });
+    return;
+  }
+  if (!name) {
+    res.status(400).json({ message: "misisng course name" });
+    return;
+  }
+  if (!description) {
+    res.status(400).json({ message: "misisng description name" });
+    return;
+  }
+  if (!semester) {
+    res.status(400).json({ message: "misisng semester name" });
+    return;
+  }
+  try {
+    const id = await courseService.create({
+      name,
+      description,
+      semester,
+      lecturer_id: _id,
+    });
+    res.status(201).json({ courseId: id });
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+};
+
+const editCourse = async (req: AuthRequest, res: Response) => {
+  const { _id: lecturer_id, role } = req.user!;
+  const { id: _id } = req.params;
+  const { name, description, semester, content } = req.body;
+  if (role === "student") {
+    res.status(400).json({ message: "student can't create course" });
+    return;
+  }
+  if (!name && !description && !semester && !content) {
+    res.status(400).json({ message: "Missing information to update" });
+    return;
+  }
+  const course = await courseService.update(
+    { _id, lecturer_id },
+    { name, description, semester, content }
+  );
+  switch (course) {
+    case "not found":
+      res.status(404).json({ message: "Course not found" });
+      return;
+    case "miss match":
+      res.status(404).json({ message: "You don't create that course" });
+      return;
+  }
+  res.status(200).json(course);
+};
+
+export const courseController = {
+  getAllCourses,
+  joinCourse: join,
+  createCourse,
+  editCourse,
+};
