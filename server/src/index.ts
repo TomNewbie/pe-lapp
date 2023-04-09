@@ -13,3 +13,22 @@ db.then(() => {
   console.log(err);
   process.exit(1);
 });
+
+// const newCourse = new Course({
+//   lecturer_id: "master",
+//   name: "Cooking master class",
+//   quan: "ditmemayuyyyy",
+// });
+
+// newCourse
+//   .save()
+//   .then((res) => console.log(res))
+//   .catch((err) => console.log(err));
+Course.findOneAndUpdate(
+  { _id: "642fc61d756945b0c277b65d" },
+  { content: "jajaja" },
+  { new: true }
+)
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err));
+Course.findById("642fc61d756945b0c277b65d");

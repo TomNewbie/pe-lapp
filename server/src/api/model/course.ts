@@ -7,7 +7,6 @@ export const course = new Schema({
   },
   content: {
     type: String,
-    default: "",
   },
   picture: {
     type: String,
@@ -17,7 +16,6 @@ export const course = new Schema({
   semester: {
     type: String,
     required: true,
-    default: "SS2023",
   },
   description: {
     type: String,
