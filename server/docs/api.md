@@ -136,6 +136,8 @@ Response:
 
 `Status code 400`. Student cannot create course. return with json `{"message" : "student can not create course"}`
 
+Regular expression for semester to make sure it is from (WS|SS) 2010 - 2029 (On progress)
+
 # [PATCH] /api/course/:id
 
 Patch a course
@@ -160,10 +162,6 @@ Authorization: JWT
     required: true,
   },
   semester?: {
-    type: String,
-    required: true,
-  },
-  duration?: {
     type: String,
     required: true,
   },
