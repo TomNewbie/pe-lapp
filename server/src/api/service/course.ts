@@ -120,4 +120,15 @@ export const create = async (
   }
 };
 
-export const courseService = { create };
+export const update = async (
+  queryId: Pick<CourseType, "lecturer_id"> & { _id: string },
+  course: Partial<CourseType>
+): Promise<CourseType | "not found" | "miss match"> => {
+  if (!isValidObjectId(queryId._id)) return "not found";
+  const result = await Course.findOneAndUpdate(queryId, course, { new: true });
+  if (!result) {
+    return "miss match";
+  }
+  return result;
+};
+export const courseService = { create, update };

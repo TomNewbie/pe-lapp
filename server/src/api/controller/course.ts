@@ -78,8 +78,36 @@ const createCourse = async (req: AuthRequest, res: Response) => {
   }
 };
 
+const editCourse = async (req: AuthRequest, res: Response) => {
+  const { _id: lecturer_id, role } = req.user!;
+  const { id: _id } = req.params;
+  const { name, description, semester, content } = req.body;
+  if (role === "student") {
+    res.status(400).json({ message: "student can't create course" });
+    return;
+  }
+  if (!name && !description && !semester && !content) {
+    res.status(400).json({ message: "Missing information to update" });
+    return;
+  }
+  const course = await courseService.update(
+    { _id, lecturer_id },
+    { name, description, semester, content }
+  );
+  switch (course) {
+    case "not found":
+      res.status(404).json({ message: "Course not found" });
+      return;
+    case "miss match":
+      res.status(404).json({ message: "You don't create that course" });
+      return;
+  }
+  res.status(200).json(course);
+};
+
 export const courseController = {
   getAllCourses,
   joinCourse: join,
   createCourse,
+  editCourse,
 };

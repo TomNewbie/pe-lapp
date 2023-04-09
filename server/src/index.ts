@@ -34,13 +34,13 @@ db.then(() => {
 //   .catch((err) => console.log(err));
 // Course.findById("642fc61d756945b0c277b65d");
 // console.log(
-//   Lecturer.findOneAndUpdate(
-//     { _id: "thaythonewbie" },
+//   Course.findOneAndUpdate(
+//     { _id: "6432d83168639ebcee923007", lecturer_id: "god" },
 //     {
-//       name: "hehe",
-//       kaka: "adsad",
+//       content: "How do I looke",
+//       moonlight: "sunriose",
 //     },
-//     { new: true, rawResult: true }
+//     { new: true }
 //   )
 //     .exec()
 //     .then((res) => console.log(res))
