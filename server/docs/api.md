@@ -168,14 +168,13 @@ Authorization: JWT
 
 Response:
 
-Statuscode 200. Modify success. Return with json
-
-```ts{
-
-}
-```
+Statuscode 200. Modify success. No return
 
 Status code 400. Modify fail. Return with json `{"message": "error message"}`
+
+# [PATCH] /api/course/:id/?studentId
+
+Backlog -> use when teacher want to manually add or delete student they don't like
 
 # [GET] /api/auth/login
 
