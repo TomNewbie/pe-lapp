@@ -25,7 +25,7 @@ const Participants = ({ teacher, students }) => {
       <div className="flex flex-col w-10/12 h-fit">
         <div>
           <div className="text-[#E36255] text-4xl h-8">TEACHERS</div>
-          <div className="relative flex flex-row items-center h-16 border-t border-black text-xl">
+          <div className="relative flex flex-row items-center h-16 border-t border-black">
             <img
               src="/participants-icon/ava.png"
               alt=""
@@ -38,7 +38,7 @@ const Participants = ({ teacher, students }) => {
           </div>
         </div>
         <div className="divide-y">
-          <div className="text-[#E36255] text-4xl h-8">STUDENTS</div>
+          <div className="text-[#E36255] text-4xl h-8 border-b border-black">STUDENTS</div>
           {studentSection}
         </div>
         {/* more */}
