@@ -8,6 +8,5 @@ export { default as CoursecardStudent } from "./CoursecardStudent";
 export { default as CoursecardTeacher } from "./CoursecardTeacher";
 export { default as Participants } from "./Participants";
 export { default as ExerciseSection } from "./ExerciseSection";
-export { default as CourseHeading } from "./CourseHeading";
 export { default as StudentCourseName } from "./CourseNameCard/StudentCourseName";
 export { default as TeacherCourseName } from "./CourseNameCard/TeacherCourseName";
