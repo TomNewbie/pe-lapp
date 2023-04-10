@@ -1,5 +1,8 @@
 import { Profile, AllCoursesStudent } from "./pages/Student";
-import { AllCoursesLecturer } from "./pages/Lecturer";
+import {
+  AllCoursesLecturer,
+  Profile as ProfileTeacher,
+} from "./pages/Lecturer";
 import { Login } from "./pages/common";
 function App() {
   return (

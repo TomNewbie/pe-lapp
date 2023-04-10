@@ -7,4 +7,3 @@ export { default as CourseParticipants } from "./CourseParticipants";
 export { default as CreateCourse } from "./CreateCourse";
 export { default as ExerciseDetail } from "./ExerciseDetail";
 export { default as Post } from "./Post";
-export { default as ProfileTeacher } from "./ProfileTeacher";
