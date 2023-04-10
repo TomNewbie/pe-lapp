@@ -9,16 +9,16 @@ const SubmitEx = () => {
         </div>
 
         <div class="space-y-3">
-          <div class="grid w-7/8 h-24 bg-[#F4C2C2]/40 rounded-xl">
+          <div class="grid w-7/8 h-24 bg-[#F4C2C2]/30 rounded-xl">
             <img
-              class="w-8 h-8 place-self-center"
+              class="w-8 h-8 place-self-center hover:bg-[#9F5F5F]/30 rounded-full"
               src="/PostAnnEx/Upload.png"
               alt=""
             />
           </div>
 
           <div class="grid">
-            <button class="bg-[#CC6666] w-20 rounded-xl place-self-center">
+            <button class="bg-[#CC6666] w-20 rounded-xl place-self-center hover:bg-[#9E4244] text-[#F1E0CE]">
               Submit
             </button>
           </div>

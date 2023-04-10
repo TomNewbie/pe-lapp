@@ -7,7 +7,7 @@ import { SubmitEx } from "./components";
 function App() {
   return (
     <div className="App">
-      <SubmitEx></SubmitEx>
+      <PostAnnEx></PostAnnEx>
     </div>
   );
 }

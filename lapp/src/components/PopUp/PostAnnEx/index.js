@@ -14,10 +14,18 @@ const PostAnnEx = () => {
         rows="4"
         class="block p-2.5 w-full border-[#560319] border-2 rounded-xl"
         placeholder="Announce something..."></textarea>
-      <img class="w-6 h-6" src="/PostAnnEx/Upload.png" alt="" />
-      <div class=" flex flex-row justify-between w-full">
-        <button class="bg-[#CC6666] w-20 rounded-xl">Post</button>
-        <button class="border-[#B02B3B] border-4 rounded-xl w-20">
+
+      <img
+        class="w-6 h-6 hover:bg-[#9F5F5F]/30 rounded-full"
+        src="/PostAnnEx/Upload.png"
+        alt=""
+      />
+
+      <div class=" flex flex-row justify-between w-full text-xl ">
+        <button class="bg-[#CC6666] w-20 rounded-xl hover:bg-[#9E4244] text-[#F1E0CE] text-center">
+          Post
+        </button>
+        <button class="border-[#B02B3B] border-4 rounded-xl w-20 hover:bg-[#B02B3B] hover:text-[#F1E0CE] text-center ">
           Cancel
         </button>
       </div>
