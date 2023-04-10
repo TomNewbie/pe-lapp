@@ -7,7 +7,8 @@ function App() {
       <ExerciseSection
         name={"Exercise Name"}
         deadline={"Monday, 15 February 2023, 12:00 AM"}
-        grade={"N/A"}
+        grade={"null"}
+        status={"undone"}
       ></ExerciseSection>
     </div>
   );
