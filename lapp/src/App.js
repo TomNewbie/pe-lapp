@@ -2,8 +2,13 @@
 // import { Login } from "./pages/common";
 // import { Dropdown, SearchBox } from "./components";
 // import {File} from "./components";
-import {Participants} from "./components";
+import { Participants } from "./components";
 function App() {
+  const students = [
+    { url: "/participants-icon/ava.png", name: "A", mail: "ava.gmail.com" },
+    { url: "/participants-icon/ava.png", name: "B", mail: "ava.gmail.com" },
+    { url: "/participants-icon/ava.png", name: "C", mail: "ava.gmail.com" },
+  ];
   return (
     <div className="App">
       {/* <Login></Login> */}
@@ -11,7 +16,9 @@ function App() {
       {/* <Dropdown></Dropdown> */}
       {/* <SearchBox px={10} py={1}></SearchBox> */}
       {/* <File></File> */}
-      <Participants teacher={"Tran Tuan Anh"} student={"Vuong Khanh Linh"}></Participants>
+      <Participants
+        teacher={"Tran Tuan Anh"}
+        students={students}></Participants>
     </div>
   );
 }
