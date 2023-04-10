@@ -7,6 +7,9 @@ function App() {
       <ProfileTeacher
         courseName={"Programming Exercise"}
         semester={"SS2023"}
+        name={"Quan"}
+        email={"n4ifmnifm44m@gmail.com"}
+        faculty={"Computer Science"}
       ></ProfileTeacher>
     </div>
   );

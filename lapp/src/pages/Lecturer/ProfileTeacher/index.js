@@ -1,15 +1,22 @@
 import { NavbarLecturer, Footer } from "../../../components";
-const ProfileTeacher = ({ courseName, semester }) => {
+const ProfileTeacher = ({ courseName, semester, name, email, faculty }) => {
   return (
     <div>
       <NavbarLecturer></NavbarLecturer>
       <div class="mt-24 ml-44 flex flex-row items-center space-x-40">
         <img src="/ProfileTeacher/avatar.png" alt="avatar" loading="lazy" />
         <div>
-          <div class="font-dongle font-bold not-italic text-[45px] text-[#1B1C1E]">
-            <p>Full name:</p>
-            <p>Email:</p>
-            <p>Faculty:</p>
+          <div class="flex flex-row">
+            <div class="w-1/3 font-dongle font-bold not-italic text-[45px] text-[#1B1C1E]">
+              <p>Full name:</p>
+              <p>Email:</p>
+              <p>Faculty:</p>
+            </div>
+            <div class="w-3/4 font-dongle font-bold not-italic text-[45px] text-[#1B1C1E]">
+              <p>{name}</p>
+              <p>{email}</p>
+              <p>{faculty}</p>
+            </div>
           </div>
           <div class="flex flex-col">
             <div>
