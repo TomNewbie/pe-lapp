@@ -7,10 +7,10 @@ const NavbarCourse = () => {
   return (
     <div className="grid h-8 max-w-full justify-items-center mt-52">
       {/* Tab link */}
-      <div className="flex justify-between w-2/3 h-8 border-b border-black ">
+      <div className="flex justify-between w-2/3 h-8 border-b border-slate-300 cursor-pointer">
         <div
           className={
-            activeTab === 1
+            activeTab == 1
               ? "ml-8  border-[#E36255] w-20 h-8 border-b-2 text-[#E36255]"
               : "ml-8  border-[#E36255] w-20 h-8 text-black"
           }
