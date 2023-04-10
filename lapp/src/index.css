@@ -9,3 +9,11 @@ body {
 .loginBtn {
     background-color: rgba(204, 102, 102, 0.7);
 }
+
+.tabcontent {
+    display: none;
+}
+
+.active {
+    display: block;
+}
