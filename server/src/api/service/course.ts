@@ -123,12 +123,11 @@ export const create = async (
 export const update = async (
   queryId: Pick<CourseType, "lecturer_id"> & { _id: string },
   course: Partial<CourseType>
-): Promise<CourseType | "not found" | "miss match"> => {
+): Promise<void | "not found" | "miss match"> => {
   if (!isValidObjectId(queryId._id)) return "not found";
-  const result = await Course.findOneAndUpdate(queryId, course, { new: true });
-  if (!result) {
+  const result = await Course.updateOne(queryId, course, { new: true });
+  if (result.matchedCount === 0) {
     return "miss match";
   }
-  return result;
 };
 export const courseService = { create, update };
