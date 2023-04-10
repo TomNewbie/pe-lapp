@@ -21,7 +21,7 @@ Use-Case Diagrams and Sequence diagrams
 
 - 16 use cases
 <p align="center">
-<img src="images/use-case/usecase5.png" width="500">
+<img src="images/use-case/usecase6.png" width="500">
 </p>
 
 ### Actor: Lecturer
@@ -392,13 +392,13 @@ For uploading materials and modifying materials requirement, the sequence diagra
 
 #### 11. Log out
 
-| Use Case ID       | Log out_11   |
-| ----------------- | ------------ |
-| Use Case Name     | Log out      |
-| Created By        | Minh Quan    |
-| Date Created      | 28/02/2023   |
-| Last Updated By   | Tho Phan Chi |
-| Date Last Updated | 05/03/2023   |
+| Use Case ID       | Log out_11       |
+| ----------------- | ------------     |
+| Use Case Name     | Log out          |
+| Created By        | Minh Quan        |
+| Date Created      | 28/02/2023       |
+| Last Updated By   | Thong Hoang Minh |
+| Date Last Updated | 11/04/2023       |
 
 | Actors               | Lecturer, Student                                              |
 | -------------------- | -------------------------------------------------------------- |
@@ -500,8 +500,8 @@ The sequence for send message and find contact
 | Use Case Name     | Attend Course    |
 | Created By        | Minh Quan        |
 | Date Created      | 28/02/2023       |
-| Last Updated By   | Tho Phan Chi     |
-| Date Last Updated | 06/03/2023       |
+| Last Updated By   | Thong Hoang Minh |
+| Date Last Updated | 11/04/2023       |
 
 | Actors               | Student                                                                                        |
 | -------------------- | ---------------------------------------------------------------------------------------------- |
@@ -510,19 +510,13 @@ The sequence for send message and find contact
 | Preconditions        |                                                                                                |
 | Postconditions       | Student successfully joins the Course and access to all the materials, exercises in the Course |
 | Priority             | high                                                                                           |
-| Normal Flow          | 1. Student clicks the “Course” button                                                          |
+| Normal Flow          | 1. Student clicks the “Courses” button                                                         |
 |                      | 2. The system will show all the course                                                         |
-|                      | 3. Student selects a Course                                                                    |
-|                      | 4. Student confirms registration                                                               |
-| Alternative Flows    | At step 2,                                                                                     |
-|                      | 2.1. Student searches for a Course                                                             |
-|                      | Continue step 3 in the Normal Flow                                                             |
-| Exceptions           | At step 2.1: The course not found                                                              |
-|                      | 2.1.1: System notify that course not found                                                     |
-|                      | 2.1.2: Back to step 2                                                                          |
-|                      | At step 3: The course no longer available                                                      |
-|                      | 3.1: System will show error (course can not register) to student                               |
-|                      | 3.2: Back to step 2                                                                            |
+|                      | 3. Student click "Join course" button                                                          |
+|                      | 4. Student enter course code                                                                   |
+|                      | 5. The system notify "Success" and return course                                               |
+| Exceptions           | At step 4: The course not found                                                                |
+|                      | 4.1: System notify that course not found                                                       |
 | Special Requirements |                                                                                                |
 | Notes and Issues     |                                                                                                |
 
