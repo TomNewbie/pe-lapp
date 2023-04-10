@@ -1,4 +1,4 @@
-const ExerciseSection = ({ name, deadline, grade }) => {
+const ExerciseSection = ({ name, deadline, grade, status }) => {
   return (
     <div class="flex flex-row border-4 border-[#5C0120] rounded-2xl text-[#1B1C1E] font-dongle not-italic items-center justify-between px-9 py-5 mt-12 mx-52">
       <div class="flex flex-row justify-between space-x-11">
@@ -12,11 +12,17 @@ const ExerciseSection = ({ name, deadline, grade }) => {
       <div class="flex flex-row justify-between space-x-14">
         <p class="font-normal text-[25px]">Due: {deadline}</p>
         <img
-          src="/ExerciseSection/tick-image.png"
+          src={
+            status === "done"
+              ? "/ExerciseSection/tick-image.png"
+              : "/ExerciseSection/untick-image.png"
+          }
           alt="tick image"
           loading="lazy"
         />
-        <p class="font-normal text-[25px]">{grade}</p>
+        <p class="font-normal text-[25px]">
+          {grade === "null" ? "N/A" : grade}
+        </p>
       </div>
     </div>
   );
