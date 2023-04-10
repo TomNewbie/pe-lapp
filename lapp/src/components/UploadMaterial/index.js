@@ -11,7 +11,7 @@ const UploadMaterial = () => {
       </div>
 
       <div class="grid place-self-center w-44 p-2">
-        <button class="w-7/8 h-6 rounded-xl bg-[#CC6666]">
+        <button class="w-7/8 h-6 rounded-xl bg-[#CC6666] hover:bg-[#9E4244] text-[#F1E0CE]">
           Choose from your device
         </button>
       </div>
