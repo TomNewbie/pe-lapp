@@ -1,5 +1,5 @@
 import { NavbarLecturer, Footer } from "../../../components";
-const ProfileTeacher = ({ courseName, semester, name, email, faculty }) => {
+const ProfileTeacher = ({ courses, name, email, faculty }) => {
   return (
     <div>
       <NavbarLecturer></NavbarLecturer>
@@ -27,20 +27,16 @@ const ProfileTeacher = ({ courseName, semester, name, email, faculty }) => {
               </div>
             </div>
             <div class="divide-y divide-solid divide-[#000000] w-[50rem]">
-              <div class="flex flex-row justify-between font-dongle font-normal not-italic text-[35px] text-[#1B1C1E]">
-                <p>{courseName}</p>
-                <p>{semester}</p>
-              </div>
-              <div class="flex flex-row justify-between font-dongle font-normal not-italic text-[35px] text-[#1B1C1E]">
-                <p>{courseName}</p>
-                <p>{semester}</p>
-              </div>
-              <div class="flex flex-row justify-between font-dongle font-normal not-italic text-[35px] text-[#1B1C1E]">
-                <p>{courseName}</p>
-                <p>{semester}</p>
-              </div>
-              <div class="border-b border-solid border-[#000000]"></div>
-              {/* new line */}
+              {courses.map((course) => (
+                <div>
+                  <div class="flex flex-row justify-between font-dongle font-normal not-italic text-[35px] text-[#1B1C1E]">
+                    <p>{course.name}</p>
+                    <p>{course.semester}</p>
+                  </div>
+                  <div class="border-b border-solid border-[#000000]"></div>
+                  {/* new line */}
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -50,3 +46,17 @@ const ProfileTeacher = ({ courseName, semester, name, email, faculty }) => {
   );
 };
 export default ProfileTeacher;
+
+{
+  /* <ProfileTeacher
+courses={courses}
+name={"Quan"}
+email={"n4ifmnifm44m@gmail.com"}
+faculty={"Computer Science"}
+></ProfileTeacher> */
+}
+// const courses = [
+//   { name: "Programming Exercise", semester: "SS2023" },
+//   { name: "Programming Exercise", semester: "SS2024" },
+//   { name: "Programming Exercise", semester: "SS2025" },
+// ];
