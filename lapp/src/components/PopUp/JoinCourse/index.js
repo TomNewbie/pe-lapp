@@ -7,9 +7,6 @@ const JoinCourse = () => {
       <input
         type="text"
         class="w-52 h-8 bg-[#9F5F5F]/30 rounded-xl text-2xl px-3"></input>
-      {/* <button class="w-20 h-8 rounded-xl bg-[#CC6666] text-[28px] text-center hover:bg-[#9E4244] text-[#F1E0CE]">
-        <span class="inline-block align-middle">Join</span>
-      </button> */}
         <CustomButton variant={"filled"} className={"px-8 py-0"} text={"Join"}></CustomButton>
       
     </div>

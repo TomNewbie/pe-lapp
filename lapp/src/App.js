@@ -10,11 +10,11 @@ import { PostAnnEx } from "./components";
 import { SubmitEx } from "./components";
 function App() {
   return (
-    <div className="flex App ">
-      <PostAnnEx></PostAnnEx>
+    <div className=" App">
+      <PostAnnEx type={""}></PostAnnEx>
       <SubmitEx></SubmitEx>
       <CreateCourse></CreateCourse>
-<JoinCourse></JoinCourse>
+      <JoinCourse></JoinCourse>
     </div>
   );
 }
