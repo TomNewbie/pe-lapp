@@ -11,3 +11,4 @@ export { default as ExerciseSection } from "./ExerciseSection";
 export { default as StudentCourseName } from "./CourseNameCard/StudentCourseName";
 export { default as TeacherCourseName } from "./CourseNameCard/TeacherCourseName";
 export { default as ClassCode } from "./Code";
+export { default as CustomButton } from "./CustomButton";
