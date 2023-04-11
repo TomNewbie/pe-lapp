@@ -4,7 +4,7 @@ Get student profile
 
 ### Response:
 
-[`StudentType`](../stringsrc/api/model/user.ts)
+[`StudentType`](../src/api/model/user.ts)
 
 _Status code:_ 200
 
