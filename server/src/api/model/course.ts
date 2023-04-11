@@ -1,4 +1,4 @@
-import mongoose, { InferSchemaType, Schema } from "mongoose";
+import mongoose, { InferSchemaType, Schema, Types } from "mongoose";
 export const course = new Schema({
   name: {
     type: String,
@@ -6,9 +6,10 @@ export const course = new Schema({
   },
   content: [
     {
-      title: {
-        type: String,
-      },
+      type: Types.ObjectId,
+      ref: "CourseContent",
+      required: true,
+      index: true,
     },
   ],
   picture: {
