@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-const NavbarCourse = () => {
+const NavbarCourse = ({tab1,tab2,tab3}) => {
   const [activeTab, setActiveTab] = useState(1);
   const handleClick = (index) => {
     setActiveTab(index);
@@ -7,7 +7,7 @@ const NavbarCourse = () => {
   return (
     <div className="grid h-8 max-w-full justify-items-center mt-52">
       {/* Tab link */}
-      <div className="flex justify-between w-2/3 h-8 border-b border-black ">
+      <div className="flex justify-between w-2/3 h-8 border-b border-slate-300 cursor-pointer">
         <div
           className={
             activeTab === 1
@@ -54,13 +54,13 @@ const NavbarCourse = () => {
 
       {/* Tab content */}
       <div key={1} className={activeTab === 1 ? "active" : "tabcontent"}>
-        Tab content 1
+        {tab1}
       </div>
       <div key={2} className={activeTab === 2 ? "active" : "tabcontent"}>
-        Tab content 2
+        {tab2}
       </div>
       <div key={3} className={activeTab === 3 ? "active" : "tabcontent"}>
-        Tab content 3
+        {tab3}
       </div>
     </div>
   );
