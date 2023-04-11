@@ -14,3 +14,5 @@ export { default as ClassCode } from "./Code";
 export { default as CustomButton } from "./CustomButton";
 export { default as CommentSection } from "./CommentSection";
 export { default as Assignment} from "./Assignment";
+export { default as UploadMaterial} from "./UploadMaterial";
+export { default as Notification} from "./Notification";

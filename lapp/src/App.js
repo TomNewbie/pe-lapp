@@ -4,6 +4,8 @@ import {
   Profile as ProfileTeacher,
 } from "./pages/Lecturer";
 import { Login } from "./pages/common";
+import { UploadMaterial } from "./components";
+import { Notification} from "./components";
 function App() {
   return (
     <div className="App">
