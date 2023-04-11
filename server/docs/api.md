@@ -18,9 +18,17 @@ type StudentType = {
 
 _Status code:_ 200
 
+```json
+null
+```
+
 _Error:_
 
-- 404: Not found
+- 404:
+
+```json
+{ "message": "Not found" }
+```
 
 # [GET] /api/lecturer/`:id`
 
@@ -42,27 +50,35 @@ type LecturerType = {
 
 _Status code:_ 200
 
+```json
+null
+```
+
 _Error:_
 
-- 404: Not found
+- 404:
+
+```json
+{ "message": "Not found" }
+```
 
 # [GET] /api/courses?s=`start`&n=`num`&q=`query`&S=`sort`
 
 Get the courses of a user. For a student, it will be the courses that they have
 joined. For a lecturer, it will be the courses that they have created.
 
-- `start`  
+- `start`
   query a list starting at the `start + 1`-th course. (0-based index; defaults
   to 0)
-- `num`  
+- `num`
   number of courses to return in a list. If `num` is 0, return ALL courses,
   skipping the first `start` courses. (defaults to 0)
-- `query`  
+- `query`
   the string to search/filter the courses by. Can be a regular expression.
   For a student, this will search in the order of course name, lecturer name
   and semester. For a lecturer, this will search for the course name and
   semester.
-- `sort`  
+- `sort`
   the sort string, containing the names of the fields appearing in the Response
   body _(see below)_, by which to sort the resulting query. The sort order of
   each field is ascending unless the field name is prefixed with `-`, which will
@@ -71,7 +87,7 @@ joined. For a lecturer, it will be the courses that they have created.
   there can be multiple `sort` strings in the URL query _(see example below)_.
   Any field not provided in the sort string is not going to be sorted.
 
-**Example:** `GET /api/courses?s=6&n=3&q=java&S=-semester&S=name`  
+**Example:** `GET /api/courses?s=6&n=3&q=java&S=-semester&S=name`
 Query courses that contains the string 'java', sorted by semester in descending
 order and by course name in ascending order, returning 3 courses, starting from
 the 7th course found
@@ -104,6 +120,10 @@ type CoursesOfLecturer = Array<{
 
 _Status code:_ 200
 
+```json
+null
+```
+
 # [POST] /api/course/`:id`
 
 Join a course by `id`.
@@ -114,13 +134,31 @@ _Authorization:_ JWT
 
 ### Response:
 
-_Status code:_ 201. (Created)
+_Status code:_ 201.
+
+```json
+null
+```
 
 _Error:_
 
-- 404: Course not found
+- 404:
+
+```json
+{ "message": "Course not found" }
+```
+
 - 400: Lecturers cannot join courses
-- 400: Already joined
+
+```json
+{ "message": "Lecturers cannot join courses" }
+```
+
+- 400:
+
+```json
+{ "message": "Already joined" }
+```
 
 # [POST] /api/course/
 
@@ -188,13 +226,21 @@ Authorization: JWT
 
 Response:
 
-Statuscode 200. Modify success. No return
+Statuscode 200. Modify success.
 
 Status code 400. Modify fail. Return with json `{"message": "error message"}`
 
-# [PATCH] /api/course/:id/?studentId
+# [DELETE] /api/course/:id/:studentId
 
 Backlog -> use when teacher want to manually add or delete student they don't like
+https://chat.openai.com/chat/1ab1dd0d-31a9-4394-8d18-6abb67a0c095 (cua tho de xem sau)
+
+## Response
+
+204 -> No content
+404 -> Course not found
+404 -> Student not found in course
+403 -> Student can not modify course
 
 # [GET] /api/auth/login
 
@@ -240,4 +286,26 @@ CUD exercise
 
 Upload Solution
 
-#
+# [PATCH] /api/user/profile
+
+_Authorization:_ JWT
+
+Body:
+
+## Student
+
+```ts
+  major: string,
+  intake: number,
+  phone_number: string
+```
+
+## Lecturer
+
+```ts
+faculty: string, phone_number;
+```
+
+Response:
+200 -> OK
+400 -> invalid input
