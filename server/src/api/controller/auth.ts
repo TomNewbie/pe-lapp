@@ -1,6 +1,6 @@
 import { Response, Request, NextFunction } from "express";
 import { client } from "../../config/oauth";
-import { UserRole, splitEmail, upsertUser } from "../service/user";
+import { UserRole, userService } from "../service/user";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 const client_id = process.env.CLIENT_ID!;
@@ -37,8 +37,8 @@ export const getAccessToken = async ({
   name: string;
   avatar: string;
 }) => {
-  const [_id, role] = splitEmail(email);
-  await upsertUser(role, { _id, email, name, avatar });
+  const [_id, role] = userService.splitEmail(email);
+  await userService.upsertUser(role, { _id, email, name, avatar });
 
   const jwtUser: JwtUser = { _id, role };
   const accessToken = jwt.sign(jwtUser, jwt_secret!, { expiresIn: "2h" });
