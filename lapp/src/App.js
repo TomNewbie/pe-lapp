@@ -4,7 +4,10 @@ import { Assignment } from "./components";
 function App() {
   return (
     <div className="App">
-      <Assignment></Assignment>
+      <Assignment
+        assignment={"Assignment 1"}
+        submission={"5 / 40"}
+        duedate={"30 / 02 / 2023"}></Assignment>
     </div>
   );
 }
