@@ -37,7 +37,7 @@ Use-Case Diagrams and Sequence diagrams
 | Date Last Updated | 05/03/2023         |
 
 | Actors               | Lecturer                                                                                           |
-| -------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| -------------------- | -------------------------------------------------------------------------------------------------- | 
 | Description          | Lecturer creates course for students to join                                                       |
 | Trigger              | Lecturer clicks the “Create Course” button                                                         |
 | Preconditions        | The lecturer is logged in to the site with their account.                                          |
@@ -535,7 +535,7 @@ The sequence for send message and find contact
 | Date Last Updated | 05/03/2023         |
 
 | Actors               | Student                                                                                                                                                  |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | --------------- |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Description          | Student can track his/her own progress to see how much of the course he/                                                                                 | she | has accomlished |
 | Trigger              | Student clicks the “Progress” button on each course page                                                                                                 |
 | Preconditions        | Student has already registered for that course                                                                                                           |
