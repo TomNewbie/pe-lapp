@@ -78,7 +78,7 @@ the 7th course found
 
 ### Request headers:
 
-_Authorization:_ JWT
+Authorization: Bearer `token`
 
 ### Response:
 
@@ -110,7 +110,7 @@ Join a course by `id`.
 
 ### Request headers
 
-_Authorization:_ JWT
+Authorization: Bearer `token`
 
 ### Response:
 
@@ -119,7 +119,7 @@ _Status code:_ 201: Created
 _Error:_
 
 - 404: Course not found
-- 400: Lecturers cannot join courses
+- 403: Unauthorize
 - 400: Already joined
 
 # [POST] /api/course/
@@ -128,7 +128,7 @@ Create a course
 
 Request
 
-Authorization: JWT
+Authorization: Bearer `token`
 
 ```ts
 {
@@ -160,7 +160,7 @@ Response:
 
 _Error:_
 
-- 400: student can't create course
+- 403: Unauthorize
 - 400: misisng course name
 - 400: missing description name
 - 400: missing semester name
@@ -173,7 +173,7 @@ Patch a course
 
 Request
 
-Authorization: JWT
+Authorization: Bearer `token`
 
 ```ts
 {
@@ -202,13 +202,32 @@ _Status code:_ 200
 _Error:_
 
 - 404: Course not found
-- 400: You don't create that course
-- 400: student can't create course
+- 403: Unauthorize
 - 400: Missing information to update
+
+# [POST] /api/course/:id/:studentId
+
+Request
+
+Authorization: Bearer `token`
+
+Backlog -> use when teacher want to manually add student
+https://chat.openai.com/chat/1ab1dd0d-31a9-4394-8d18-6abb67a0c095 (cua tho de xem sau)
+
+## Response
+
+204 -> No content
+404 -> Course not found
+404 -> Student not found in course
+403 -> Unauthorize
 
 # [DELETE] /api/course/:id/:studentId
 
-Backlog -> use when teacher want to manually add or delete student they don't like
+Request
+
+Authorization: Bearer `token`
+
+Backlog -> use when teacher want to manually delete student they don't like
 https://chat.openai.com/chat/1ab1dd0d-31a9-4394-8d18-6abb67a0c095 (cua tho de xem sau)
 
 ## Response
@@ -217,6 +236,7 @@ https://chat.openai.com/chat/1ab1dd0d-31a9-4394-8d18-6abb67a0c095 (cua tho de xe
 404 -> Course not found
 404 -> Student not found in course
 403 -> Student can not modify course
+400 -> Unauthorized
 
 # [GET] /api/auth/login
 
