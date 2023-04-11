@@ -238,25 +238,20 @@ https://chat.openai.com/chat/1ab1dd0d-31a9-4394-8d18-6abb67a0c095 (cua tho de xe
 403 -> Unauthorized
 :id
 
-# [GET] /api/auth/login
+# [GET] /api/auth/login?redirect=`redirect_url`
 
-Request body:
+## Request
 
-```ts
-{
-    redirectUrl?: string
-}
-```
+- `redirect_url`  
+  the url to redirect to after successful authentication (defaults to all
+  courses page).
 
-Response:
+## Response
 
-```ts
-{
-  accessToken: string;
-}
-```
-
-redirect to `redirectUrl` if exist, else to course page
+Redirect to `redirect_url` with the `access_token` query parameter set to be the
+logged in user's access token to be sent with every subsequent requests that
+requires authentication. (e.g., redirect to
+`/redirect_url?access_token=<token>`)
 
 # Todo :
 
