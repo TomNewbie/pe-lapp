@@ -1,6 +1,7 @@
 import mongoose, { isValidObjectId } from "mongoose";
-import { Course, CourseType, NewCourseType } from "../model/course";
+import { Course, CourseType } from "../model/course";
 import { UserRole } from "./user";
+import { Optional } from "../../utils/types";
 
 type CoursesOfStudent = Array<{
   _id: string;
@@ -110,7 +111,7 @@ const joinCourse = async (
 };
 
 const create = async (
-  course: NewCourseType
+  course: Optional<CourseType, "picture" | "contents" | "participants">
 ): Promise<mongoose.Types.ObjectId | null> => {
   try {
     const result = await Course.create(course);

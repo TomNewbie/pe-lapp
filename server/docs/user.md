@@ -76,3 +76,39 @@ _Status code:_ 200: OK
 _Error:_
 
 - 404: Not Found
+
+# [GET] /api/lecturers?s=`start`&n=`num`
+
+Get all lecturers
+
+- `start`
+  query a list starting at the `start + 1`-th lecturer. (0-based index; defaults
+  to 0)
+- `num`
+  number of lecturers to return in a list. If `num` is 0, return ALL lecturers,
+  skipping the first `start` lecturers. (defaults to 0)
+
+```ts
+type Array< {
+  _id: string;
+  name: string;
+  faculty?: string;
+}>;
+```
+
+_Status code:_ 200: OK
+
+# [GET] /api/auth/login?redirect=`redirect_url`
+
+## Request
+
+- `redirect_url`  
+  the url to redirect to after successful authentication (defaults to all
+  courses page).
+
+## Response
+
+Redirect to `redirect_url` with the `access_token` query parameter set to be the
+logged in user's access token to be sent with every subsequent requests that
+requires authentication. (e.g., redirect to
+`/redirect_url?access_token=<token>`)

@@ -42,7 +42,7 @@ Authorization: Bearer `token`
 403 -> Unauthorized
 400 -> Missing information to update
 
-# [CREAT] /api/course/:id/
+# [POST] /api/course/:id/
 
 API for create content with specified course id
 

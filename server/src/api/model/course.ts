@@ -15,12 +15,10 @@ const course = new Schema({
   ],
   picture: {
     type: String,
-    required: true,
     default: "https://s3.memeshappen.com/memes/of-course-.jpg",
   },
   semester: {
     type: String,
-    required: true,
   },
   lecturer_id: {
     type: String,
@@ -65,5 +63,5 @@ const courseContent = new Schema(
   },
   { timestamps: true }
 );
-export const CourseContent = mongoose.model("CourseContent", courseContent);
+export const CourseContent = mongoose.model("Course-Content", courseContent);
 export type CourseContentType = InferSchemaType<typeof courseContent>;

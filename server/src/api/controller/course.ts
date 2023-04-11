@@ -68,7 +68,6 @@ const createCourse = async (req: AuthRequest, res: Response) => {
   try {
     const id = await courseService.create({
       name,
-      description,
       semester,
       lecturer_id: _id,
     });
@@ -92,7 +91,7 @@ const updateCourse = async (req: AuthRequest, res: Response) => {
   }
   const err = await courseService.update(
     { _id, lecturer_id },
-    { name, description, semester, content }
+    { name, semester }
   );
   switch (err) {
     case "not found":

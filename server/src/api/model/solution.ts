@@ -18,17 +18,10 @@ export const solution = new Schema(
       type: String,
       required: true,
     },
-    status: {
-      type: String,
-      required: true,
-      enum: ["done", "not done", "late"],
-    },
     grade: {
       type: Number,
       min: 0,
       max: 100,
-      default: 0,
-      required: true,
     },
   },
   { timestamps: true }

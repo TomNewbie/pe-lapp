@@ -6,7 +6,7 @@ export const exercise = new Schema(
       type: String,
       required: true,
     },
-    file: [
+    files: [
       {
         type: String,
         required: true,
@@ -14,11 +14,6 @@ export const exercise = new Schema(
     ],
     description: {
       type: String,
-      required: true,
-    },
-    status: {
-      type: String,
-      enum: ["done", "not done"],
       required: true,
     },
     deadline: {
