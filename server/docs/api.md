@@ -4,7 +4,17 @@ Get student profile
 
 ### Response:
 
-[`StudentType`](../src/api/model/user.ts)
+```ts
+type StudentType = {
+  _id: string;
+  email: string;
+  name: string;
+  avatar: string;
+  phone_number?: string | undefined;
+  major?: string | undefined;
+  intake?: number | undefined;
+};
+```
 
 _Status code:_ 200
 
@@ -18,7 +28,17 @@ Get lecturer profile
 
 ### Response:
 
-[`LecturerType`](../src/api/model/user.ts)
+```ts
+type LecturerType = {
+  _id: string;
+  email: string;
+  name: string;
+  avatar: string;
+  phone_number?: string | undefined;
+  faculty?: string | undefined;
+  courses: Array<{ name: string; semester: string }>;
+};
+```
 
 _Status code:_ 200
 
