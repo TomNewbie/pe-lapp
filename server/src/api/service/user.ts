@@ -1,18 +1,39 @@
-import mongoose from "mongoose";
-import { Lecturer, Student } from "../model/user";
+import { Lecturer, LecturerType, Student, StudentType } from "../model/user";
 
-const getUser = (email: string): Promise<any | null> => {
-  return Student.findById(email);
+export type UserRole = "student" | "lecturer";
+
+export const splitEmail = (email: string): [string, UserRole] => {
+  const [_id, domain] = email.split("@");
+  return [_id, domain.startsWith("student") ? "student" : "lecturer"];
 };
 
-const addUser = async (user: any) => {
-  if (user.email.split("@")[1].includes("student")) {
-    const test = await Student.create({ _id: user.email, ...user });
-    console.log(test);
-    return;
-  }
-  await Lecturer.create({ _id: user.email, ...user });
-};
+export async function upsertUser(
+  role: "student",
+  user: StudentType
+): Promise<void>;
+export async function upsertUser(
+  role: "lecturer",
+  user: LecturerType
+): Promise<void>;
+export async function upsertUser(
+  role: UserRole,
+  user: StudentType | LecturerType
+): Promise<void>;
+export async function upsertUser(
+  role: UserRole,
+  { _id, name, avatar, ...fields }: StudentType | LecturerType
+): Promise<void> {
+  const User = role === "student" ? Student : Lecturer;
+  await User.updateOne(
+    { _id },
+    { name: name || undefined, avatar: avatar || undefined, ...fields },
+    // for using default value if name or avatar is empty string ""
+    { upsert: true }
+  );
+}
 
-export { getUser, addUser };
-// http://localhost:8080/api/auth/login
+export const getStudentById = (id: string): Promise<StudentType | null> =>
+  Student.findById(id);
+
+export const getLecturerById = (id: string): Promise<LecturerType | null> =>
+  Lecturer.findById(id);

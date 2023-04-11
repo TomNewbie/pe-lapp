@@ -1,6 +1,6 @@
 import { Response, Request, NextFunction } from "express";
 import { client } from "../../config/oauth";
-import { addUser, getUser } from "../service/user";
+import { UserRole, splitEmail, upsertUser } from "../service/user";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 const client_id = process.env.CLIENT_ID!;
@@ -15,6 +15,37 @@ const login = (req: Request, res: Response) => {
   res.redirect(url);
 };
 
+interface JwtUser {
+  _id: string;
+  role: UserRole;
+}
+
+function isJwtUser(obj: unknown): obj is JwtUser {
+  return (
+    typeof (obj as JwtUser)._id === "string" &&
+    ((obj as JwtUser).role === "student" ||
+      (obj as JwtUser).role === "lecturer")
+  );
+}
+
+export const getAccessToken = async ({
+  email,
+  name,
+  avatar,
+}: {
+  email: string;
+  name: string;
+  avatar: string;
+}) => {
+  const [_id, role] = splitEmail(email);
+  await upsertUser(role, { _id, email, name, avatar });
+
+  const jwtUser: JwtUser = { _id, role };
+  const accessToken = jwt.sign(jwtUser, jwt_secret!, { expiresIn: "2h" });
+
+  return { ...jwtUser, accessToken };
+};
+
 const loginCallback = async (
   req: Request,
   res: Response,
@@ -27,19 +58,27 @@ const loginCallback = async (
     idToken: tokens.id_token!,
     audience: client_id,
   });
-
   const { name, email, picture: avatar } = ticket.getPayload()!;
 
-  if (!(await getUser(email!))) {
-    await addUser({ email: email!, name: name!, avatar: avatar! });
-  }
+  const { accessToken } = await getAccessToken({
+    email: email!,
+    name: name!,
+    avatar: avatar!,
+  });
 
-  const accessToken = jwt.sign({ email }, jwt_secret!);
   res.json({ accessToken });
 };
 
+type ExtendedJwtPayload = JwtPayload & JwtUser;
+
+function isExtendedJwtPayload(
+  payload: JwtPayload
+): payload is ExtendedJwtPayload {
+  return isJwtUser(payload);
+}
+
 export interface AuthRequest extends Request {
-  user?: JwtPayload;
+  user?: ExtendedJwtPayload;
 }
 
 // Middleware to check if the JWT token is valid
@@ -58,7 +97,10 @@ const authenticateJWT = (
         return res.sendStatus(403);
       }
 
-      req.user = user;
+      if (isExtendedJwtPayload(user)) {
+        req.user = user;
+      }
+
       next();
     });
   } else {
