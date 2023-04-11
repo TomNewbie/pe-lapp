@@ -6,6 +6,11 @@ import {
 import { Login } from "./pages/common";
 import { Assignment } from "./components";
 function App() {
+  const students = [
+    { url: "/participants-icon/ava.png", name: "A", mail: "ava.gmail.com" },
+    { url: "/participants-icon/ava.png", name: "B", mail: "ava.gmail.com" },
+    { url: "/participants-icon/ava.png", name: "C", mail: "ava.gmail.com" },
+  ];
   return (
     <div className="App">
       {/* <Login></Login> */}
