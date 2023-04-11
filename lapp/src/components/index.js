@@ -10,3 +10,4 @@ export { default as Participants } from "./Participants";
 export { default as ExerciseSection } from "./ExerciseSection";
 export { default as StudentCourseName } from "./CourseNameCard/StudentCourseName";
 export { default as TeacherCourseName } from "./CourseNameCard/TeacherCourseName";
+export { default as Announce } from "./Announce";

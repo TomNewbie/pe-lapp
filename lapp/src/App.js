@@ -4,13 +4,15 @@ import {
   Profile as ProfileTeacher,
 } from "./pages/Lecturer";
 import { Login } from "./pages/common";
+import { Announce } from "./components";
 function App() {
   return (
     <div className="App">
       {/* <Login></Login> */}
       {/* <AllCoursesStudent></AllCoursesStudent> */}
       {/* <AllCoursesLecturer></AllCoursesLecturer> */}
-      <Profile></Profile>
+      {/* <Profile></Profile> */}
+      <Announce></Announce>
     </div>
   );
 }
