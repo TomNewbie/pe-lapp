@@ -5,3 +5,4 @@ export { default as CourseExercise } from "./CourseExercise";
 export { default as CourseParticipants } from "./CourseParticipants";
 export { default as JoinCourse } from "./JoinCourse";
 export { default as ExerciseDetail } from "./ExerciseDetail";
+export { default as CoursePage} from "./CoursePage"
