@@ -232,11 +232,11 @@ https://chat.openai.com/chat/1ab1dd0d-31a9-4394-8d18-6abb67a0c095 (cua tho de xe
 
 ## Response
 
-204 -> No content
+200 -> OK
 404 -> Course not found
 404 -> Student not found in course
-403 -> Student can not modify course
-400 -> Unauthorized
+403 -> Unauthorized
+:id
 
 # [GET] /api/auth/login
 
@@ -266,6 +266,94 @@ Upload material
 
 # [GET] /api/course/:id
 
+Get all content from courseId
+
+Request
+
+Authorization: Bearer `token`
+
+## Response
+
+200 -> Return json
+
+### Student view
+
+```ts
+{
+  name: string,
+  picture: string,
+  teacher_name: string,
+  contents: Array<{
+    title: string;
+    file?: Array<{
+      name: string;
+      url: string;
+    }>;
+    body: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }>;
+}
+```
+
+### Teacher view
+
+```ts
+{
+  name: string,
+  picture: string,
+  semester: string,
+  teacher_name: string,
+  contents: Array<{
+    title: string;
+    file?: Array<{
+      name: string;
+      url: string;
+    }>;
+    body: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }>;
+}
+```
+
+_Error_:
+
+- 404 -> Course not found
+
+# [GET] /api/course/:id/participants
+
+Get all participant
+
+Request
+
+Authorization: Bearer `token`
+
+## Response
+
+200 -> Return json
+
+```ts
+{
+  teacher: {
+    name: string,
+    email: string,
+    id: string,
+    avatar: string
+  }
+  students: Array<{
+    name: string,
+    email: string,
+    id: string,
+    avatar: string
+  }>;
+}
+```
+
+_Error_:
+
+- 404 -> Course not found
+
 # [PATCH] /api/material/:id
 
 Modify material
@@ -284,8 +372,9 @@ Upload Solution
 
 # [PATCH] /api/user/profile
 
-_Authorization:_ JWT
+Request
 
+Authorization: Bearer `token`
 Body:
 
 ## Student
@@ -305,3 +394,76 @@ faculty: string, phone_number;
 Response:
 200 -> OK
 400 -> invalid input
+
+# [DELETE] /api/course/:id/:course_content_id
+
+API for delete course content
+
+Request
+
+Authorization: Bearer `token`
+
+## Response
+
+200 -> OK
+404 -> Course not found
+404 -> Course Content not found
+403 -> Unauthorized
+
+# [PATCH] /api/course/:id/:course_content_id
+
+API for update course content
+
+Request
+
+Authorization: Bearer `token`
+
+## Request Body
+
+```ts
+{
+  title?: string,
+  file?: Array<{
+    name: string,
+    url: string
+  }>,
+  body?: string,
+}
+```
+
+## Response
+
+200 -> OK
+404 -> Course not found
+404 -> Course Content not found
+403 -> Unauthorized
+400 -> Missing information to update
+
+<!-- # [PATCH] /api/course/:id/
+
+API for update course content
+
+Request
+
+Authorization: Bearer `token`
+
+## Request Body
+
+```ts
+{
+  title?: string,
+  file?: Array<{
+    name: string,
+    url: string
+  }>,
+  body?: string,
+}
+```
+
+## Response
+
+200 -> OK
+404 -> Course not found
+404 -> Course Content not found
+403 -> Unauthorized
+400 -> Missing information to update -->
