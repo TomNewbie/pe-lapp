@@ -387,7 +387,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Notes and Issues     |                                                                                                    |
 
 <p align="center">
-<img src="images/sequence/log-in.png" width="500">
+<img src="images/sequence/log-in.jpg" width="500">
 </p>
 
 #### 11. Log out
@@ -552,7 +552,7 @@ The sequence for send message and find contact
 | Notes and Issues     |                                                                                                                                                          |
 
 <p align="center">
-<img src="images/sequence/track-course.jpg" width="500">
+<img src="images/sequence/track_course.jpg" width="500">
 </p>
 
 #### 16. Submit Exercise
@@ -590,7 +590,7 @@ The sequence for send message and find contact
 ## ER diagram
 
 <p align="center">
-<img src="images/ER1.png" width="500">
+<img src="images/ER_diagram.png" width="500">
 </p>
 
 ## Getting started
