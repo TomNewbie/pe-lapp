@@ -99,10 +99,10 @@ const updateCourse = async (req: AuthRequest, res: Response) => {
       res.status(404).json({ message: "Course not found" });
       return;
     case "miss match":
-      res.status(404).json({ message: "You don't create that course" });
+      res.status(400).json({ message: "You don't create that course" });
       return;
   }
-  res.status(200);
+  res.sendStatus(200);
 };
 
 export const courseController = {

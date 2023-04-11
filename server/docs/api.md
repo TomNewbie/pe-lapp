@@ -150,11 +150,20 @@ Authorization: JWT
 
 Response:
 
-`Status code 201`. Return with json `{ "courseId": "somerandomId" }`. Course ID help to join the course
+`Status code 201`. Return with
 
-`Status code 400`. Invalid input. return with json `{"message" : "error message"}`
+```ts
+{
+  courseId: string;
+}
+```
 
-`Status code 400`. Student cannot create course. return with json `{"message" : "student can not create course"}`
+_Error:_
+
+- 400: student can't create course
+- 400: misisng course name
+- 400: missing description name
+- 400: missing semester name
 
 Regular expression for semester to make sure it is from (WS|SS) 2010 - 2029 (On progress)
 
@@ -188,9 +197,14 @@ Authorization: JWT
 
 Response:
 
-Statuscode 200. Modify success.
+_Status code:_ 200
 
-Status code 400. Modify fail. Return with json `{"message": "error message"}`
+_Error:_
+
+- 404: Course not found
+- 400: You don't create that course
+- 400: student can't create course
+- 400: Missing information to update
 
 # [DELETE] /api/course/:id/:studentId
 

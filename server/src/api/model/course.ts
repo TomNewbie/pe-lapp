@@ -4,9 +4,13 @@ export const course = new Schema({
     type: String,
     required: [true, "Course name is missing"],
   },
-  content: {
-    type: String,
-  },
+  content: [
+    {
+      title: {
+        type: String,
+      },
+    },
+  ],
   picture: {
     type: String,
     required: true,
