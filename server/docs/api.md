@@ -16,19 +16,11 @@ type StudentType = {
 };
 ```
 
-_Status code:_ 200
-
-```json
-null
-```
+_Status code:_ 200 OK
 
 _Error:_
 
-- 404:
-
-```json
-{ "message": "Not found" }
-```
+- 404: Not Found
 
 # [GET] /api/lecturer/`:id`
 
@@ -48,19 +40,11 @@ type LecturerType = {
 };
 ```
 
-_Status code:_ 200
-
-```json
-null
-```
+_Status code:_ 200: OK
 
 _Error:_
 
-- 404:
-
-```json
-{ "message": "Not found" }
-```
+- 404: Not Found
 
 # [GET] /api/courses?s=`start`&n=`num`&q=`query`&S=`sort`
 
@@ -118,11 +102,7 @@ type CoursesOfLecturer = Array<{
 }>;
 ```
 
-_Status code:_ 200
-
-```json
-null
-```
+_Status code:_ 200: OK
 
 # [POST] /api/course/`:id`
 
@@ -134,31 +114,13 @@ _Authorization:_ JWT
 
 ### Response:
 
-_Status code:_ 201.
-
-```json
-null
-```
+_Status code:_ 201: Created
 
 _Error:_
 
-- 404:
-
-```json
-{ "message": "Course not found" }
-```
-
+- 404: Course not found
 - 400: Lecturers cannot join courses
-
-```json
-{ "message": "Lecturers cannot join courses" }
-```
-
-- 400:
-
-```json
-{ "message": "Already joined" }
-```
+- 400: Already joined
 
 # [POST] /api/course/
 
