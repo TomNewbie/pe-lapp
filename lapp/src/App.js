@@ -6,11 +6,7 @@ import {
 import { Login } from "./pages/common";
 import { UploadMaterial } from "./components";
 function App() {
-  return (
-    <div className=" App">
-      <UploadMaterial></UploadMaterial>
-    </div>
-  );
+  return <div className=" App"></div>;
 }
 
 export default App;
