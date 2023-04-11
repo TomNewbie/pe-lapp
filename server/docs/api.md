@@ -205,7 +205,7 @@ _Error:_
 - 403: Unauthorize
 - 400: Missing information to update
 
-# [POST] /api/course/:id/:studentId
+# [POST] /api/course/:id/student/:studentId
 
 Request
 
@@ -221,7 +221,7 @@ https://chat.openai.com/chat/1ab1dd0d-31a9-4394-8d18-6abb67a0c095 (cua tho de xe
 404 -> Student not found in course
 403 -> Unauthorize
 
-# [DELETE] /api/course/:id/:studentId
+# [DELETE] /api/course/:id/student/:studentId
 
 Request
 
@@ -270,7 +270,7 @@ Authorization: Bearer `token`
 
 200 -> Return json
 
-### Student view
+- Student view
 
 ```ts
 {
@@ -290,7 +290,7 @@ Authorization: Bearer `token`
 }
 ```
 
-### Teacher view
+- Teacher view
 
 ```ts
 {
@@ -389,7 +389,7 @@ Response:
 200 -> OK
 400 -> invalid input
 
-# [DELETE] /api/course/:id/:course_content_id
+# [DELETE] /api/course/:id/content/:course_content_id
 
 API for delete course content
 
@@ -404,7 +404,7 @@ Authorization: Bearer `token`
 404 -> Course Content not found
 403 -> Unauthorized
 
-# [PATCH] /api/course/:id/:course_content_id
+# [PATCH] /api/course/:id/content/:course_content_id
 
 API for update course content
 

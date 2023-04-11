@@ -4,7 +4,7 @@ export const course = new Schema({
     type: String,
     required: [true, "Course name is missing"],
   },
-  content: [
+  contents: [
     {
       type: Types.ObjectId,
       ref: "CourseContent",
@@ -20,10 +20,6 @@ export const course = new Schema({
   semester: {
     type: String,
     required: true,
-  },
-  description: {
-    type: String,
-    required: [true, "Course description is missing"],
   },
   lecturer_id: {
     type: String,
