@@ -25,22 +25,22 @@ interface GetCoursesOptions {
   sort?: string;
 }
 
-export async function getCoursesOfUser(
+async function getCoursesOfUser(
   id: string,
   role: "student",
   options?: GetCoursesOptions
 ): Promise<CoursesOfStudent>;
-export async function getCoursesOfUser(
+async function getCoursesOfUser(
   id: string,
   role: "lecturer",
   options?: GetCoursesOptions
 ): Promise<CoursesOfLecturer>;
-export async function getCoursesOfUser(
+async function getCoursesOfUser(
   id: string,
   role: UserRole,
   options?: GetCoursesOptions
 ): Promise<CoursesOfStudent | CoursesOfLecturer>;
-export async function getCoursesOfUser(
+async function getCoursesOfUser(
   id: string,
   role: UserRole,
   { start: s = 0, num: n = 0, query, sort }: GetCoursesOptions = {}
@@ -94,7 +94,7 @@ export async function getCoursesOfUser(
   return await courses;
 }
 
-export const joinCourse = async (
+const joinCourse = async (
   studentId: string,
   courseId: string
 ): Promise<"already joined" | "not found" | undefined> => {
@@ -109,7 +109,7 @@ export const joinCourse = async (
   if (res.modifiedCount === 0) return "already joined";
 };
 
-export const create = async (
+const create = async (
   course: NewCourseType
 ): Promise<mongoose.Types.ObjectId | null> => {
   try {
@@ -120,7 +120,7 @@ export const create = async (
   }
 };
 
-export const update = async (
+const update = async (
   queryId: Pick<CourseType, "lecturer_id"> & { _id: string },
   course: Partial<CourseType>
 ): Promise<void | "not found" | "miss match"> => {
@@ -130,4 +130,4 @@ export const update = async (
     return "miss match";
   }
 };
-export const courseService = { create, update };
+export const courseService = { create, update, joinCourse, getCoursesOfUser };

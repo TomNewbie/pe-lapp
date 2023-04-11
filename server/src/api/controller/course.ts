@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { AuthRequest } from "./auth";
-import { courseService, getCoursesOfUser, joinCourse } from "../service/course";
+import { courseService } from "../service/course";
 
 const queryToNumber = (val: unknown): number | undefined => {
   if (typeof val === "string") val = val.trim();
@@ -20,11 +20,11 @@ const getAllCourses = async (req: AuthRequest, res: Response) => {
   };
 
   const { _id, role } = req.user!;
-  const courses = await getCoursesOfUser(_id, role, options);
+  const courses = await courseService.getCoursesOfUser(_id, role, options);
   res.json(courses);
 };
 
-const join = async (req: AuthRequest, res: Response) => {
+const joinCourse = async (req: AuthRequest, res: Response) => {
   const { _id: studentId, role } = req.user!;
   const { id: courseId } = req.params;
 
@@ -33,7 +33,7 @@ const join = async (req: AuthRequest, res: Response) => {
     return;
   }
 
-  const err = await joinCourse(studentId, courseId);
+  const err = await courseService.joinCourse(studentId, courseId);
   switch (err) {
     case "not found":
       res.status(404).send("Course not found");
@@ -107,7 +107,7 @@ const updateCourse = async (req: AuthRequest, res: Response) => {
 
 export const courseController = {
   getAllCourses,
-  joinCourse: join,
+  joinCourse,
   createCourse,
   updateCourse,
 };
