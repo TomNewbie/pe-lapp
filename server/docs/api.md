@@ -236,7 +236,6 @@ https://chat.openai.com/chat/1ab1dd0d-31a9-4394-8d18-6abb67a0c095 (cua tho de xe
 404 -> Course not found
 404 -> Student not found in course
 403 -> Unauthorized
-:id
 
 # [GET] /api/auth/login?redirect=`redirect_url`
 
