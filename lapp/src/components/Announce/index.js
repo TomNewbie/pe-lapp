@@ -1,20 +1,19 @@
 const Announce = () => {
   return (
-    <div className="flex justify-between w-3/4 bg-white drop-shadow-xl rounded-xl">
-      <img
-        src="/Announce/comment1.png"
-        alt="commentsection"
-        width={36}
-        height={362}
-      />
-      <p className="text-[45px]">Announce something ...</p>
-      <img
-        src="/Announce/comment2.png"
-        alt="commentsection"
-        width={25}
-        height={25}
-      />
-    </div>
+    <button
+      type="button"
+      class="grid justify-start gap-4 w-3/4 h-fit p-3 bg-[#FFFCF7] drop-shadow-xl rounded-2xl ">
+      <div class="flex flex-row place-items-center space-x-5">
+        <img
+          src="/Announce/comment.png"
+          alt="commentsection"
+          class="w-10 h-8"></img>
+
+        <p class="text-[28px] text-[#1B1C1E]/80 w-fit grid place-items-center">
+          Announce something...
+        </p>
+      </div>
+    </button>
   );
 };
 
