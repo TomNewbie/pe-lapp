@@ -6,8 +6,8 @@ import { Participants } from "./components";
 function App() {
   const students = [
     { url: "/participants-icon/ava.png", name: "A", mail: "ava.gmail.com" },
-    { url: "/participants-icon/ava.png", name: "B", mail: "ava.gmail.com" },
-    { url: "/participants-icon/ava.png", name: "C", mail: "ava.gmail.com" },
+    { url: "/participants-icon/ava.png", name: "B", mail: "ava1.gmail.com" },
+    { url: "/participants-icon/ava.png", name: "C", mail: "ava2.gmail.com" },
   ];
   return (
     <div className="App">
@@ -18,7 +18,8 @@ function App() {
       {/* <File></File> */}
       <Participants
         teacher={"Tran Tuan Anh"}
-        students={students}></Participants>
+        students={students}
+      ></Participants>
     </div>
   );
 }
