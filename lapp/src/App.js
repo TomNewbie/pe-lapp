@@ -1,4 +1,8 @@
-import { Profile } from "./pages/Student";
+import { Profile, AllCoursesStudent } from "./pages/Student";
+import {
+  AllCoursesLecturer,
+  Profile as ProfileTeacher,
+} from "./pages/Lecturer";
 import { Login } from "./pages/common";
 import { JoinCourse } from "./components";
 import { CreateCourse } from "./components";
