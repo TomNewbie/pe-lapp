@@ -1,18 +1,12 @@
-import { Profile } from "./pages/Student";
+import { Profile, AllCoursesStudent } from "./pages/Student";
+import {
+  AllCoursesLecturer,
+  Profile as ProfileTeacher,
+} from "./pages/Lecturer";
 import { Login } from "./pages/common";
-import { RecordTable } from "./components";
+import { UploadMaterial } from "./components";
 function App() {
-  const students=[
-    {Name:"le hoang kim thanh",id:"1",submittime:"20:00 4/4/2023", status:"On time", grade:"8"},
-    {Name:"B",id:"2",submittime:"20:00 5/4/2023", status:"Late", grade:"8"},
-    {Name:"C",id:"3",submittime:"21:00 5/4/2023", status:"Missing", grade:"8"}
-  ]
-  return (
-    <div className="App">
-      <RecordTable
-       students={students}></RecordTable>
-    </div>
-  );
+  return <div className=" App"></div>;
 }
 
 export default App;
