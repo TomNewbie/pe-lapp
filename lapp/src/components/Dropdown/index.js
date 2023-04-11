@@ -16,14 +16,14 @@ function Dropdown(){
             ? <div></div>
             : <div>
                 <div className="w-40 h-24 border rounded-2xl">
-                    <div className="ml-4 mt-2">
+                    <div className="flex flex-col ml-4 mt-3 space-y-2">
                         <div className="flex flex-row hover:text-[#B02B3B] cursor-pointer">
                             <img src="/dropdown/edit.png" alt="" className="w-5 h-5 mt-1"></img>
-                            <div className="text-xl ml-12">Edit</div>
+                            <div className="text-2xl ml-12">Edit</div>
                         </div>
                         <div className="flex flex-row mt-3 hover:text-[#B02B3B] cursor-pointer">
                             <img src="/dropdown/delete.png" alt="" className="w-5 h-5 mt-1"></img>
-                            <div className="text-xl ml-12">Delete</div>
+                            <div className="text-2xl ml-12">Delete</div>
                         </div>
                     </div>
                 </div>
