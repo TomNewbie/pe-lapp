@@ -9,7 +9,7 @@ function App() {
       {/* <NavbarStudent></NavbarStudent> */}
       {/* <NavbarLecturer /> */}
       {/* <Dropdown></Dropdown> */}
-      <NavbarCourse></NavbarCourse>
+      <NavbarCourse tab1={"tab content 1"} tab2={"tab content 2"} tab3={"tab content 3"}></NavbarCourse>
     </div>
   );
 }
