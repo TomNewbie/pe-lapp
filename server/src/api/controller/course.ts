@@ -1,13 +1,7 @@
 import { Response } from "express";
 import { AuthRequest } from "./auth";
 import { courseService } from "../service/course";
-
-const queryToNumber = (val: unknown): number | undefined => {
-  if (typeof val === "string") val = val.trim();
-  if (!val) return;
-  const n = Number(val);
-  return isNaN(n) ? undefined : n;
-};
+import { queryToNumber } from "../../utils";
 
 const getAllCourses = async (req: AuthRequest, res: Response) => {
   const { s, n, q, S } = req.query;
