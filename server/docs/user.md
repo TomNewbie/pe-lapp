@@ -79,7 +79,7 @@ _Error:_
 
 # [GET] /api/lecturers?s=`start`&n=`num`
 
-Get all lecturers
+Get all lecturers, sorted alphabetically by name in ascending order.
 
 - `start`
   query a list starting at the `start + 1`-th lecturer. (0-based index; defaults
@@ -89,7 +89,7 @@ Get all lecturers
   skipping the first `start` lecturers. (defaults to 0)
 
 ```ts
-type Array< {
+Array<{
   _id: string;
   name: string;
   faculty?: string;

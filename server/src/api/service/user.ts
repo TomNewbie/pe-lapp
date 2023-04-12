@@ -32,9 +32,31 @@ const getStudentById = async (id: string): Promise<StudentType | null> =>
 const getLecturerById = async (id: string): Promise<LecturerType | null> =>
   await Lecturer.findById(id).lean();
 
+type LecturerList = Array<{
+  _id: string;
+  name: string;
+  faculty?: string;
+}>;
+
+interface GetLecturerListOptions {
+  start?: number;
+  num?: number;
+}
+
+const getLecturerList = async ({
+  start = 0,
+  num = 0,
+}: GetLecturerListOptions): Promise<LecturerList> =>
+  await Lecturer.find(
+    {},
+    { _id: 1, name: 1, faculty: 1 },
+    { sort: "name", skip: start, limit: num }
+  ).lean();
+
 export const userService = {
   upsertUser,
   getLecturerById,
   getStudentById,
   splitEmail,
+  getLecturerList,
 };

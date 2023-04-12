@@ -1,6 +1,7 @@
 import { Response } from "express";
 import { userService } from "../service/user";
 import { AuthRequest } from "./auth";
+import { queryToNumber } from "../../utils";
 
 const getStudent = async (req: AuthRequest, res: Response) => {
   const { id } = req.params;
@@ -26,4 +27,15 @@ const getLecturer = async (req: AuthRequest, res: Response) => {
   res.json(user);
 };
 
-export const userController = { getStudent, getLecturer };
+const getLecturerList = async (req: AuthRequest, res: Response) => {
+  const { s, n } = req.query;
+
+  const lecturers = await userService.getLecturerList({
+    start: queryToNumber(s),
+    num: queryToNumber(n),
+  });
+
+  res.json(lecturers);
+};
+
+export const userController = { getStudent, getLecturer, getLecturerList };
