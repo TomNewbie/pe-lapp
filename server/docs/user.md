@@ -98,17 +98,17 @@ type Array< {
 
 _Status code:_ 200: OK
 
-# [GET] /api/auth/login?redirect=`redirect_url`
+# [GET] /api/auth/login?redirect=`redirect_path`
 
 ## Request
 
-- `redirect_url`  
-  the url to redirect to after successful authentication (defaults to all
-  courses page).
+- `redirect_path`  
+  the path to redirect to after successful authentication (defaults to all
+  courses page path `/courses`).
 
 ## Response
 
-Redirect to `redirect_url` with the `access_token` query parameter set to be the
-logged in user's access token to be sent with every subsequent requests that
+Redirect to `redirect_path` with the `access_token` query parameter set to be
+the logged in user's access token to be sent with every subsequent requests that
 requires authentication. (e.g., redirect to
-`/redirect_url?access_token=<token>`)
+`/redirect_path?access_token=<token>`)
