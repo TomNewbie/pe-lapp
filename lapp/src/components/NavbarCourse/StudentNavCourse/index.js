@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-const NavbarCourse = ({tab1,tab2,tab3}) => {
+const StudentNavCourse = ({tab1,tab2,tab3}) => {
   const [activeTab, setActiveTab] = useState(1);
   const handleClick = (index) => {
     setActiveTab(index);
@@ -66,4 +66,4 @@ const NavbarCourse = ({tab1,tab2,tab3}) => {
   );
 };
 
-export default NavbarCourse;
+export default StudentNavCourse;
