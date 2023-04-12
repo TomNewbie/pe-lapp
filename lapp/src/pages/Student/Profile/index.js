@@ -135,7 +135,7 @@ const Profile = () => {
       <NavbarStudent></NavbarStudent>
       <div className="flex flex-row">
         {/* First column */}
-        <div className="flex flex-col items-center justify-center mt-40 ml-20">
+        <div className="flex flex-col items-center justify-center mt-40 ml-10">
           <img src="avatar.png" alt="profile picture" loading="lazy"></img>
           {!show ? (
             <button
@@ -165,7 +165,7 @@ const Profile = () => {
         <table class="table-auto text-5xl text-[#1B1C1E] font-semibold space-x-96">
           <tbody>
             <tr>
-              <th>Full name:</th>
+              <th class="pr-28">Full name:</th>
               <td>{name}</td>
             </tr>
             <tr>
@@ -177,7 +177,7 @@ const Profile = () => {
                       type="text"
                       id="id"
                       name="id"
-                      className="bg-[#CC6666]/30 rounded-2xl h-10 w-96 text-[#1B1C1E]"
+                      className="bg-[#CC6666]/30 rounded-2xl h-10 w-96 text-[#1B1C1E] px-3"
                       value={id}
                       onChange={(e) => setId(e.target.value)}
                     ></input>
@@ -200,7 +200,7 @@ const Profile = () => {
                       type="text"
                       id="Program"
                       name="Program"
-                      className="bg-[#CC6666]/30 rounded-2xl h-10 w-96 text-[#1B1C1E]"
+                      className="bg-[#CC6666]/30 rounded-2xl h-10 w-96 text-[#1B1C1E] px-3"
                       value={program}
                       onChange={(e) => setProgram(e.target.value)}
                     ></input>
@@ -212,6 +212,51 @@ const Profile = () => {
             </tr>
           </tbody>
         </table>
+
+        {/* <div class="flex flex-col text-5xl text-[#1B1C1E] font-semibold">
+          <div class="flex flex-row space-x-20">
+            <p>Full name:</p>
+            <p>{name}</p>
+          </div>
+          <div class="flex flex-row space-x-48">
+            <p>Id: </p>
+            <p>
+              {show ? (
+                <input
+                  type="text"
+                  id="id"
+                  name="id"
+                  className="bg-[#CC6666]/30 rounded-2xl h-10 w-96 text-[#1B1C1E] px-3"
+                  value={id}
+                  onChange={(e) => setId(e.target.value)}
+                ></input>
+              ) : (
+                id
+              )}
+            </p>
+          </div>
+          <div class="flex flex-row space-x-36">
+            <p>Email:</p>
+            <p>{email}</p>
+          </div>
+          <div class="flex flex-row space-x-24">
+            <p>Program:</p>
+            <p>
+              {show ? (
+                <input
+                  type="text"
+                  id="Program"
+                  name="Program"
+                  className="bg-[#CC6666]/30 rounded-2xl h-10 w-96 text-[#1B1C1E] px-3"
+                  value={program}
+                  onChange={(e) => setProgram(e.target.value)}
+                ></input>
+              ) : (
+                program
+              )}
+            </p>
+          </div>
+        </div> */}
       </div>
 
       <Footer></Footer>
