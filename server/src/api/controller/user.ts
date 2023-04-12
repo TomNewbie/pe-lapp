@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { userService } from "../service/user";
+import { UpdateUserError, userService } from "../service/user";
 import { AuthRequest } from "./auth";
 import { queryToNumber } from "../../utils";
 
@@ -51,9 +51,22 @@ const getUserInfo = async (req: AuthRequest, res: Response) => {
   res.json({ _id, role, name });
 };
 
+const updateUserProfile = async (req: AuthRequest, res: Response) => {
+  const { _id, role } = req.user!;
+  const err = await userService.updateUser(role, _id, req.body);
+
+  if (err === UpdateUserError.INVALID_INPUT) {
+    res.status(400).send("Invalid input");
+    return;
+  }
+
+  res.sendStatus(200);
+};
+
 export const userController = {
   getStudent,
   getLecturer,
   getLecturerList,
   getUserInfo,
+  updateUserProfile,
 };

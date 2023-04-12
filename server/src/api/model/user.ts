@@ -28,6 +28,7 @@ const student = new Schema(
     },
     intake: {
       type: Number,
+      min: 2008,
     },
   },
   { _id: false }

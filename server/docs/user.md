@@ -31,10 +31,9 @@ Body:
 
 ```ts
 {
-  major: string,
-  intake: number,
-  phone_number: string
-
+  major?: string,
+  intake?: number,
+  phone_number?: string
 }
 ```
 
@@ -42,8 +41,8 @@ Body:
 
 ```ts
 {
-  faculty: string,
-  phone_number: string
+  faculty?: string,
+  phone_number?: string
 }
 ```
 

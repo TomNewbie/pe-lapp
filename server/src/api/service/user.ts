@@ -65,6 +65,61 @@ const getUserName = async (
   return res?.name;
 };
 
+type StudentUpdateFields = {
+  major?: string;
+  intake?: number;
+  phone_number?: string;
+};
+
+type LecturerUpdateFields = {
+  faculty?: string;
+  phone_number?: string;
+};
+
+export enum UpdateUserError {
+  NONE,
+  INVALID_INPUT,
+}
+
+async function updateUser(
+  role: "student",
+  id: string,
+  fields: StudentUpdateFields
+): Promise<UpdateUserError>;
+async function updateUser(
+  role: "lecturer",
+  id: string,
+  fields: LecturerUpdateFields
+): Promise<UpdateUserError>;
+async function updateUser(
+  role: UserRole,
+  id: string,
+  fields: StudentUpdateFields | LecturerUpdateFields
+): Promise<UpdateUserError>;
+async function updateUser(
+  role: UserRole,
+  _id: string,
+  {
+    faculty,
+    intake,
+    major,
+    phone_number,
+  }: StudentUpdateFields & LecturerUpdateFields
+): Promise<UpdateUserError> {
+  const User = role === "student" ? Student : Lecturer;
+  const fields =
+    role === "student"
+      ? ({ intake, major, phone_number } as StudentUpdateFields)
+      : ({ faculty, phone_number } as LecturerUpdateFields);
+  try {
+    const res = await User.updateOne({ _id }, fields, { runValidators: true });
+    if (!res.matchedCount) return UpdateUserError.INVALID_INPUT;
+    return UpdateUserError.NONE;
+  } catch {
+    return UpdateUserError.INVALID_INPUT;
+  }
+}
+
 export const userService = {
   upsertUser,
   getLecturerById,
@@ -72,4 +127,5 @@ export const userService = {
   splitEmail,
   getLecturerList,
   getUserName,
+  updateUser,
 };
