@@ -26,11 +26,11 @@ async function upsertUser(
   );
 }
 
-const getStudentById = (id: string): Promise<StudentType | null> =>
-  Student.findById(id);
+const getStudentById = async (id: string): Promise<StudentType | null> =>
+  await Student.findById(id).lean();
 
-const getLecturerById = (id: string): Promise<LecturerType | null> =>
-  Lecturer.findById(id);
+const getLecturerById = async (id: string): Promise<LecturerType | null> =>
+  await Lecturer.findById(id).lean();
 
 export const userService = {
   upsertUser,
