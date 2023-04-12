@@ -50,19 +50,19 @@ const createCourse = async (req: AuthRequest, res: Response) => {
   const { _id, role } = req.user!;
   const { name, description, semester } = req.body;
   if (role === "student") {
-    res.status(400).json({ message: "student can't create course" });
+    res.status(400).send("Student can't create course");
     return;
   }
   if (!name) {
-    res.status(400).json({ message: "misisng course name" });
+    res.status(400).send("Missing course name");
     return;
   }
   if (!description) {
-    res.status(400).json({ message: "missing description name" });
+    res.status(400).send("Missing description name");
     return;
   }
   if (!semester) {
-    res.status(400).json({ message: "misisng semester name" });
+    res.status(400).send("Missing semester name");
     return;
   }
   try {
@@ -82,11 +82,11 @@ const updateCourse = async (req: AuthRequest, res: Response) => {
   const { id: _id } = req.params;
   const { name, description, semester, content } = req.body;
   if (role === "student") {
-    res.status(400).json({ message: "student can't create course" });
+    res.status(400).send("Student can't create course");
     return;
   }
   if (!name && !description && !semester && !content) {
-    res.status(400).json({ message: "Missing information to update" });
+    res.status(400).send("Missing information to update");
     return;
   }
   const err = await courseService.update(
@@ -95,10 +95,10 @@ const updateCourse = async (req: AuthRequest, res: Response) => {
   );
   switch (err) {
     case "not found":
-      res.status(404).json({ message: "Course not found" });
+      res.status(404).send("Course not found");
       return;
     case "miss match":
-      res.status(400).json({ message: "You don't create that course" });
+      res.status(400).send("You don't create that course");
       return;
   }
   res.sendStatus(200);
