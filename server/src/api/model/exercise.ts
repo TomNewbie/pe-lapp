@@ -1,6 +1,6 @@
 import mongoose, { InferSchemaType, Schema } from "mongoose";
 
-export const exercise = new Schema(
+const exercise = new Schema(
   {
     name: {
       type: String,

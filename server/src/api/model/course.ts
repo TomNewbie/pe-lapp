@@ -8,7 +8,7 @@ const course = new Schema({
   contents: [
     {
       type: Schema.Types.ObjectId,
-      ref: "CourseContent",
+      ref: "Course-Content",
       required: true,
       index: true,
     },

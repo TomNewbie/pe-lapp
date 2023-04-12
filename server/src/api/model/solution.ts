@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-export const solution = new Schema(
+const solution = new Schema(
   {
     _id: {
       student: {
