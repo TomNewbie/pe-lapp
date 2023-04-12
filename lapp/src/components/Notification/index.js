@@ -9,7 +9,7 @@ const Notification = ({status,title,content,Files}) => {
         </div>
     ));
     return (
-      <div className="bg-[#F4C2C2]/30 rounded-3xl w-10/12 h-auto pt-4 pb-6">
+      <div className="bg-[#F4C2C2]/30 rounded-3xl w-full h-auto pt-4 pb-6">
         <div className="flex flex-col space-y-4 ml-4">
             <div className="text-5xl font-bold">{title}</div>
             <div className="text-3xl font-light">{content}</div>
