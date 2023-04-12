@@ -29,8 +29,8 @@ const Participants = ({ teacher, students }) => {
 
   console.log(students);
   return (
-    <div className="max-w-full ml-40">
-      <div className="flex flex-col w-10/12 h-fit">
+    <div className="max-w-full">
+      <div className="flex flex-col w-full h-fit">
         <div>
           <div className="text-[#E36255] text-4xl h-8">TEACHERS</div>
           <div className="relative flex flex-row items-center h-16 border-t border-black">
