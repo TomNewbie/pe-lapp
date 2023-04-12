@@ -133,15 +133,3 @@ Redirect to `redirect_path` with the `access_token` query parameter set to be
 the logged in user's access token to be sent with every subsequent requests that
 requires authentication. (e.g., redirect to
 `/redirect_path?access_token=<token>`)
-
-# [POST] /api/auth/logout
-
-Logs the user out by invalidate their access token immediately.
-
-## Request header
-
-Authorization: Bearer `token`
-
-## Response
-
-_Status code:_ 200 OK
