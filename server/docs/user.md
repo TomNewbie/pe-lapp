@@ -135,3 +135,13 @@ requires authentication. (e.g., redirect to
 `/redirect_path?access_token=<token>`)
 
 # [POST] /api/auth/logout
+
+Logs the user out by invalidate their access token immediately.
+
+## Request header
+
+Authorization: Bearer `token`
+
+## Response
+
+_Status code:_ 200 OK
