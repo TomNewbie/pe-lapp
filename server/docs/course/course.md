@@ -7,23 +7,11 @@ Request
 Authorization: Bearer `token`
 
 ```ts
-{
-    name?: {
-    type: String,
-  },
-  description?: {
-    type: String,
-  },
-  picture?: {
-    type: String,
-  },
-  semester?: {
-    type: String,
-  },
-  content?: {
-    type: String,
-  },
-}
+type UpdateCourseFields = {
+  name?: string;
+  picture?: string;
+  semester?: string;
+};
 ```
 
 Response:
@@ -33,7 +21,7 @@ _Status code:_ 200
 _Error:_
 
 - 404: Course not found
-- 403: Unauthorize
+- 401: Unauthorized
 - 400: Missing information to update
 
 # [GET] /api/courses?s=`start`&n=`num`&q=`query`&S=`sort`
@@ -121,12 +109,11 @@ Request
 Authorization: Bearer `token`
 
 ```ts
-{
-    name: {
-    type: String,
-    required: true,
-    },
-}
+type NewCourseType = {
+  name: string;
+  picture?: string;
+  semester?: string;
+};
 ```
 
 Response:
@@ -141,9 +128,7 @@ Response:
 
 _Error:_
 
--Exercise 403: Unauthorize
-
-- 400: missing course name
-- 400: missing semester name
+- 401: Unauthorized
+- 400: Missing course name
 
 Regular expression for semester to make sure it is from (WS|SS) 2010 - 2029 (On progress)
