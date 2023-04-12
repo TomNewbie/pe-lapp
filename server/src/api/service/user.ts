@@ -2,9 +2,9 @@ import { Lecturer, LecturerType, Student, StudentType } from "../model/user";
 
 export type UserRole = "student" | "lecturer";
 
-const splitEmail = (email: string): [string, UserRole] => {
+const splitEmail = (email: string): { _id: string; role: UserRole } => {
   const [_id, domain] = email.split("@");
-  return [_id, domain.startsWith("student") ? "student" : "lecturer"];
+  return { _id, role: domain.startsWith("student") ? "student" : "lecturer" };
 };
 
 async function upsertUser(role: "student", user: StudentType): Promise<void>;

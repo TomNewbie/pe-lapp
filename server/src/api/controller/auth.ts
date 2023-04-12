@@ -43,7 +43,7 @@ export const getAccessToken = async ({
   name: string;
   avatar: string;
 }) => {
-  const [_id, role] = userService.splitEmail(email);
+  const { _id, role } = userService.splitEmail(email);
   await userService.upsertUser(role, { _id, email, name, avatar });
 
   const jwtUser: JwtUser = { _id, role };
