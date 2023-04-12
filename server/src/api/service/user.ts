@@ -53,10 +53,23 @@ const getLecturerList = async ({
     { sort: "name", skip: start, limit: num }
   ).lean();
 
+const getUserName = async (
+  id: string,
+  role: UserRole
+): Promise<string | undefined> => {
+  const User: any = role === "student" ? Student : Lecturer;
+  const res: { name: string } | null = await User.findById(
+    id,
+    "-_id name"
+  ).lean();
+  return res?.name;
+};
+
 export const userService = {
   upsertUser,
   getLecturerById,
   getStudentById,
   splitEmail,
   getLecturerList,
+  getUserName,
 };

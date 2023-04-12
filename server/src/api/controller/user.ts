@@ -38,4 +38,22 @@ const getLecturerList = async (req: AuthRequest, res: Response) => {
   res.json(lecturers);
 };
 
-export const userController = { getStudent, getLecturer, getLecturerList };
+const getUserInfo = async (req: AuthRequest, res: Response) => {
+  const { _id, role } = req.user!;
+
+  const name = await userService.getUserName(_id, role);
+  if (!name) {
+    // cannot find the user in the db for some reason
+    res.sendStatus(500);
+    return;
+  }
+
+  res.json({ _id, role, name });
+};
+
+export const userController = {
+  getStudent,
+  getLecturer,
+  getLecturerList,
+  getUserInfo,
+};

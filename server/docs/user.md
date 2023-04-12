@@ -1,3 +1,25 @@
+# [GET] /api/user/info
+
+## Request header
+
+Authorization: Bearer `token`
+
+## Response
+
+```ts
+{
+  _id: string;
+  name: string;
+  role: "student" | "lecturer";
+}
+```
+
+_Status code:_ 200 OK
+
+_Error:_
+
+- 500 Internal Server Error
+
 # [PATCH] /api/user/profile
 
 Request
@@ -112,3 +134,5 @@ Redirect to `redirect_path` with the `access_token` query parameter set to be
 the logged in user's access token to be sent with every subsequent requests that
 requires authentication. (e.g., redirect to
 `/redirect_path?access_token=<token>`)
+
+# [POST] /api/auth/logout
