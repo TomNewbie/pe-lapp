@@ -1,4 +1,4 @@
-import { CoursePage } from "./pages/Student";
+import { CoursePage } from "./pages/Lecturer";
 function App() {
   return <div className=" App">
     <CoursePage></CoursePage>
