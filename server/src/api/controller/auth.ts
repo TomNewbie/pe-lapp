@@ -6,10 +6,16 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 const client_id = process.env.CLIENT_ID!;
 const jwt_secret = process.env.JWT_SECRET!;
 
+const ALL_COURSES_PAGE_PATH = "/courses";
+
 const login = (req: Request, res: Response) => {
+  const { redirect: r } = req.query;
+  const redirect_path = typeof r === "string" ? r : ALL_COURSES_PAGE_PATH;
+
   const url = client.generateAuthUrl({
     access_type: "offline",
     scope: ["profile", "email"],
+    state: redirect_path,
   });
 
   res.redirect(url);
@@ -51,7 +57,8 @@ const loginCallback = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { tokens } = await client.getToken(req.query.code as string);
+  const { code, state: redirect_path } = req.query;
+  const { tokens } = await client.getToken(code as string);
   client.setCredentials(tokens);
 
   const ticket = await client.verifyIdToken({
@@ -66,7 +73,7 @@ const loginCallback = async (
     avatar: avatar!,
   });
 
-  res.json({ accessToken });
+  res.redirect(`${redirect_path}?access_token=${accessToken}`);
 };
 
 type ExtendedJwtPayload = JwtPayload & JwtUser;
