@@ -12,3 +12,10 @@ body {
 .red {
     background-color: red;
 }
+.tabcontent {
+    display: none;
+}
+
+.active {
+    display: block;
+}

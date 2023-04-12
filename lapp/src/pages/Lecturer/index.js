@@ -1,2 +1,9 @@
-export { default as AllCourse } from "./AllCourses";
+export { default as AllCoursesLecturer } from "./AllCourses";
 export { default as Profile } from "./Profile";
+export { default as CourseGeneral } from "./CourseGeneral";
+export { default as CourseExercise } from "./CourseExercise";
+export { default as CourseGrade } from "./CourseGrade";
+export { default as CourseParticipants } from "./CourseParticipants";
+export { default as CreateCourse } from "./CreateCourse";
+export { default as ExerciseDetail } from "./ExerciseDetail";
+export { default as Post } from "./Post";
