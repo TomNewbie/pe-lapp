@@ -29,8 +29,35 @@ async function upsertUser(
 const getStudentById = async (id: string): Promise<StudentType | null> =>
   await Student.findById(id).lean();
 
-const getLecturerById = async (id: string): Promise<LecturerType | null> =>
-  await Lecturer.findById(id).lean();
+type LecturerProfileType = LecturerType & {
+  courses: Array<{ name: string; semester: string }>;
+};
+
+const getLecturerById = async (
+  _id: string
+): Promise<LecturerProfileType | null> => {
+  const [lecturer = null] = await Lecturer.aggregate()
+    .match({ _id })
+    .lookup({
+      from: "courses",
+      localField: "_id",
+      foreignField: "lecturer_id",
+      as: "courses",
+    })
+    .project({
+      _id: 1,
+      email: 1,
+      name: 1,
+      avatar: 1,
+      phone_number: 1,
+      faculty: 1,
+      courses: {
+        name: 1,
+        semester: 1,
+      },
+    });
+  return lecturer;
+};
 
 type LecturerList = Array<{
   _id: string;
