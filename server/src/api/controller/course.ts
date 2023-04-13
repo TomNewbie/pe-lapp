@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { AuthRequest } from "./auth";
-import { courseService } from "../service/course";
+import { CourseError, courseService } from "../service/course";
 import { queryToNumber } from "../../utils";
 
 const getAllCourses = async (req: AuthRequest, res: Response) => {
@@ -29,10 +29,10 @@ const joinCourse = async (req: AuthRequest, res: Response) => {
 
   const err = await courseService.joinCourse(studentId, courseId);
   switch (err) {
-    case "not found":
+    case CourseError.NOT_FOUND:
       res.status(404).send("Course not found");
       return;
-    case "already joined":
+    case CourseError.ALREADY_JOINED:
       res.status(400).send("Already joined");
       return;
   }

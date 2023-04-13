@@ -95,19 +95,25 @@ async function getCoursesOfUser(
   return await courses;
 }
 
+export enum CourseError {
+  ALREADY_JOINED,
+  NOT_FOUND,
+  INVALID_INPUT,
+}
+
 const joinCourse = async (
   studentId: string,
   courseId: string
-): Promise<"already joined" | "not found" | undefined> => {
-  if (!isValidObjectId(courseId)) return "not found";
+): Promise<CourseError.ALREADY_JOINED | CourseError.NOT_FOUND | undefined> => {
+  if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
 
   const res = await Course.updateOne(
     { _id: courseId },
     { $addToSet: { participants: studentId } }
   );
 
-  if (res.matchedCount === 0) return "not found";
-  if (res.modifiedCount === 0) return "already joined";
+  if (res.matchedCount === 0) return CourseError.NOT_FOUND;
+  if (res.modifiedCount === 0) return CourseError.ALREADY_JOINED;
 };
 
 const create = async (
