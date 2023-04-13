@@ -22,4 +22,6 @@ export { default as Assignment } from "./Assignment";
 export { default as UploadMaterial } from "./UploadMaterial";
 export { default as Notification } from "./Notification";
 export { default as Announce } from "./Announce";
-export { default as NavbarCourse } from "./NavbarCourse";
+// export { default as NavbarCourse } from "./NavbarCourse";
+export { default as StudentNavCourse } from "./NavbarCourse/StudentNavCourse";
+export { default as TeacherNavCourse } from "./NavbarCourse/TeacherNavCourse";
