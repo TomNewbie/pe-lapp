@@ -22,7 +22,19 @@ const ExerciseSection = ({ name, deadline, grade, status, grade1 }) => {
             loading="lazy"
           />
           <p class="font-normal text-[25px] w-16 text-right">
-            {grade === "null" ? "N/A" : grade}
+            {grade === "null" ? (
+              "N/A"
+            ) : (
+              <span
+                style={{
+                  width: "4rem",
+                  display: "inline-block",
+                  textAlign: "right",
+                }}
+              >
+                {grade}
+              </span>
+            )}
           </p>
         </div>
       </div>
