@@ -1,8 +1,17 @@
+import { useEffect, useState } from "react";
 import { Footer } from "../../../components";
-import { Link } from "react-router-dom";
+import { useAuth } from "../../../components/auth";
+import { useLocation, useNavigate } from "react-router-dom";
+
 const Login = () => {
+  const [user, setUser] = useState("thanh");
+  const auth = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const redirectPath = location.state?.path || "/";
   const handleLogin = () => {
-    <Link to="/allcourses"></Link>;
+    auth.login(user);
+    navigate(redirectPath, { replace: true });
   };
   return (
     <div>
@@ -45,8 +54,8 @@ const Login = () => {
               {/* Start: Log in Button */}
               <div className="flex justify-center">
                 <button
+                  onClick={handleLogin}
                   className=" w-80 h-14 mt-6 mr-56 rounded-lg border-2 border-[#CC6666] loginBtn"
-                  onClick={handleLogin()}
                 >
                   <span className="text-5xl font-bold text-black opacity-100">
                     Log in to Google
