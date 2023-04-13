@@ -1,5 +1,3 @@
-
-
 const NavbarStudent = () => {
   return (
     <header className="bg-[#CC6666]/20">

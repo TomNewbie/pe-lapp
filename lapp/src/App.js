@@ -6,6 +6,11 @@ import {
 import { Login } from "./pages/common";
 import { UploadMaterial } from "./components";
 import { Notification } from "./components";
+const courses = [
+  { name: "Programming Exercise", semester: "SS2023" },
+  { name: "Programming Exercise", semester: "SS2024" },
+  { name: "Programming Exercise", semester: "SS2025" },
+];
 function App() {
   return (
     <div className="App">
@@ -17,6 +22,13 @@ function App() {
         id={"12345"}
         email={"asdawd@ssteunsd.wdcom"}
       ></Profile>
+      {/* <ProfileTeacher
+        courses={courses}
+        name={"Quan"}
+        email={"n4ifmnifm44m@gmail.com"}
+        faculty={"Computer Science"}
+        phoneNumber={"113"}
+      ></ProfileTeacher> */}
     </div>
   );
 }
