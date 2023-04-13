@@ -1,5 +1,9 @@
 import { Footer } from "../../../components";
+import { Link } from "react-router-dom";
 const Login = () => {
+  const handleLogin = () => {
+    <Link to="/allcourses"></Link>;
+  };
   return (
     <div>
       <div className="static ">
@@ -40,7 +44,10 @@ const Login = () => {
               </p>
               {/* Start: Log in Button */}
               <div className="flex justify-center">
-                <button className=" w-80 h-14 mt-6 mr-56 rounded-lg border-2 border-[#CC6666] loginBtn">
+                <button
+                  className=" w-80 h-14 mt-6 mr-56 rounded-lg border-2 border-[#CC6666] loginBtn"
+                  onClick={handleLogin()}
+                >
                   <span className="text-5xl font-bold text-black opacity-100">
                     Log in to Google
                   </span>
