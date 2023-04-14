@@ -122,7 +122,7 @@ const create = async ({
   picture,
   semester,
 }: Optional<Omit<CourseType, "contents" | "participants">, "picture">): Promise<
-  mongoose.Types.ObjectId | CourseError.INVALID_INPUT
+  string | CourseError.INVALID_INPUT
 > => {
   try {
     const { _id } = await Course.create({
@@ -131,7 +131,7 @@ const create = async ({
       picture,
       semester,
     });
-    return _id;
+    return _id.toHexString();
   } catch {
     return CourseError.INVALID_INPUT;
   }

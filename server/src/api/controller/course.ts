@@ -58,7 +58,7 @@ const createCourse = async (req: AuthRequest, res: Response) => {
     return;
   }
 
-  res.status(201).json({ courseId: result.toHexString() });
+  res.status(201).json({ courseId: result });
 };
 
 const updateCourse = async (req: AuthRequest, res: Response) => {
