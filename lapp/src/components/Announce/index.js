@@ -2,7 +2,7 @@ const Announce = () => {
   return (
     <button
       type="button"
-      class="grid justify-start gap-4 w-3/4 h-fit p-3 bg-[#FFFCF7] drop-shadow-xl rounded-2xl ">
+      class="grid justify-start gap-4 w-full h-fit p-3 bg-[#FFFCF7] drop-shadow-xl rounded-2xl ">
       <div class="flex flex-row place-items-center space-x-5">
         <img
           src="/Announce/comment.png"

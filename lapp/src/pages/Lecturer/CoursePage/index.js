@@ -2,8 +2,8 @@
 import {
   NavbarLecturer,
   TeacherNavCourse,
-  CreateCourse,
-  Code,
+  CustomButton,
+  ClassCode,
   TeacherCourseName,
   Announce,
   Notification,
@@ -48,8 +48,8 @@ const CoursePage = () => {
       <TeacherNavCourse
         // General tab
         tab1={
-          <div className="flex flex-row w-[1000px]">
-            <div className="flex flex-col space-y-6 mt-8">
+          <div className="flex justify-around w-[1440px]">
+            <div className="flex flex-col space-y-6 mt-8 w-[900px]">
               <Announce></Announce>
               <Notification
                 status={"no"}
@@ -73,22 +73,24 @@ const CoursePage = () => {
               ></Notification>
             </div>
             <div>
-              <Code code={"12345"}></Code>
+              <ClassCode code={"12345"}></ClassCode>
             </div>
           </div>
         }
         //Exercise tab
         tab2={
-          <div>
-            <CreateCourse></CreateCourse>
-            <div className="flex flex-col space-y-6 mt-8 w-[1000px]">
+          <div className="mt-4 w-[1200px]">
+            <CustomButton variant={"filled"} className={"px-5 py-0"} text={"+ Create"}></CustomButton>
+            <div className="flex flex-col mt-8 divide-y">
+              <Assignment></Assignment>
+              <Assignment></Assignment>
               <Assignment></Assignment>
             </div>
           </div>
         }
         // Participants tab
         tab3={
-          <div className="flex flex-col space-y-6 mt-8 w-[800px]">
+          <div className="flex flex-col space-y-6 mt-8 w-[1000px]">
             <Participants
               teacher={"Tran Tuan Anh"}
               students={students}
