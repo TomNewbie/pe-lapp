@@ -1,2 +1,2 @@
-export { default as Login } from "./Login/index";
-export { default as UploadMaterial } from "./UploadMaterial";
+export { default as Login } from "./Login";
+export { default as Home } from "./Home";
