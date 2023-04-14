@@ -34,20 +34,27 @@ function isJwtUser(obj: unknown): obj is JwtUser {
   );
 }
 
-export const getAccessToken = async ({
-  email,
-  name,
-  avatar,
-}: {
-  email: string;
-  name: string;
-  avatar: string;
-}) => {
+export const getAccessToken = async (
+  {
+    email,
+    name,
+    avatar,
+  }: {
+    email: string;
+    name: string;
+    avatar: string;
+  },
+  expiresIn: string | number | null = "2h"
+) => {
   const { _id, role } = userService.splitEmail(email);
   await userService.upsertUser(role, { _id, email, name, avatar });
 
   const jwtUser: JwtUser = { _id, role };
-  const accessToken = jwt.sign(jwtUser, jwt_secret!, { expiresIn: "2h" });
+  const accessToken = jwt.sign(
+    jwtUser,
+    jwt_secret!,
+    expiresIn !== null ? { expiresIn } : undefined
+  );
 
   return { ...jwtUser, accessToken };
 };
