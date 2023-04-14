@@ -116,14 +116,24 @@ const joinCourse = async (
   if (res.modifiedCount === 0) return CourseError.ALREADY_JOINED;
 };
 
-const create = async (
-  course: Optional<CourseType, "picture" | "contents" | "participants">
-): Promise<mongoose.Types.ObjectId | null> => {
+const create = async ({
+  lecturer_id,
+  name,
+  picture,
+  semester,
+}: Optional<Omit<CourseType, "contents" | "participants">, "picture">): Promise<
+  mongoose.Types.ObjectId | CourseError.INVALID_INPUT
+> => {
   try {
-    const result = await Course.create(course);
-    return result._id;
-  } catch (error) {
-    throw error;
+    const { _id } = await Course.create({
+      lecturer_id,
+      name,
+      picture,
+      semester,
+    });
+    return _id;
+  } catch {
+    return CourseError.INVALID_INPUT;
   }
 };
 
@@ -137,4 +147,10 @@ const update = async (
     return "miss match";
   }
 };
-export const courseService = { create, update, joinCourse, getCoursesOfUser };
+
+export const courseService = {
+  create,
+  update,
+  joinCourse,
+  getCoursesOfUser,
+};

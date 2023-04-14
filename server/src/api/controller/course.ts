@@ -42,33 +42,23 @@ const joinCourse = async (req: AuthRequest, res: Response) => {
 
 const createCourse = async (req: AuthRequest, res: Response) => {
   const { _id, role } = req.user!;
-  const { name, description, semester } = req.body;
+
   if (role === "student") {
-    res.status(400).send("Student can't create course");
+    res.sendStatus(401);
     return;
   }
-  if (!name) {
-    res.status(400).send("Missing course name");
+
+  const result = await courseService.create({
+    ...req.body,
+    lecturer_id: _id,
+  });
+
+  if (result === CourseError.INVALID_INPUT) {
+    res.status(400).send("Invalid input");
     return;
   }
-  if (!description) {
-    res.status(400).send("Missing description name");
-    return;
-  }
-  if (!semester) {
-    res.status(400).send("Missing semester name");
-    return;
-  }
-  try {
-    const id = await courseService.create({
-      name,
-      semester,
-      lecturer_id: _id,
-    });
-    res.status(201).json({ courseId: id });
-  } catch (error) {
-    res.status(400).json({ message: error });
-  }
+
+  res.status(201).json({ courseId: result.toHexString() });
 };
 
 const updateCourse = async (req: AuthRequest, res: Response) => {

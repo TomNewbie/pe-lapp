@@ -129,6 +129,6 @@ Response:
 _Error:_
 
 - 401: Unauthorized
-- 400: Missing course name
+- 400: Invalid input
 
 Regular expression for semester to make sure it is from (WS|SS) 2010 - 2029 (On progress)
