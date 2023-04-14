@@ -4,13 +4,44 @@ import {
   AllCoursesStudent,
   CoursePage,
   ExerciseDetail,
-  JoinCourse,
   Lecturers,
   Profile,
 } from "./pages/Student";
-import { Login, Home } from "./pages/common";
+import { Login, Home, Errorpage } from "./pages/common";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
+  const lecturers = [
+    {
+      name: "a",
+      faculty: "cse",
+      mail: "sd@vgu.edu.vn",
+      url: "/participants-icon/ava.png",
+    },
+    {
+      name: "b",
+      faculty: "cse",
+      mail: "sd@vgu.edu.vn",
+      url: "/participants-icon/ava.png",
+    },
+    {
+      name: "c",
+      faculty: "ba",
+      mail: "sd@vgu.edu.vn",
+      url: "/participants-icon/ava.png",
+    },
+    {
+      name: "d",
+      faculty: "ba",
+      mail: "sd@vgu.edu.vn",
+      url: "/participants-icon/ava.png",
+    },
+    {
+      name: "e",
+      faculty: "ece",
+      mail: "sd@vgu.edu.vn",
+      url: "/participants-icon/ava.png",
+    },
+  ];
   return (
     <div className=" App">
       <AuthProvider>
@@ -26,7 +57,10 @@ function App() {
                 </RequireAuth>
               }
             ></Route>
-            <Route path="/lecturers" element={<Lecturers />}></Route>
+            <Route
+              path="/lecturers"
+              element={<Lecturers lecturers={lecturers} />}
+            ></Route>
             <Route
               path="/profile"
               element={
@@ -35,7 +69,7 @@ function App() {
                 </RequireAuth>
               }
             ></Route>
-            <Route path="*" element={<div>Page not found</div>} />
+            <Route path="*" element={<Errorpage />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
