@@ -1,5 +1,6 @@
 // import for General tab
-import { NavbarStudent,NavbarCourse,StudentCourseName,Notification,Footer} from "../../../components";
+import { NavbarStudent,StudentCourseName,Notification,Footer} from "../../../components";
+import { StudentNavCourse} from "../../../components"
 // import for Participants tab
 import { Participants} from "../../../components";
 // import for Exercise tab
@@ -34,7 +35,7 @@ console.log(Files1);
             <div className="flex flex-col space-y-8">
                 <NavbarStudent></NavbarStudent>
                 <StudentCourseName name={"Software Engineering"} teacher={"Tran Tuan Anh"}></StudentCourseName>
-                <NavbarCourse 
+                <StudentNavCourse 
                 // General tab
                 tab1={
                 <div className="flex flex-col space-y-6 mt-8 w-[1000px]">
@@ -61,7 +62,7 @@ console.log(Files1);
                         status={"done"}
                     ></ExerciseSection></div>}>
                     
-                </NavbarCourse>
+                </StudentNavCourse>
                 <Footer></Footer>
             </div>
         // </body>
