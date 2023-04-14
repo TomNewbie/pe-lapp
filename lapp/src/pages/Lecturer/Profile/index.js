@@ -1,5 +1,5 @@
 import { NavbarLecturer, Footer } from "../../../components";
-const ProfileTeacher = ({ courses, name, email, faculty }) => {
+const ProfileTeacher = ({ courses, name, email, faculty, phoneNumber }) => {
   return (
     <div>
       <NavbarLecturer></NavbarLecturer>
@@ -10,11 +10,13 @@ const ProfileTeacher = ({ courses, name, email, faculty }) => {
             <div class="w-1/3 font-dongle font-bold not-italic text-[45px] text-[#1B1C1E]">
               <p>Full name:</p>
               <p>Email:</p>
+              <p>Phone number:</p>
               <p>Faculty:</p>
             </div>
             <div class="w-3/4 font-dongle font-bold not-italic text-[45px] text-[#1B1C1E]">
               <p>{name}</p>
               <p>{email}</p>
+              <p>{phoneNumber}</p>
               <p>{faculty}</p>
             </div>
           </div>

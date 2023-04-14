@@ -3,39 +3,50 @@ import { NavbarStudent, Footer } from "../../../components";
 
 const Profile = ({ name, id, email }) => {
   const [show, setShow] = useState(false);
-  const [major, setMajor] = useState("");
-  const [intake, setIntake] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [major, setMajor] = useState("CS");
+  const [intake, setIntake] = useState("2020");
+  const [phoneNumber, setPhoneNumber] = useState("113");
+  const [storeMajor, setStoreMajor] = useState("CS");
+  const [storeIntake, setStoreIntake] = useState("2020");
+  const [storePhoneNumber, setStorePhoneNumber] = useState("113");
 
   const handleCancel = () => {
     setShow(false);
-    setMajor("");
-    setIntake("");
-    setPhoneNumber("");
+    setMajor(storeMajor);
+    setIntake(storeIntake);
+    setPhoneNumber(storePhoneNumber);
   };
 
   return (
-    <div class="fixed">
+    <div>
       <NavbarStudent></NavbarStudent>
-      <div className="flex flex-row mr-72 mb-72">
+      <div className="flex flex-row mr-72">
         {/* First column */}
-        <div className="flex flex-col items-center justify-center w-2/5 mt-40 ml-20">
+        <div className="flex flex-col items-center justify-center w-2/5 mt-10 ml-20">
           <img src="avatar.png" alt="profile picture" loading="lazy"></img>
+
           {!show ? (
             <button
               onClick={() => setShow(true)}
-              className="bg-[#CC6666] opacity-80 w-28 h-9 leading-10 rounded-xl border hover:border-slate-500 mt-8 text-3xl text-[#1B1C1E]">
+              className="bg-[#CC6666] opacity-80 px-10 rounded-xl border hover:border-slate-500 mt-8 text-3xl text-[#1B1C1E] font-dongle">
               Edit
             </button>
           ) : (
-            <div className="flex justify-center" class="ml-3 space-x-10">
+            <div
+              className="flex justify-center items-center"
+              class="ml-3 space-x-10 w-72 mt-8">
               <button
-                className="bg-[#CC6666] opacity-80 w-28 h-9 leading-10 rounded-xl mt-8 text-3xl text-[#1B1C1E] border hover:border-slate-500"
-                onClick={() => setShow(false)}>
+                className="bg-[#CC6666] opacity-80 px-10 rounded-xl text-3xl text-[#1B1C1E] border hover:border-slate-500 font-dongle"
+                onClick={() => {
+                  setShow(false);
+                  setStoreMajor(major);
+                  setStoreIntake(intake);
+                  setStorePhoneNumber(phoneNumber);
+                }}>
                 Save
               </button>
               <button
-                className="border-[#B02B3B] border-4 box-border w-28 h-9 pb-8 leading-9 rounded-xl hover:border-slate-500 mt-8 text-3xl ml-4 bg-[#ffffff] drop-shadow-[0_4px_1px_rgba(0,0,0,0.25)] text-[#1B1C1E]"
+                className="border-[#B02B3B] border-4 box-border w-28 h-9 pb-8 rounded-xl hover:border-slate-500 text-3xl ml-4 bg-[#ffffff] drop-shadow-[0_4px_1px_rgba(0,0,0,0.25)] text-[#1B1C1E]"
                 onClick={handleCancel}>
                 Cancel
               </button>
@@ -44,7 +55,7 @@ const Profile = ({ name, id, email }) => {
         </div>
 
         {/* Second column */}
-        <div className="w-2/5 text-5xl text-[#1B1C1E] font-semibold mt-[200px] ml-28 space-y-6">
+        <div className="w-3/12 text-5xl text-[#1B1C1E] font-semibold ml-28 space-y-6 mt-36">
           <p>Full name:</p>
           <p>ID:</p>
           <p>Major:</p>
@@ -54,7 +65,7 @@ const Profile = ({ name, id, email }) => {
         </div>
 
         {/* Third column */}
-        <div className="w-1/5 text-5xl font-semibold mt-[200px] mr-48 space-y-6">
+        <div className="w-1/12 text-5xl font-semibold mr-48 space-y-6 mt-36">
           <p>{name}</p>
           <p>{id}</p>
           <p>
@@ -63,11 +74,11 @@ const Profile = ({ name, id, email }) => {
                 type="text"
                 id="major"
                 name="major"
-                className="bg-[#9F5F5F]/30 rounded-2xl h-10 w-96 text-[#1B1C1E]"
+                className="bg-[#9F5F5F]/30 rounded-2xl h-10 w-96 text-[#1B1C1E] px-3"
                 value={major}
                 onChange={(e) => setMajor(e.target.value)}></input>
             ) : (
-              major
+              storeMajor
             )}
           </p>
           <p>
@@ -76,11 +87,11 @@ const Profile = ({ name, id, email }) => {
                 type="text"
                 id="intake"
                 name="intake"
-                className="bg-[#CC6666]/30 rounded-2xl h-10 w-96 text-[#1B1C1E]"
+                className="bg-[#CC6666]/30 rounded-2xl h-10 w-96 text-[#1B1C1E] px-3"
                 value={intake}
                 onChange={(e) => setIntake(e.target.value)}></input>
             ) : (
-              intake
+              storeIntake
             )}
           </p>
 
@@ -92,11 +103,11 @@ const Profile = ({ name, id, email }) => {
                 type="text"
                 id="phoneNumber"
                 name="phoneNumber"
-                className="bg-[#9F5F5F]/30 rounded-2xl h-10 w-96 text-[#1B1C1E]"
+                className="bg-[#9F5F5F]/30 rounded-2xl h-10 w-96 text-[#1B1C1E] px-3"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}></input>
             ) : (
-              phoneNumber
+              storePhoneNumber
             )}
           </p>
         </div>
@@ -107,140 +118,3 @@ const Profile = ({ name, id, email }) => {
 };
 
 export default Profile;
-
-// import React, { useState } from "react";
-// import { NavbarStudent, Footer, CustomButton } from "../../../components";
-
-// const Profile = ({ name, id, email }) => {
-//   const [show, setShow] = useState(false);
-//   const [major, setMajor] = useState("");
-//   const [intake, setIntake] = useState("");
-//   const [phonenumber, setPhoneNumber] = useState("");
-
-//   const handleCancel = () => {
-//     setShow(false);
-//     setMajor("");
-//     setIntake("");
-//     setPhoneNumber("");
-//   };
-
-//   return (
-//     <div>
-//       <NavbarStudent></NavbarStudent>
-//       <div className="flex flex-row items-center justify-evenly ">
-//         {/* Profile Avatar */}
-//         <div className="flex flex-col place-items-center justify-center mt-40 ml-10">
-//           <img src="avatar.png" alt="profile picture" loading="lazy"></img>
-//           {!show ? (
-//             // <button
-//             //   onClick={() => setShow(true)}
-//             //   className="bg-[#CC6666] opacity-80 w-28 h-9 leading-10 rounded-xl border hover:border-slate-500 mt-8 text-3xl text-[#1B1C1E]">
-//             //   Edit
-//             // </button>
-//             <CustomButton
-//               variant={"border"}
-//               className={"px-8 py-0"}
-//               onClick={() => setShow(true)}
-//               text={"Edit"}></CustomButton>
-//           ) : (
-//             <div className="flex justify-center" class="ml-3 space-x-10">
-//               {/* <button
-//                 className="bg-[#CC6666] opacity-80 w-28 h-9 leading-10 rounded-xl mt-8 text-3xl text-[#1B1C1E] border hover:border-slate-500"
-//                 onClick={() => setShow(false)}>
-//                 Save
-//               </button>
-//               <button
-//                 className="border-[#B02B3B] border-4 box-border w-28 h-9 pb-8 leading-9 rounded-xl hover:border-slate-500 mt-8 text-3xl ml-4 bg-[#ffffff] drop-shadow-[0_4px_1px_rgba(0,0,0,0.25)] text-[#1B1C1E]"
-//                 onClick={handleCancel}>
-//                 Cancel
-//               </button> */}
-//               <CustomButton
-//                 variant={"filled"}
-//                 className={"px-8 py-0"}
-//                 onClick={() => setShow(false)}
-//                 text={"Save"}></CustomButton>
-//               <CustomButton
-//                 variant={"border"}
-//                 className={"px-8 py-0"}
-//                 onClick={handleCancel}
-//                 text={"Cancel"}></CustomButton>
-//             </div>
-//           )}
-//         </div>
-
-//         {/* Profile information */}
-//         <div class=" text-5xl text-[#1B1C1E] font-semibold justify-center">
-//           <div class="flex flex-row">
-//             <p class="w-64">Full name:</p>
-//             <p>{name}</p>
-//           </div>
-
-//           <div class="flex flex-row ">
-//             <p class="w-64">ID:</p>
-//             <p>{id}</p>
-//           </div>
-
-//           <div class="flex flex-row">
-//             <p class="w-64"> Major:</p>
-//             <p>
-//               {show ? (
-//                 <input
-//                   type="text"
-//                   id="Major"
-//                   name="Major"
-//                   className="bg-[#CC6666]/30 rounded-2xl h-10 w-96 text-[#1B1C1E] p-3"
-//                   value={major}
-//                   onChange={(e) => setMajor(e.target.value)}></input>
-//               ) : (
-//                 major
-//               )}
-//             </p>
-//           </div>
-
-//           <div class="flex flex-row">
-//             <p class="w-64">Intake:</p>
-//             <p>
-//               {show ? (
-//                 <input
-//                   type="text"
-//                   id="intake"
-//                   name="intake"
-//                   className="bg-[#CC6666]/30 rounded-2xl h-10 w-96 text-[#1B1C1E] p-3"
-//                   value={intake}
-//                   onChange={(e) => setIntake(e.target.value)}></input>
-//               ) : (
-//                 intake
-//               )}
-//             </p>
-//           </div>
-
-//           <div class="flex flex-row">
-//             <p class="w-64">Email:</p>
-//             <p>{email}</p>
-//           </div>
-
-//           <div class="flex flex-row">
-//             <p class="w-64">Phone number:</p>
-//             <p>
-//               {show ? (
-//                 <input
-//                   type="text"
-//                   id="phonenumber"
-//                   name="phonenumber"
-//                   className="bg-[#CC6666]/30 rounded-2xl h-10 w-96 text-[#1B1C1E] p-3"
-//                   value={phonenumber}
-//                   onChange={(e) => setPhoneNumber(e.target.value)}></input>
-//               ) : (
-//                 phonenumber
-//               )}
-//             </p>
-//           </div>
-//         </div>
-//       </div>
-
-//       <Footer></Footer>
-//     </div>
-//   );
-// };
-
-// export default Profile;
