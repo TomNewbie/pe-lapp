@@ -1,13 +1,10 @@
-<<<<<<< HEAD
 // import { Profile } from "./pages/Student";
 // import { Login } from "./pages/common";
 // import { UploadMaterial } from "./components";
 import { Notification} from "./components";
-=======
 // import { NavbarStudent } from "./components";
 // import { Login } from "./pages/common";
 import { Dropdown } from "./components";
->>>>>>> origin/#peLinh-component-dropdown
 function App() {
   const Files=[
     {name:"Probability"},
