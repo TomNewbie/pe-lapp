@@ -24,8 +24,18 @@ function App() {
                 <RequireAuth>
                   <AllCoursesStudent />
                 </RequireAuth>
-              }
-            ></Route>
+              }></Route>
+            <Route
+              path="/exercise"
+              element={
+                <ExerciseDetail
+                  exername={"Test"}
+                  maxpoints={45}
+                  duedate={"12/3/2022"}
+                  // coursename={"Studey"}
+                  // teacher={}
+                />
+              }></Route>
             <Route path="/lecturers" element={<Lecturers />}></Route>
             <Route
               path="/profile"
@@ -33,8 +43,7 @@ function App() {
                 <RequireAuth>
                   <Profile />
                 </RequireAuth>
-              }
-            ></Route>
+              }></Route>
             <Route path="*" element={<div>Page not found</div>} />
           </Routes>
         </BrowserRouter>
