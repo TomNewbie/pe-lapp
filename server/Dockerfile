@@ -8,3 +8,5 @@ EXPOSE 8080
 WORKDIR /usr/src/app
 
 # Copy the the files require to install the dependencies
+COPY package*.json ./
+
