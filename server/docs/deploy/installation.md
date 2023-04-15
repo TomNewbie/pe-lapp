@@ -6,6 +6,6 @@ Run `npm run build`. It will generate transpiled javascript code into `dist` fol
 # Test project 
 Run test with `npm test`
 # Start the server
-Run the server with `npm start`
+Run the server with `npm start`. The server will be start at port 8080.
 
 
