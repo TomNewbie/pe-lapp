@@ -1,4 +1,4 @@
-import mongoose, { isValidObjectId } from "mongoose";
+import { Types, isValidObjectId } from "mongoose";
 import { Course, CourseType } from "../model/course";
 import { UserRole } from "./user";
 import { Optional } from "../../utils/types";
@@ -164,9 +164,64 @@ const update = async (
   }
 };
 
+interface GetParticipantsResponse {
+  lecturer: {
+    _id: string;
+    name: string;
+    email: string;
+    avatar: string;
+  };
+  students: Array<{
+    _id: string;
+    name: string;
+    email: string;
+    avatar: string;
+  }>;
+}
+
+const getParticipants = async (
+  courseId: string
+): Promise<GetParticipantsResponse | CourseError.NOT_FOUND> => {
+  if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
+
+  const [participants] = await Course.aggregate()
+    .match({ _id: new Types.ObjectId(courseId) })
+    .lookup({
+      from: "lecturers",
+      localField: "lecturer_id",
+      foreignField: "_id",
+      as: "lecturer",
+    })
+    .unwind("$lecturer")
+    .lookup({
+      from: "students",
+      localField: "participants",
+      foreignField: "_id",
+      as: "students",
+    })
+    .project({
+      _id: 0,
+      lecturer: {
+        _id: 1,
+        name: 1,
+        email: 1,
+        avatar: 1,
+      },
+      students: {
+        _id: 1,
+        name: 1,
+        email: 1,
+        avatar: 1,
+      },
+    });
+
+  return participants ?? CourseError.NOT_FOUND;
+};
+
 export const courseService = {
   create,
   update,
   joinCourse,
   getCoursesOfUser,
+  getParticipants,
 };

@@ -80,9 +80,23 @@ const updateCourse = async (req: AuthRequest, res: Response) => {
   res.sendStatus(200);
 };
 
+const getParticipants = async (req: AuthRequest, res: Response) => {
+  const { id } = req.params;
+
+  const result = await courseService.getParticipants(id);
+
+  if (result === CourseError.NOT_FOUND) {
+    res.status(404).send("Course not found");
+    return;
+  }
+
+  res.status(200).json(result);
+};
+
 export const courseController = {
   getAllCourses,
   joinCourse,
   createCourse,
   updateCourse,
+  getParticipants,
 };

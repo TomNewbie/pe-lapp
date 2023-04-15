@@ -1,6 +1,6 @@
 # [GET] /api/course/:id/participants
 
-Get all participant
+Get all participants of a course
 
 Request
 
@@ -11,18 +11,18 @@ Authorization: Bearer `token`
 200 -> Return json
 
 ```ts
-{
+interface GetParticipantsResponse {
   lecturer: {
-    _id: string,
-    name: string,
-    email: string,
-    avatar: string
-  }
+    _id: string;
+    name: string;
+    email: string;
+    avatar: string;
+  };
   students: Array<{
-    _id: string,
-    name: string,
-    email: string,
-    avatar: string
+    _id: string;
+    name: string;
+    email: string;
+    avatar: string;
   }>;
 }
 ```
