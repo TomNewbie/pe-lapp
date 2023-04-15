@@ -19,4 +19,9 @@ RUN npm install
 # Copy the server source code
 COPY . .
 
+# Transpile the typescript source code to javascript
+RUN npm run build
+
+
+
 
