@@ -20,9 +20,8 @@ _Status code:_ 200
 
 _Error:_
 
-- 404: Course not found
+- 404: Cannot find course "`id`" created by you
 - 401: Unauthorized
-- 400: Missing information to update
 
 # [GET] /api/courses?s=`start`&n=`num`&q=`query`&S=`sort`
 

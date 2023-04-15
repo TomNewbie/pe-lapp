@@ -62,29 +62,21 @@ const createCourse = async (req: AuthRequest, res: Response) => {
 };
 
 const updateCourse = async (req: AuthRequest, res: Response) => {
-  const { _id: lecturer_id, role } = req.user!;
-  const { id: _id } = req.params;
-  const { name, description, semester, content } = req.body;
+  const { _id: lecturerId, role } = req.user!;
+  const { id: courseId } = req.params;
+
   if (role === "student") {
-    res.status(400).send("Student can't create course");
+    res.sendStatus(401);
     return;
   }
-  if (!name && !description && !semester && !content) {
-    res.status(400).send("Missing information to update");
+
+  const result = await courseService.update({ courseId, lecturerId }, req.body);
+
+  if (result === CourseError.NOT_FOUND) {
+    res.status(404).send(`Cannot find course "${courseId}" created by you`);
     return;
   }
-  const err = await courseService.update(
-    { _id, lecturer_id },
-    { name, semester }
-  );
-  switch (err) {
-    case "not found":
-      res.status(404).send("Course not found");
-      return;
-    case "miss match":
-      res.status(400).send("You don't create that course");
-      return;
-  }
+
   res.sendStatus(200);
 };
 

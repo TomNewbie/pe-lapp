@@ -137,14 +137,30 @@ const create = async ({
   }
 };
 
+type UpdateCourseId = {
+  lecturerId: string;
+  courseId: string;
+};
+
+type UpdateCourseFields = {
+  name?: string;
+  picture?: string;
+  semester?: string;
+};
+
 const update = async (
-  queryId: Pick<CourseType, "lecturer_id"> & { _id: string },
-  course: Partial<CourseType>
-): Promise<void | "not found" | "miss match"> => {
-  if (!isValidObjectId(queryId._id)) return "not found";
-  const result = await Course.updateOne(queryId, course, { new: true });
+  { lecturerId: lecturer_id, courseId: _id }: UpdateCourseId,
+  { name, picture, semester }: UpdateCourseFields
+): Promise<CourseError.NOT_FOUND | undefined> => {
+  if (!isValidObjectId(_id)) return CourseError.NOT_FOUND;
+
+  const result = await Course.updateOne(
+    { _id, lecturer_id },
+    { name, picture, semester }
+  );
+
   if (result.matchedCount === 0) {
-    return "miss match";
+    return CourseError.NOT_FOUND;
   }
 };
 
