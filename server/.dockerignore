@@ -8,7 +8,6 @@ docker*.yml
 .vscode
 .npm 
 node_modules
-dist 
 .gitlab-ci.yml
 .env
 
