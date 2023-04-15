@@ -20,7 +20,7 @@ RUN npm install
 COPY . .
 
 # Command to run the application
-CMD ["npm", "start"]
+CMD ["node", "dist/index.js"]
 
 
 
