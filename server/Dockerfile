@@ -16,3 +16,7 @@ COPY package*.json ./
 # Install the required dependencies
 RUN npm install
 
+# Copy the server source code
+COPY . .
+
+
