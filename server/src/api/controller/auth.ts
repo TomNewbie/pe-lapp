@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import { client } from "../../config/oauth";
 import { UserRole, userService } from "../service/user";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const client_id = process.env.CLIENT_ID!;
 const jwt_secret = process.env.JWT_SECRET!;
@@ -28,6 +28,8 @@ interface JwtUser {
 
 function isJwtUser(obj: unknown): obj is JwtUser {
   return (
+    typeof obj === "object" &&
+    obj !== null &&
     typeof (obj as JwtUser)._id === "string" &&
     ((obj as JwtUser).role === "student" ||
       (obj as JwtUser).role === "lecturer")
@@ -83,16 +85,8 @@ const loginCallback = async (
   res.redirect(`${redirect_path}?access_token=${accessToken}`);
 };
 
-type ExtendedJwtPayload = JwtPayload & JwtUser;
-
-function isExtendedJwtPayload(
-  payload: JwtPayload
-): payload is ExtendedJwtPayload {
-  return isJwtUser(payload);
-}
-
 export interface AuthRequest extends Request {
-  user?: ExtendedJwtPayload;
+  user?: JwtUser;
 }
 
 // Middleware to check if the JWT token is valid
@@ -101,25 +95,24 @@ const authenticateJWT = (
   res: Response,
   next: NextFunction
 ) => {
-  const authHeader = req.headers.authorization;
+  const { authorization } = req.headers;
 
-  if (authHeader) {
-    const token = authHeader.split(" ")[1];
-
-    jwt.verify(token, jwt_secret, (err, user) => {
-      if (err || typeof user !== "object") {
-        return res.sendStatus(403);
-      }
-
-      if (isExtendedJwtPayload(user)) {
-        req.user = user;
-      }
-
-      next();
-    });
-  } else {
+  if (!authorization) {
     res.sendStatus(401);
+    return;
   }
+
+  const [_bearer, token] = authorization.split(" ");
+
+  jwt.verify(token, jwt_secret, (err, user) => {
+    if (err || !isJwtUser(user)) {
+      res.sendStatus(401);
+      return;
+    }
+
+    req.user = user;
+    next();
+  });
 };
 
 export const authController = { login, loginCallback, authenticateJWT };
