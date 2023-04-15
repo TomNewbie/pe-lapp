@@ -119,6 +119,32 @@ const addParticipant = async (req: AuthRequest, res: Response) => {
   res.sendStatus(204);
 };
 
+const removeParticipant = async (req: AuthRequest, res: Response) => {
+  const { _id: lecturerId, role } = req.user!;
+  if (role === "student") {
+    res.sendStatus(401);
+    return;
+  }
+
+  const { id: courseId, studentId } = req.params;
+
+  const err = await courseService.removeParticipant(
+    { courseId, lecturerId },
+    studentId
+  );
+
+  switch (err) {
+    case CourseError.NOT_JOINED:
+      res.status(404).send("Student not found in course");
+      return;
+    case CourseError.NOT_FOUND:
+      res.status(404).send(`Cannot find course "${courseId}" created by you`);
+      return;
+  }
+
+  res.sendStatus(200);
+};
+
 export const courseController = {
   getAllCourses,
   joinCourse,
@@ -126,4 +152,5 @@ export const courseController = {
   updateCourse,
   getParticipants,
   addParticipant,
+  removeParticipant,
 };

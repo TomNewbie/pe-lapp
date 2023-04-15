@@ -12,5 +12,9 @@ router.post(
   "/course/:id/participants/:studentId",
   courseController.addParticipant
 );
+router.delete(
+  "/course/:id/participants/:studentId",
+  courseController.removeParticipant
+);
 
 export { router as courseRouter };

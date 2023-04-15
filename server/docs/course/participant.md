@@ -48,16 +48,15 @@ Authorization: Bearer `token`
 
 # [DELETE] /api/course/:id/participant/:studentId
 
-Request
+Lecturer remove a student from their course.
+
+## Request
 
 Authorization: Bearer `token`
-
-Backlog -> use when teacher want to manually delete student they don't like
-https://chat.openai.com/chat/1ab1dd0d-31a9-4394-8d18-6abb67a0c095 (cua tho de xem sau)
 
 ## Response
 
 200 -> OK
-404 -> Course not found
+401 -> Unauthorized
+404 -> Cannot find course "`id`" created by you
 404 -> Student not found in course
-403 -> Unauthorized

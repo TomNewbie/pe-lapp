@@ -96,9 +96,10 @@ async function getCoursesOfUser(
 }
 
 export enum CourseError {
-  ALREADY_JOINED,
   NOT_FOUND,
   INVALID_INPUT,
+  ALREADY_JOINED,
+  NOT_JOINED,
 }
 
 const joinCourse = async (
@@ -233,6 +234,21 @@ const addParticipant = async (
   if (res.modifiedCount === 0) return CourseError.ALREADY_JOINED;
 };
 
+const removeParticipant = async (
+  { lecturerId, courseId }: QueryCourseId,
+  studentId: string
+): Promise<CourseError.NOT_JOINED | CourseError.NOT_FOUND | undefined> => {
+  if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
+
+  const res = await Course.updateOne(
+    { _id: courseId, lecturer_id: lecturerId },
+    { $pull: { participants: studentId } }
+  );
+
+  if (res.matchedCount === 0) return CourseError.NOT_FOUND;
+  if (res.modifiedCount === 0) return CourseError.NOT_JOINED;
+};
+
 export const courseService = {
   create,
   update,
@@ -240,4 +256,5 @@ export const courseService = {
   getCoursesOfUser,
   getParticipants,
   addParticipant,
+  removeParticipant,
 };
