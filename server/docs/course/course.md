@@ -95,8 +95,8 @@ _Status code:_ 201: Created
 
 _Error:_
 
+- 401: Unauthorized
 - 404: Course not found
-- 403: Unauthorize
 - 400: Already joined
 
 # [POST] /api/course/

@@ -23,7 +23,7 @@ const joinCourse = async (req: AuthRequest, res: Response) => {
   const { id: courseId } = req.params;
 
   if (role === "lecturer") {
-    res.status(400).send("Lecturers cannot join courses");
+    res.sendStatus(401);
     return;
   }
 
