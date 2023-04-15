@@ -7,6 +7,9 @@ EXPOSE 8080
 # Use /usr/src/app as the workdir. The following instructions will be executed in this location
 WORKDIR /usr/src/app
 
+# Change the environment to production
+ENV NODE_ENV=production
+
 # Copy the the files require to install the dependencies
 COPY package*.json ./
 
