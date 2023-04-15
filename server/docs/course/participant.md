@@ -12,16 +12,16 @@ Authorization: Bearer `token`
 
 ```ts
 {
-  teacher: {
+  lecturer: {
+    _id: string,
     name: string,
     email: string,
-    id: string,
     avatar: string
   }
   students: Array<{
+    _id: string,
     name: string,
     email: string,
-    id: string,
     avatar: string
   }>;
 }
