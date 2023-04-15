@@ -6,11 +6,11 @@ import jwt from "jsonwebtoken";
 const client_id = process.env.CLIENT_ID!;
 const jwt_secret = process.env.JWT_SECRET!;
 
-const ALL_COURSES_PAGE_PATH = "/courses";
+const DEFAULT_LOGIN_REDIRECT_PATH = "/courses";
 
 const login = (req: Request, res: Response) => {
   const { redirect: r } = req.query;
-  const redirect_path = typeof r === "string" ? r : ALL_COURSES_PAGE_PATH;
+  const redirect_path = typeof r === "string" ? r : DEFAULT_LOGIN_REDIRECT_PATH;
 
   const url = client.generateAuthUrl({
     access_type: "offline",
