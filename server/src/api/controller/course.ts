@@ -93,10 +93,37 @@ const getParticipants = async (req: AuthRequest, res: Response) => {
   res.status(200).json(result);
 };
 
+const addParticipant = async (req: AuthRequest, res: Response) => {
+  const { _id: lecturerId, role } = req.user!;
+  if (role === "student") {
+    res.sendStatus(401);
+    return;
+  }
+
+  const { id: courseId, studentId } = req.params;
+
+  const err = await courseService.addParticipant(
+    { courseId, lecturerId },
+    studentId
+  );
+
+  switch (err) {
+    case CourseError.ALREADY_JOINED:
+      res.status(400).send("Already joined");
+      return;
+    case CourseError.NOT_FOUND:
+      res.status(404).send(`Cannot find course "${courseId}" created by you`);
+      return;
+  }
+
+  res.sendStatus(204);
+};
+
 export const courseController = {
   getAllCourses,
   joinCourse,
   createCourse,
   updateCourse,
   getParticipants,
+  addParticipant,
 };

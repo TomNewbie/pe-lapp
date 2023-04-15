@@ -33,19 +33,18 @@ _Error_:
 
 # [POST] /api/course/:id/participant/:studentId
 
-Request
+Lecturer add a student to their course.
+
+## Request
 
 Authorization: Bearer `token`
-
-Backlog -> use when teacher want to manually add student
-https://chat.openai.com/chat/1ab1dd0d-31a9-4394-8d18-6abb67a0c095 (cua tho de xem sau)
 
 ## Response
 
 204 -> No content
-404 -> Course not found
-404 -> Student not found in course
-403 -> Unauthorize
+401 -> Unauthorized
+404 -> Cannot find course "`id`" created by you
+400 -> Already joined
 
 # [DELETE] /api/course/:id/participant/:studentId
 

@@ -137,7 +137,7 @@ const create = async ({
   }
 };
 
-type UpdateCourseId = {
+type QueryCourseId = {
   lecturerId: string;
   courseId: string;
 };
@@ -149,7 +149,7 @@ type UpdateCourseFields = {
 };
 
 const update = async (
-  { lecturerId: lecturer_id, courseId: _id }: UpdateCourseId,
+  { lecturerId: lecturer_id, courseId: _id }: QueryCourseId,
   { name, picture, semester }: UpdateCourseFields
 ): Promise<CourseError.NOT_FOUND | undefined> => {
   if (!isValidObjectId(_id)) return CourseError.NOT_FOUND;
@@ -218,10 +218,26 @@ const getParticipants = async (
   return participants ?? CourseError.NOT_FOUND;
 };
 
+const addParticipant = async (
+  { lecturerId, courseId }: QueryCourseId,
+  studentId: string
+): Promise<CourseError.ALREADY_JOINED | CourseError.NOT_FOUND | undefined> => {
+  if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
+
+  const res = await Course.updateOne(
+    { _id: courseId, lecturer_id: lecturerId },
+    { $addToSet: { participants: studentId } }
+  );
+
+  if (res.matchedCount === 0) return CourseError.NOT_FOUND;
+  if (res.modifiedCount === 0) return CourseError.ALREADY_JOINED;
+};
+
 export const courseService = {
   create,
   update,
   joinCourse,
   getCoursesOfUser,
   getParticipants,
+  addParticipant,
 };

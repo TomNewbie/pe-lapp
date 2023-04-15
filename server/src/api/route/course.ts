@@ -8,5 +8,9 @@ router.post("/course/:id", courseController.joinCourse);
 router.post("/course", courseController.createCourse);
 router.patch("/course/:id", courseController.updateCourse);
 router.get("/course/:id/participants", courseController.getParticipants);
+router.post(
+  "/course/:id/participants/:studentId",
+  courseController.addParticipant
+);
 
 export { router as courseRouter };
