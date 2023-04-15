@@ -22,6 +22,8 @@ COPY . .
 # Transpile the typescript source code to javascript
 RUN npm run build
 
+# Command to run the application
+CMD ["npm", "start"]
 
 
 
