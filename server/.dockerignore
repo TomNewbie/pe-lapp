@@ -1,0 +1,16 @@
+Dockerfile
+docker*.yml
+
+.git
+.gitignore
+
+
+.vscode
+.npm 
+node_modules
+dist 
+.gitlab-ci.yml
+
+*diagram.png
+docs
+*.md 
