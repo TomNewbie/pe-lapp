@@ -32,7 +32,7 @@ const NavbarStudent = () => {
             )}
             <li>
               <a className="text-4xl hover:text-[#B02B3B]" href="#">
-                <Link to="/lecturers">Lecturer</Link>
+                <Link to="/lecturers">Lecturers</Link>
               </a>
             </li>
           </ul>

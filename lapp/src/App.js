@@ -77,7 +77,11 @@ function App() {
               path="/profile"
               element={
                 <RequireAuth>
-                  <Profile />
+                  <Profile
+                    name={"Le Hoang Kim Thanh"}
+                    id={18047}
+                    email={"18047@studen.vgu.edu"}
+                  />
                 </RequireAuth>
               }
             ></Route>
