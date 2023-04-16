@@ -4,7 +4,7 @@ import {
   Profile as ProfileTeacher,
 } from "./pages/Lecturer";
 import { Login } from "./pages/common";
-import { UploadMaterial } from "./components";
+import { Assignment, UploadMaterial } from "./components";
 import { Notification } from "./components";
 const courses = [
   { name: "Programming Exercise", semester: "SS2023" },
@@ -20,8 +20,7 @@ function App() {
       <Profile
         name={"Quan"}
         id={"12345"}
-        email={"asdawd@ssteunsd.wdcom"}
-      ></Profile>
+        email={"asdawd@ssteunsd.wdcom"}></Profile>
       {/* <ProfileTeacher
         courses={courses}
         name={"Quan"}

@@ -150,7 +150,7 @@ const Profile = ({ name, id, email }) => {
   };
 
   return (
-    <div className="">
+    <div className="overflow-hidden h-screen">
       <NavbarStudent></NavbarStudent>
       <div className="flex flex-row items-center justify-center">
         {/* First column */}
