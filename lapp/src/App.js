@@ -10,6 +10,12 @@ function App() {
         grade={"null"}
         status={"undone"}
       ></ExerciseSection>
+      <ExerciseSection
+        name={"Software Engineering Design"}
+        deadline={"Monday, 15 February 2023, 12:00 AM"}
+        grade={"100"}
+        status={"done"}
+      ></ExerciseSection>
     </div>
   );
 }
