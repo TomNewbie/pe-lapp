@@ -58,9 +58,18 @@ function App() {
               }
             ></Route>
             <Route
-              path="/lecturers"
-              element={<Lecturers lecturers={lecturers} />}
+              path="/exercise"
+              element={
+                <ExerciseDetail
+                  exername={"Test"}
+                  maxpoints={45}
+                  duedate={"12/3/2022"}
+                  // coursename={"Studey"}
+                  // teacher={}
+                />
+              }
             ></Route>
+            <Route path="/lecturers" element={<Lecturers />}></Route>
             <Route
               path="/profile"
               element={
