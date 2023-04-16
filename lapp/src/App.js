@@ -27,7 +27,7 @@ function App() {
         name={"Quan"}
         email={"n4ifmnifm44m@gmail.com"}
         faculty={"Computer Science"}
-        phoneNumber={"113"}
+        //phoneNumber={"113"}
       ></ProfileTeacher> */}
     </div>
   );
