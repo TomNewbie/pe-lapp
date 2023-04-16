@@ -1,12 +1,14 @@
 import RequireAuth from "./components/RequireAuth.js";
 import { AuthProvider } from "./components/auth";
 import {
-  AllCoursesLecturer,
-  Profile as ProfileTeacher,
-} from "./pages/Lecturer";
-import { Login } from "./pages/common";
-import { UploadMaterial } from "./components";
-import { Notification } from "./components";
+  AllCoursesStudent,
+  CoursePage,
+  ExerciseDetail,
+  Lecturers,
+  Profile,
+} from "./pages/Student";
+import { Login, Home, Errorpage } from "./pages/common";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   const lecturers = [
     {
@@ -41,11 +43,36 @@ function App() {
     },
   ];
   return (
-    <div className="App">
-      <Login></Login>
-      {/* <AllCoursesStudent></AllCoursesStudent> */}
-      {/* <AllCoursesLecturer></AllCoursesLecturer> */}
-      {/* <Profile></Profile> */}
+    <div className=" App">
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route
+              path="/allcourses"
+              element={
+                <RequireAuth>
+                  <AllCoursesStudent />
+                </RequireAuth>
+              }
+            ></Route>
+            <Route
+              path="/lecturers"
+              element={<Lecturers lecturers={lecturers} />}
+            ></Route>
+            <Route
+              path="/profile"
+              element={
+                <RequireAuth>
+                  <Profile />
+                </RequireAuth>
+              }
+            ></Route>
+            <Route path="*" element={<Errorpage />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </div>
   );
 }
