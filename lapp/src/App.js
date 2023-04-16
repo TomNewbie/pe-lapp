@@ -19,26 +19,26 @@ function App() {
     },
     {
       name: "b",
-      faculty: "cse",
-      mail: "sd@vgu.edu.vn",
+      faculty: "ba",
+      mail: "sd1@vgu.edu.vn",
       url: "/participants-icon/ava.png",
     },
     {
       name: "c",
-      faculty: "ba",
-      mail: "sd@vgu.edu.vn",
+      faculty: "cse",
+      mail: "sd2@vgu.edu.vn",
       url: "/participants-icon/ava.png",
     },
     {
       name: "d",
       faculty: "ba",
-      mail: "sd@vgu.edu.vn",
+      mail: "s@vgu.edu.vn",
       url: "/participants-icon/ava.png",
     },
     {
       name: "e",
       faculty: "ece",
-      mail: "sd@vgu.edu.vn",
+      mail: "s3d@vgu.edu.vn",
       url: "/participants-icon/ava.png",
     },
   ];
