@@ -69,7 +69,10 @@ function App() {
                 />
               }
             ></Route>
-            <Route path="/lecturers" element={<Lecturers />}></Route>
+            <Route
+              path="/lecturers"
+              element={<Lecturers lecturers={lecturers} />}
+            ></Route>
             <Route
               path="/profile"
               element={
