@@ -1,5 +1,5 @@
 import RequireAuth from "./components/RequireAuth.js";
-import { AuthProvider } from "./components/auth";
+import { AuthProvider, useAuth } from "./components/auth";
 import {
   AllCoursesStudent,
   CoursePage,
@@ -7,6 +7,10 @@ import {
   Lecturers,
   Profile,
 } from "./pages/Student";
+import {
+  AllCoursesLecturer,
+  Profile as ProfileLecturer,
+} from "./pages/Lecturer";
 import { Login, Home, Errorpage } from "./pages/common";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
@@ -42,6 +46,9 @@ function App() {
       url: "/participants-icon/ava.png",
     },
   ];
+  const courses = [{ name: "Programming exercise", semetes: "SS2023" }];
+  const auth = useAuth();
+  const role = "student";
   return (
     <div className=" App">
       <AuthProvider>
@@ -52,9 +59,15 @@ function App() {
             <Route
               path="/allcourses"
               element={
-                <RequireAuth>
-                  <AllCoursesStudent />
-                </RequireAuth>
+                role === "student" ? (
+                  <RequireAuth>
+                    <AllCoursesStudent />
+                  </RequireAuth>
+                ) : (
+                  <RequireAuth>
+                    <AllCoursesLecturer />
+                  </RequireAuth>
+                )
               }
             ></Route>
             <Route
@@ -76,13 +89,24 @@ function App() {
             <Route
               path="/profile"
               element={
-                <RequireAuth>
-                  <Profile
-                    name={"Le Hoang Kim Thanh"}
-                    id={18047}
-                    email={"18047@studen.vgu.edu"}
-                  />
-                </RequireAuth>
+                role === "student" ? (
+                  <RequireAuth>
+                    <Profile
+                      name={"Le Hoang Kim Thanh"}
+                      id={18047}
+                      email={"18047@studen.vgu.edu"}
+                    />
+                  </RequireAuth>
+                ) : (
+                  <RequireAuth>
+                    <ProfileLecturer
+                      courses={courses}
+                      name={"Huynh Trung Hieu"}
+                      email={"htt.vgu.edu.vn"}
+                      faculty={"CSE"}
+                    />
+                  </RequireAuth>
+                )
               }
             ></Route>
             <Route path="*" element={<Errorpage />} />
