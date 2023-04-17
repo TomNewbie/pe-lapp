@@ -1,13 +1,7 @@
 import { Response } from "express";
 import { AuthRequest } from "./auth";
-import { courseService, getCoursesOfUser, joinCourse } from "../service/course";
-
-const queryToNumber = (val: unknown): number | undefined => {
-  if (typeof val === "string") val = val.trim();
-  if (!val) return;
-  const n = Number(val);
-  return isNaN(n) ? undefined : n;
-};
+import { CourseError, courseService } from "../service/course";
+import { queryToNumber } from "../../utils";
 
 const getAllCourses = async (req: AuthRequest, res: Response) => {
   const { s, n, q, S } = req.query;
@@ -20,25 +14,25 @@ const getAllCourses = async (req: AuthRequest, res: Response) => {
   };
 
   const { _id, role } = req.user!;
-  const courses = await getCoursesOfUser(_id, role, options);
+  const courses = await courseService.getCoursesOfUser(_id, role, options);
   res.json(courses);
 };
 
-const join = async (req: AuthRequest, res: Response) => {
+const joinCourse = async (req: AuthRequest, res: Response) => {
   const { _id: studentId, role } = req.user!;
   const { id: courseId } = req.params;
 
   if (role === "lecturer") {
-    res.status(400).send("Lecturers cannot join courses");
+    res.sendStatus(401);
     return;
   }
 
-  const err = await joinCourse(studentId, courseId);
+  const err = await courseService.joinCourse(studentId, courseId);
   switch (err) {
-    case "not found":
+    case CourseError.NOT_FOUND:
       res.status(404).send("Course not found");
       return;
-    case "already joined":
+    case CourseError.ALREADY_JOINED:
       res.status(400).send("Already joined");
       return;
   }
@@ -48,66 +42,115 @@ const join = async (req: AuthRequest, res: Response) => {
 
 const createCourse = async (req: AuthRequest, res: Response) => {
   const { _id, role } = req.user!;
-  const { name, description, semester } = req.body;
+
   if (role === "student") {
-    res.status(400).json({ message: "student can't create course" });
+    res.sendStatus(401);
     return;
   }
-  if (!name) {
-    res.status(400).json({ message: "misisng course name" });
+
+  const result = await courseService.create({
+    ...req.body,
+    lecturer_id: _id,
+  });
+
+  if (result === CourseError.INVALID_INPUT) {
+    res.status(400).send("Invalid input");
     return;
   }
-  if (!description) {
-    res.status(400).json({ message: "missing description name" });
-    return;
-  }
-  if (!semester) {
-    res.status(400).json({ message: "misisng semester name" });
-    return;
-  }
-  try {
-    const id = await courseService.create({
-      name,
-      description,
-      semester,
-      lecturer_id: _id,
-    });
-    res.status(201).json({ courseId: id });
-  } catch (error) {
-    res.status(400).json({ message: error });
-  }
+
+  res.status(201).json({ courseId: result });
 };
 
 const updateCourse = async (req: AuthRequest, res: Response) => {
-  const { _id: lecturer_id, role } = req.user!;
-  const { id: _id } = req.params;
-  const { name, description, semester, content } = req.body;
+  const { _id: lecturerId, role } = req.user!;
+  const { id: courseId } = req.params;
+
   if (role === "student") {
-    res.status(400).json({ message: "student can't create course" });
+    res.sendStatus(401);
     return;
   }
-  if (!name && !description && !semester && !content) {
-    res.status(400).json({ message: "Missing information to update" });
+
+  const result = await courseService.update({ courseId, lecturerId }, req.body);
+
+  if (result === CourseError.NOT_FOUND) {
+    res.status(404).send(`Cannot find course "${courseId}" created by you`);
     return;
   }
-  const err = await courseService.update(
-    { _id, lecturer_id },
-    { name, description, semester, content }
+
+  res.sendStatus(200);
+};
+
+const getParticipants = async (req: AuthRequest, res: Response) => {
+  const { id } = req.params;
+
+  const result = await courseService.getParticipants(id);
+
+  if (result === CourseError.NOT_FOUND) {
+    res.status(404).send("Course not found");
+    return;
+  }
+
+  res.status(200).json(result);
+};
+
+const addParticipant = async (req: AuthRequest, res: Response) => {
+  const { _id: lecturerId, role } = req.user!;
+  if (role === "student") {
+    res.sendStatus(401);
+    return;
+  }
+
+  const { id: courseId, studentId } = req.params;
+
+  const err = await courseService.addParticipant(
+    { courseId, lecturerId },
+    studentId
   );
+
   switch (err) {
-    case "not found":
-      res.status(404).json({ message: "Course not found" });
+    case CourseError.ALREADY_JOINED:
+      res.status(400).send("Already joined");
       return;
-    case "miss match":
-      res.status(404).json({ message: "You don't create that course" });
+    case CourseError.NOT_FOUND:
+      res.status(404).send(`Cannot find course "${courseId}" created by you`);
       return;
   }
-  res.status(200);
+
+  res.sendStatus(204);
+};
+
+const removeParticipant = async (req: AuthRequest, res: Response) => {
+  const { _id: lecturerId, role } = req.user!;
+  if (role === "student") {
+    res.sendStatus(401);
+    return;
+  }
+
+  const { id: courseId, studentId } = req.params;
+
+  const err = await courseService.removeParticipant(
+    { courseId, lecturerId },
+    studentId
+  );
+
+  switch (err) {
+    case CourseError.NOT_JOINED:
+      res.status(404).send("Student not found in course");
+      return;
+    case CourseError.NOT_FOUND:
+      res.status(404).send(`Cannot find course "${courseId}" created by you`);
+      return;
+  }
+
+  res.sendStatus(200);
 };
 
 export const courseController = {
   getAllCourses,
-  joinCourse: join,
+  joinCourse,
   createCourse,
   updateCourse,
+  getParticipants,
+  addParticipant,
+  removeParticipant,
 };

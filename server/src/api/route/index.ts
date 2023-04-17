@@ -13,4 +13,4 @@ router.all("*", (_: Request, res: Response) => {
   res.sendStatus(404);
 });
 
-export { router };
+export { router as apiRouter };

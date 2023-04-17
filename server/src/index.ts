@@ -1,5 +1,3 @@
-import { Course } from "./api/model/course";
-import { Lecturer } from "./api/model/user";
 import app from "./app";
 import { db } from "./config/database";
 const port = process.env.PORT;
