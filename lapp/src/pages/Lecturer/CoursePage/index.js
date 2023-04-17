@@ -39,7 +39,7 @@ const CoursePage = () => {
   console.log(Files1);
   return (
     // <body className="bg-[#FFFAF0]">
-    <div className="flex flex-col space-y-8">
+    <div className="flex flex-col">
       <NavbarLecturer></NavbarLecturer>
       <TeacherCourseName
         name={"Software Engineering"}
@@ -49,7 +49,7 @@ const CoursePage = () => {
         // General tab
         tab1={
           <div className="flex justify-around w-[1440px]">
-            <div className="flex flex-col space-y-6 mt-8 w-[900px]">
+            <div className="flex flex-col space-y-6 mt-8 mb-16 w-[900px]">
               <Announce></Announce>
               <Notification
                 status={"no"}
@@ -80,8 +80,12 @@ const CoursePage = () => {
         //Exercise tab
         tab2={
           <div className="mt-4 w-[1200px]">
-            <CustomButton variant={"filled"} className={"px-5 py-0"} text={"+ Create"}></CustomButton>
-            <div className="flex flex-col mt-8 divide-y">
+            <CustomButton
+              variant={"filled"}
+              className={"px-5 py-0"}
+              text={"+ Create"}
+            ></CustomButton>
+            <div className="flex flex-col mt-8 mb-16 divide-y">
               <Assignment></Assignment>
               <Assignment></Assignment>
               <Assignment></Assignment>
@@ -90,7 +94,7 @@ const CoursePage = () => {
         }
         // Participants tab
         tab3={
-          <div className="flex flex-col space-y-6 mt-8 w-[1000px]">
+          <div className="flex flex-col space-y-6 mt-8 mb-16 w-[1000px]">
             <Participants
               teacher={"Tran Tuan Anh"}
               students={students}

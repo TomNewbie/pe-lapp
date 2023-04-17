@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-const TeacherNavCourse = ({tab1,tab2,tab3,tab4}) => {
+const TeacherNavCourse = ({ tab1, tab2, tab3, tab4 }) => {
   const [activeTab, setActiveTab] = useState(1);
   const handleClick = (index) => {
     setActiveTab(index);
   };
   return (
-    <div className="grid h-8 max-w-full justify-items-center mt-52">
+    <div className="grid max-w-full justify-items-center">
       {/* Tab link */}
-      <div className="flex justify-between w-full h-8 border-b border-slate-300 cursor-pointer">
+      <div className="flex justify-between w-full h-8 border-b cursor-pointer border-slate-300">
         <div
           className={
             activeTab === 1

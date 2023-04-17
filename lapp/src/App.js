@@ -10,6 +10,7 @@ import {
 import {
   AllCoursesLecturer,
   Profile as ProfileLecturer,
+  CoursePage as CoursePageLecturer,
 } from "./pages/Lecturer";
 import { Login, Home, Errorpage } from "./pages/common";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -48,7 +49,7 @@ function App() {
   ];
   const courses = [{ name: "Programming exercise", semetes: "SS2023" }];
   const auth = useAuth();
-  const role = "student";
+  const role = "lecturer";
   return (
     <div className=" App">
       <AuthProvider>
@@ -80,6 +81,12 @@ function App() {
                   // coursename={"Studey"}
                   // teacher={}
                 />
+              }
+            ></Route>
+            <Route
+              path="/course"
+              element={
+                role === "student" ? <CoursePage /> : <CoursePageLecturer />
               }
             ></Route>
             <Route
