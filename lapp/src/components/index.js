@@ -8,3 +8,4 @@ export { default as CoursecardStudent } from "./CoursecardStudent";
 export { default as CoursecardTeacher } from "./CoursecardTeacher";
 export { default as UploadMaterial} from "./UploadMaterial";
 export { default as Notification} from "./Notification";
+export { default as OverallGrade} from "./overallGrade";
