@@ -9,3 +9,4 @@ export { default as CoursecardTeacher } from "./CoursecardTeacher";
 export { default as UploadMaterial} from "./UploadMaterial";
 export { default as Notification} from "./Notification";
 export { default as OverallGrade} from "./overallGrade";
+export { default as KeyFeature} from "./KeyFeature";
