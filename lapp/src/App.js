@@ -15,7 +15,7 @@ import {
 import { Login, Home, Errorpage } from "./pages/common";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
-  const role = "lecturer";
+  const role = "student";
   return (
     <div className=" App">
       <AuthProvider>

@@ -1,4 +1,5 @@
 // import for General tab
+import { useParams } from "react-router-dom";
 import {
   NavbarLecturer,
   TeacherNavCourse,
@@ -14,63 +15,53 @@ import { Participants } from "../../../components";
 // import for Exercise tab
 import { Assignment } from "../../../components";
 const CoursePage = () => {
+  const { id } = useParams();
   //General tab: Notification
-  const Files1 = [
-    { name: "Probability" },
-    { name: "Statistic" },
-    { name: "B" },
-    { name: "C" },
-    { name: "D" },
+  const notis = [
+    {
+      status: "no",
+      title: "Announcement",
+      content: "Today we learn Bayes Rules, hope you like the lecture.",
+      files: [{ name: "Probability" }, { name: "Statistic" }],
+    },
+    {
+      status: "true",
+      title: "Announcement",
+      content: "Tomorrow we will have an mini exam.",
+      files: [],
+    },
+    {
+      status: "true",
+      title: "Practice test",
+      content: "Hello",
+      files: [{ name: "Math" }, { name: "Science" }],
+    },
   ];
-  const Files2 = [
-    { name: "Probability" },
-    { name: "Statistic" },
-    { name: "B" },
-    { name: "C" },
-  ];
-  const Files3 = [];
   //Participants tab: Participants section
   const students = [
     { url: "/participants-icon/ava.png", name: "A", mail: "ava.gmail.com" },
     { url: "/participants-icon/ava.png", name: "B", mail: "ava1.gmail.com" },
     { url: "/participants-icon/ava.png", name: "C", mail: "ava2.gmail.com" },
   ];
-
-  console.log(Files1);
   return (
     // <body className="bg-[#FFFAF0]">
     <div className="flex flex-col">
       <NavbarLecturer></NavbarLecturer>
-      <TeacherCourseName
-        name={"Software Engineering"}
-        semester={"Winter 2023"}
-      ></TeacherCourseName>
+      <TeacherCourseName name={id} semester={"Winter 2023"}></TeacherCourseName>
       <TeacherNavCourse
         // General tab
         tab1={
           <div className="flex justify-around w-[1440px]">
             <div className="flex flex-col space-y-6 mt-8 mb-16 w-[900px]">
               <Announce></Announce>
-              <Notification
-                status={"no"}
-                title={"Announcement"}
-                content={
-                  "Today we learn Bayes Rules, hope you like the lecture."
-                }
-                Files={Files3}
-              ></Notification>
-              <Notification
-                status={"true"}
-                title={"Probability"}
-                content={"asdcvbnmmjjhggggggg"}
-                Files={Files1}
-              ></Notification>
-              <Notification
-                status={"true"}
-                title={"Probability"}
-                content={"asdcvbnmmjjhggggggg"}
-                Files={Files2}
-              ></Notification>
+              {notis.map((noti) => {
+                <Notification
+                  status={noti.status}
+                  title={noti.title}
+                  content={noti.content}
+                  Files={noti.files}
+                ></Notification>;
+              })}
             </div>
             <div>
               <ClassCode code={"12345"}></ClassCode>

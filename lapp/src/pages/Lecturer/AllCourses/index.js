@@ -1,9 +1,20 @@
+import { Link } from "react-router-dom";
 import {
   NavbarLecturer,
   Footer,
   CoursecardTeacher,
   SearchBox,
 } from "../../../components";
+const courses = [
+  { name: "1", participants: 12, semester: "SS2023" },
+  { name: "2", participants: 12, semester: "SS2023" },
+  { name: "3", participants: 12, semester: "SS2023" },
+  { name: "4", participants: 12, semester: "SS2023" },
+  { name: "5", participants: 12, semester: "SS2023" },
+  { name: "6", participants: 12, semester: "SS2023" },
+  { name: "7", participants: 12, semester: "SS2023" },
+  { name: "8", participants: 12, semester: "SS2023" },
+];
 const AllCoursesLecturer = () => {
   return (
     <div>
@@ -18,14 +29,18 @@ const AllCoursesLecturer = () => {
 
         <div className="mt-8 ml-16 text-7xl">ALL COURSES</div>
         <div className="bg-[#F48F98]/50 grid grid-cols-4 grid-rows-2 mb-16 gap-x-32 gap-y-8 mx-16 rounded-2xl px-24 py-4">
-          <CoursecardTeacher></CoursecardTeacher>
-          <CoursecardTeacher></CoursecardTeacher>
-          <CoursecardTeacher></CoursecardTeacher>
-          <CoursecardTeacher></CoursecardTeacher>
-          <CoursecardTeacher></CoursecardTeacher>
-          <CoursecardTeacher></CoursecardTeacher>
-          <CoursecardTeacher></CoursecardTeacher>
-          <CoursecardTeacher></CoursecardTeacher>
+          {courses.map((course) => {
+            const link = "/course/" + course.name;
+            return (
+              <Link to={link}>
+                <CoursecardTeacher
+                  courseName={course.name}
+                  numberOfParticipants={course.participants}
+                  semester={course.semester}
+                ></CoursecardTeacher>
+              </Link>
+            );
+          })}
         </div>
         <Footer></Footer>
       </div>
