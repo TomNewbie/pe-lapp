@@ -1,4 +1,5 @@
 // import for General tab
+import { useParams } from "react-router-dom";
 import {
   NavbarStudent,
   StudentCourseName,
@@ -11,6 +12,7 @@ import { Participants } from "../../../components";
 // import for Exercise tab
 import { ExerciseSection } from "../../../components";
 const CoursePage = () => {
+  const { id } = useParams();
   //General tab: Notification
   const Files1 = [
     { name: "Probability" },
@@ -39,7 +41,7 @@ const CoursePage = () => {
     <div className="flex flex-col">
       <NavbarStudent></NavbarStudent>
       <StudentCourseName
-        name={"Software Engineering"}
+        name={id}
         teacher={"Tran Tuan Anh"}
       ></StudentCourseName>
       <div className="">

@@ -2,8 +2,39 @@ import { NavbarStudent, Footer } from "../../../components";
 function copyToClipboard(email) {
   navigator.clipboard.writeText(email);
 }
-
-const Lecturers = ({ lecturers }) => {
+const lecturers = [
+  {
+    name: "a",
+    faculty: "cse",
+    mail: "sd@vgu.edu.vn",
+    url: "/participants-icon/ava.png",
+  },
+  {
+    name: "b",
+    faculty: "ba",
+    mail: "sd1@vgu.edu.vn",
+    url: "/participants-icon/ava.png",
+  },
+  {
+    name: "c",
+    faculty: "cse",
+    mail: "sd2@vgu.edu.vn",
+    url: "/participants-icon/ava.png",
+  },
+  {
+    name: "d",
+    faculty: "ba",
+    mail: "s@vgu.edu.vn",
+    url: "/participants-icon/ava.png",
+  },
+  {
+    name: "e",
+    faculty: "ece",
+    mail: "s3d@vgu.edu.vn",
+    url: "/participants-icon/ava.png",
+  },
+];
+const LecturerList = ({ lecturers }) => {
   const facultySection = lecturers.reduce((acc, lecturer) => {
     if (!acc[lecturer.faculty]) {
       acc[lecturer.faculty] = [lecturer];
@@ -51,8 +82,16 @@ const Lecturers = ({ lecturers }) => {
 
   return (
     <div>
-      <NavbarStudent></NavbarStudent>
       <div>{LecturerSection}</div>
+    </div>
+  );
+};
+
+const Lecturers = () => {
+  return (
+    <div>
+      <NavbarStudent></NavbarStudent>
+      <LecturerList lecturers={lecturers} />
       <Footer></Footer>
     </div>
   );

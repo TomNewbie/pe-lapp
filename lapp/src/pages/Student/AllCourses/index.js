@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   NavbarStudent,
   Footer,
@@ -5,6 +6,16 @@ import {
   CoursecardStudent,
 } from "../../../components";
 const AllCoursesStudent = () => {
+  const courses = [
+    { name: "1", lecturer: "HHH", progress: "80%" },
+    { name: "2", lecturer: "HHH", progress: "80%" },
+    { name: "3", lecturer: "HHH", progress: "80%" },
+    { name: "4", lecturer: "HHH", progress: "80%" },
+    { name: "5", lecturer: "HHH", progress: "80%" },
+    { name: "6", lecturer: "HHH", progress: "80%" },
+    { name: "7", lecturer: "HHH", progress: "80%" },
+    { name: "8", lecturer: "HHH", progress: "80%" },
+  ];
   return (
     <div>
       <NavbarStudent></NavbarStudent>
@@ -17,46 +28,18 @@ const AllCoursesStudent = () => {
 
       <div className="mt-8 ml-16 text-7xl">ALL COURSES</div>
       <div className="bg-[#F48F98]/50 grid grid-cols-4 grid-rows-2 mb-16 gap-x-32 gap-y-8 mx-16 rounded-2xl px-24 py-4">
-        <CoursecardStudent
-          courseName={"Programming exercise"}
-          lecturerName={"Huynh Trung Hieu"}
-          progress={80}
-        ></CoursecardStudent>
-        <CoursecardStudent
-          courseName={"Programming exercise"}
-          lecturerName={"Huynh Trung Hieu"}
-          progress={80}
-        ></CoursecardStudent>
-        <CoursecardStudent
-          courseName={"Programming exercise"}
-          lecturerName={"Huynh Trung Hieu"}
-          progress={80}
-        ></CoursecardStudent>
-        <CoursecardStudent
-          courseName={"Programming exercise"}
-          lecturerName={"Huynh Trung Hieu"}
-          progress={80}
-        ></CoursecardStudent>
-        <CoursecardStudent
-          courseName={"Programming exercise"}
-          lecturerName={"Huynh Trung Hieu"}
-          progress={80}
-        ></CoursecardStudent>
-        <CoursecardStudent
-          courseName={"Programming exercise"}
-          lecturerName={"Huynh Trung Hieu"}
-          progress={80}
-        ></CoursecardStudent>
-        <CoursecardStudent
-          courseName={"Programming exercise"}
-          lecturerName={"Huynh Trung Hieu"}
-          progress={80}
-        ></CoursecardStudent>
-        <CoursecardStudent
-          courseName={"Programming exercise"}
-          lecturerName={"Huynh Trung Hieu"}
-          progress={80}
-        ></CoursecardStudent>
+        {courses.map((course) => {
+          const link = "/course/" + course.name;
+          return (
+            <Link to={link}>
+              <CoursecardStudent
+                courseName={course.name}
+                lecturerName={course.lecturer}
+                progress={course.progress}
+              ></CoursecardStudent>
+            </Link>
+          );
+        })}
       </div>
       <Footer></Footer>
     </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavbarLecturer, Footer } from "../../../components";
-const ProfileTeacher = ({ courses, name, email, faculty }) => {
+const courses = [{ name: "Programming exercise", semetes: "SS2023" }];
+const ProfileTeacherDetail = ({ courses, name, email, faculty }) => {
   const [show, setShow] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [storePhoneNumber, setStorePhoneNumber] = useState("");
@@ -10,13 +11,12 @@ const ProfileTeacher = ({ courses, name, email, faculty }) => {
     setPhoneNumber(storePhoneNumber);
   };
   return (
-    <div className="overflow-hidden h-screen">
-      <NavbarLecturer></NavbarLecturer>
-      <div className="mt-6 flex flex-row items-center justify-center space-x-40">
-        <div className="grid grid-rows-2 items-center mt-20 ml-20">
+    <div className="h-screen overflow-hidden">
+      <div className="flex flex-row items-center justify-center mt-6 space-x-40">
+        <div className="grid items-center grid-rows-2 mt-20 ml-20">
           <img src="/ProfileTeacher/avatar.png" alt="avatar" loading="lazy" />
           {!show ? (
-            <div className="self-start flex justify-center">
+            <div className="flex self-start justify-center">
               <button
                 onClick={() => setShow(true)}
                 className="bg-[#CC6666] opacity-80 px-10 rounded-xl border hover:border-slate-500 mt-8 text-3xl text-[#1B1C1E] font-dongle"
@@ -25,7 +25,7 @@ const ProfileTeacher = ({ courses, name, email, faculty }) => {
               </button>
             </div>
           ) : (
-            <div className="flex justify-center ml-3 space-x-10 mt-8 self-start">
+            <div className="flex self-start justify-center mt-8 ml-3 space-x-10">
               <button
                 className="bg-[#CC6666] opacity-80 px-10 rounded-xl text-3xl text-[#1B1C1E] border hover:border-slate-500 font-dongle"
                 onClick={() => {
@@ -96,22 +96,22 @@ const ProfileTeacher = ({ courses, name, email, faculty }) => {
           </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+const ProfileTeacher = () => {
+  return (
+    <div>
+      <NavbarLecturer></NavbarLecturer>
+      <ProfileTeacherDetail
+        courses={courses}
+        name={"Huynh Trung Hieu"}
+        email={"htt.vgu.edu.vn"}
+        faculty={"CSE"}
+      ></ProfileTeacherDetail>
       <Footer></Footer>
     </div>
   );
 };
 export default ProfileTeacher;
-
-{
-  /* <ProfileTeacher
-courses={courses}
-name={"Quan"}
-email={"n4ifmnifm44m@gmail.com"}
-faculty={"Computer Science"}
-></ProfileTeacher> */
-}
-// const courses = [
-//   { name: "Programming Exercise", semester: "SS2023" },
-//   { name: "Programming Exercise", semester: "SS2024" },
-//   { name: "Programming Exercise", semester: "SS2025" },
-// ];
