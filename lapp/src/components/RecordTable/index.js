@@ -18,8 +18,7 @@ const RecordTable = ({ students }) => {
                 : student.status === "missing"
                 ? "text-[#7F1734] text-center border border-slate-300"
                 : "text-[#FBA70E] text-center border border-slate-300"
-            }
-          >
+            }>
             {student.status}
           </td>
           <td class="px-2 py-2 text-center border border-slate-300">
@@ -31,8 +30,7 @@ const RecordTable = ({ students }) => {
                       <img
                         src="/notification/upload.svg"
                         alt=""
-                        className="mt-3 ml-4 w-9 h-9"
-                      ></img>
+                        className="mt-3 ml-4 w-9 h-9"></img>
                       <div className="ml-8 mr-4 text-3xl font-semibold">
                         {file}
                       </div>
@@ -51,9 +49,9 @@ const RecordTable = ({ students }) => {
       ))
     : null;
   return (
-    <div class="flex flex-col h-screen">
+    <div class="flex flex-col h-screen px-10 text-[30px] ">
       <div class="flex-grow overflow-auto">
-        <table class="relative w-full border-collapse border border-slate-500 ">
+        <table class="relative w-full border-collapse border border-slate-500">
           <thead>
             <tr class="h-fit">
               <th class="sticky top-0 px-6 py-3 border border-slate-300 text-[#7F1734] bg-[#F4C2C2]/40">

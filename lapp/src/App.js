@@ -3,11 +3,11 @@ import { AuthProvider } from "./components/auth";
 import {
   AllCoursesStudent,
   CoursePage,
-  ExerciseDetail,
   JoinCourse,
   Lecturers,
   Profile,
 } from "./pages/Student";
+import { ExerciseDetail } from "./pages/Lecturer";
 import { Login, Home } from "./pages/common";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
@@ -24,8 +24,7 @@ function App() {
                 <RequireAuth>
                   <AllCoursesStudent />
                 </RequireAuth>
-              }
-            ></Route>
+              }></Route>
             <Route path="/lecturers" element={<Lecturers />}></Route>
             <Route
               path="/profile"
@@ -33,8 +32,19 @@ function App() {
                 <RequireAuth>
                   <Profile />
                 </RequireAuth>
-              }
-            ></Route>
+              }></Route>
+            <Route
+              path="/exercise"
+              element={
+                <ExerciseDetail
+                  exername={"PE"}
+                  maxpoints={100}
+                  duedate={122012}
+                  submission={40}
+                  avescore={80}
+                />
+              }></Route>
+
             <Route path="*" element={<div>Page not found</div>} />
           </Routes>
         </BrowserRouter>
