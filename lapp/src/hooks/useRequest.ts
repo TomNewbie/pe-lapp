@@ -39,7 +39,7 @@ type RequestResponse<T> =
   | RequestResponseBase<false, T, null>
   | RequestResponseBase<false, null, Error>;
 
-export function useRequest<TExpected>(
+export function useRequest<TExpected = any>(
   url: RequestURL,
   request?: RequestInit
 ): RequestResponse<TExpected> {
