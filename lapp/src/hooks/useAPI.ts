@@ -63,13 +63,10 @@ export function useAPI<TExpected = any>(
           throw Error(await res.text());
         }
 
-        let data: TExpected;
+        let data: TExpected | null = null;
         if (res.headers.get("Content-Type")?.includes("application/json")) {
           data = await res.json();
-        } else {
-          data = (await res.text()) as TExpected;
         }
-
         setData(data);
         setError(null);
       } catch (err) {
