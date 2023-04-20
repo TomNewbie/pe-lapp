@@ -24,7 +24,7 @@ const parseRequestURL = ({
   return path;
 };
 
-interface RequestResponseBase<
+interface ResponseBase<
   TPending extends boolean,
   TData,
   TError extends Error | null
@@ -34,15 +34,15 @@ interface RequestResponseBase<
   error: TError;
 }
 
-type RequestResponse<T> =
-  | RequestResponseBase<true, any, any>
-  | RequestResponseBase<false, T, null>
-  | RequestResponseBase<false, null, Error>;
+type Response<T> =
+  | ResponseBase<true, any, any>
+  | ResponseBase<false, T, null>
+  | ResponseBase<false, null, Error>;
 
-export function useRequest<TExpected = any>(
+export function useAPI<TExpected = any>(
   url: RequestURL,
   request?: RequestInit
-): RequestResponse<TExpected> {
+): Response<TExpected> {
   const [pending, setPending] = useState(true);
   const [data, setData] = useState<TExpected | null>(null);
   const [error, setError] = useState<Error | null>(null);
