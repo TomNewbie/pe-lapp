@@ -39,6 +39,78 @@ type Response<T> =
   | ResponseBase<false, T, null>
   | ResponseBase<false, null, Error>;
 
+export function useAPI(
+  url: { path: "/api/user/info" },
+  request: {
+    headers: {
+      method?: "GET";
+      Authorization: `Bearer ${string}`;
+    };
+  }
+): Response<{
+  _id: string;
+  name: string;
+  role: "student" | "lecturer";
+}>;
+export function useAPI(
+  url: { path: "/api/user/profile" },
+  request: {
+    headers: {
+      method: "PATCH";
+      Authorization: `Bearer ${string}`;
+      body: string;
+    };
+  }
+): Response<null>;
+export function useAPI(
+  url: { path: "/api/student/:id"; params: { id: string } },
+  request: {
+    headers: {
+      method?: "GET";
+      Authorization: `Bearer ${string}`;
+    };
+  }
+): Response<{
+  _id: string;
+  email: string;
+  name: string;
+  avatar: string;
+  phone_number?: string;
+  major?: string;
+  intake?: number;
+}>;
+export function useAPI(
+  url: { path: "/api/lecturer/:id"; params: { id: string } },
+  request: {
+    headers: {
+      method?: "GET";
+      Authorization: `Bearer ${string}`;
+    };
+  }
+): Response<{
+  _id: string;
+  email: string;
+  name: string;
+  avatar: string;
+  phone_number?: string;
+  faculty?: string;
+  courses: Array<{ name: string; semester: string }>;
+}>;
+export function useAPI(
+  url: { path: "/api/lecturers"; searchParams: { s: any; n: any } },
+  request: {
+    headers: {
+      method?: "GET";
+      Authorization: `Bearer ${string}`;
+    };
+  }
+): Response<
+  Array<{
+    _id: string;
+    name: string;
+    faculty?: string;
+  }>
+>;
 export function useAPI<TExpected = any>(
   url: RequestURL,
   request?: RequestInit
