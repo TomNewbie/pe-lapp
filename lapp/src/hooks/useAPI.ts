@@ -111,9 +111,10 @@ export function useAPI(
     faculty?: string;
   }>
 >;
+
 export function useAPI<TExpected = any>(
   url: RequestURL,
-  request?: RequestInit
+  request?: RequestInit | { body: object }
 ): Response<TExpected> {
   const [pending, setPending] = useState(true);
   const [data, setData] = useState<TExpected | null>(null);
@@ -128,6 +129,10 @@ export function useAPI<TExpected = any>(
       try {
         const res = await fetch(parsedURL, {
           ...request,
+          body:
+            typeof request?.body === "object"
+              ? JSON.stringify(request.body)
+              : request?.body,
           signal: abortCtrl.signal,
         });
 
