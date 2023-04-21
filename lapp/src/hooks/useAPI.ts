@@ -122,6 +122,138 @@ export function useAPI(
   }>
 >;
 
+export function useAPI(
+  url: {
+    path: "/api/course/:id";
+    params: { id: string };
+  },
+  request: {
+    method: "PATCH";
+    headers: {
+      Authorization: `Bearer ${string}`;
+      "Content-Type": "application/json";
+    };
+    body: {
+      name?: string;
+      picture?: string;
+      semester?: string;
+    };
+  }
+): Response<null>;
+export function useAPI(
+  url: {
+    path: "/api/courses";
+    searchParams?: {
+      s?: number;
+      n?: number;
+      q?: string;
+      S?: string | string[];
+    };
+  },
+  request: {
+    method?: "GET";
+    headers: {
+      Authorization: `Bearer ${string}`;
+    };
+  }
+): Response<
+  | Array<{
+      _id: string;
+      name: string;
+      semester: string;
+      picture: string;
+      lecturer_name: string;
+    }>
+  | Array<{
+      _id: string;
+      name: string;
+      semester: string;
+      picture: string;
+      participant_count: number;
+    }>
+>;
+export function useAPI(
+  url: {
+    path: "/api/course/:id";
+    params: { id: string };
+  },
+  request: {
+    method: "POST";
+    headers: {
+      Authorization: `Bearer ${string}`;
+    };
+  }
+): Response<null>;
+export function useAPI(
+  url: {
+    path: "/api/course/";
+  },
+  request: {
+    method: "POST";
+    headers: {
+      Authorization: `Bearer ${string}`;
+      "Content-Type": "application/json";
+    };
+    body: {
+      name: string;
+      picture?: string;
+      semester?: string;
+    };
+  }
+): Response<{
+  courseId: string;
+}>;
+
+export function useAPI(
+  url: {
+    path: "/api/course/:id/participants";
+    params: { id: string };
+  },
+  request: {
+    method?: "GET";
+    headers: {
+      Authorization: `Bearer ${string}`;
+    };
+  }
+): Response<{
+  lecturer: {
+    _id: string;
+    name: string;
+    email: string;
+    avatar: string;
+  };
+  students: Array<{
+    _id: string;
+    name: string;
+    email: string;
+    avatar: string;
+  }>;
+}>;
+export function useAPI(
+  url: {
+    path: "/api/course/:id/participant/:studentId";
+    params: { id: string; studentId: string };
+  },
+  request: {
+    method: "POST";
+    headers: {
+      Authorization: `Bearer ${string}`;
+    };
+  }
+): Response<null>;
+export function useAPI(
+  url: {
+    path: "/api/course/:id/participant/:studentId";
+    params: { id: string; studentId: string };
+  },
+  request: {
+    method: "DELETE";
+    headers: {
+      Authorization: `Bearer ${string}`;
+    };
+  }
+): Response<null>;
+
 export function useAPI<TExpected = any>(
   url: RequestURL,
   request?: RequestInit | { body: object }
