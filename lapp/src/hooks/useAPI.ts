@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { URLSearchParamsInit, createSearchParams } from "react-router-dom";
+import { createSearchParams } from "react-router-dom";
 
 interface RequestURL {
   path: string;
-  params?: { [key: string]: any };
-  searchParams?: URLSearchParamsInit;
+  params?: Record<string, any>;
+  searchParams?: Record<string, any>;
 }
 
 const parseRequestURL = ({
@@ -42,8 +42,8 @@ type Response<T> =
 export function useAPI(
   url: { path: "/api/user/info" },
   request: {
+    method?: "GET";
     headers: {
-      method?: "GET";
       Authorization: `Bearer ${string}`;
     };
   }
@@ -55,18 +55,28 @@ export function useAPI(
 export function useAPI(
   url: { path: "/api/user/profile" },
   request: {
+    method: "PATCH";
     headers: {
-      method: "PATCH";
       Authorization: `Bearer ${string}`;
-      body: string;
+      "Content-Type": "application/json";
     };
+    body:
+      | {
+          major?: string;
+          intake?: number;
+          phone_number?: string;
+        }
+      | {
+          faculty?: string;
+          phone_number?: string;
+        };
   }
 ): Response<null>;
 export function useAPI(
   url: { path: "/api/student/:id"; params: { id: string } },
   request: {
+    method?: "GET";
     headers: {
-      method?: "GET";
       Authorization: `Bearer ${string}`;
     };
   }
@@ -82,8 +92,8 @@ export function useAPI(
 export function useAPI(
   url: { path: "/api/lecturer/:id"; params: { id: string } },
   request: {
+    method?: "GET";
     headers: {
-      method?: "GET";
       Authorization: `Bearer ${string}`;
     };
   }
@@ -97,10 +107,10 @@ export function useAPI(
   courses: Array<{ name: string; semester: string }>;
 }>;
 export function useAPI(
-  url: { path: "/api/lecturers"; searchParams: { s: any; n: any } },
+  url: { path: "/api/lecturers"; searchParams?: { s?: number; n?: number } },
   request: {
+    method?: "GET";
     headers: {
-      method?: "GET";
       Authorization: `Bearer ${string}`;
     };
   }
