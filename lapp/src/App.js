@@ -12,7 +12,7 @@ import {
   Profile as ProfileLecturer,
   CoursePage as CoursePageLecturer,
 } from "./pages/Lecturer";
-import { Login, Home, Errorpage } from "./pages/common";
+import { Home, Errorpage } from "./pages/common";
 
 function App() {
   const role = "student";
