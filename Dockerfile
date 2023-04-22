@@ -55,12 +55,15 @@ WORKDIR /usr/src/app
 ENV NODE_ENV=production
 ENV PORT=8080
 
-# Install the dependencies
-COPY ./server/package*.json ./
-RUN npm ci --only=production
+RUN mkdir server
+
+# Install the dependencies for server
+COPY ./server/package*.json ./server/
+RUN cd server && \
+    npm ci --only=production
 
 # Add the transpiled javascript code
-COPY --chown=node:node --from=build-server /usr/src/app/dist ./dist
+COPY --chown=node:node --from=build-server /usr/src/app/dist ./server/dist
 
 # Set the user to node
 USER node
@@ -69,7 +72,7 @@ USER node
 EXPOSE 8080
 
 # Command to run the application
-CMD ["dumb-init", "node", "dist/index.js"]
+CMD ["dumb-init", "node", "server/dist/index.js"]
 
 
 
