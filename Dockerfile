@@ -22,8 +22,11 @@ RUN npm run build
 # Build stage 2
 # Build the client production code
 
+# Start from node image
 FROM node:18
 
+# Use /usr/src/app as the workdir. The following instructions will be executed in this location
+WORKDIR /usr/src/app
 
 # Build stage 3
 # Build the final docker image used for production
