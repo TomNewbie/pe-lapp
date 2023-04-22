@@ -23,7 +23,7 @@ RUN npm run build
 # Build the client production code
 
 # Start from node image
-FROM node:18
+FROM node:18 as build-client
 
 # Use /usr/src/app as the workdir. The following instructions will be executed in this location
 WORKDIR /usr/src/app
@@ -32,7 +32,14 @@ WORKDIR /usr/src/app
 COPY ./lapp/package*.json ./
 COPY ./lapp/tailwind.config.js ./
 
+# Install the required dependencies
+RUN npm install
 
+# Copy the client source
+COPY ./lapp .
+
+# Buid the production code
+RUN npm run build
 
 # Build stage 3
 # Build the final docker image used for production
