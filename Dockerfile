@@ -28,6 +28,7 @@ EXPOSE 8080
 
 # Change the environment to production
 ENV NODE_ENV=production
+ENV PORT=8080
 
 # Command to run the application
 CMD ["node", "dist/index.js"]
