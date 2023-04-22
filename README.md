@@ -366,7 +366,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Notes and Issues     |                                                                                                                   |
 
 <p align="center">
-<img src="images/sequence/evaluate.jpeg" width="1200">
+<img src="images/sequence/evaluate.jpeg" width="600">
 </p>
 
 ### Actor: Lecturer and Student
