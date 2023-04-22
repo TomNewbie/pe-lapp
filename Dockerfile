@@ -23,12 +23,17 @@ RUN npm run build
 # Build the final docker image used for production
 FROM node:18-alpine
 
+# Set the default working directory for application
+WORKDIR /usr/src/app
+
 # Publishing the port
 EXPOSE 8080
 
 # Change the environment to production
 ENV NODE_ENV=production
 ENV PORT=8080
+
+
 
 # Command to run the application
 CMD ["node", "dist/index.js"]
