@@ -31,11 +31,10 @@ WORKDIR /usr/src/app
 
 # Install the dependencies
 COPY package*.json ./
-
 RUN npm ci --only=production
 
 # Add the transpiled javascript code
-COPY --from=build-server /usr/src/app/dist ./dist
+COPY --chown=node:node --from=build-server /usr/src/app/dist ./dist
 
 # Change the environment to production
 ENV NODE_ENV=production
