@@ -1,5 +1,5 @@
 # Start from the node image
-FROM node:18
+FROM node:18 as build-server
 
 # Use /usr/src/app as the workdir. The following instructions will be executed in this location
 WORKDIR /usr/src/app
@@ -15,7 +15,7 @@ COPY ts.config.json ./
 RUN npm install
 
 # Copy the server source code
-COPY . .
+COPY ./server .
 
 # Command to run the application
 CMD ["node", "dist/index.js"]
