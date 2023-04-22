@@ -26,14 +26,16 @@ FROM node:18-alpine
 # Set the default working directory for application
 WORKDIR /usr/src/app
 
-# Publishing the port
-EXPOSE 8080
+# Install the dependencies
+COPY package*.json ./
+RUN npm ci --only=production
 
 # Change the environment to production
 ENV NODE_ENV=production
 ENV PORT=8080
 
-
+# Publishing the port
+EXPOSE 8080
 
 # Command to run the application
 CMD ["node", "dist/index.js"]
