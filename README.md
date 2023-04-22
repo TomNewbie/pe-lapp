@@ -330,29 +330,38 @@ For uploading materials and modifying materials requirement, the sequence diagra
 <img src="images/sequence/modify-exercise.png" width="500">
 </p>
 
-#### 9. Evaluate Students’ Performance
+#### 9. Modify grade
 
-| Use Case ID       | Evaluate Students’ Performance_9 |
+| Use Case ID       | Modify grade_9 |
 | ----------------- | -------------------------------- |
-| Use Case Name     | Evaluate Students’ Performance   |
-| Created By        | Minh Quan                        |
-| Date Created      | 28/02/2023                       |
-| Last Updated By   | Minh Quan                        |
-| Date Last Updated | 7/04/2023                        |
+| Use Case Name     | Modify Grade |
+| Created By        |  Khanh Linh|
+| Date Created      | 14/04/2023                       |
+| Last Updated By   |  Khanh Linh |
+| Date Last Updated | 14/04/2023                        |
 
-| Actors               | Lecturer                                                                                                          |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Description          | Lecturer can evaluate students’ performance to determine he/she passes the Course or not at the end of the Course |
-| Trigger              | Teacher clicks the “Evaluate Performance” button in the specific course page                                      |
-| Preconditions        |                                                                                                                   |
-| Postconditions       | Lecturer can see the performance (how many exercises are accomplished, % of progress,...)                         |
+| Actors |Lecturer  |
+| ----------------- | -------------------------------- |
+| Description          | Lecturer can grade students’ exercise |
+| Trigger              | Lecturer clicks the “Edit” button in the Exercise tab in the course page|
+| Preconditions        | The Lecturer must be logged in to the learning system.|
+||The Lecturer must have permission to edit grades.|
+||The exercise already existed.|
+||The grade that has never been edited will be N/A |
+| Postconditions |The grade has been modified to reflect the lecturer's changes, or remains unchanged if modifications were not saved.  |
 | Priority             | high                                                                                                              |
-| Normal Flow          | 1. Teacher clicks the “Evaluate Performance” button to see the student’s performance                              |
-|                      | 2. A list of student who attending the class will appear                                                          |
-|                      | 3. The teacher click pass or not pass button next to each name                                                    |
-| Alternative Flows    | The student didn’t pass the course                                                                                |
-|                      | 3.1 A red notification text with percentage to show the student didn’t pass the course                            |
-| Exceptions           |                                                                                                                   |
+| Normal Flow          | 1. The lecturer clicks the "Edit" button to directly edit the “Grade” column of the record table|
+|                      | 2.  The lecturer enters grade for all students in the record table |
+|                      | 3. The lecturer click “Save” to save changes|
+| Alternative Flows    | Alternate Flow 1: Lecturer cancels grade modifications    |
+|                      | 1. The lecturer decides not to make changes to the grade after all  |
+|                      |2. The lecturer navigates away from the grade editing interface without saving any changes  |
+|                      | 3.The learning system confirms that no changes were made to the grade |
+|                      |Alternate Flow 2: Lecturer saves grade modifications |
+|                      | 1. The grade is returned red if below the average |
+| Exceptions           |          The lecturer encounters an error when modifying. |
+|                      |1. An error occurs while modifying the grade (such as invalid data) |
+|                      |2. The system prompts the lecturer to correct the errors before submitting the modification. |
 | Special Requirements |                                                                                                                   |
 | Notes and Issues     |                                                                                                                   |
 
@@ -457,7 +466,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 
 #### 13. Find contact information
 
-| Use Case ID       | Find contact information_16 |
+| Use Case ID       | Find contact information_13 |
 | ----------------- | --------------------------- |
 | Use Case Name     | Leave Course                |
 | Created By        | Thanh Le Hoang Kim          |
@@ -497,7 +506,7 @@ The sequence for send message and find contact
 
 #### 14. Register Course
 
-| Use Case ID       | Attend Course_13 |
+| Use Case ID       | Attend Course_14 |
 | ----------------- | ---------------- |
 | Use Case Name     | Attend Course    |
 | Created By        | Minh Quan        |
@@ -528,7 +537,7 @@ The sequence for send message and find contact
 
 #### 15. Track Course Progress
 
-| Use Case ID       | Track Course_14    |
+| Use Case ID       | Track Course_15    |
 | ----------------- | ------------------ |
 | Use Case Name     | Track Course       |
 | Created By        | Minh Quan          |
@@ -559,7 +568,7 @@ The sequence for send message and find contact
 
 #### 16. Submit Exercise
 
-| Use Case ID       | Submit Exercise_15    |
+| Use Case ID       | Submit Exercise_16    |
 | ----------------- | --------------------- |
 | Use Case Name     | Submit Exercise       |
 | Created By        | Minh Quan             |
