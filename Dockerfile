@@ -28,6 +28,12 @@ FROM node:18
 # Use /usr/src/app as the workdir. The following instructions will be executed in this location
 WORKDIR /usr/src/app
 
+# Copy the the files require to install the dependencies
+COPY ./lapp/package*.json ./
+COPY ./lapp/tailwind.config.js ./
+
+
+
 # Build stage 3
 # Build the final docker image used for production
 FROM node:18-alpine@sha256:ca5d399560a9d239cbfa28eec00417f1505e5e108f3ec6938d230767eaa81f61
