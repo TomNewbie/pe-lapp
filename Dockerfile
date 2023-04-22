@@ -54,6 +54,7 @@ WORKDIR /usr/src/app
 # Change the environment to production
 ENV NODE_ENV=production
 ENV PORT=8080
+ENV SERVER_DOMAIN=https://lapp.fly.dev
 
 # Create the directories for server and client
 RUN mkdir server && mkdir lapp
