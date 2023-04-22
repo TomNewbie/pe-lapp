@@ -1,3 +1,5 @@
+# Build stage 1
+# This stage transpile typescript node server code to a middle container containing javascript code
 # Start from the node image
 FROM node:18 as build-server
 
@@ -20,6 +22,9 @@ COPY ./server .
 # Buid the server 
 RUN npm run build
 
+# Build stage 2
+# Build the final docker image used for production
+FROM node:18-alpine
 
 
 # Command to run the application
