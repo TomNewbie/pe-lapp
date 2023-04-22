@@ -595,7 +595,7 @@ The sequence for send message and find contact
 | Notes and Issues     |                                                                                                                                               |
 
 <p align="center">
-<img src="images/sequence/submit-exercise.jpg" width="500">
+<img src="images/sequence/submit-exercise.jpg" width="800">
 </p>
 
 ## ER diagram
