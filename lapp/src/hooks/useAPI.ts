@@ -36,7 +36,9 @@ interface ResponseBase<
 }
 
 type Response<T> =
-  | ResponseBase<true, any, any>
+  | ResponseBase<true, null, null>
+  | ResponseBase<true, T, null>
+  | ResponseBase<true, null, Error>
   | ResponseBase<false, T, null>
   | ResponseBase<false, null, Error>;
 
@@ -175,6 +177,8 @@ export function useAPI<TExpected extends {} | null = any>(
     const abortCtrl = new AbortController();
 
     (async () => {
+      setPending(true);
+
       try {
         const data = await apiRequest<TExpected>(parsedURL, {
           ...request,
@@ -187,6 +191,7 @@ export function useAPI<TExpected extends {} | null = any>(
         setData(null);
         setError(err as Error);
       }
+
       setPending(false);
     })();
 
