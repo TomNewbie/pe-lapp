@@ -1,5 +1,6 @@
 Dockerfile
 docker*.yml
+.dockerignore
 
 .git
 .gitignore
@@ -9,7 +10,6 @@ docker*.yml
 .npm 
 node_modules
 .gitlab-ci.yml
-.env
 
 *diagram.png
 docs
