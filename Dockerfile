@@ -7,8 +7,8 @@ FROM node:18 as build-server
 WORKDIR /usr/src/app
 
 # Copy the the files require to install the dependencies
-COPY package*.json ./
-COPY ts.config.json ./
+COPY ./server/package*.json ./
+COPY ./server/ts.config.json ./
 
 # Install the required dependencies
 RUN npm install
@@ -37,7 +37,7 @@ ENV NODE_ENV=production
 ENV PORT=8080
 
 # Install the dependencies
-COPY package*.json ./
+COPY ./server/package*.json ./
 RUN npm ci --only=production
 
 # Add the transpiled javascript code
@@ -47,7 +47,7 @@ COPY --chown=node:node --from=build-server /usr/src/app/dist ./dist
 EXPOSE 8080
 
 # Command to run the application
-CMD ["node", "dist/index.js"]
+CMD ["dump-init", "node", "dist/index.js"]
 
 
 
