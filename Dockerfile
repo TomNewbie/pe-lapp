@@ -17,6 +17,8 @@ RUN npm install
 # Copy the server source code
 COPY ./server .
 
+# Buid the server 
+
 # Command to run the application
 CMD ["node", "dist/index.js"]
 

@@ -5,6 +5,7 @@ docker*.yml
 .git
 .gitignore
 
+*.toml
 
 .vscode
 .npm 
