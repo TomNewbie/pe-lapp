@@ -20,6 +20,12 @@ COPY ./server .
 RUN npm run build
 
 # Build stage 2
+# Build the client production code
+
+FROM node:18
+
+
+# Build stage 3
 # Build the final docker image used for production
 FROM node:18-alpine@sha256:ca5d399560a9d239cbfa28eec00417f1505e5e108f3ec6938d230767eaa81f61
 
