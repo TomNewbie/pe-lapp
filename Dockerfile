@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 
 # Copy the the files require to install the dependencies
 COPY ./server/package*.json ./
-COPY ./server/ts.config.json ./
+COPY ./server/tsconfig.json ./
 
 # Install the required dependencies
 RUN npm install
@@ -29,9 +29,6 @@ RUN apk add dumb-init
 # Set the default working directory for application
 WORKDIR /usr/src/app
 
-# Set the user to node
-USER node
-
 # Change the environment to production
 ENV NODE_ENV=production
 ENV PORT=8080
@@ -42,6 +39,9 @@ RUN npm ci --only=production
 
 # Add the transpiled javascript code
 COPY --chown=node:node --from=build-server /usr/src/app/dist ./dist
+
+# Set the user to node
+USER node
 
 # Publishing the port
 EXPOSE 8080
