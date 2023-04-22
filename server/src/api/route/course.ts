@@ -5,6 +5,16 @@ const router = Router();
 
 router.get("/courses", courseController.getAllCourses);
 router.post("/course/:id", courseController.joinCourse);
-router.post("/courses", courseController.createCourse);
-router.patch("/courses/:id", courseController.updateCourse);
+router.post("/course", courseController.createCourse);
+router.patch("/course/:id", courseController.updateCourse);
+router.get("/course/:id/participants", courseController.getParticipants);
+router.post(
+  "/course/:id/participants/:studentId",
+  courseController.addParticipant
+);
+router.delete(
+  "/course/:id/participants/:studentId",
+  courseController.removeParticipant
+);
+
 export { router as courseRouter };

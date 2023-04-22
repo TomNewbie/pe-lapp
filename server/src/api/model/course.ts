@@ -1,24 +1,24 @@
 import mongoose, { InferSchemaType, Schema } from "mongoose";
-export const course = new Schema({
+
+const course = new Schema({
   name: {
     type: String,
     required: [true, "Course name is missing"],
   },
-  content: {
-    type: String,
-  },
+  contents: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Course-Content",
+      required: true,
+      index: true,
+    },
+  ],
   picture: {
     type: String,
-    required: true,
     default: "https://s3.memeshappen.com/memes/of-course-.jpg",
   },
   semester: {
     type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: [true, "Course description is missing"],
   },
   lecturer_id: {
     type: String,
@@ -36,6 +36,32 @@ export const course = new Schema({
   ],
 });
 export const Course = mongoose.model("Course", course);
-
 export type CourseType = InferSchemaType<typeof course>;
-export type NewCourseType = Omit<CourseType, "participants" | "picture">;
+
+const courseContent = new Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    file: [
+      {
+        name: {
+          type: String,
+          required: true,
+        },
+        url: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+    body: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+export const CourseContent = mongoose.model("Course-Content", courseContent);
+export type CourseContentType = InferSchemaType<typeof courseContent>;

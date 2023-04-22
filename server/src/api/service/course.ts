@@ -1,6 +1,7 @@
-import mongoose, { isValidObjectId } from "mongoose";
-import { Course, CourseType, NewCourseType } from "../model/course";
+import { Types, isValidObjectId } from "mongoose";
+import { Course, CourseType } from "../model/course";
 import { UserRole } from "./user";
+import { Optional } from "../../utils/types";
 
 type CoursesOfStudent = Array<{
   _id: string;
@@ -25,22 +26,22 @@ interface GetCoursesOptions {
   sort?: string;
 }
 
-export async function getCoursesOfUser(
+async function getCoursesOfUser(
   id: string,
   role: "student",
   options?: GetCoursesOptions
 ): Promise<CoursesOfStudent>;
-export async function getCoursesOfUser(
+async function getCoursesOfUser(
   id: string,
   role: "lecturer",
   options?: GetCoursesOptions
 ): Promise<CoursesOfLecturer>;
-export async function getCoursesOfUser(
+async function getCoursesOfUser(
   id: string,
   role: UserRole,
   options?: GetCoursesOptions
 ): Promise<CoursesOfStudent | CoursesOfLecturer>;
-export async function getCoursesOfUser(
+async function getCoursesOfUser(
   id: string,
   role: UserRole,
   { start: s = 0, num: n = 0, query, sort }: GetCoursesOptions = {}
@@ -94,40 +95,166 @@ export async function getCoursesOfUser(
   return await courses;
 }
 
-export const joinCourse = async (
+export enum CourseError {
+  NOT_FOUND,
+  INVALID_INPUT,
+  ALREADY_JOINED,
+  NOT_JOINED,
+}
+
+const joinCourse = async (
   studentId: string,
   courseId: string
-): Promise<"already joined" | "not found" | undefined> => {
-  if (!isValidObjectId(courseId)) return "not found";
+): Promise<CourseError.ALREADY_JOINED | CourseError.NOT_FOUND | undefined> => {
+  if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
 
   const res = await Course.updateOne(
     { _id: courseId },
     { $addToSet: { participants: studentId } }
   );
 
-  if (res.matchedCount === 0) return "not found";
-  if (res.modifiedCount === 0) return "already joined";
+  if (res.matchedCount === 0) return CourseError.NOT_FOUND;
+  if (res.modifiedCount === 0) return CourseError.ALREADY_JOINED;
 };
 
-export const create = async (
-  course: NewCourseType
-): Promise<mongoose.Types.ObjectId | null> => {
+const create = async ({
+  lecturer_id,
+  name,
+  picture,
+  semester,
+}: Optional<Omit<CourseType, "contents" | "participants">, "picture">): Promise<
+  string | CourseError.INVALID_INPUT
+> => {
   try {
-    const result = await Course.create(course);
-    return result._id;
-  } catch (error) {
-    throw error;
+    const { _id } = await Course.create({
+      lecturer_id,
+      name,
+      picture,
+      semester,
+    });
+    return _id.toHexString();
+  } catch {
+    return CourseError.INVALID_INPUT;
   }
 };
 
-export const update = async (
-  queryId: Pick<CourseType, "lecturer_id"> & { _id: string },
-  course: Partial<CourseType>
-): Promise<void | "not found" | "miss match"> => {
-  if (!isValidObjectId(queryId._id)) return "not found";
-  const result = await Course.updateOne(queryId, course, { new: true });
+type QueryCourseId = {
+  lecturerId: string;
+  courseId: string;
+};
+
+type UpdateCourseFields = {
+  name?: string;
+  picture?: string;
+  semester?: string;
+};
+
+const update = async (
+  { lecturerId: lecturer_id, courseId: _id }: QueryCourseId,
+  { name, picture, semester }: UpdateCourseFields
+): Promise<CourseError.NOT_FOUND | undefined> => {
+  if (!isValidObjectId(_id)) return CourseError.NOT_FOUND;
+
+  const result = await Course.updateOne(
+    { _id, lecturer_id },
+    { name, picture, semester }
+  );
+
   if (result.matchedCount === 0) {
-    return "miss match";
+    return CourseError.NOT_FOUND;
   }
 };
-export const courseService = { create, update };
+
+interface GetParticipantsResponse {
+  lecturer: {
+    _id: string;
+    name: string;
+    email: string;
+    avatar: string;
+  };
+  students: Array<{
+    _id: string;
+    name: string;
+    email: string;
+    avatar: string;
+  }>;
+}
+
+const getParticipants = async (
+  courseId: string
+): Promise<GetParticipantsResponse | CourseError.NOT_FOUND> => {
+  if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
+
+  const [participants] = await Course.aggregate()
+    .match({ _id: new Types.ObjectId(courseId) })
+    .lookup({
+      from: "lecturers",
+      localField: "lecturer_id",
+      foreignField: "_id",
+      as: "lecturer",
+    })
+    .unwind("$lecturer")
+    .lookup({
+      from: "students",
+      localField: "participants",
+      foreignField: "_id",
+      as: "students",
+    })
+    .project({
+      _id: 0,
+      lecturer: {
+        _id: 1,
+        name: 1,
+        email: 1,
+        avatar: 1,
+      },
+      students: {
+        _id: 1,
+        name: 1,
+        email: 1,
+        avatar: 1,
+      },
+    });
+
+  return participants ?? CourseError.NOT_FOUND;
+};
+
+const addParticipant = async (
+  { lecturerId, courseId }: QueryCourseId,
+  studentId: string
+): Promise<CourseError.ALREADY_JOINED | CourseError.NOT_FOUND | undefined> => {
+  if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
+
+  const res = await Course.updateOne(
+    { _id: courseId, lecturer_id: lecturerId },
+    { $addToSet: { participants: studentId } }
+  );
+
+  if (res.matchedCount === 0) return CourseError.NOT_FOUND;
+  if (res.modifiedCount === 0) return CourseError.ALREADY_JOINED;
+};
+
+const removeParticipant = async (
+  { lecturerId, courseId }: QueryCourseId,
+  studentId: string
+): Promise<CourseError.NOT_JOINED | CourseError.NOT_FOUND | undefined> => {
+  if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
+
+  const res = await Course.updateOne(
+    { _id: courseId, lecturer_id: lecturerId },
+    { $pull: { participants: studentId } }
+  );
+
+  if (res.matchedCount === 0) return CourseError.NOT_FOUND;
+  if (res.modifiedCount === 0) return CourseError.NOT_JOINED;
+};
+
+export const courseService = {
+  create,
+  update,
+  joinCourse,
+  getCoursesOfUser,
+  getParticipants,
+  addParticipant,
+  removeParticipant,
+};

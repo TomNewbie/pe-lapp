@@ -1,22 +1,19 @@
 import mongoose, { InferSchemaType, Schema } from "mongoose";
 
-export const exercise = new Schema(
+const exercise = new Schema(
   {
     name: {
       type: String,
       required: true,
     },
-    file: {
-      type: String,
-      required: true,
-    },
+    files: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     description: {
       type: String,
-      required: true,
-    },
-    status: {
-      type: String,
-      enum: ["done", "not done"],
       required: true,
     },
     deadline: {
