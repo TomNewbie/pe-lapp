@@ -9,6 +9,7 @@ ENV NODE_ENV=production
 
 # Copy the the files require to install the dependencies
 COPY package*.json ./
+COPY ts.config.json ./
 
 # Install the required dependencies
 RUN npm install
