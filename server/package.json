@@ -11,7 +11,7 @@
     "build": "tsc",
     "mongosh": ". ./.env && mongosh \"$MONGODB_URI\"",
     "fake-log-in": "ts-node src/utils/fake_log_in.ts",
-    "build:ui": "rm -rf build && cd ../lapp && npm run build && cp -r build ../server"
+    "build:ui": "rm -rf build && cd ../lapp && npm run build"
   },
   "keywords": [],
   "author": "",
