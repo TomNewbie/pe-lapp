@@ -29,16 +29,19 @@ RUN apk add dumb-init
 # Set the default working directory for application
 WORKDIR /usr/src/app
 
+# Set the user to node
+USER node
+
+# Change the environment to production
+ENV NODE_ENV=production
+ENV PORT=8080
+
 # Install the dependencies
 COPY package*.json ./
 RUN npm ci --only=production
 
 # Add the transpiled javascript code
 COPY --chown=node:node --from=build-server /usr/src/app/dist ./dist
-
-# Change the environment to production
-ENV NODE_ENV=production
-ENV PORT=8080
 
 # Publishing the port
 EXPOSE 8080
