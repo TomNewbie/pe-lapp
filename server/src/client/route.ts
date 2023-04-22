@@ -1,7 +1,7 @@
 import express, { Request, Response, Router } from "express";
 import path from "path";
 
-const STATIC_PATH = path.join(__dirname, "..", "..", "..", "lapp", "build");
+const STATIC_PATH = path.join(__dirname, "..", "..", "build");
 
 const router = Router();
 
