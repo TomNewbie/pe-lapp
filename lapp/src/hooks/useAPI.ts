@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createSearchParams } from "react-router-dom";
+import { apiRequest } from "../services";
 
 interface RequestURL {
   path: string;
@@ -254,7 +255,7 @@ export function useAPI(
   }
 ): Response<null>;
 
-export function useAPI<TExpected = any>(
+export function useAPI<TExpected extends {} | null = any>(
   url: RequestURL,
   request?: RequestInit
 ): Response<TExpected> {
@@ -269,19 +270,10 @@ export function useAPI<TExpected = any>(
 
     (async () => {
       try {
-        const res = await fetch(parsedURL, {
+        const data = await apiRequest<TExpected>(parsedURL, {
           ...request,
           signal: abortCtrl.signal,
         });
-
-        if (!res.ok) {
-          throw Error(await res.text());
-        }
-
-        let data: TExpected | null = null;
-        if (res.headers.get("Content-Type")?.includes("application/json")) {
-          data = await res.json();
-        }
         setData(data);
         setError(null);
       } catch (err) {
