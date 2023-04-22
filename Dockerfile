@@ -23,11 +23,15 @@ RUN npm run build
 # Build the final docker image used for production
 FROM node:18-alpine@sha256:ca5d399560a9d239cbfa28eec00417f1505e5e108f3ec6938d230767eaa81f61
 
+# Add program to initialize the container
+RUN apk add dumb-init
+
 # Set the default working directory for application
 WORKDIR /usr/src/app
 
 # Install the dependencies
 COPY package*.json ./
+
 RUN npm ci --only=production
 
 # Add the transpiled javascript code
