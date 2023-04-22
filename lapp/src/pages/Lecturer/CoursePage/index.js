@@ -10,10 +10,8 @@ import {
   Notification,
   Footer,
 } from "../../../components";
-// import for Participants tab
-import { Participants } from "../../../components";
-// import for Exercise tab
-import { Assignment } from "../../../components";
+import { Participants, Assignment, PostAnnEx } from "../../../components";
+import { useState } from "react";
 const CoursePage = () => {
   const { id } = useParams();
   //General tab: Notification
@@ -43,58 +41,81 @@ const CoursePage = () => {
     { url: "/participants-icon/ava.png", name: "B", mail: "ava1.gmail.com" },
     { url: "/participants-icon/ava.png", name: "C", mail: "ava2.gmail.com" },
   ];
+  const [postModal, setPostModal] = useState(false);
+  const togglePostModal = () => {
+    setPostModal(!postModal);
+  };
+  const [exerciseModal, setExerciseModal] = useState(false);
+  const toggleExerciseModal = () => {
+    setExerciseModal(!exerciseModal);
+  };
   return (
     // <body className="bg-[#FFFAF0]">
-    <div className="flex flex-col">
+    <div className="relative flex flex-col">
+      {postModal && <PostAnnEx handleClose={togglePostModal}></PostAnnEx>}
+      {exerciseModal && (
+        <PostAnnEx
+          type={"exercise"}
+          handleClose={toggleExerciseModal}
+        ></PostAnnEx>
+      )}
       <NavbarLecturer></NavbarLecturer>
       <TeacherCourseName name={id} semester={"Winter 2023"}></TeacherCourseName>
-      <TeacherNavCourse
-        // General tab
-        tab1={
-          <div className="flex justify-around w-[1440px]">
-            <div className="flex flex-col space-y-6 mt-8 mb-16 w-[900px]">
-              <Announce></Announce>
-              {notis.map((noti) => {
-                <Notification
-                  status={noti.status}
-                  title={noti.title}
-                  content={noti.content}
-                  Files={noti.files}
-                ></Notification>;
-              })}
+      <div>
+        <TeacherNavCourse
+          // General tab
+          tab1={
+            <div className="flex justify-around w-[1440px] min-h-[370px]">
+              <div className="flex flex-col space-y-6 mt-8 mb-16 w-[900px]">
+                <div onClick={togglePostModal}>
+                  <Announce></Announce>
+                </div>
+
+                {notis.map((noti) => {
+                  return (
+                    <Notification
+                      status={noti.status}
+                      title={noti.title}
+                      content={noti.content}
+                      Files={noti.files}
+                    ></Notification>
+                  );
+                })}
+              </div>
+              <div>
+                <ClassCode code={"12345"}></ClassCode>
+              </div>
             </div>
-            <div>
-              <ClassCode code={"12345"}></ClassCode>
+          }
+          //Exercise tab
+          tab2={
+            <div className="mt-4 w-[1200px] min-h-[370px]">
+              <CustomButton
+                variant={"filled"}
+                className={"px-5 py-0"}
+                text={"+ Create"}
+                handleButton={toggleExerciseModal}
+              ></CustomButton>
+              <div className="flex flex-col mt-8 mb-16 divide-y">
+                <Assignment></Assignment>
+                <Assignment></Assignment>
+                <Assignment></Assignment>
+              </div>
             </div>
-          </div>
-        }
-        //Exercise tab
-        tab2={
-          <div className="mt-4 w-[1200px]">
-            <CustomButton
-              variant={"filled"}
-              className={"px-5 py-0"}
-              text={"+ Create"}
-            ></CustomButton>
-            <div className="flex flex-col mt-8 mb-16 divide-y">
-              <Assignment></Assignment>
-              <Assignment></Assignment>
-              <Assignment></Assignment>
+          }
+          // Participants tab
+          tab3={
+            <div className="flex flex-col space-y-6 mt-8 mb-16 w-[1000px] min-h-[370px]">
+              <Participants
+                teacher={"Tran Tuan Anh"}
+                students={students}
+              ></Participants>
             </div>
-          </div>
-        }
-        // Participants tab
-        tab3={
-          <div className="flex flex-col space-y-6 mt-8 mb-16 w-[1000px]">
-            <Participants
-              teacher={"Tran Tuan Anh"}
-              students={students}
-            ></Participants>
-          </div>
-        }
-        // Grade tab
-        tab4={"tab content 4"}
-      ></TeacherNavCourse>
+          }
+          // Grade tab
+          tab4={<div className="min-h-[370px] mt-4">tab content 4</div>}
+        ></TeacherNavCourse>
+      </div>
       <Footer></Footer>
     </div>
     // </body>

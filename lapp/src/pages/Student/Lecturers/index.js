@@ -92,7 +92,9 @@ const Lecturers = () => {
     <div>
       <NavbarStudent></NavbarStudent>
       <LecturerList lecturers={lecturers} />
-      <Footer></Footer>
+      <div className="absolute inset-x-0 bottom-0">
+        <Footer></Footer>
+      </div>
     </div>
   );
 };

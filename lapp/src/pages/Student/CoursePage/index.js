@@ -55,16 +55,16 @@ const CoursePage = () => {
     },
   ];
   return (
-    // <body className="bg-[#FFFAF0]">
-    <div className="flex flex-col">
+    <div className="relative flex flex-col">
       <NavbarStudent></NavbarStudent>
       <StudentCourseName
         name={id}
         teacher={"Tran Tuan Anh"}
       ></StudentCourseName>
-      <div className="">
+      <div>
         <StudentNavCourse
           // General tab
+
           tab1={
             <div className="flex flex-col space-y-6 mt-8 mb-16  w-[1000px]">
               {notis.map((noti) => {
@@ -108,6 +108,7 @@ const CoursePage = () => {
           }
         ></StudentNavCourse>
       </div>
+
       <Footer></Footer>
     </div>
     // </body>

@@ -1,10 +1,9 @@
 import React from "react";
 
-function copyToClipboard(email) {
-  navigator.clipboard.writeText(email);
-}
-
 const Participants = ({ teacher, students }) => {
+  function copyToClipboard(email) {
+    navigator.clipboard.writeText(email);
+  }
   const studentSection = students.map((student) => (
     <div>
       <div

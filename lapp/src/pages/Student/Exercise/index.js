@@ -41,7 +41,11 @@ const ExerciseDetail = ({
         </div>
 
         <div class="mt-32">
-          <SubmitEx></SubmitEx>
+          <SubmitEx
+            handleSubmit={() => {
+              console.log("submit");
+            }}
+          ></SubmitEx>
         </div>
       </div>
 

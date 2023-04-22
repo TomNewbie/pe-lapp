@@ -16,17 +16,11 @@ const NavbarStudent = () => {
         </div>
         <div className="absolute ml-72">
           <ul className="flex flex-row items-center space-x-48">
-            <li>
-              <li>
-                <a className="text-4xl hover:text-[#B02B3B]" href="#">
-                  <Link to="/allcourses">Courses</Link>
-                </a>
-              </li>
+            <li className="text-4xl hover:text-[#B02B3B]">
+              <Link to="/allcourses">Courses</Link>
             </li>
-            <li>
-              <a className="text-4xl hover:text-[#B02B3B]" href="#">
-                <Link to="/lecturers">Lecturers</Link>
-              </a>
+            <li className="text-4xl hover:text-[#B02B3B]">
+              <Link to="/lecturers">Lecturers</Link>
             </li>
           </ul>
         </div>
