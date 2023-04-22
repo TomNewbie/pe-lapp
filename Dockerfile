@@ -55,7 +55,11 @@ WORKDIR /usr/src/app
 ENV NODE_ENV=production
 ENV PORT=8080
 
-RUN mkdir server
+# Create the directories for server and client
+RUN mkdir server && mkdir lapp
+
+# Copy the production build
+COPY --chown=node:node --from=build-client /usr/src/app/build ./lapp/build
 
 # Install the dependencies for server
 COPY ./server/package*.json ./server/
