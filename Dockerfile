@@ -30,6 +30,9 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm ci --only=production
 
+# Add the transpiled javascript code
+COPY --from=build-server /usr/src/app/dist ./dist
+
 # Change the environment to production
 ENV NODE_ENV=production
 ENV PORT=8080
