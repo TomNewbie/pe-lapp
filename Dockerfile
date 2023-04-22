@@ -47,7 +47,7 @@ USER node
 EXPOSE 8080
 
 # Command to run the application
-CMD ["dump-init", "node", "dist/index.js"]
+CMD ["dumb-init", "node", "dist/index.js"]
 
 
 
