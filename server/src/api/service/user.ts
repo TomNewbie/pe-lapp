@@ -30,7 +30,7 @@ const getStudentById = async (id: string): Promise<StudentType | null> =>
   await Student.findById(id).lean();
 
 type LecturerProfileType = LecturerType & {
-  courses: Array<{ name: string; semester: string }>;
+  courses: Array<{ name: string; semester?: string }>;
 };
 
 const getLecturerById = async (

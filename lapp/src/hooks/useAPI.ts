@@ -87,7 +87,7 @@ export function useAPI(
   avatar: string;
   phone_number?: string;
   faculty?: string;
-  courses: Array<{ name: string; semester: string }>;
+  courses: Array<{ name: string; semester?: string }>;
 }>;
 export function useAPI(
   url: { path: "/api/lecturers"; searchParams?: { s?: number; n?: number } },
@@ -125,14 +125,14 @@ export function useAPI(
   | Array<{
       _id: string;
       name: string;
-      semester: string;
+      semester?: string;
       picture: string;
       lecturer_name: string;
     }>
   | Array<{
       _id: string;
       name: string;
-      semester: string;
+      semester?: string;
       picture: string;
       participant_count: number;
     }>

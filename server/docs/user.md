@@ -88,7 +88,7 @@ type LecturerType = {
   avatar: string;
   phone_number?: string;
   faculty?: string;
-  courses: Array<{ name: string; semester: string }>;
+  courses: Array<{ name: string; semester?: string }>;
 };
 ```
 

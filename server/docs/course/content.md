@@ -108,7 +108,7 @@ Authorization: Bearer `token`
 {
   name: string,
   picture: string,
-  semester: string,
+  semester?: string,
   teacher_name: string,
   contents: Array<{
     title: string;

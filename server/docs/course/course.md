@@ -64,7 +64,7 @@ Authorization: Bearer `token`
 type CoursesOfStudent = Array<{
   _id: string;
   name: string;
-  semester: string;
+  semester?: string;
   picture: string;
   lecturer_name: string;
 }>;
@@ -73,7 +73,7 @@ type CoursesOfStudent = Array<{
 type CoursesOfLecturer = Array<{
   _id: string;
   name: string;
-  semester: string;
+  semester?: string;
   picture: string;
   participant_count: number;
 }>;
