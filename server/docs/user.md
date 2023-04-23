@@ -62,9 +62,9 @@ type StudentType = {
   email: string;
   name: string;
   avatar: string;
-  phone_number?: string | undefined;
-  major?: string | undefined;
-  intake?: number | undefined;
+  phone_number?: string;
+  major?: string;
+  intake?: number;
 };
 ```
 
@@ -86,8 +86,8 @@ type LecturerType = {
   email: string;
   name: string;
   avatar: string;
-  phone_number?: string | undefined;
-  faculty?: string | undefined;
+  phone_number?: string;
+  faculty?: string;
   courses: Array<{ name: string; semester: string }>;
 };
 ```
