@@ -1,11 +1,12 @@
-import { Footer, NavbarStudent } from "../../../components";
-
+import { Footer, KeyFeature } from "../../../components";
+import Login from "../Login";
 const Home = () => {
   return (
     <div>
-      <NavbarStudent></NavbarStudent>
-      <p className="text-8xl">Home</p>
-      <button>Login</button>
+      <Login />
+      <div className="flex justify-center mt-40 mb-12">
+        <KeyFeature />
+      </div>
       <Footer></Footer>
     </div>
   );

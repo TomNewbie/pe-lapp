@@ -1,94 +1,54 @@
 import RequireAuth from "./components/RequireAuth.js";
-import { AuthProvider } from "./components/auth";
+import { Route, Routes } from "react-router-dom";
 import {
   AllCoursesStudent,
   CoursePage,
-  ExerciseDetail,
+  Exercise,
   Lecturers,
   Profile,
 } from "./pages/Student";
-import { Login, Home, Errorpage } from "./pages/common";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  AllCoursesLecturer,
+  Profile as ProfileLecturer,
+  CoursePage as CoursePageLecturer,
+} from "./pages/Lecturer";
+import { Home, Errorpage } from "./pages/common";
+
 function App() {
-  const lecturers = [
-    {
-      name: "a",
-      faculty: "cse",
-      mail: "sd@vgu.edu.vn",
-      url: "/participants-icon/ava.png",
-    },
-    {
-      name: "b",
-      faculty: "ba",
-      mail: "sd1@vgu.edu.vn",
-      url: "/participants-icon/ava.png",
-    },
-    {
-      name: "c",
-      faculty: "cse",
-      mail: "sd2@vgu.edu.vn",
-      url: "/participants-icon/ava.png",
-    },
-    {
-      name: "d",
-      faculty: "ba",
-      mail: "s@vgu.edu.vn",
-      url: "/participants-icon/ava.png",
-    },
-    {
-      name: "e",
-      faculty: "ece",
-      mail: "s3d@vgu.edu.vn",
-      url: "/participants-icon/ava.png",
-    },
-  ];
+  const role = "lecturer";
   return (
     <div className=" App">
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route
-              path="/allcourses"
-              element={
-                <RequireAuth>
-                  <AllCoursesStudent />
-                </RequireAuth>
-              }
-            ></Route>
-            <Route
-              path="/exercise"
-              element={
-                <ExerciseDetail
-                  exername={"Test"}
-                  maxpoints={45}
-                  duedate={"12/3/2022"}
-                  // coursename={"Studey"}
-                  // teacher={}
-                />
-              }
-            ></Route>
-            <Route
-              path="/lecturers"
-              element={<Lecturers lecturers={lecturers} />}
-            ></Route>
-            <Route
-              path="/profile"
-              element={
-                <RequireAuth>
-                  <Profile
-                    name={"Le Hoang Kim Thanh"}
-                    id={18047}
-                    email={"18047@studen.vgu.edu"}
-                  />
-                </RequireAuth>
-              }
-            ></Route>
-            <Route path="*" element={<Errorpage />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route element={<RequireAuth />}>
+          <Route
+            path="/allcourses"
+            element={
+              role === "student" ? (
+                <AllCoursesStudent />
+              ) : (
+                <AllCoursesLecturer />
+              )
+            }
+          ></Route>
+          <Route
+            path="/profile"
+            element={role === "student" ? <Profile /> : <ProfileLecturer />}
+          ></Route>
+
+          <Route
+            path="/course/:id"
+            element={
+              role === "student" ? <CoursePage /> : <CoursePageLecturer />
+            }
+          ></Route>
+          <Route path="/exercise" element={<Exercise />}></Route>
+
+          <Route path="/lecturers" element={<Lecturers />}></Route>
+        </Route>
+
+        <Route path="*" element={<Errorpage />} />
+      </Routes>
     </div>
   );
 }

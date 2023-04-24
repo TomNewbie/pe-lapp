@@ -1,13 +1,14 @@
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../auth";
 
-const RequireAuth = ({ children }) => {
+const RequireAuth = () => {
   const location = useLocation();
   const auth = useAuth();
-  if (!auth.user) {
-    return <Navigate to="/login" state={{ path: location.pathname }} />;
-  }
-  return children;
+  return auth?.user ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/" state={{ from: location }} replace></Navigate>
+  );
 };
 
 export default RequireAuth;

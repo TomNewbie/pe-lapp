@@ -7,13 +7,7 @@ import {
   SubmitEx,
   Footer,
 } from "../../../components";
-const Files = [
-  { name: "Probability" },
-  { name: "Statistic" },
-  { name: "B" },
-  { name: "C" },
-  { name: "D" },
-];
+const files = [{ name: "Probability" }, { name: "Statistic" }];
 
 const ExerciseDetail = ({
   coursename,
@@ -21,15 +15,11 @@ const ExerciseDetail = ({
   exername,
   maxpoints,
   duedate,
+  files,
 }) => {
   return (
-    <div class="text-[#1B1C1E] flex flex-col space-y-10 bg-[#FFFAF0] ">
-      <NavbarStudent></NavbarStudent>
-      {/* <div>
-          <p class="text-bold text-4xl">{coursename}</p>
-          <p class="text-base">{teacher}</p>
-        </div> */}
-      <div class="opacity-60">
+    <div class="text-[#1B1C1E] flex flex-col bg-[#FFFAF0]">
+      <div class="opacity-60 mb-16">
         <StudentCourseName name={"Test"} teacher={"tets"}></StudentCourseName>
       </div>
 
@@ -46,21 +36,38 @@ const ExerciseDetail = ({
             status={"true"}
             title={"Tets"}
             content={"fdc"}
-            Files={Files}></Notification>
+            Files={files}
+          ></Notification>
         </div>
 
         <div class="mt-32">
-          <SubmitEx></SubmitEx>
+          <SubmitEx
+            handleSubmit={() => {
+              console.log("submit");
+            }}
+          ></SubmitEx>
         </div>
       </div>
 
-      <div class="pl-72">
+      <div class="pl-72 mt-24 mb-24">
         <CommentSection grade={43} comment={"excelent"}></CommentSection>
       </div>
-
-      {/* <Footer></Footer> */}
     </div>
   );
 };
 
-export default ExerciseDetail;
+const Exercise = () => {
+  return (
+    <div>
+      <NavbarStudent></NavbarStudent>
+      <ExerciseDetail
+        exername={"Test"}
+        maxpoints={45}
+        duedate={"12/3/2022"}
+        files={files}
+      />
+      <Footer></Footer>
+    </div>
+  );
+};
+export default Exercise;
