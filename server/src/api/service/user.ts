@@ -27,10 +27,18 @@ async function upsertUser(
 }
 
 const getStudentById = async (id: string): Promise<StudentType | null> =>
-  await Student.findById(id).lean();
+  await Student.findById(id, {
+    _id: 1,
+    email: 1,
+    name: 1,
+    avatar: 1,
+    phone_number: 1,
+    major: 1,
+    intake: 1,
+  }).lean();
 
 type LecturerProfileType = LecturerType & {
-  courses: Array<{ name: string; semester: string }>;
+  courses: Array<{ name: string; semester?: string }>;
 };
 
 const getLecturerById = async (

@@ -10,7 +10,7 @@ router.use(userRouter);
 router.use(courseRouter);
 
 router.all("*", (_: Request, res: Response) => {
-  res.sendStatus(404);
+  res.status(404).send("API Endpoint Not Found");
 });
 
 export { router as apiRouter };

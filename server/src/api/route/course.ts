@@ -9,11 +9,11 @@ router.post("/course", courseController.createCourse);
 router.patch("/course/:id", courseController.updateCourse);
 router.get("/course/:id/participants", courseController.getParticipants);
 router.post(
-  "/course/:id/participants/:studentId",
+  "/course/:id/participant/:studentId",
   courseController.addParticipant
 );
 router.delete(
-  "/course/:id/participants/:studentId",
+  "/course/:id/participant/:studentId",
   courseController.removeParticipant
 );
 
