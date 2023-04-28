@@ -8,7 +8,7 @@ const Login = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const redirectPath = location.state?.path || "/";
+  const redirectPath = location.state?.path || "/allcourses";
   const handleLogin = () => {
     auth.login(user);
     navigate(redirectPath, { replace: true });
@@ -122,9 +122,6 @@ const Login = () => {
           </div>
         </div>
         {/* End: Intro section */}
-      </div>
-      <div className="absolute bottom-0">
-        <Footer></Footer>
       </div>
     </div>
   );

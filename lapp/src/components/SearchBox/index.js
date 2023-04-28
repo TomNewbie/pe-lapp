@@ -9,7 +9,7 @@ function SearchBox({ variant }) {
   };
   return (
     <div>
-      <div className="relative flex items-center">
+      <div className="flex items-center ">
         <img
           src="/SearchBox/searchicon.svg"
           alt=""
