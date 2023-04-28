@@ -11,11 +11,12 @@ import {
   AllCoursesLecturer,
   Profile as ProfileLecturer,
   CoursePage as CoursePageLecturer,
+  ExerciseDetail as ExerciseLecturer,
 } from "./pages/Lecturer";
 import { Home, Errorpage } from "./pages/common";
 
 function App() {
-  const role = "lecturer";
+  const role = "student";
   return (
     <div className=" App">
       <Routes>
@@ -42,7 +43,10 @@ function App() {
               role === "student" ? <CoursePage /> : <CoursePageLecturer />
             }
           ></Route>
-          <Route path="/exercise" element={<Exercise />}></Route>
+          <Route
+            path="/exercise"
+            element={role === "student" ? <Exercise /> : <ExerciseLecturer />}
+          ></Route>
 
           <Route path="/lecturers" element={<Lecturers />}></Route>
         </Route>

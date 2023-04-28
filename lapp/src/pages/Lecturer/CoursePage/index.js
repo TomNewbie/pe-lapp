@@ -1,5 +1,5 @@
 // import for General tab
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   NavbarLecturer,
   TeacherNavCourse,
@@ -97,7 +97,10 @@ const CoursePage = () => {
                 handleButton={toggleExerciseModal}
               ></CustomButton>
               <div className="flex flex-col mt-8 mb-16 divide-y">
-                <Assignment></Assignment>
+                <Link to="/exercise">
+                  <Assignment></Assignment>
+                </Link>
+
                 <Assignment></Assignment>
                 <Assignment></Assignment>
               </div>
