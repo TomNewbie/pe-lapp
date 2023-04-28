@@ -13,6 +13,10 @@ Cookie: access_token=`<token>`
 404 -> Course Content not found
 403 -> Unauthorized
 
+# [GET] /api/course/:id/view/:file_id
+
+API for viewing/ downloading the file
+
 # [PATCH] /api/course/:id/content/:course_content_id
 
 API for update course content
@@ -42,7 +46,7 @@ Cookie: access_token=`<token>`
 403 -> Unauthorized
 400 -> Missing information to update
 
-# [POST] /api/course/:id/
+# [POST] /api/content/course/:id
 
 API for create content with specified course id
 

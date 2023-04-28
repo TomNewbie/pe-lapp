@@ -179,3 +179,7 @@ Delete exercise by id. All student solution related to that exercise will be del
 - 200 -> OK
 - 404 -> Exercise not found
 - 401 -> Unauthorize
+
+# [POST] /api/exercises/:id/
+
+Add solution

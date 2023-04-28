@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import multer from "multer";
 import path from "path";
 import { AuthRequest } from "./auth";
-import { CourseError, courseService } from "../service/course";
 import {
   allowed,
   fileFields,
@@ -33,13 +32,6 @@ const handleUpload = multer({
 }).array(fileFields);
 
 const upload = async (req: AuthRequest, res: Response, next: NextFunction) => {
-  const { id: courseId } = req.params;
-  const { _id: lecturerId } = req.user!;
-  const err = await courseService.verifyAuthorize({ lecturerId, courseId });
-  if (err === CourseError.NOT_FOUND) {
-    res.status(404).send(`Cannot find course "${courseId}" created by you`);
-    return;
-  }
   handleUpload(req, res, function (err) {
     if (err instanceof multer.MulterError) {
       console.log(err.code);
