@@ -54,6 +54,7 @@ const courseContent = new Schema(
           type: String,
           required: true,
         },
+        _id: false,
       },
     ],
     body: {

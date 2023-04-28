@@ -101,7 +101,6 @@ export enum CourseError {
   ALREADY_JOINED,
   NOT_JOINED,
 }
-
 const joinCourse = async (
   studentId: string,
   courseId: string
@@ -143,15 +142,19 @@ type QueryCourseId = {
   courseId: string;
 };
 
-type UpdateCourseFields = {
-  name?: string;
-  picture?: string;
-  semester?: string;
-};
+// type UpdateCourseFields = {
+//   name?: string;
+//   picture?: string;
+//   semester?: string;
+// };
 
 const update = async (
   { lecturerId: lecturer_id, courseId: _id }: QueryCourseId,
-  { name, picture, semester }: UpdateCourseFields
+  {
+    name,
+    picture,
+    semester,
+  }: Partial<Omit<CourseType, "participants" | "lecturer_id">>
 ): Promise<CourseError.NOT_FOUND | undefined> => {
   if (!isValidObjectId(_id)) return CourseError.NOT_FOUND;
 
@@ -164,7 +167,17 @@ const update = async (
     return CourseError.NOT_FOUND;
   }
 };
-
+const addContent = async (
+  { lecturerId: lecturer_id, courseId: _id }: QueryCourseId,
+  contents: Types.ObjectId
+): Promise<void> => {
+  const res = await Course.updateOne(
+    { _id, lecturer_id },
+    { $addToSet: { contents: contents } }
+  );
+  const hehe = await Course.findOne({ _id, lecturer_id });
+  console.log(hehe);
+};
 interface GetParticipantsResponse {
   lecturer: {
     _id: string;
@@ -249,6 +262,15 @@ const removeParticipant = async (
   if (res.modifiedCount === 0) return CourseError.NOT_JOINED;
 };
 
+const verifyAuthorize = async ({
+  lecturerId,
+  courseId,
+}: QueryCourseId): Promise<CourseError.NOT_FOUND | void> => {
+  if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
+  const res = await Course.findOne({ _id: courseId, lecturer_id: lecturerId });
+  if (!res) return CourseError.NOT_FOUND;
+};
+
 export const courseService = {
   create,
   update,
@@ -257,4 +279,6 @@ export const courseService = {
   getParticipants,
   addParticipant,
   removeParticipant,
+  verifyAuthorize,
+  addContent,
 };

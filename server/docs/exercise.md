@@ -1,6 +1,6 @@
 # [GET] /api/course/:id/exercises
 
-Request
+Get all exercise from a specific course
 
 Cookie: access_token=`<token>`
 
@@ -8,7 +8,7 @@ Cookie: access_token=`<token>`
 
 - 200 -> Return json
 
-- Student view
+### Student view
 
 ```ts
 Array<{
@@ -20,7 +20,7 @@ Array<{
 }>;
 ```
 
-- Lecturer view
+### Lecturer view
 
 ```ts
 Array<{
@@ -32,9 +32,8 @@ Array<{
 }>;
 ```
 
-_Error_:
-
-- 404 -> Course not found
+- Error :  
+  404 -> Course not found
 
 # [POST] /api/course/:id/exercise
 
