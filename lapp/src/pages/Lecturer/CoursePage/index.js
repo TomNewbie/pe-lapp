@@ -9,11 +9,16 @@ import {
   Announce,
   Notification,
   Footer,
+  OverallGrade,
 } from "../../../components";
 import { Participants, Assignment, PostAnnEx } from "../../../components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const CoursePage = () => {
   const { id } = useParams();
+
+  //course heading
+  const course = { name: "Programming exercise", semester: "SS2023" };
+
   //General tab: Notification
   const notis = [
     {
@@ -35,12 +40,41 @@ const CoursePage = () => {
       files: [{ name: "Math" }, { name: "Science" }],
     },
   ];
+
   //Participants tab: Participants section
-  const students = [
-    { url: "/participants-icon/ava.png", name: "A", mail: "ava.gmail.com" },
-    { url: "/participants-icon/ava.png", name: "B", mail: "ava1.gmail.com" },
-    { url: "/participants-icon/ava.png", name: "C", mail: "ava2.gmail.com" },
+  const participants = {
+    student: [
+      { url: "/participants-icon/ava.png", name: "A", mail: "ava.gmail.com" },
+      { url: "/participants-icon/ava.png", name: "B", mail: "ava1.gmail.com" },
+      { url: "/participants-icon/ava.png", name: "C", mail: "ava2.gmail.com" },
+    ],
+    lecturer: "Tran Tuan Anh",
+  };
+  //Exercise tab
+  const exercises = [
+    { duedate: "No due date", exName: "Exercise 1" },
+    { duedate: "No due date", exName: "Exercise 2" },
   ];
+
+  const studentGrade = [
+    {
+      name: "A",
+      id: "12345",
+      total: "2",
+      detailGrade: [10, 8],
+    },
+    {
+      name: "B",
+      id: "45678",
+      total: "1",
+      detailGrade: [7, 8],
+    },
+  ];
+
+  //class code
+  const classCode = "12345";
+
+  // logic for modal
   const [postModal, setPostModal] = useState(false);
   const togglePostModal = () => {
     setPostModal(!postModal);
@@ -51,7 +85,7 @@ const CoursePage = () => {
   };
   return (
     // <body className="bg-[#FFFAF0]">
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col bg-[#FFFAF0]">
       {postModal && <PostAnnEx handleClose={togglePostModal}></PostAnnEx>}
       {exerciseModal && (
         <PostAnnEx
@@ -60,8 +94,11 @@ const CoursePage = () => {
         ></PostAnnEx>
       )}
       <NavbarLecturer></NavbarLecturer>
-      <TeacherCourseName name={id} semester={"Winter 2023"}></TeacherCourseName>
-      <div>
+      <TeacherCourseName
+        name={id + course.name}
+        semester={course.semester}
+      ></TeacherCourseName>
+      <div className="mt-8">
         <TeacherNavCourse
           // General tab
           tab1={
@@ -83,7 +120,7 @@ const CoursePage = () => {
                 })}
               </div>
               <div>
-                <ClassCode code={"12345"}></ClassCode>
+                <ClassCode code={classCode}></ClassCode>
               </div>
             </div>
           }
@@ -110,13 +147,20 @@ const CoursePage = () => {
           tab3={
             <div className="flex flex-col space-y-6 mt-8 mb-16 w-[1000px] min-h-[370px]">
               <Participants
-                teacher={"Tran Tuan Anh"}
-                students={students}
+                teacher={participants.lecturer}
+                students={participants.student}
               ></Participants>
             </div>
           }
           // Grade tab
-          tab4={<div className="min-h-[370px] mt-4">tab content 4</div>}
+          tab4={
+            <div className="min-h-[370px] px-10 w-screen mt-4">
+              <OverallGrade
+                students={studentGrade}
+                exercises={exercises}
+              ></OverallGrade>
+            </div>
+          }
         ></TeacherNavCourse>
       </div>
       <Footer></Footer>
