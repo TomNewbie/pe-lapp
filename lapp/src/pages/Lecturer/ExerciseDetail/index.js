@@ -8,7 +8,18 @@ import {
   Footer,
 } from "../../../components";
 import { PostAnnEx } from "../../../components";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+/** Need to fetch:
+ * course:
+ *      {name: string;semester: string;}
+ * notification:
+ *      {name: string; maxpoints: number; duedate: string;
+ *      content: string; Files: {name: string;[];}
+ * students:
+ *      {string; id: number; submittime: string;
+ *      status: string; file: string[]/null; grade: number/null;}
+ */
 
 const course = { name: "Programming exercise", semester: "SS2023" };
 const notification = {
@@ -45,6 +56,11 @@ const sumScore = students.reduce((a, student) => {
 }, 0);
 const averageScore = sumScore / numOfSubmission;
 
+/**Component that displays the details of a exercise,
+ * including the exercise name, due date, maximum points,
+ * announcement, number of submissions, and average score.
+ * It also allows the lecturer to edit and delete the exercise,
+ * view the submission records of the students, and edit the records. */
 const ExerciseDetail = () => {
   // logic for modal
   const [exerciseModal, setExerciseModal] = useState(false);

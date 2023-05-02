@@ -12,67 +12,85 @@ import {
   OverallGrade,
 } from "../../../components";
 import { Participants, Assignment, PostAnnEx } from "../../../components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
+/** Need to fetch:
+ - const course: { name: string; semester: string;}
+ -  const notis: { status: string; title: string; content: string; files: {name: string;}[];}[]
+ - const participants: {
+    student: {
+        url: string;
+        name: string;
+        mail: string;
+    }[];
+    lecturer: string;
+}
+- const exercises: {duedate: string;exName: string;}[]
+- const studentGrade: {name: string;id: string;total: string;detailGrade: number[];}[]
+- const classcode: string
+ */
+
+//course heading
+const course = { name: "Programming exercise", semester: "SS2023" };
+
+//General tab: Notification
+const notis = [
+  {
+    status: "no",
+    title: "Announcement",
+    content: "Today we learn Bayes Rules, hope you like the lecture.",
+    files: [{ name: "Probability" }, { name: "Statistic" }],
+  },
+  {
+    status: "true",
+    title: "Announcement",
+    content: "Tomorrow we will have an mini exam.",
+    files: [],
+  },
+  {
+    status: "true",
+    title: "Practice test",
+    content: "Hello",
+    files: [{ name: "Math" }, { name: "Science" }],
+  },
+];
+
+//Participants tab: Participants section
+const participants = {
+  student: [
+    { url: "/participants-icon/ava.png", name: "A", mail: "ava.gmail.com" },
+    { url: "/participants-icon/ava.png", name: "B", mail: "ava1.gmail.com" },
+    { url: "/participants-icon/ava.png", name: "C", mail: "ava2.gmail.com" },
+  ],
+  lecturer: "Tran Tuan Anh",
+};
+//Exercise tab
+const exercises = [
+  { duedate: "No due date", exName: "Exercise 1" },
+  { duedate: "No due date", exName: "Exercise 2" },
+];
+
+const studentGrade = [
+  {
+    name: "A",
+    id: "12345",
+    total: "2",
+    detailGrade: [10, 8],
+  },
+  {
+    name: "B",
+    id: "45678",
+    total: "1",
+    detailGrade: [7, 8],
+  },
+];
+
+//class code
+const classCode = "12345";
+
+/**This component displays a course page for a lecturer, with four tabs: General, Exercise, Participants, and Grade. */
 const CoursePage = () => {
   const { id } = useParams();
-
-  //course heading
-  const course = { name: "Programming exercise", semester: "SS2023" };
-
-  //General tab: Notification
-  const notis = [
-    {
-      status: "no",
-      title: "Announcement",
-      content: "Today we learn Bayes Rules, hope you like the lecture.",
-      files: [{ name: "Probability" }, { name: "Statistic" }],
-    },
-    {
-      status: "true",
-      title: "Announcement",
-      content: "Tomorrow we will have an mini exam.",
-      files: [],
-    },
-    {
-      status: "true",
-      title: "Practice test",
-      content: "Hello",
-      files: [{ name: "Math" }, { name: "Science" }],
-    },
-  ];
-
-  //Participants tab: Participants section
-  const participants = {
-    student: [
-      { url: "/participants-icon/ava.png", name: "A", mail: "ava.gmail.com" },
-      { url: "/participants-icon/ava.png", name: "B", mail: "ava1.gmail.com" },
-      { url: "/participants-icon/ava.png", name: "C", mail: "ava2.gmail.com" },
-    ],
-    lecturer: "Tran Tuan Anh",
-  };
-  //Exercise tab
-  const exercises = [
-    { duedate: "No due date", exName: "Exercise 1" },
-    { duedate: "No due date", exName: "Exercise 2" },
-  ];
-
-  const studentGrade = [
-    {
-      name: "A",
-      id: "12345",
-      total: "2",
-      detailGrade: [10, 8],
-    },
-    {
-      name: "B",
-      id: "45678",
-      total: "1",
-      detailGrade: [7, 8],
-    },
-  ];
-
-  //class code
-  const classCode = "12345";
 
   // logic for modal
   const [postModal, setPostModal] = useState(false);

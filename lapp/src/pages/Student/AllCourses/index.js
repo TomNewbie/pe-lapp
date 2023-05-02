@@ -7,6 +7,13 @@ import {
   JoinCourse,
 } from "../../../components";
 import { useState } from "react";
+/** Need to fetch:
+ *  courses: {
+    name: string;
+    lecturer: string;
+    progress: string;
+}[]
+ */
 const courses = [
   { name: "1", lecturer: "HHH", progress: "80%" },
   { name: "2", lecturer: "HHH", progress: "80%" },
@@ -17,6 +24,8 @@ const courses = [
   { name: "7", lecturer: "HHH", progress: "80%" },
   { name: "8", lecturer: "HHH", progress: "80%" },
 ];
+
+// Component  which displays a list of courses that a student is enrolled in
 const AllCoursesStudent = () => {
   const [modal, setModal] = useState(false);
   const toggleModal = () => {

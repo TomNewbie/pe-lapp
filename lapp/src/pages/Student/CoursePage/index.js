@@ -6,11 +6,18 @@ import {
   Notification,
   Footer,
 } from "../../../components";
-import { StudentNavCourse } from "../../../components";
-// import for Participants tab
-import { Participants } from "../../../components";
-// import for Exercise tab
-import { ExerciseSection } from "../../../components";
+import {
+  StudentNavCourse,
+  Participants,
+  ExerciseSection,
+} from "../../../components";
+
+/** Need to fetch:
+ * notis: { status: string; title: string; content: string; files: {name: string;}[];}[]
+ * students: { url: string; name: string; mail: string; }[]
+ * exercises: { name: string; deadline: string; grade: string; status: string;}[]
+ */
+
 //General tab: Notification
 const notis = [
   {
@@ -52,6 +59,8 @@ const exercises = [
     status: "done",
   },
 ];
+
+// Ccomponent renders the main content of a course page for students, including notifications, participants, and exercises.
 const CoursePage = () => {
   const { id } = useParams();
 

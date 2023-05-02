@@ -1,9 +1,18 @@
 import { useState } from "react";
 import { NavbarLecturer, Footer } from "../../../components";
+/** Need to fetch:
+ * course:
+ *      {name: string;semester: string;}
+ * name: string
+ * email: string
+ * faculty: string
+ */
 const courses = [{ name: "Programming exercise", semetes: "SS2023" }];
 const name = "Huynh Trung Hieu";
 const email = "htt.vgu.edu.vn";
 const faculty = "CSE";
+
+// This is a functional component for the profile page of a teacher.
 const ProfileTeacher = () => {
   const [show, setShow] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");

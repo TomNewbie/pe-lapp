@@ -1,5 +1,9 @@
 import { Footer, KeyFeature } from "../../../components";
 import Login from "../Login";
+/**
+ * Component that represents the home page of the application.
+ * This component renders a login form, a key feature section, and a footer section.
+ */
 const Home = () => {
   return (
     <div>

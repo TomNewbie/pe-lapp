@@ -7,6 +7,13 @@ import {
   CreateCourse,
 } from "../../../components";
 import { useState } from "react";
+/**Need to fetch courses:
+ * const courses: {
+    name: string;
+    participants: number;
+    semester: string;
+}[]
+*/
 const courses = [
   { name: "1", participants: 12, semester: "SS2023" },
   { name: "2", participants: 12, semester: "SS2023" },
@@ -18,11 +25,20 @@ const courses = [
   { name: "8", participants: 12, semester: "SS2023" },
 ];
 
+/**
+ * Component that represents the page displaying all courses for a lecturer.
+ * This component displays a search box, a button to create a new course, and a list of all courses.
+ * Each course is represented by a course card.
+ */
 const AllCoursesLecturer = () => {
+  /**
+   * Toggles the state of the modal for creating a new course.
+   */
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
     setModal(!modal);
   };
+
   return (
     <div className="relative">
       {modal && <CreateCourse handleClose={toggleModal}></CreateCourse>}

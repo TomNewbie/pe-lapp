@@ -7,6 +7,13 @@ import {
   SubmitEx,
   Footer,
 } from "../../../components";
+
+/** Need to fetch: 
+ * course: { name: string; teacher: string;}
+* notification: { name: string; maxpoints: number; 
+  duedate: string; content: string; Files: { name: string;  }[];}
+* comment: { grade: number; content: string;}
+ */
 const course = { name: "Programming exercise", teacher: "Huynh Trung Hieu" };
 const notification = {
   name: "Mock test 1",
@@ -18,6 +25,7 @@ const notification = {
 };
 const comment = { grade: 100, content: "Very good!" };
 
+// The component renders a page displaying information about a particular exercise, including the exercise name, maximum points, due date, announcement, and a comment section for student view.
 const ExerciseDetail = () => {
   return (
     <div class="text-[#1B1C1E] flex flex-col bg-[#FFFAF0]">
