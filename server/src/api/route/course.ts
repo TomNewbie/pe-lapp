@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { courseController } from "../controller/course";
-import { fileController } from "../controller/file";
 
 const router = Router();
 
@@ -17,5 +16,6 @@ router.delete(
   "/course/:id/participant/:studentId",
   courseController.removeParticipant
 );
+router.get("/course/:id", courseController.getAllContent);
 
 export { router as courseRouter };

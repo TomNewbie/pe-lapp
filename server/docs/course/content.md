@@ -25,6 +25,11 @@ Cookie: access_token=`<token>`
 
 API for viewing/ downloading the file
 
+## Response
+
+- Return a file to browser
+- 404 -> File not found
+
 # [PATCH] /api/course/:id/content/:course_content_id
 
 API for update course content

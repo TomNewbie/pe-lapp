@@ -1,5 +1,10 @@
-import { Types, isValidObjectId } from "mongoose";
-import { Course, CourseType } from "../model/course";
+import mongoose, { Types, isValidObjectId } from "mongoose";
+import {
+  Course,
+  CourseContent,
+  CourseContentType,
+  CourseType,
+} from "../model/course";
 import { UserRole } from "./user";
 import { Optional } from "../../utils/types";
 
@@ -25,7 +30,26 @@ interface GetCoursesOptions {
   query?: string;
   sort?: string;
 }
-
+type teacherViewContent = Omit<
+  CourseType,
+  "contents" | "participants" | "lecturer_id"
+> & {
+  contents: CourseContentType;
+  teacher_name: string;
+};
+let test: teacherViewContent = {
+  contents: {
+    body: "hahdsa",
+    createdAt: new Date(),
+    files: [{ name: "asdasdasd", url: "asdasdasdasd" }],
+    title: "sadasdasdasd",
+    updatedAt: new Date(),
+  },
+  teacher_name: "haha",
+  name: "asdsadasdas",
+  picture: "awsdasdasdad",
+  semester: "asdasdasd",
+};
 async function getCoursesOfUser(
   id: string,
   role: "student",
@@ -272,6 +296,34 @@ const verifyAuthorize = async ({
 const removeContent = async (courseId: string, contentId: string) => {
   await Course.updateOne({ _id: courseId }, { $pull: { contents: contentId } });
 };
+
+const getAllContent = async (
+  courseId: string
+): Promise<teacherViewContent[] | CourseError.NOT_FOUND> => {
+  if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
+  const res = await Course.aggregate()
+    .match({
+      _id: new mongoose.Types.ObjectId(courseId),
+    })
+    .lookup({
+      from: CourseContent.collection.name,
+      localField: "contents",
+      foreignField: "_id",
+      as: "new",
+    })
+    .project({
+      _id: 0,
+      participants: 0,
+      contents: 0,
+      __v: 0,
+    })
+    .exec();
+  if (res.length === 0) {
+    return CourseError.NOT_FOUND;
+  }
+  console.log(res);
+  return res;
+};
 export const courseService = {
   create,
   update,
@@ -283,4 +335,5 @@ export const courseService = {
   verifyAuthorize,
   addContent,
   removeContent,
+  getAllContent,
 };

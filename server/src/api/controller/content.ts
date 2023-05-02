@@ -91,4 +91,9 @@ const remove = async (req: AuthRequest, res: Response, next: NextFunction) => {
   next(error);
 };
 
-export const contentController = { create, verifyAuthorize, update, remove };
+export const contentController = {
+  create,
+  verifyAuthorize,
+  update,
+  remove,
+};

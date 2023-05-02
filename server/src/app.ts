@@ -17,8 +17,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
-app.get("/view/:url", fileController.get);
-
 // Serve the API routes
 app.use("/api", apiRouter);
 // Serve the React app

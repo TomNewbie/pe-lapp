@@ -1,4 +1,4 @@
-import { Response, NextFunction } from "express";
+import { Response, NextFunction, Request } from "express";
 import { AuthRequest } from "./auth";
 import { CourseError, courseService } from "../service/course";
 import { queryToNumber } from "../../utils";
@@ -165,6 +165,17 @@ const verifyAuthorize = async (
 
   next();
 };
+const getAllContent = async (req: AuthRequest, res: Response) => {
+  const { id: courseId } = req.params;
+  const result = await courseService.getAllContent(courseId);
+  if (result === CourseError.NOT_FOUND) {
+    res
+      .status(404)
+      .send(`Cannot find course "${courseId}" created by you to upload`);
+    return;
+  }
+  res.status(200).json(result);
+};
 export const courseController = {
   getAllCourses,
   joinCourse,
@@ -174,4 +185,5 @@ export const courseController = {
   addParticipant,
   removeParticipant,
   verifyAuthorize,
+  getAllContent,
 };
