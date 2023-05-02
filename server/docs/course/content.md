@@ -6,14 +6,22 @@ Request
 
 Cookie: access_token=`<token>`
 
+## Request Body
+
+```ts
+{
+  remove?: url[]
+}
+```
+
 ## Response
 
-200 -> OK
-404 -> Course not found
-404 -> Course Content not found
-403 -> Unauthorized
+- 200 -> OK
+- 404 -> Course not found
+- 404 -> Course Content not found
+- 403 -> Unauthorized
 
-# [GET] /api/course/:id/view/:file_id
+# [GET] /api/view/:file_path
 
 API for viewing/ downloading the file
 
@@ -30,21 +38,22 @@ Cookie: access_token=`<token>`
 ```ts
 {
   title?: string,
-  file?: Array<{
+  files?: Array<{
     name: string,
     url: string
   }>,
   body?: string,
+  remove?: url[]
 }
 ```
 
 ## Response
 
-200 -> OK
-404 -> Course not found
-404 -> Course Content not found
-403 -> Unauthorized
-400 -> Missing information to update
+- 200 -> OK
+- 404 -> Course not found
+- 404 -> Course Content not found
+- 403 -> Unauthorized
+- 400 -> Missing information to update
 
 # [POST] /api/content/course/:id
 
@@ -59,20 +68,24 @@ Cookie: access_token=`<token>`
 ```ts
 {
   title: string,
-  file?: Array<{
-    name: string,
-    url: string
-  }>,
   body: string,
 }
 ```
 
 ## Response
 
-200 -> OK
-404 -> Course not found
-403 -> Unauthorized
-400 -> Missing information to create
+- 200 -> OK
+- 404 -> Course not found
+- 403 -> Unauthorized
+- 400 -> Missing _title, body_
+
+## Multer Error will return error code 400
+
+- 'LIMIT_FILE_SIZE' -> File exceed limit
+- 'LIMIT_FILE_COUNT' -> Exceed number of files
+- 'LIMIT_FIELD_COUNT' -> Exceed number of fields
+- 'LIMIT_UNEXPECTED_FILE' -> File field not match
+- File extension ... is not supported
 
 # [GET] /api/course/:id
 

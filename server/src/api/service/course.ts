@@ -168,16 +168,15 @@ const update = async (
   }
 };
 const addContent = async (
-  { lecturerId: lecturer_id, courseId: _id }: QueryCourseId,
+  courseId: string,
   contents: Types.ObjectId
 ): Promise<void> => {
-  const res = await Course.updateOne(
-    { _id, lecturer_id },
+  await Course.updateOne(
+    { _id: courseId },
     { $addToSet: { contents: contents } }
   );
-  const hehe = await Course.findOne({ _id, lecturer_id });
-  console.log(hehe);
 };
+
 interface GetParticipantsResponse {
   lecturer: {
     _id: string;
@@ -270,7 +269,9 @@ const verifyAuthorize = async ({
   const res = await Course.findOne({ _id: courseId, lecturer_id: lecturerId });
   if (!res) return CourseError.NOT_FOUND;
 };
-
+const removeContent = async (courseId: string, contentId: string) => {
+  await Course.updateOne({ _id: courseId }, { $pull: { contents: contentId } });
+};
 export const courseService = {
   create,
   update,
@@ -281,4 +282,5 @@ export const courseService = {
   removeParticipant,
   verifyAuthorize,
   addContent,
+  removeContent,
 };
