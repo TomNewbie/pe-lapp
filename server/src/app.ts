@@ -16,16 +16,10 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
-const storage = multer.diskStorage({
-  destination: "./hello",
-  filename: (req, file, callback) => {
-    // console.log(file),
-    callback(null, file.originalname + "123" + path.extname(file.originalname));
-  },
-});
+
+app.get("/view/:url", fileController.get);
 
 // Serve the API routes
-app.use("/test", fileController.send);
 app.use("/api", apiRouter);
 // Serve the React app
 app.use(clientRouter);
