@@ -44,7 +44,7 @@ const courseContent = new Schema(
       type: String,
       required: true,
     },
-    file: [
+    files: [
       {
         name: {
           type: String,
