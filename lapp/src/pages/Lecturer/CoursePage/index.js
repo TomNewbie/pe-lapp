@@ -62,7 +62,7 @@ const participants = {
     { url: "/participants-icon/ava.png", name: "B", mail: "ava1.gmail.com" },
     { url: "/participants-icon/ava.png", name: "C", mail: "ava2.gmail.com" },
   ],
-  lecturer: "Tran Tuan Anh",
+  teacher: { name: "Huynh Trung Hieu", mail: "sd@gmail.com" },
 };
 //Exercise tab
 const exercises = [
@@ -180,7 +180,7 @@ const CoursePage = () => {
           tab3={
             <div className="flex flex-col space-y-6 mt-8 mb-16 w-[1000px] min-h-[370px]">
               <Participants
-                teacher={participants.lecturer}
+                teacher={participants.teacher}
                 students={participants.student}
               ></Participants>
             </div>
