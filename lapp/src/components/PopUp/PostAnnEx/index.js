@@ -1,7 +1,7 @@
 import CustomButton from "../../CustomButton";
 const PostAnnEx = ({ type, handleClose }) => {
   return (
-    <div className="absolute flex items-center justify-center w-full h-full bg-black/60">
+    <div className="absolute flex items-center justify-center w-full h-screen bg-black/60">
       <div class="flex flex-col justify-between space-y-2 px-5 py-2 w-60  bg-[#FFFCF7] text-[#1B1C1E] rounded-xl shadow-xl place-items-center text_2xl">
         <input
           type="text"

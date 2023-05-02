@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { NavbarLecturer, Footer } from "../../../components";
 const courses = [{ name: "Programming exercise", semetes: "SS2023" }];
-const ProfileTeacherDetail = ({ courses, name, email, faculty }) => {
+const name = "Huynh Trung Hieu";
+const email = "htt.vgu.edu.vn";
+const faculty = "CSE";
+const ProfileTeacher = () => {
   const [show, setShow] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [storePhoneNumber, setStorePhoneNumber] = useState("");
@@ -12,6 +15,8 @@ const ProfileTeacherDetail = ({ courses, name, email, faculty }) => {
   };
   return (
     <div className="h-screen overflow-hidden">
+      <NavbarLecturer></NavbarLecturer>
+
       <div className="flex flex-row items-center justify-center mt-6 space-x-40">
         <div className="grid items-center grid-rows-2 mt-20 ml-20">
           <img src="/ProfileTeacher/avatar.png" alt="avatar" loading="lazy" />
@@ -96,22 +101,9 @@ const ProfileTeacherDetail = ({ courses, name, email, faculty }) => {
           </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-const ProfileTeacher = () => {
-  return (
-    <div>
-      <NavbarLecturer></NavbarLecturer>
-      <ProfileTeacherDetail
-        courses={courses}
-        name={"Huynh Trung Hieu"}
-        email={"htt.vgu.edu.vn"}
-        faculty={"CSE"}
-      ></ProfileTeacherDetail>
       <Footer></Footer>
     </div>
   );
 };
+
 export default ProfileTeacher;

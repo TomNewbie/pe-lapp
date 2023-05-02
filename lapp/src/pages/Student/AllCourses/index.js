@@ -7,19 +7,25 @@ import {
   JoinCourse,
 } from "../../../components";
 import { useState } from "react";
+const courses = [
+  { name: "1", lecturer: "HHH", progress: "80%" },
+  { name: "2", lecturer: "HHH", progress: "80%" },
+  { name: "3", lecturer: "HHH", progress: "80%" },
+  { name: "4", lecturer: "HHH", progress: "80%" },
+  { name: "5", lecturer: "HHH", progress: "80%" },
+  { name: "6", lecturer: "HHH", progress: "80%" },
+  { name: "7", lecturer: "HHH", progress: "80%" },
+  { name: "8", lecturer: "HHH", progress: "80%" },
+];
 const AllCoursesStudent = () => {
-  const courses = [
-    { name: "1", lecturer: "HHH", progress: "80%" },
-    { name: "2", lecturer: "HHH", progress: "80%" },
-    { name: "3", lecturer: "HHH", progress: "80%" },
-    { name: "4", lecturer: "HHH", progress: "80%" },
-    { name: "5", lecturer: "HHH", progress: "80%" },
-    { name: "6", lecturer: "HHH", progress: "80%" },
-    { name: "7", lecturer: "HHH", progress: "80%" },
-    { name: "8", lecturer: "HHH", progress: "80%" },
-  ];
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
+    const body = document.body;
+    if (modal) {
+      body.classList.remove("modal-open");
+    } else {
+      body.classList.add("modal-open");
+    }
     setModal(!modal);
   };
   return (

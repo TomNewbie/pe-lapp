@@ -34,7 +34,7 @@ const lecturers = [
     url: "/participants-icon/ava.png",
   },
 ];
-const LecturerList = ({ lecturers }) => {
+const Lecturers = () => {
   const facultySection = lecturers.reduce((acc, lecturer) => {
     if (!acc[lecturer.faculty]) {
       acc[lecturer.faculty] = [lecturer];
@@ -82,16 +82,9 @@ const LecturerList = ({ lecturers }) => {
 
   return (
     <div>
-      <div>{LecturerSection}</div>
-    </div>
-  );
-};
-
-const Lecturers = () => {
-  return (
-    <div>
       <NavbarStudent></NavbarStudent>
-      <LecturerList lecturers={lecturers} />
+
+      <div>{LecturerSection}</div>
       <div className="absolute inset-x-0 bottom-0">
         <Footer></Footer>
       </div>

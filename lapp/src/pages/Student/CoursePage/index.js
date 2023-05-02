@@ -11,49 +11,50 @@ import { StudentNavCourse } from "../../../components";
 import { Participants } from "../../../components";
 // import for Exercise tab
 import { ExerciseSection } from "../../../components";
+//General tab: Notification
+const notis = [
+  {
+    status: "no",
+    title: "Announcement",
+    content: "Today we learn Bayes Rules, hope you like the lecture.",
+    files: [{ name: "Probability" }, { name: "Statistic" }],
+  },
+  {
+    status: "true",
+    title: "Announcement",
+    content: "Tomorrow we will have an mini exam.",
+    files: [],
+  },
+  {
+    status: "true",
+    title: "Practice test",
+    content: "Hello",
+    files: [{ name: "Math" }, { name: "Science" }],
+  },
+];
+//Participants tab: Participants section
+const students = [
+  { url: "/participants-icon/ava.png", name: "A", mail: "ava.gmail.com" },
+  { url: "/participants-icon/ava.png", name: "B", mail: "ava1.gmail.com" },
+  { url: "/participants-icon/ava.png", name: "C", mail: "ava2.gmail.com" },
+];
+const exercises = [
+  {
+    name: "Exercise 1",
+    deadline: "Monday, 15 February 2023, 12:00 AM",
+    grade: "null",
+    status: "undone",
+  },
+  {
+    name: "Exercise 2",
+    deadline: "Monday, 23 February 2023, 12:00 AM",
+    grade: "null",
+    status: "done",
+  },
+];
 const CoursePage = () => {
   const { id } = useParams();
-  //General tab: Notification
-  const notis = [
-    {
-      status: "no",
-      title: "Announcement",
-      content: "Today we learn Bayes Rules, hope you like the lecture.",
-      files: [{ name: "Probability" }, { name: "Statistic" }],
-    },
-    {
-      status: "true",
-      title: "Announcement",
-      content: "Tomorrow we will have an mini exam.",
-      files: [],
-    },
-    {
-      status: "true",
-      title: "Practice test",
-      content: "Hello",
-      files: [{ name: "Math" }, { name: "Science" }],
-    },
-  ];
-  //Participants tab: Participants section
-  const students = [
-    { url: "/participants-icon/ava.png", name: "A", mail: "ava.gmail.com" },
-    { url: "/participants-icon/ava.png", name: "B", mail: "ava1.gmail.com" },
-    { url: "/participants-icon/ava.png", name: "C", mail: "ava2.gmail.com" },
-  ];
-  const exercises = [
-    {
-      name: "Exercise 1",
-      deadline: "Monday, 15 February 2023, 12:00 AM",
-      grade: "null",
-      status: "undone",
-    },
-    {
-      name: "Exercise 2",
-      deadline: "Monday, 23 February 2023, 12:00 AM",
-      grade: "null",
-      status: "done",
-    },
-  ];
+
   return (
     <div className="relative flex flex-col">
       <NavbarStudent></NavbarStudent>

@@ -76,13 +76,28 @@ const CoursePage = () => {
 
   // logic for modal
   const [postModal, setPostModal] = useState(false);
+
   const togglePostModal = () => {
+    const body = document.body;
+    if (postModal) {
+      body.classList.remove("modal-open");
+    } else {
+      body.classList.add("modal-open");
+    }
     setPostModal(!postModal);
   };
+
   const [exerciseModal, setExerciseModal] = useState(false);
   const toggleExerciseModal = () => {
+    const body = document.body;
+    if (exerciseModal) {
+      body.classList.remove("modal-open");
+    } else {
+      body.classList.add("modal-open");
+    }
     setExerciseModal(!exerciseModal);
   };
+
   return (
     // <body className="bg-[#FFFAF0]">
     <div className="relative flex flex-col bg-[#FFFAF0]">

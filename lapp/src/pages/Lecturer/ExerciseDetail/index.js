@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Notification,
   NavbarLecturer,
@@ -7,6 +7,9 @@ import {
   CustomButton,
   Footer,
 } from "../../../components";
+import { PostAnnEx } from "../../../components";
+import { Link, Navigate } from "react-router-dom";
+
 const course = { name: "Programming exercise", semester: "SS2023" };
 const notification = {
   name: "Mock test 1",
@@ -43,11 +46,32 @@ const sumScore = students.reduce((a, student) => {
 const averageScore = sumScore / numOfSubmission;
 
 const ExerciseDetail = () => {
+  // logic for modal
+  const [exerciseModal, setExerciseModal] = useState(false);
+  const toggleExerciseModal = () => {
+    const body = document.body;
+    if (exerciseModal) {
+      body.classList.remove("modal-open");
+    } else {
+      body.classList.add("modal-open");
+    }
+    setExerciseModal(!exerciseModal);
+  };
+
   return (
-    <div class="text-[#1B1C1E] flex flex-col bg-[#FFFAF0]">
+    <div class="relative text-[#1B1C1E] flex flex-col bg-[#FFFAF0]">
+      <div>
+        {exerciseModal && (
+          <PostAnnEx
+            type={"exercise"}
+            handleClose={toggleExerciseModal}
+          ></PostAnnEx>
+        )}
+      </div>
+
       <NavbarLecturer />
       {/* Course name */}
-      <div class="opacity-60">
+      <div>
         <TeacherCourseName
           name={course.name}
           semester={course.semester}
@@ -55,7 +79,7 @@ const ExerciseDetail = () => {
       </div>
       {/* Exercise details */}
 
-      <div class="flex flex-col place-items-cente space-y-8 px-20">
+      <div class="flex flex-col space-y-8 px-20">
         <p class="text-bold text-7xl text-center mt-8">{notification.name}</p>
         {/* Button */}
         <div class="flex flex-row items-center justify-around ">
@@ -63,12 +87,18 @@ const ExerciseDetail = () => {
             variant={"filled"}
             className={"px-8 py-0 border-[#CC6666] "}
             text={"Edit"}
+            handleButton={toggleExerciseModal}
           ></CustomButton>
-          <CustomButton
-            variant={"border"}
-            className={"px-8 py-0"}
-            text={"Delete"}
-          ></CustomButton>
+          <Link to="/allcourses">
+            <CustomButton
+              variant={"border"}
+              className={"px-8 py-0"}
+              text={"Delete"}
+              handleButton={() => {
+                console.log("Delete this course");
+              }}
+            ></CustomButton>
+          </Link>
         </div>
 
         <div class="flex flex-row justify-between text-[37px] px-10">

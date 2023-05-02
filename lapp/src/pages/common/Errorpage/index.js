@@ -1,5 +1,3 @@
-import { useRouteError } from "react-router-dom";
-
 const Errorpage = () => {
   return (
     <div className="text-4xl text-center text-red-600">
