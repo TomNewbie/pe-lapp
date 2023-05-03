@@ -7,21 +7,22 @@ import { error } from "console";
 import { fileController } from "./file";
 
 const create = async (req: AuthRequest, res: Response, next: NextFunction) => {
-  const { _id: lecturerId } = req.user!;
   const { id: courseId } = req.params;
   const { title, body } = req.body;
-  if (!title) {
-    res.status(400).send("Missing Title");
-    return;
-  }
-  if (!body) {
-    res.status(400).send("Missing Body");
-    return;
-  }
   const files = req.files as Express.Multer.File[];
   const filesFilter = files.map((file) => {
     return { name: file.originalname, url: file.filename };
   });
+  if (!title) {
+    res.status(400).send("Missing Title");
+    fileService.remove(filesFilter.map((file) => file.url));
+    return;
+  }
+  if (!body) {
+    res.status(400).send("Missing Body");
+    fileService.remove(filesFilter.map((file) => file.url));
+    return;
+  }
   const contentId = await contentService.create({
     title,
     files: filesFilter,
@@ -52,22 +53,34 @@ const verifyAuthorize = async (
   }
   next();
 };
+interface FileType {
+  name: string;
+  url: string;
+}
 const update = async (req: AuthRequest, res: Response, next: NextFunction) => {
   const { remove, title, files, body } = req.body;
   const { course_content_id } = req.params;
+
+  await fileService.remove(remove);
+  // delete all files in remove
+  let updateFiles = files.filter(
+    (file: FileType) => !remove.includes(file.url)
+  );
+  // if user dont upload new file
+  if (!req.files) {
+    await contentService.update(course_content_id, {
+      title,
+      body,
+      files: updateFiles,
+    });
+    res.sendStatus(200);
+    return;
+  }
   const newFiles = (req.files as Express.Multer.File[]).map((file) => {
     return { name: file.originalname, url: file.filename };
   });
-  if (files) {
-    res
-      .status(404)
-      .send("The files field should contain all the origin path and name");
-    return;
-  }
-  const updateFiles = files
-    .filter((file: string) => !remove.include(file))
-    .concat(newFiles);
-  console.log(updateFiles);
+  // add new files
+  updateFiles = updateFiles.concat(newFiles);
   await contentService.update(course_content_id, {
     title,
     body,
@@ -79,12 +92,12 @@ const update = async (req: AuthRequest, res: Response, next: NextFunction) => {
 const remove = async (req: AuthRequest, res: Response, next: NextFunction) => {
   const { id: courseId, course_content_id } = req.params;
   const filePaths = await contentService.getAllFilePath(course_content_id);
-  const urls = filePaths.map(({ files }) => files.url);
-  fileService.remove(urls);
+
   try {
     await Promise.all([
       contentService.remove(course_content_id),
       courseService.removeContent(courseId, course_content_id),
+      fileService.remove(filePaths.map(({ files }) => files.url)),
     ]);
     res.sendStatus(200);
   } catch (error) {}

@@ -20,7 +20,6 @@ router.patch(
   "/course/:id/content/:course_content_id",
   contentController.verifyAuthorize,
   fileController.upload,
-  fileController.remove,
   contentController.update
 );
 
