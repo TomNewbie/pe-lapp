@@ -21,11 +21,12 @@ const upload = (req: AuthRequest, res: Response, next: NextFunction) => {
   });
 };
 
-const remove = (req: AuthRequest, res: Response, next: NextFunction) => {
+const remove = async (req: AuthRequest, res: Response, next: NextFunction) => {
   const { remove } = req.body;
-  const error = fileService.remove(remove);
-  if (error) {
-    res.status(500).send(error);
+
+  const err = await fileService.remove(remove);
+  if (err) {
+    res.status(500).send(err);
     return;
   }
   res.sendStatus(200);

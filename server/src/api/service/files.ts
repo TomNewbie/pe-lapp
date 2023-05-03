@@ -28,16 +28,13 @@ const handleUpload = multer({
   },
   limits: uploadLimit,
 }).array(fileFields);
-const remove = (remove: string[]): void | string => {
+const remove = async (remove: string[]): Promise<void | string> => {
   if (!remove) return;
-  remove.map(async (url: string) => {
-    try {
-      await unlink(join(filePath, url));
-    } catch (error) {
-      console.log(error);
-      throw new Error("Can not delete file");
-    }
-  });
+  try {
+    await Promise.all(remove.map((url: string) => unlink(join(filePath, url))));
+  } catch (error) {
+    return "file not exist";
+  }
 };
 
 export const fileService = { handleUpload, remove };
