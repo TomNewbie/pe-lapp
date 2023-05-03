@@ -50,7 +50,7 @@ Create an exercise
 {
   name: string;
   deadline: Date;
-  file: Array<string>;
+  // file: Array<string>;
   description: string;
 }
 ```
