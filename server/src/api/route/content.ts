@@ -11,7 +11,7 @@ router.delete(
   contentController.remove
 );
 router.post(
-  "/content/course/:id",
+  "/course/:id/content",
   courseController.verifyAuthorize,
   fileController.upload,
   contentController.create

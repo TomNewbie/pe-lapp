@@ -60,7 +60,7 @@ Cookie: access_token=`<token>`
 - 403 -> Unauthorized
 - 400 -> Missing information to update
 
-# [POST] /api/content/course/:id
+# [POST] /api/course/:id/content
 
 API for create content with specified course id
 
