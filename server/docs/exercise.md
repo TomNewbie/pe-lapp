@@ -50,7 +50,10 @@ Create an exercise
 {
   name: string;
   deadline: Date;
-  // file: Array<string>;
+  files?: Array<{
+    name: string,
+    url: string
+  }>,
   description: string;
 }
 ```
@@ -133,6 +136,11 @@ Edit exercise by specify id. **Not modify files yet**
   name?: string;
   deadline?: Date;
   description?: string;
+  files?: Array<{
+    name: string,
+    url: string
+  }>,
+  remove?: url[]
 }
 ```
 

@@ -5,6 +5,7 @@ import { CourseError, courseService } from "../service/course";
 import { fileService } from "../service/files";
 import { error } from "console";
 import { fileController } from "./file";
+import { FileType } from "../../utils/types";
 
 const create = async (req: AuthRequest, res: Response, next: NextFunction) => {
   const { id: courseId } = req.params;
@@ -53,10 +54,7 @@ const verifyAuthorize = async (
   }
   next();
 };
-interface FileType {
-  name: string;
-  url: string;
-}
+
 const update = async (req: AuthRequest, res: Response, next: NextFunction) => {
   const { remove, title, files, body } = req.body;
   const { course_content_id } = req.params;

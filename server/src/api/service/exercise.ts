@@ -1,11 +1,8 @@
 import mongoose from "mongoose";
 import { Exercise, ExerciseType } from "../model/exercise";
 import { Solution } from "../model/solution";
+import { FileType } from "../../utils/types";
 
-interface File {
-  url: string;
-  name: string;
-}
 const create = async (
   exercise: Omit<ExerciseType, "createdAt" | "updatedAt">
 ) => {
@@ -28,12 +25,32 @@ const verifyAuthorize = async (studentId: string, exerciseId: string) => {
 const createSolution = async (
   studentId: string,
   exerciseId: string,
-  file: File[]
+  file: FileType[]
 ): Promise<void> => {
   await Solution.create({
     _id: { student: studentId, exercise: exerciseId },
     files: file,
   });
 };
+const update = async (
+  exerciseId: string,
+  {
+    files,
+    deadline,
+    body,
+    title,
+  }: Omit<ExerciseType, "createdAt" | "updatedAt" | "course" | "lecturer">
+) => {
+  const result = await Exercise.updateOne(
+    { _id: exerciseId },
+    { files, deadline, body, title }
+  );
+  // return result;
+};
 // const getAllExercise = async (role: "student", courseId)
-export const exerciseService = { create, verifyAuthorize, createSolution };
+export const exerciseService = {
+  create,
+  verifyAuthorize,
+  createSolution,
+  update,
+};
