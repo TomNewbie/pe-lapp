@@ -11,6 +11,12 @@ router.post(
   fileController.upload,
   exerciseController.createExercise
 );
+router.post(
+  "/exercises/:id",
+  exerciseController.verifyAuthorize,
+  fileController.upload,
+  exerciseController.createSolution
+);
 router.get("/course/:id/exercises", exerciseController.getAllExercises);
 // router.get("/exercises/:id", exerciseController.createExercise);
 // router.patch("/exercises/:id", exerciseController.editExercise);

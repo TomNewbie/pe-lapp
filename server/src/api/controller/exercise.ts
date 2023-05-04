@@ -1,5 +1,5 @@
 import { ExerciseType } from "../model/exercise";
-import { Response } from "express";
+import { NextFunction, Response } from "express";
 import { AuthRequest } from "./auth";
 import { exerciseService } from "../service/exercise";
 import mongoose, { Types } from "mongoose";
@@ -56,8 +56,40 @@ const editExercise = () => {};
 const addGrade = () => {};
 
 const deleteExercise = () => {};
-
+const verifyAuthorize = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  if (req.user!.role === "lecturer") {
+    res.status(401).send("Unauthorize");
+  }
+  const studentId = req.user!._id;
+  const { id: exerciseId } = req.params;
+  const err = await exerciseService.verifyAuthorize(studentId, exerciseId);
+  if (err) {
+    res.status(404).send(err);
+    return;
+  }
+  next();
+};
+const createSolution = async (req: AuthRequest, res: Response) => {
+  const studentId = req.user!._id;
+  const { id: exerciseId } = req.params;
+  const files = req.files as Express.Multer.File[];
+  if (files.length === 0) {
+    res.status(404).send("Missing file");
+    return;
+  }
+  const filesFilter = files.map((file) => {
+    return { name: file.originalname, url: file.filename };
+  });
+  await exerciseService.createSolution(studentId, exerciseId, filesFilter);
+  res.sendStatus(201);
+};
 export const exerciseController = {
+  verifyAuthorize,
+  createSolution,
   getAllExercises,
   createExercise,
   addGrade,

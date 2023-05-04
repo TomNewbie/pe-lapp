@@ -37,19 +37,7 @@ type teacherViewContent = Omit<
   contents: CourseContentType;
   teacher_name: string;
 };
-let test: teacherViewContent = {
-  contents: {
-    body: "hahdsa",
-    createdAt: new Date(),
-    files: [{ name: "asdasdasd", url: "asdasdasdasd" }],
-    title: "sadasdasdasd",
-    updatedAt: new Date(),
-  },
-  teacher_name: "haha",
-  name: "asdsadasdas",
-  picture: "awsdasdasdad",
-  semester: "asdasdasd",
-};
+
 async function getCoursesOfUser(
   id: string,
   role: "student",
@@ -309,7 +297,7 @@ const getAllContent = async (
       from: CourseContent.collection.name,
       localField: "contents",
       foreignField: "_id",
-      as: "new",
+      as: "contentFile",
     })
     .project({
       _id: 0,

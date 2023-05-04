@@ -183,3 +183,27 @@ Delete exercise by id. All student solution related to that exercise will be del
 # [POST] /api/exercises/:id/
 
 Add solution
+Create an exercise
+
+## Request
+
+- Header  
+  Authorization: Bearer `token`
+
+- Body
+
+```ts
+{
+  files: Array<{
+    name: string;
+    url: string;
+  }>;
+}
+```
+
+## Response:
+
+- 201 -> OK
+- 404 -> Exercise not found
+- 401 -> Unauthorize (student)
+- 404 -> Missing file
