@@ -62,6 +62,7 @@ export const getAccessToken = async (
 };
 
 const SECURE_COOKIE_OPTION = process.env.NODE_ENV === "production";
+const ACCESS_TOKEN_COOKIE_NAME = "access_token";
 
 const loginCallback = async (req: Request, res: Response): Promise<void> => {
   const { code, state: redirect_path } = req.query;
@@ -81,7 +82,7 @@ const loginCallback = async (req: Request, res: Response): Promise<void> => {
   });
 
   res
-    .cookie("access_token", accessToken, {
+    .cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, {
       httpOnly: true,
       secure: SECURE_COOKIE_OPTION,
     })
