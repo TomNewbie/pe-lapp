@@ -2,7 +2,7 @@
 
 ## Request header
 
-Authorization: Bearer `token`
+Cookie: access_token=`<token>`
 
 ## Response
 
@@ -24,7 +24,7 @@ _Error:_
 
 Request
 
-Authorization: Bearer `token`
+Cookie: access_token=`<token>`
 Body:
 
 ## Student
@@ -121,6 +121,8 @@ _Status code:_ 200: OK
 
 # [GET] /api/auth/login?redirect=`redirect_path`
 
+Redirect the user to the Google OAuth page for logging into their account.
+
 ## Request
 
 - `redirect_path`  
@@ -128,7 +130,6 @@ _Status code:_ 200: OK
 
 ## Response
 
-Redirect to `redirect_path` with the `access_token` query parameter set to be
-the logged in user's access token to be sent with every subsequent requests that
-requires authentication. (e.g., redirect to
-`/redirect_path?access_token=<token>`)
+Set the `access_token` cookie to be the logged in user's access token to be sent
+with every subsequent requests that requires authentication. Then redirect to
+`redirect_path`.

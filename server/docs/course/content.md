@@ -4,7 +4,7 @@ API for delete course content
 
 Request
 
-Authorization: Bearer `token`
+Cookie: access_token=`<token>`
 
 ## Response
 
@@ -19,7 +19,7 @@ API for update course content
 
 Request
 
-Authorization: Bearer `token`
+Cookie: access_token=`<token>`
 
 ## Request Body
 
@@ -48,7 +48,7 @@ API for create content with specified course id
 
 Request
 
-Authorization: Bearer `token`
+Cookie: access_token=`<token>`
 
 ## Request Body
 
@@ -76,7 +76,7 @@ Get all content from courseId
 
 Request
 
-Authorization: Bearer `token`
+Cookie: access_token=`<token>`
 
 ## Response
 

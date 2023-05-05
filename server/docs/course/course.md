@@ -4,7 +4,7 @@ Patch a course
 
 Request
 
-Authorization: Bearer `token`
+Cookie: access_token=`<token>`
 
 ```ts
 type UpdateCourseFields = {
@@ -55,7 +55,7 @@ the 7th course found
 
 ### Request headers:
 
-Authorization: Bearer `token`
+Cookie: access_token=`<token>`
 
 ### Response:
 
@@ -87,7 +87,7 @@ Join a course by `id`.
 
 ### Request headers
 
-Authorization: Bearer `token`
+Cookie: access_token=`<token>`
 
 ### Response:
 
@@ -105,7 +105,7 @@ Create a course
 
 Request
 
-Authorization: Bearer `token`
+Cookie: access_token=`<token>`
 
 ```ts
 type NewCourseType = {

@@ -2,7 +2,7 @@
 
 Request
 
-Authorization: Bearer `token`
+Cookie: access_token=`<token>`
 
 ## Response
 
@@ -43,7 +43,7 @@ Create an exercise
 ## Request
 
 - Header  
-  Authorization: Bearer `token`
+  Cookie: access_token=`<token>`
 
 - Body
 
@@ -70,7 +70,7 @@ Get exercise detail by id
 ## Request
 
 - Header  
-  Authorization: Bearer `token`
+  Cookie: access_token=`<token>`
 
 ## Response
 
@@ -125,7 +125,7 @@ Edit exercise by specify id. **Not modify files yet**
 ## Request
 
 - Header  
-  Authorization: Bearer `token`
+  Cookie: access_token=`<token>`
 
 - Body
 
@@ -150,7 +150,7 @@ Add grade for student solution
 ## Request
 
 - Header  
-  Authorization: Bearer `token`
+  Cookie: access_token=`<token>`
 
 - Body
 
@@ -173,7 +173,7 @@ Delete exercise by id. All student solution related to that exercise will be del
 ## Request
 
 - Header  
-  Authorization: Bearer `token`
+  Cookie: access_token=`<token>`
 
 ## Response:
 
