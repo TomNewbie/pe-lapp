@@ -44,12 +44,7 @@ type Response<T> =
 
 export function useAPI(
   url: { path: "/api/user/info" },
-  request: {
-    method?: "GET";
-    headers: {
-      Authorization: `Bearer ${string}`;
-    };
-  }
+  request?: { method?: "GET" }
 ): Response<{
   _id: string;
   name: string;
@@ -57,12 +52,7 @@ export function useAPI(
 }>;
 export function useAPI(
   url: { path: "/api/student/:id"; params: { id: string } },
-  request: {
-    method?: "GET";
-    headers: {
-      Authorization: `Bearer ${string}`;
-    };
-  }
+  request?: { method?: "GET" }
 ): Response<{
   _id: string;
   email: string;
@@ -74,12 +64,7 @@ export function useAPI(
 }>;
 export function useAPI(
   url: { path: "/api/lecturer/:id"; params: { id: string } },
-  request: {
-    method?: "GET";
-    headers: {
-      Authorization: `Bearer ${string}`;
-    };
-  }
+  request?: { method?: "GET" }
 ): Response<{
   _id: string;
   email: string;
@@ -91,12 +76,7 @@ export function useAPI(
 }>;
 export function useAPI(
   url: { path: "/api/lecturers"; searchParams?: { s?: number; n?: number } },
-  request: {
-    method?: "GET";
-    headers: {
-      Authorization: `Bearer ${string}`;
-    };
-  }
+  request?: { method?: "GET" }
 ): Response<
   Array<{
     _id: string;
@@ -115,12 +95,7 @@ export function useAPI(
       S?: string | string[];
     };
   },
-  request: {
-    method?: "GET";
-    headers: {
-      Authorization: `Bearer ${string}`;
-    };
-  }
+  request?: { method?: "GET" }
 ): Response<
   | Array<{
       _id: string;
@@ -142,12 +117,7 @@ export function useAPI(
     path: "/api/course/:id/participants";
     params: { id: string };
   },
-  request: {
-    method?: "GET";
-    headers: {
-      Authorization: `Bearer ${string}`;
-    };
-  }
+  request?: { method?: "GET" }
 ): Response<{
   lecturer: {
     _id: string;
