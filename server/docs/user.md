@@ -133,3 +133,11 @@ Redirect the user to the Google OAuth page for logging into their account.
 Set the `access_token` cookie to be the logged in user's access token to be sent
 with every subsequent requests that requires authentication. Then redirect to
 `redirect_path`.
+
+# [GET] /api/auth/logout
+
+Log the user out by clearing their token cookie.
+
+## Response
+
+_Status code:_ 200 OK
