@@ -89,6 +89,10 @@ const loginCallback = async (req: Request, res: Response): Promise<void> => {
     .redirect(redirect_path as string);
 };
 
+const logout = (_: Request, res: Response) => {
+  res.clearCookie(ACCESS_TOKEN_COOKIE_NAME).sendStatus(200);
+};
+
 export interface AuthRequest extends Request {
   user?: JwtUser;
 }
@@ -119,4 +123,4 @@ const authenticateJWT = (
   });
 };
 
-export const authController = { login, loginCallback, authenticateJWT };
+export const authController = { login, loginCallback, authenticateJWT, logout };
