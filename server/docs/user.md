@@ -124,8 +124,7 @@ _Status code:_ 200: OK
 ## Request
 
 - `redirect_path`  
-  the path to redirect to after successful authentication (defaults to all
-  courses page path `/courses`).
+  the path to redirect to after successful authentication (defaults to `/`).
 
 ## Response
 

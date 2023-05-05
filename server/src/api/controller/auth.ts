@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 const client_id = process.env.CLIENT_ID!;
 const jwt_secret = process.env.JWT_SECRET!;
 
-const DEFAULT_LOGIN_REDIRECT_PATH = "/courses";
+const DEFAULT_LOGIN_REDIRECT_PATH = "/";
 
 const login = (req: Request, res: Response) => {
   const { redirect: r } = req.query;
