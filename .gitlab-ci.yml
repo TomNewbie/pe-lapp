@@ -20,8 +20,6 @@ deploy:
   services:
     - docker:dind
     - node:18-alpine
-  variables:
-    FLY_API_TOKEN: $FLY_API_TOKEN
   before_script:
     - apk add --update curl && rm -rf /var/cache/apk/*
     - curl -L https://fly.io/install.sh | sh
