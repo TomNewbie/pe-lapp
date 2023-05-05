@@ -63,11 +63,7 @@ export const getAccessToken = async (
 
 const SECURE_COOKIE_OPTION = process.env.NODE_ENV === "production";
 
-const loginCallback = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
+const loginCallback = async (req: Request, res: Response): Promise<void> => {
   const { code, state: redirect_path } = req.query;
   const { tokens } = await client.getToken(code as string);
   client.setCredentials(tokens);
