@@ -8,10 +8,12 @@ import "express-async-errors";
 import { errorHandler } from "./utils/middleware";
 import { apiRouter } from "./api/route";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import { clientRouter } from "./client/route";
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 
 // Serve the API routes
