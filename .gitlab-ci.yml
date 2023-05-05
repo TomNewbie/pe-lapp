@@ -2,7 +2,7 @@ stages:
 - build
 - deploy
 
-build_server:
+.build_server:
   stage: build
   image: node:18-alpine
   script:
@@ -26,6 +26,7 @@ deploy:
     - apk add --update curl && rm -rf /var/cache/apk/*
     - curl -L https://fly.io/install.sh | sh
   script: 
+    - echo $FLY_API_TOKEN 
     - /root/.fly/bin/flyctl deploy
 
 # build_client:
