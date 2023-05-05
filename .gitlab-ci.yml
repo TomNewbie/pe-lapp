@@ -12,3 +12,15 @@ build_server:
     expire_in: "30 days"
     paths:
       - "server/dist"
+
+build_client:
+  stage: build
+  image: node:18-alpine
+  script:
+    - cd ./lapp
+    - npm install
+    - npm run build
+  artifacts:
+    expire_in: "30 days"
+    paths:
+      - "lapp/build"
