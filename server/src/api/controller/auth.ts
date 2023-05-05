@@ -103,14 +103,12 @@ const authenticateJWT = (
   res: Response,
   next: NextFunction
 ) => {
-  const { authorization } = req.headers;
+  const token: string | undefined = req.cookies.access_token;
 
-  if (!authorization) {
+  if (!token) {
     res.sendStatus(401);
     return;
   }
-
-  const [_bearer, token] = authorization.split(" ");
 
   jwt.verify(token, jwt_secret, (err, user) => {
     if (err || !isJwtUser(user)) {
