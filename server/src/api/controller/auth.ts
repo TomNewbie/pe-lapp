@@ -61,6 +61,8 @@ export const getAccessToken = async (
   return { ...jwtUser, accessToken };
 };
 
+const SECURE_COOKIE_OPTION = process.env.NODE_ENV === "production";
+
 const loginCallback = async (
   req: Request,
   res: Response,
@@ -82,7 +84,12 @@ const loginCallback = async (
     avatar: avatar!,
   });
 
-  res.redirect(`${redirect_path}?access_token=${accessToken}`);
+  res
+    .cookie("access_token", accessToken, {
+      httpOnly: true,
+      secure: SECURE_COOKIE_OPTION,
+    })
+    .redirect(redirect_path as string);
 };
 
 export interface AuthRequest extends Request {
