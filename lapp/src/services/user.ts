@@ -1,7 +1,6 @@
 import { apiRequest } from ".";
 
 export const updateUserProfile = async (
-  accessToken: string,
   fields:
     | {
         major?: string;
@@ -15,10 +14,7 @@ export const updateUserProfile = async (
 ) => {
   await apiRequest("/api/user/profile", {
     method: "PATCH",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(fields),
   });
 };

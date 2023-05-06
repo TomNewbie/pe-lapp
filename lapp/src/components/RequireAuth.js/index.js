@@ -7,7 +7,10 @@ const RequireAuth = () => {
   return auth?.user ? (
     <Outlet />
   ) : (
-    <Navigate to="/" state={{ from: location }} replace></Navigate>
+    // redirect if the user is null and the auth state is not pending
+    auth?.pending || (
+      <Navigate to="/" state={{ from: location }} replace></Navigate>
+    )
   );
 };
 

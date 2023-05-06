@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createSearchParams } from "react-router-dom";
 import { apiRequest } from "../services";
 
@@ -33,6 +33,7 @@ interface ResponseBase<
   pending: TPending;
   data: TData;
   error: TError;
+  refresh: () => Promise<void>;
 }
 
 type Response<T> =
@@ -44,12 +45,7 @@ type Response<T> =
 
 export function useAPI(
   url: { path: "/api/user/info" },
-  request: {
-    method?: "GET";
-    headers: {
-      Authorization: `Bearer ${string}`;
-    };
-  }
+  request?: { method?: "GET" }
 ): Response<{
   _id: string;
   name: string;
@@ -57,12 +53,7 @@ export function useAPI(
 }>;
 export function useAPI(
   url: { path: "/api/student/:id"; params: { id: string } },
-  request: {
-    method?: "GET";
-    headers: {
-      Authorization: `Bearer ${string}`;
-    };
-  }
+  request?: { method?: "GET" }
 ): Response<{
   _id: string;
   email: string;
@@ -74,12 +65,7 @@ export function useAPI(
 }>;
 export function useAPI(
   url: { path: "/api/lecturer/:id"; params: { id: string } },
-  request: {
-    method?: "GET";
-    headers: {
-      Authorization: `Bearer ${string}`;
-    };
-  }
+  request?: { method?: "GET" }
 ): Response<{
   _id: string;
   email: string;
@@ -91,12 +77,7 @@ export function useAPI(
 }>;
 export function useAPI(
   url: { path: "/api/lecturers"; searchParams?: { s?: number; n?: number } },
-  request: {
-    method?: "GET";
-    headers: {
-      Authorization: `Bearer ${string}`;
-    };
-  }
+  request?: { method?: "GET" }
 ): Response<
   Array<{
     _id: string;
@@ -115,12 +96,7 @@ export function useAPI(
       S?: string | string[];
     };
   },
-  request: {
-    method?: "GET";
-    headers: {
-      Authorization: `Bearer ${string}`;
-    };
-  }
+  request?: { method?: "GET" }
 ): Response<
   | Array<{
       _id: string;
@@ -142,12 +118,7 @@ export function useAPI(
     path: "/api/course/:id/participants";
     params: { id: string };
   },
-  request: {
-    method?: "GET";
-    headers: {
-      Authorization: `Bearer ${string}`;
-    };
-  }
+  request?: { method?: "GET" }
 ): Response<{
   lecturer: {
     _id: string;
@@ -172,31 +143,36 @@ export function useAPI<TExpected extends {} | null = any>(
   const [error, setError] = useState<Error | null>(null);
 
   const parsedURL = parseRequestURL(url);
+  const abortCtrlRef = useRef<AbortController | null>(null);
 
-  useEffect(() => {
-    const abortCtrl = new AbortController();
+  // main callback for calling the API
+  const call = useCallback(async () => {
+    abortCtrlRef.current?.abort?.();
+    abortCtrlRef.current = new AbortController();
 
-    (async () => {
-      setPending(true);
+    setPending(true);
 
-      try {
-        const data = await apiRequest<TExpected>(parsedURL, {
-          ...request,
-          signal: abortCtrl.signal,
-        });
-        setData(data);
-        setError(null);
-      } catch (err) {
-        if ((err as Error).name === "AbortError") return;
-        setData(null);
-        setError(err as Error);
-      }
+    try {
+      const data = await apiRequest<TExpected>(parsedURL, {
+        ...request,
+        signal: abortCtrlRef.current.signal,
+      });
+      setData(data);
+      setError(null);
+    } catch (err) {
+      if ((err as Error).name === "AbortError") return;
+      setData(null);
+      setError(err as Error);
+    }
 
-      setPending(false);
-    })();
-
-    return () => abortCtrl.abort();
+    setPending(false);
   }, [parsedURL, request]);
 
-  return { pending, data, error } as any;
+  // call the API as an effect
+  useEffect(() => {
+    call();
+    return () => abortCtrlRef.current?.abort?.();
+  }, [call]);
+
+  return { pending, data, error, refresh: call } as any;
 }

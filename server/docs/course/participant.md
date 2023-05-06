@@ -4,7 +4,7 @@ Get all participants of a course
 
 Request
 
-Authorization: Bearer `token`
+Cookie: access_token=`<token>`
 
 ## Response
 
@@ -37,7 +37,7 @@ Lecturer add a student to their course.
 
 ## Request
 
-Authorization: Bearer `token`
+Cookie: access_token=`<token>`
 
 ## Response
 
@@ -52,7 +52,7 @@ Lecturer remove a student from their course.
 
 ## Request
 
-Authorization: Bearer `token`
+Cookie: access_token=`<token>`
 
 ## Response
 

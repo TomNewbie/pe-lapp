@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 const client_id = process.env.CLIENT_ID!;
 const jwt_secret = process.env.JWT_SECRET!;
 
-const DEFAULT_LOGIN_REDIRECT_PATH = "/courses";
+const DEFAULT_LOGIN_REDIRECT_PATH = "/";
 
 const login = (req: Request, res: Response) => {
   const { redirect: r } = req.query;
@@ -61,11 +61,10 @@ export const getAccessToken = async (
   return { ...jwtUser, accessToken };
 };
 
-const loginCallback = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
+const SECURE_COOKIE_OPTION = process.env.NODE_ENV === "production";
+const ACCESS_TOKEN_COOKIE_NAME = "access_token";
+
+const loginCallback = async (req: Request, res: Response): Promise<void> => {
   const { code, state: redirect_path } = req.query;
   const { tokens } = await client.getToken(code as string);
   client.setCredentials(tokens);
@@ -82,7 +81,16 @@ const loginCallback = async (
     avatar: avatar!,
   });
 
-  res.redirect(`${redirect_path}?access_token=${accessToken}`);
+  res
+    .cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, {
+      httpOnly: true,
+      secure: SECURE_COOKIE_OPTION,
+    })
+    .redirect(redirect_path as string);
+};
+
+const logout = (_: Request, res: Response) => {
+  res.clearCookie(ACCESS_TOKEN_COOKIE_NAME).sendStatus(200);
 };
 
 export interface AuthRequest extends Request {
@@ -95,14 +103,12 @@ const authenticateJWT = (
   res: Response,
   next: NextFunction
 ) => {
-  const { authorization } = req.headers;
+  const token: string | undefined = req.cookies.access_token;
 
-  if (!authorization) {
+  if (!token) {
     res.sendStatus(401);
     return;
   }
-
-  const [_bearer, token] = authorization.split(" ");
 
   jwt.verify(token, jwt_secret, (err, user) => {
     if (err || !isJwtUser(user)) {
@@ -115,4 +121,4 @@ const authenticateJWT = (
   });
 };
 
-export const authController = { login, loginCallback, authenticateJWT };
+export const authController = { login, loginCallback, authenticateJWT, logout };
