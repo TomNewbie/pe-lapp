@@ -23,11 +23,11 @@ const ProfileTeacher = () => {
     setPhoneNumber(storePhoneNumber);
   };
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen overflow-y-hidden">
       <NavbarLecturer></NavbarLecturer>
 
       <div className="flex flex-row items-center justify-center mt-6 space-x-40">
-        <div className="grid items-center grid-rows-2 mt-20 ml-20">
+        <div className="grid items-center grid-rows-2 mt-20 ml-60">
           <img src="/ProfileTeacher/avatar.png" alt="avatar" loading="lazy" />
           {!show ? (
             <div className="flex self-start justify-center">
@@ -87,7 +87,7 @@ const ProfileTeacher = () => {
               </p>
             </div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col mb-20">
             <div>
               <div className="border-b-4 border-solid border-[#000000]">
                 <p className="font-dongle font-bold not-italic text-[45px] text-[#1B1C1E]">
