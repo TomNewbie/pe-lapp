@@ -16,7 +16,7 @@ import {
 import { Home, Errorpage } from "./pages/common";
 
 function App() {
-  const role = "lecturer";
+  const role = "student";
   return (
     <div className=" App">
       <Routes>
