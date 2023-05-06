@@ -26,8 +26,7 @@ module.exports = {
         },
       },
       animation: {
-        typing: "typing 10s steps(20) infinite alternate, blink .7s infinite",
-        author: "typing 10s steps(20) infinite alternate, blink .7s infinite",
+        typing: "typing 10s steps(80) alternate, blink .7s infinite",
       },
     },
   },
