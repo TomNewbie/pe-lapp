@@ -11,12 +11,12 @@ const TeacherNavCourse = ({tab1,tab2,tab3,tab4}) => {
         <div
           className={
             activeTab === 1
-              ? "ml-8  border-[#E36255] w-20 h-8 border-b-2 text-[#E36255]"
-              : "ml-8  border-[#E36255] w-20 h-8 text-black"
+              ? "ml-20  border-[#E36255] w-20 h-8 border-b-2 text-[#E36255] text-center"
+              : "ml-20  border-[#E36255] w-20 h-8 text-black text-center"
           }
         >
           <p
-            className="ml-3 text-2xl hover:text-[#E36255]"
+            className="text-2xl hover:text-[#E36255]"
             onClick={() => {
               handleClick(1);
             }}
@@ -28,8 +28,8 @@ const TeacherNavCourse = ({tab1,tab2,tab3,tab4}) => {
         <div
           className={
             activeTab === 2
-              ? "mr-5  border-[#E36255] w-20 h-8 border-b-2 text-[#E36255]"
-              : "mr-5  border-[#E36255] w-20 h-8 text-black"
+              ? "border-[#E36255] w-20 h-8 border-b-2 text-[#E36255] text-center"
+              : "border-[#E36255] w-20 h-8 text-black text-center"
           }
           onClick={() => {
             handleClick(2);
@@ -41,27 +41,27 @@ const TeacherNavCourse = ({tab1,tab2,tab3,tab4}) => {
         <div
           className={
             activeTab === 3
-              ? "mr-8  border-[#E36255] w-20 h-8 border-b-2 text-[#E36255]"
-              : "mr-8  border-[#E36255] w-20 h-8 text-black"
+              ? "border-[#E36255] w-28 h-8 border-b-2 text-[#E36255] text-center"
+              : "border-[#E36255] w-28 h-8 text-black text-center"
           }
           onClick={() => {
             handleClick(3);
           }}
         >
-          <p className="ml-3 text-2xl hover:text-[#E36255]">Participants</p>
+          <p className="text-2xl hover:text-[#E36255]">Participants</p>
         </div>
 
         <div
           className={
             activeTab === 4
-              ? "mr-8  border-[#E36255] w-20 h-8 border-b-2 text-[#E36255]"
-              : "mr-8  border-[#E36255] w-20 h-8 text-black"
+              ? "mr-20  border-[#E36255] w-20 h-8 border-b-2 text-[#E36255] text-center"
+              : "mr-20  border-[#E36255] w-20 h-8 text-black text-center"
           }
           onClick={() => {
             handleClick(4);
           }}
         >
-          <p className="ml-3 text-2xl hover:text-[#E36255]">Grade</p>
+          <p className="text-2xl hover:text-[#E36255]">Grade</p>
         </div>
       </div>
 
