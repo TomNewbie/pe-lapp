@@ -102,7 +102,7 @@ const Login = () => {
                   height={120}
                 />
               </div>
-              <div className="absolute ml-48 -bottom-16 left-96">
+              <div className="absolute ml-48 -bottom-12 left-96">
                 <img
                   src="/login/diamond.png"
                   alt="diamond"
@@ -111,6 +111,21 @@ const Login = () => {
                 />
               </div>
               {/* End: icon section */}
+
+              {/* Start: More button */}
+              <div class="absolute ml-48 -bottom-28 left-[600px] ">
+                <img
+                  src="/login/down.svg"
+                  alt=""
+                  width={50}
+                  height={50}
+                  className="animate-bounce"
+                />
+              </div>
+              <div class="absolute ml-48 -bottom-36 left-[500px] text-3xl">
+                <p className="animate-bounce">Scroll down for more details</p>
+              </div>
+              {/* End: More button */}
             </div>
             {/* End: Text */}
 

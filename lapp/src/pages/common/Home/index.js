@@ -6,7 +6,7 @@ import Login from "../Login";
  */
 const Home = () => {
   return (
-    <div>
+    <div className="scroll-smooth">
       <Login />
       <div className="flex justify-center mt-40 mb-12">
         <KeyFeature />
