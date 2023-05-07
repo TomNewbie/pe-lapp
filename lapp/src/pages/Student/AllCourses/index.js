@@ -6,7 +6,8 @@ import {
   CoursecardStudent,
   JoinCourse,
 } from "../../../components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAPI } from "../../../hooks/useAPI";
 /** Need to fetch:
  *  courses: {
     name: string;
@@ -14,19 +15,68 @@ import { useState } from "react";
     progress: string;
 }[]
  */
+
 const courses = [
-  { name: "1", lecturer: "HHH", progress: "80%" },
-  { name: "2", lecturer: "HHH", progress: "80%" },
-  { name: "3", lecturer: "HHH", progress: "80%" },
-  { name: "4", lecturer: "HHH", progress: "80%" },
-  { name: "5", lecturer: "HHH", progress: "80%" },
-  { name: "6", lecturer: "HHH", progress: "80%" },
-  { name: "7", lecturer: "HHH", progress: "80%" },
-  { name: "8", lecturer: "HHH", progress: "80%" },
+  {
+    name: "1",
+    lecturer: "HHH",
+    semester: "SS2023",
+    picture: "/Coursecard_img/CourseStuPic.png",
+  },
+  {
+    name: "2",
+    lecturer: "HHH",
+    semester: "SS2023",
+    picture: "/Coursecard_img/CourseStuPic.png",
+  },
+  {
+    name: "3",
+    lecturer: "HHH",
+    semester: "SS2023",
+    picture: "/Coursecard_img/CourseStuPic.png",
+  },
+  {
+    name: "4",
+    lecturer: "HHH",
+    semester: "SS2023",
+    picture: "/Coursecard_img/CourseStuPic.png",
+  },
+  {
+    name: "5",
+    lecturer: "HHH",
+    semester: "SS2023",
+    picture: "/Coursecard_img/CourseStuPic.png",
+  },
+  {
+    name: "6",
+    lecturer: "HHH",
+    semester: "SS2023",
+    picture: "/Coursecard_img/CourseStuPic.png",
+  },
+  {
+    name: "7",
+    lecturer: "HHH",
+    semester: "SS2023",
+    picture: "/Coursecard_img/CourseStuPic.png",
+  },
+  {
+    name: "8",
+    lecturer: "HHH",
+    semester: "SS2023",
+    picture: "/Coursecard_img/CourseStuPic.png",
+  },
 ];
 
 // Component  which displays a list of courses that a student is enrolled in
 const AllCoursesStudent = () => {
+  const {
+    data: test,
+    pending,
+    refresh,
+  } = useAPI({ path: " /api/courses?s=0&n=8&q=&S=" });
+  useEffect(() => {
+    console.log(test);
+  });
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
     const body = document.body;
@@ -59,11 +109,7 @@ const AllCoursesStudent = () => {
           const link = "/course/" + course.name;
           return (
             <Link to={link}>
-              <CoursecardStudent
-                courseName={course.name}
-                lecturerName={course.lecturer}
-                progress={course.progress}
-              ></CoursecardStudent>
+              <CoursecardStudent course={course}></CoursecardStudent>
             </Link>
           );
         })}

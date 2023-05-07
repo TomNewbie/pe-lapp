@@ -14,9 +14,11 @@ import {
   ExerciseDetail as ExerciseLecturer,
 } from "./pages/Lecturer";
 import { Home, Errorpage } from "./pages/common";
+import { useAuth } from "./components/auth.js";
 
 function App() {
-  const role = "student";
+  const auth = useAuth();
+  const role = auth.user?.role;
   return (
     <div className=" App">
       <Routes>

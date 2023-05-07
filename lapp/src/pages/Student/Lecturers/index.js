@@ -1,4 +1,5 @@
 import { NavbarStudent, Footer } from "../../../components";
+import { useAPI } from "../../../hooks/useAPI";
 
 /** Need to fetch:
  * lecturers: {
@@ -47,17 +48,21 @@ const lecturers = [
 
 // Component renders a list of lecturers grouped by faculty, with each lecturer's name and email address.
 const Lecturers = () => {
-  const facultySection = lecturers.reduce((acc, lecturer) => {
-    if (!acc[lecturer.faculty]) {
-      acc[lecturer.faculty] = [lecturer];
+  const { data: lecturers1 } = useAPI({ path: "/api/lecturers" });
+  console.log(lecturers1);
+  const facultySection = lecturers1.reduce((acc, lecturer) => {
+    const faculty = lecturer.faculty || "Others";
+
+    if (!acc[faculty]) {
+      acc[faculty] = [lecturer];
     } else {
-      acc[lecturer.faculty].push(lecturer);
+      acc[faculty].push(lecturer);
     }
+
     return acc;
   }, {});
   const faculties = Object.keys(facultySection);
-  console.log(facultySection);
-  // Map over each faculty section and render the lecturers
+  //Map over each faculty section and render the lecturers
   const LecturerSection = Object.entries(facultySection).map(
     ([key, val], index) => (
       <div key={index}>
@@ -68,16 +73,18 @@ const Lecturers = () => {
           {val.map((lecturer) => (
             <div
               className="relative flex flex-row items-center h-16 text-xl"
-              key={lecturer.mail}
+              key={lecturer._id + "@vgu.edu.vn"}
             >
               <img
-                src={lecturer.url}
+                src="/participants-icon/ava.png"
                 alt=""
                 className="absolute mx-4 my-5"
               ></img>
               <div className="absolute ml-20 text-2xl">{lecturer.name}</div>
               <div>
-                <button onClick={() => copyToClipboard(lecturer.mail)}>
+                <button
+                  onClick={() => copyToClipboard(lecturer._id + "@vgu.edu.vn")}
+                >
                   <img
                     src="/participants-icon/mail.png"
                     alt=""
