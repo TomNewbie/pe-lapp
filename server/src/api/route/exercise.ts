@@ -20,11 +20,15 @@ router.post(
 router.get("/course/:id/exercises", exerciseController.getAllExercises);
 router.get(
   "/exercises/:id",
-  exerciseController.verifyAuthorize,
+  // exerciseController.verifyAuthorize,
   exerciseController.getDetail
 );
 // router.patch("/exercises/:id", exerciseController.editExercise);
-// router.post("/exercises/:id/students/:studentId", exerciseController.addGrade);
+router.patch(
+  "/exercises/:id/students/:studentId",
+  exerciseController.verifyOwner,
+  exerciseController.addGrade
+);
 // router.delete("/exercises/:id", exerciseController.deleteExercise);
 
 export { router as exerciseRouter };

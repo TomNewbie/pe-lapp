@@ -19,9 +19,8 @@ const verifyAuthorize = async (studentId: string, exerciseId: string) => {
       as: "course",
     })
     .match({ "course.participants": studentId });
-  if (!exercise) return "Exercise not found";
+  if (!exercise) return Exercise_ErrorType.NOT_FOUND;
 };
-
 const createSolution = async (
   studentId: string,
   exerciseId: string,
@@ -135,6 +134,7 @@ const getLecturerViewDetail = async (
           student: "$student",
           submit_time: "$submit_time",
           file: "$file",
+          grade: "$grade",
         },
       },
     });
@@ -183,9 +183,9 @@ const getStudentViewDetail = async (exerciseId: string, studentId: string) => {
     return exercises;
   }
   exercises.submitted = true;
+  exercises.grade = exercises.solution[0].grade;
   exercises.solution_files = exercises.solution[0].files;
   delete exercises.solution;
-  console.log(exercises);
   return exercises;
 };
 const getStudentViewExercise = async (
@@ -269,6 +269,25 @@ const getLecturerViewExercise = async (
 // getLecturerViewDetail("6453e5b3c027dda9947cc2de", "god");
 // getStudentViewExercise("6435878ffd053fc269ba4c89", "huhu");
 // getStudentViewDetail("6451f45011a6cb2c92fcef41", "huhu");
+const addGrade = async (
+  exerciseId: string,
+  studentId: string,
+  grade: number
+) => {
+  const result = await Solution.updateOne(
+    { "_id.student": studentId, "_id.exercise": exerciseId },
+    { grade }
+  );
+  if (result.matchedCount === 0) return Exercise_ErrorType.NOT_FOUND;
+};
+const verifyOwner = async (lecturerId: string, exerciseId: string) => {
+  const result = await Exercise.findOne({
+    _id: exerciseId,
+    lecturer: lecturerId,
+  });
+  if (!result) return Exercise_ErrorType.NOT_FOUND;
+};
+// addGrade("6453e5b3c027dda9947cc2de", "huhu", 70);
 export const exerciseService = {
   create,
   verifyAuthorize,
@@ -278,4 +297,6 @@ export const exerciseService = {
   getLecturerViewExercise,
   getLecturerViewDetail,
   getStudentViewDetail,
+  addGrade,
+  verifyOwner,
 };

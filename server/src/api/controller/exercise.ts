@@ -1,4 +1,4 @@
-import { ExerciseType } from "../model/exercise";
+import { Exercise, ExerciseType } from "../model/exercise";
 import { NextFunction, Response } from "express";
 import { AuthRequest } from "./auth";
 import {
@@ -114,7 +114,28 @@ const editExercise = async (req: AuthRequest, res: Response) => {
   res.sendStatus(200);
 };
 
-const addGrade = () => {};
+const addGrade = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { grade } = req.body;
+  const { id: exerciseId, studentId } = req.params;
+  if (isNaN(grade)) {
+    res.status(404).send("Grade must be a number");
+    return;
+  }
+  const err = await exerciseService.addGrade(
+    exerciseId,
+    studentId,
+    parseInt(grade)
+  );
+  if (err === Exercise_ErrorType.NOT_FOUND) {
+    res.status(404).send("Can not find solution to add grade");
+    return;
+  }
+  res.sendStatus(204);
+};
 
 const deleteExercise = () => {};
 const verifyAuthorize = async (
@@ -128,8 +149,10 @@ const verifyAuthorize = async (
   const studentId = req.user!._id;
   const { id: exerciseId } = req.params;
   const err = await exerciseService.verifyAuthorize(studentId, exerciseId);
-  if (err) {
-    res.status(404).send(err);
+  if (err === Exercise_ErrorType.NOT_FOUND) {
+    res
+      .status(404)
+      .send(`Exercise ${exerciseId} not found in student ${studentId}`);
     return;
   }
   next();
@@ -148,6 +171,26 @@ const createSolution = async (req: AuthRequest, res: Response) => {
   await exerciseService.createSolution(studentId, exerciseId, filesFilter);
   res.sendStatus(201);
 };
+const verifyOwner = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const lecturerId = req.user!._id;
+  const { id: exerciseId } = req.params;
+  if (req.user!.role === "student") {
+    res.status(401).send("Unauthorize");
+    return;
+  }
+  const err = await exerciseService.verifyOwner(lecturerId, exerciseId);
+  if (err === Exercise_ErrorType.NOT_FOUND) {
+    res
+      .status(401)
+      .send(`Can not find exercise ${exerciseId} that ${lecturerId} created`);
+    return;
+  }
+  next();
+};
 export const exerciseController = {
   verifyAuthorize,
   createSolution,
@@ -157,4 +200,5 @@ export const exerciseController = {
   deleteExercise,
   editExercise,
   getDetail,
+  verifyOwner,
 };

@@ -158,7 +158,7 @@ Edit exercise by specify id. **Not modify files yet**
 - 404 -> Exercise not found
 - 401 -> Unauthorize (student)
 
-# [POST] /api/exercises/:id/students/:id
+# [PATCH] /api/exercises/:id/students/:id
 
 Add grade for student solution
 
