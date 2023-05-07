@@ -82,7 +82,7 @@ Get exercise detail by id
 
 ```ts
 {
-    _id: string;
+    // _id: string;
     name: string;
     deadline: Date;
     grade?: number;
@@ -107,6 +107,7 @@ Get exercise detail by id
   deadline: Date;
   description: string;
   exercise_files: Array<string>;
+
   solutions: Array<{
     student: {
       name: string;
@@ -197,8 +198,7 @@ Delete exercise by id. All student solution related to that exercise will be del
 
 # [POST] /api/exercises/:id/
 
-Add solution
-Create an exercise
+Create solution
 
 ## Request
 
@@ -220,5 +220,4 @@ Create an exercise
 
 - 201 -> OK
 - 404 -> Exercise not found
-- 401 -> Unauthorize (student)
 - 404 -> Missing file

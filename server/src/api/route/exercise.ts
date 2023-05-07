@@ -18,7 +18,11 @@ router.post(
   exerciseController.createSolution
 );
 router.get("/course/:id/exercises", exerciseController.getAllExercises);
-// router.get("/exercises/:id", exerciseController.createExercise);
+router.get(
+  "/exercises/:id",
+  exerciseController.verifyAuthorize,
+  exerciseController.getDetail
+);
 // router.patch("/exercises/:id", exerciseController.editExercise);
 // router.post("/exercises/:id/students/:studentId", exerciseController.addGrade);
 // router.delete("/exercises/:id", exerciseController.deleteExercise);

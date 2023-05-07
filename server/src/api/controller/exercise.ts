@@ -64,7 +64,21 @@ const createExercise = async (req: AuthRequest, res: Response) => {
   res.sendStatus(200);
 };
 
-const getDetail = () => {};
+const getDetail = async (req: AuthRequest, res: Response) => {
+  const { id: courseId } = req.params;
+  const { role, _id: userId } = req.user!;
+  let result;
+  if (role === "lecturer") {
+    result = await exerciseService.getLecturerViewDetail(courseId, userId);
+  } else {
+    result = await exerciseService.getStudentViewDetail(courseId, userId);
+  }
+  if (result === Exercise_ErrorType.NOT_FOUND) {
+    res.status(404).send(`Exercise not found in course ${courseId}`);
+    return;
+  }
+  res.status(200).json(result);
+};
 
 const editExercise = async (req: AuthRequest, res: Response) => {
   const { remove, name, files, description, deadline } = req.body;

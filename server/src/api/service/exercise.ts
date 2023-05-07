@@ -63,16 +63,131 @@ export type LecturerViewExercise = Array<{
   deadline: Date;
   participant_count: number;
 }>;
-// type LecturerViewExercise = Array<{
-//   name: string;
-//   deadline: Date;
-//   description:
-//   grade?: number;
-//   submitted: boolean;
-//   execise_files: FileType;
-//   solution_files?: FileType;
-// }>;
-const getExercise = async () => {};
+export type StudentViewDetail = {
+  _id: string;
+  name: string;
+  deadline: Date;
+  grade?: number;
+  submitted: boolean;
+  description: string;
+  exercise_files: Array<FileType>;
+  solution_files?: FileType;
+};
+export type LecturerViewDetail = Array<{
+  name: string;
+  deadline: Date;
+  description: string;
+  exercise_files: Array<string>;
+  solutions: Array<{
+    student: {
+      name: string;
+      id: string;
+    };
+    submit_time: Date;
+    file: FileType;
+    grade?: number;
+  }>;
+}>;
+const getLecturerViewDetail = async (
+  exerciseId: string,
+  lecturerId: string
+) => {
+  const [exercises] = await Exercise.aggregate()
+    .match({
+      _id: new Types.ObjectId(exerciseId),
+      lecturer: lecturerId,
+    })
+    .lookup({
+      from: "solutions",
+      localField: "_id",
+      foreignField: "_id.exercise",
+      as: "solutionFields",
+    })
+    .unwind("solutionFields")
+    .lookup({
+      from: "students",
+      localField: "solutionFields._id.student",
+      foreignField: "_id",
+      as: "studentHehe",
+    })
+    .unwind("studentHehe")
+    .project({
+      _id: 1,
+      name: 1,
+      deadline: 1,
+      description: 1,
+      exercise_files: "$files",
+      student: { name: "$studentHehe.name", id: "$studentHehe._id" },
+      submit_time: "$solutionFields.createdAt",
+      file: "$solutionFields.files",
+      grade: "$solutionFields.grade",
+      solution: 1,
+    })
+    .group({
+      _id: {
+        name: "$name",
+        deadline: "$deadline",
+        description: "$description",
+        exercise_files: "$exercise_files",
+      },
+      solutions: {
+        $push: {
+          student: "$student",
+          submit_time: "$submit_time",
+          file: "$file",
+        },
+      },
+    });
+  if (!exercises) return Exercise_ErrorType.NOT_FOUND;
+
+  return { ...exercises._id, solutions: exercises.solutions };
+};
+const getStudentViewDetail = async (exerciseId: string, studentId: string) => {
+  const [exercises] = await Exercise.aggregate()
+    .match({
+      _id: new Types.ObjectId(exerciseId),
+    })
+    .addFields({ studentId: studentId })
+    .lookup({
+      from: "solutions",
+      let: { exerciseId: "$_id", studentId: "$studentId" },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $and: [
+                { $eq: ["$_id.exercise", "$$exerciseId"] },
+                { $eq: ["$_id.student", "$$studentId"] },
+              ],
+            },
+          },
+        },
+      ],
+      as: "solution",
+    })
+    .project({
+      name: 1,
+      _id: 0,
+      description: 1,
+      solution: 1,
+      deadline: 1,
+      exercise_files: "$files",
+    });
+  if (!exercises) {
+    return Exercise_ErrorType.NOT_FOUND;
+  }
+  if (exercises.solution.length === 0) {
+    exercises.submitted = false;
+    delete exercises.solution;
+    console.log(exercises);
+    return exercises;
+  }
+  exercises.submitted = true;
+  exercises.solution_files = exercises.solution[0].files;
+  delete exercises.solution;
+  console.log(exercises);
+  return exercises;
+};
 const getStudentViewExercise = async (
   courseId: string,
   studentId: string
@@ -151,8 +266,9 @@ const getLecturerViewExercise = async (
   return exercises;
 };
 // console.log("asdasdasd");
-// // getLecturerViewExercise("6435878ffd053fc269ba4c80", "god");
+// getLecturerViewDetail("6453e5b3c027dda9947cc2de", "god");
 // getStudentViewExercise("6435878ffd053fc269ba4c89", "huhu");
+// getStudentViewDetail("6451f45011a6cb2c92fcef41", "huhu");
 export const exerciseService = {
   create,
   verifyAuthorize,
@@ -160,4 +276,6 @@ export const exerciseService = {
   update,
   getStudentViewExercise,
   getLecturerViewExercise,
+  getLecturerViewDetail,
+  getStudentViewDetail,
 };
