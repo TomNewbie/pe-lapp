@@ -76,7 +76,8 @@ const Lecturers = () => {
                 className="absolute mx-4 my-5"
               ></img>
               <div className="absolute ml-20 text-2xl">{lecturer.name}</div>
-              <div>
+
+              <div className="mb-6">
                 <button onClick={() => copyToClipboard(lecturer.mail)}>
                   <img
                     src="/participants-icon/mail.png"
@@ -96,7 +97,7 @@ const Lecturers = () => {
     <div>
       <NavbarStudent></NavbarStudent>
 
-      <div>{LecturerSection}</div>
+      <div className="mx-96">{LecturerSection}</div>
       <div className="absolute inset-x-0 bottom-0">
         <Footer></Footer>
       </div>
