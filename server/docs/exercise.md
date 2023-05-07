@@ -27,7 +27,7 @@ Array<{
   name: string;
   id: string;
   deadline: Date;
-  submission_count: number;
+  // submission_count: number; client count
   participant_count: number;
 }>;
 ```
@@ -82,13 +82,20 @@ Get exercise detail by id
 
 ```ts
 {
+    _id: string;
     name: string;
     deadline: Date;
     grade?: number;
     submitted: boolean;
     description: string;
-    exercise_files: Array<string>;
-    solution_files: Array<string>;
+    exercise_files: Array<{
+      name: string,
+      url: string
+    }>;
+    solution_files?: Array<{
+      name: string,
+      url: string
+    }>;
 }
 ```
 

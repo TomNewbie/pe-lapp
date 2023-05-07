@@ -2,7 +2,7 @@ import mongoose, { InferSchemaType, Schema } from "mongoose";
 
 const exercise = new Schema(
   {
-    title: {
+    name: {
       type: String,
       required: true,
     },
@@ -19,7 +19,7 @@ const exercise = new Schema(
         _id: false,
       },
     ],
-    body: {
+    description: {
       type: String,
       required: true,
     },

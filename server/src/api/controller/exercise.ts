@@ -1,29 +1,49 @@
 import { ExerciseType } from "../model/exercise";
 import { NextFunction, Response } from "express";
 import { AuthRequest } from "./auth";
-import { exerciseService } from "../service/exercise";
+import {
+  Exercise_ErrorType,
+  LecturerViewExercise,
+  StudentViewExercise,
+  exerciseService,
+} from "../service/exercise";
 import mongoose, { Types } from "mongoose";
 import { fileService } from "../service/files";
 import { FileType } from "../../utils/types";
-const getAllExercises = (req: AuthRequest, res: Response) => {
-  const { id } = req.params;
+const getAllExercises = async (req: AuthRequest, res: Response) => {
+  const { id: courseId } = req.params;
+  const { role, _id: userId } = req.user!;
+  let result:
+    | StudentViewExercise
+    | LecturerViewExercise
+    | Exercise_ErrorType.NOT_FOUND;
+  if (role === "lecturer") {
+    result = await exerciseService.getLecturerViewExercise(courseId, userId);
+  } else {
+    result = await exerciseService.getStudentViewExercise(courseId, userId);
+  }
+  if (result === Exercise_ErrorType.NOT_FOUND) {
+    res.status(404).send(`Exercise not found in course ${courseId}`);
+    return;
+  }
+  res.status(200).json(result);
 };
 
 const createExercise = async (req: AuthRequest, res: Response) => {
-  const { title, deadline, body } = req.body;
+  const { name, deadline, description } = req.body;
   const { id: courseId } = req.params;
   const lecturer = req.user!._id;
   const files = req.files as Express.Multer.File[];
   const filesFilter = files.map((file) => {
     return { name: file.originalname, url: file.filename };
   });
-  if (!title) {
-    res.status(400).send("Missing Title");
+  if (!name) {
+    res.status(400).send("Missing name");
     fileService.remove(filesFilter.map((file) => file.url));
     return;
   }
-  if (!body) {
-    res.status(400).send("Missing body");
+  if (!description) {
+    res.status(400).send("Missing description");
     fileService.remove(filesFilter.map((file) => file.url));
     return;
   }
@@ -36,24 +56,18 @@ const createExercise = async (req: AuthRequest, res: Response) => {
   await exerciseService.create({
     course: new mongoose.Types.ObjectId(courseId),
     deadline,
-    body,
+    description,
     files: filesFilter,
     lecturer,
-    title,
+    name,
   });
-  // const contentId = await contentService.create({
-  //   title,
-  //   files: filesFilter,
-  //   body,
-  // });
-  // await courseService.addContent(courseId, contentId!);
   res.sendStatus(200);
 };
 
 const getDetail = () => {};
 
 const editExercise = async (req: AuthRequest, res: Response) => {
-  const { remove, title, files, body, deadline } = req.body;
+  const { remove, name, files, description, deadline } = req.body;
   const { id: exerciseId } = req.params;
 
   await fileService.remove(remove);
@@ -64,8 +78,8 @@ const editExercise = async (req: AuthRequest, res: Response) => {
   // if user dont upload new file
   if (!req.files) {
     await exerciseService.update(exerciseId, {
-      title,
-      body,
+      name,
+      description,
       files: updateFiles,
       deadline,
     });
@@ -78,8 +92,8 @@ const editExercise = async (req: AuthRequest, res: Response) => {
   // add new files
   updateFiles = updateFiles.concat(newFiles);
   await exerciseService.update(exerciseId, {
-    title,
-    body,
+    name,
+    description,
     files: updateFiles,
     deadline,
   });
