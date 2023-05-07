@@ -1,4 +1,14 @@
 import { NavbarStudent, Footer } from "../../../components";
+
+/** Need to fetch:
+ * lecturers: {
+    name: string;
+    faculty: string;
+    mail: string;
+    url: string;
+}[]
+ */
+
 function copyToClipboard(email) {
   navigator.clipboard.writeText(email);
 }
@@ -34,7 +44,9 @@ const lecturers = [
     url: "/participants-icon/ava.png",
   },
 ];
-const LecturerList = ({ lecturers }) => {
+
+// Component renders a list of lecturers grouped by faculty, with each lecturer's name and email address.
+const Lecturers = () => {
   const facultySection = lecturers.reduce((acc, lecturer) => {
     if (!acc[lecturer.faculty]) {
       acc[lecturer.faculty] = [lecturer];
@@ -82,16 +94,9 @@ const LecturerList = ({ lecturers }) => {
 
   return (
     <div>
-      <div>{LecturerSection}</div>
-    </div>
-  );
-};
-
-const Lecturers = () => {
-  return (
-    <div>
       <NavbarStudent></NavbarStudent>
-      <LecturerList lecturers={lecturers} />
+
+      <div>{LecturerSection}</div>
       <div className="absolute inset-x-0 bottom-0">
         <Footer></Footer>
       </div>

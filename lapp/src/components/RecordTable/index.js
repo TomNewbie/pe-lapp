@@ -3,7 +3,7 @@ const RecordTable = ({ students }) => {
     ? students.map((student) => (
         <tr class="">
           <td class="px-6 py-4 text-center border border-slate-300 ">
-            {student.Name}
+            {student.name}
           </td>
           <td class="px-6 py-4 text-center border border-slate-300">
             {student.id}
@@ -23,11 +23,11 @@ const RecordTable = ({ students }) => {
             {student.status}
           </td>
           <td class="px-2 py-2 text-center border border-slate-300">
-            <div className="flex flex-row gap-2">
+            <div className="grid grid-cols-2 gap-2">
               {student.file ? (
                 student.file.map((file) => (
                   <div>
-                    <div className="flex w-40 h-16 mb-1 space-y-3 border border-black col rounded-2xl">
+                    <div className="flex px-3 py-2 mb-1 space-y-3 border border-black col rounded-2xl">
                       <img
                         src="/notification/upload.svg"
                         alt=""
@@ -45,15 +45,15 @@ const RecordTable = ({ students }) => {
             </div>
           </td>
           <td class="px-6 py-4 text-center border border-slate-300">
-            {student.grade}
+            {student.grade ? <span>{student.grade}</span> : <span>N/A</span>}
           </td>
         </tr>
       ))
     : null;
   return (
-    <div class="flex flex-col h-screen">
+    <div class="flex flex-col h-full pb-2 px-10 text-[30px] ">
       <div class="flex-grow overflow-auto">
-        <table class="relative w-full border-collapse border border-slate-500 ">
+        <table class="relative w-full border-collapse border border-slate-500">
           <thead>
             <tr class="h-fit">
               <th class="sticky top-0 px-6 py-3 border border-slate-300 text-[#7F1734] bg-[#F4C2C2]/40">

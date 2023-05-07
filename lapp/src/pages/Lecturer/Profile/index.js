@@ -1,7 +1,19 @@
 import { useState } from "react";
 import { NavbarLecturer, Footer } from "../../../components";
+/** Need to fetch:
+ * course:
+ *      {name: string;semester: string;}
+ * name: string
+ * email: string
+ * faculty: string
+ */
 const courses = [{ name: "Programming exercise", semetes: "SS2023" }];
-const ProfileTeacherDetail = ({ courses, name, email, faculty }) => {
+const name = "Huynh Trung Hieu";
+const email = "htt.vgu.edu.vn";
+const faculty = "CSE";
+
+// This is a functional component for the profile page of a teacher.
+const ProfileTeacher = () => {
   const [show, setShow] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [storePhoneNumber, setStorePhoneNumber] = useState("");
@@ -11,9 +23,11 @@ const ProfileTeacherDetail = ({ courses, name, email, faculty }) => {
     setPhoneNumber(storePhoneNumber);
   };
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen overflow-y-hidden">
+      <NavbarLecturer></NavbarLecturer>
+
       <div className="flex flex-row items-center justify-center mt-6 space-x-40">
-        <div className="grid items-center grid-rows-2 mt-20 ml-20">
+        <div className="grid items-center grid-rows-2 mt-20 ml-60">
           <img src="/ProfileTeacher/avatar.png" alt="avatar" loading="lazy" />
           {!show ? (
             <div className="flex self-start justify-center">
@@ -73,7 +87,7 @@ const ProfileTeacherDetail = ({ courses, name, email, faculty }) => {
               </p>
             </div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col mb-20">
             <div>
               <div className="border-b-4 border-solid border-[#000000]">
                 <p className="font-dongle font-bold not-italic text-[45px] text-[#1B1C1E]">
@@ -96,22 +110,9 @@ const ProfileTeacherDetail = ({ courses, name, email, faculty }) => {
           </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-const ProfileTeacher = () => {
-  return (
-    <div>
-      <NavbarLecturer></NavbarLecturer>
-      <ProfileTeacherDetail
-        courses={courses}
-        name={"Huynh Trung Hieu"}
-        email={"htt.vgu.edu.vn"}
-        faculty={"CSE"}
-      ></ProfileTeacherDetail>
       <Footer></Footer>
     </div>
   );
 };
+
 export default ProfileTeacher;

@@ -1,7 +1,17 @@
 import React, { useState } from "react";
 import { NavbarStudent, Footer } from "../../../components";
 
-const ProfileDetail = ({ name, id, email }) => {
+/** Need to fetch:
+ * name: string
+ * id: string
+ * email: string
+ */
+const name = "Le Hoang Kim Thanh";
+const id = 18047;
+const email = "18047@student.vgu.edu.vn";
+
+// This component is a profile page for a student, with the ability to edit and save their major, intake, and phone number.
+const Profile = () => {
   const [show, setShow] = useState(false);
   const [major, setMajor] = useState("");
   const [intake, setIntake] = useState("");
@@ -19,6 +29,7 @@ const ProfileDetail = ({ name, id, email }) => {
 
   return (
     <div className="h-screen overflow-hidden">
+      <NavbarStudent></NavbarStudent>
       <div className="flex flex-row items-center justify-center">
         {/* First column */}
         <div className="grid grid-rows-2 mt-4 ml-10">
@@ -121,19 +132,6 @@ const ProfileDetail = ({ name, id, email }) => {
           </p>
         </div>
       </div>
-    </div>
-  );
-};
-
-const Profile = () => {
-  return (
-    <div>
-      <NavbarStudent></NavbarStudent>
-      <ProfileDetail
-        name={"Le Hoang Kim Thanh"}
-        id={18047}
-        email={"18047@studen.vgu.edu"}
-      ></ProfileDetail>
       <Footer></Footer>
     </div>
   );

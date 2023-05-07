@@ -1,9 +1,9 @@
 import React from "react";
-
+function copyToClipboard(email) {
+  navigator.clipboard.writeText(email);
+}
 const Participants = ({ teacher, students }) => {
-  function copyToClipboard(email) {
-    navigator.clipboard.writeText(email);
-  }
+  console.log(teacher);
   const studentSection = students.map((student) => (
     <div>
       <div
@@ -26,7 +26,6 @@ const Participants = ({ teacher, students }) => {
     </div>
   ));
 
-  console.log(students);
   return (
     <div className="max-w-full">
       <div className="flex flex-col w-full h-fit">
@@ -38,8 +37,12 @@ const Participants = ({ teacher, students }) => {
               alt=""
               className="absolute mx-4 my-5"
             ></img>
-            <div className="absolute ml-20 text-2xl">{teacher}</div>
-            <button>
+            <div className="absolute ml-20 text-2xl">{teacher.name}</div>
+            <button
+              onClick={() => {
+                copyToClipboard(teacher.mail);
+              }}
+            >
               <img
                 src="/participants-icon/mail.png"
                 alt=""

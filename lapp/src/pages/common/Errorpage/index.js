@@ -1,5 +1,7 @@
-import { useRouteError } from "react-router-dom";
-
+/**
+ * Component that displays an error message with a title and a description.
+ * This component can be used to show an error page in a React application when something goes wrong.
+ */
 const Errorpage = () => {
   return (
     <div className="text-4xl text-center text-red-600">
