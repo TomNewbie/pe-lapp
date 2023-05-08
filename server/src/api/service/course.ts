@@ -1,5 +1,10 @@
-import { Types, isValidObjectId } from "mongoose";
-import { Course, CourseType } from "../model/course";
+import mongoose, { Types, isValidObjectId } from "mongoose";
+import {
+  Course,
+  CourseContent,
+  CourseContentType,
+  CourseType,
+} from "../model/course";
 import { UserRole } from "./user";
 import { Optional } from "../../utils/types";
 
@@ -25,6 +30,13 @@ interface GetCoursesOptions {
   query?: string;
   sort?: string;
 }
+type teacherViewContent = Omit<
+  CourseType,
+  "contents" | "participants" | "lecturer_id"
+> & {
+  contents: CourseContentType;
+  teacher_name: string;
+};
 
 async function getCoursesOfUser(
   id: string,
@@ -101,7 +113,6 @@ export enum CourseError {
   ALREADY_JOINED,
   NOT_JOINED,
 }
-
 const joinCourse = async (
   studentId: string,
   courseId: string
@@ -143,15 +154,19 @@ type QueryCourseId = {
   courseId: string;
 };
 
-type UpdateCourseFields = {
-  name?: string;
-  picture?: string;
-  semester?: string;
-};
+// type UpdateCourseFields = {
+//   name?: string;
+//   picture?: string;
+//   semester?: string;
+// };
 
 const update = async (
   { lecturerId: lecturer_id, courseId: _id }: QueryCourseId,
-  { name, picture, semester }: UpdateCourseFields
+  {
+    name,
+    picture,
+    semester,
+  }: Partial<Omit<CourseType, "participants" | "lecturer_id">>
 ): Promise<CourseError.NOT_FOUND | undefined> => {
   if (!isValidObjectId(_id)) return CourseError.NOT_FOUND;
 
@@ -163,6 +178,15 @@ const update = async (
   if (result.matchedCount === 0) {
     return CourseError.NOT_FOUND;
   }
+};
+const addContent = async (
+  courseId: string,
+  contents: Types.ObjectId
+): Promise<void> => {
+  await Course.updateOne(
+    { _id: courseId },
+    { $addToSet: { contents: contents } }
+  );
 };
 
 interface GetParticipantsResponse {
@@ -249,6 +273,45 @@ const removeParticipant = async (
   if (res.modifiedCount === 0) return CourseError.NOT_JOINED;
 };
 
+const verifyAuthorize = async ({
+  lecturerId,
+  courseId,
+}: QueryCourseId): Promise<CourseError.NOT_FOUND | void> => {
+  if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
+  const res = await Course.findOne({ _id: courseId, lecturer_id: lecturerId });
+  if (!res) return CourseError.NOT_FOUND;
+};
+const removeContent = async (courseId: string, contentId: string) => {
+  await Course.updateOne({ _id: courseId }, { $pull: { contents: contentId } });
+};
+
+const getAllContent = async (
+  courseId: string
+): Promise<teacherViewContent[] | CourseError.NOT_FOUND> => {
+  if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
+  const res = await Course.aggregate()
+    .match({
+      _id: new mongoose.Types.ObjectId(courseId),
+    })
+    .lookup({
+      from: CourseContent.collection.name,
+      localField: "contents",
+      foreignField: "_id",
+      as: "contentFile",
+    })
+    .project({
+      _id: 0,
+      participants: 0,
+      contents: 0,
+      __v: 0,
+    })
+    .exec();
+  if (res.length === 0) {
+    return CourseError.NOT_FOUND;
+  }
+  console.log(res);
+  return res;
+};
 export const courseService = {
   create,
   update,
@@ -257,4 +320,8 @@ export const courseService = {
   getParticipants,
   addParticipant,
   removeParticipant,
+  verifyAuthorize,
+  addContent,
+  removeContent,
+  getAllContent,
 };

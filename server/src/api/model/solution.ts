@@ -14,10 +14,19 @@ const solution = new Schema(
         required: true,
       },
     },
-    file: {
-      type: String,
-      required: true,
-    },
+    files: [
+      {
+        name: {
+          type: String,
+          required: true,
+        },
+        url: {
+          type: String,
+          required: true,
+        },
+        _id: false,
+      },
+    ],
     grade: {
       type: Number,
       min: 0,
