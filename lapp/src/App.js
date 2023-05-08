@@ -20,7 +20,7 @@ function App() {
   const auth = useAuth();
   const role = auth.user?.role;
   return (
-    <div className=" App">
+    <div className="App bg-[#FFFAF0]">
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route element={<RequireAuth />}>

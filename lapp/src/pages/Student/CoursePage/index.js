@@ -11,6 +11,8 @@ import {
   Participants,
   ExerciseSection,
 } from "../../../components";
+import { useAPI } from "../../../hooks/useAPI";
+import { Errorpage } from "../../common";
 
 /** Need to fetch:
  * notis: { status: string; title: string; content: string; files: {name: string;}[];}[]
@@ -48,15 +50,6 @@ const notis = [
     files: [{ name: "Math" }, { name: "Science" }],
   },
 ];
-//Participants tab: Participants section
-const participants = {
-  student: [
-    { url: "/participants-icon/ava.png", name: "A", mail: "ava.gmail.com" },
-    { url: "/participants-icon/ava.png", name: "B", mail: "ava1.gmail.com" },
-    { url: "/participants-icon/ava.png", name: "C", mail: "ava2.gmail.com" },
-  ],
-  teacher: { name: "Huynh Trung Hieu", mail: "sd@gmail.com" },
-};
 
 // Exercise tab
 const exercises = [
@@ -77,12 +70,21 @@ const exercises = [
 // Ccomponent renders the main content of a course page for students, including notifications, participants, and exercises.
 const CoursePage = () => {
   const { id } = useParams();
-
+  const { data, pending, error } = useAPI({
+    path: "/api/course/:id/participants",
+    params: { id },
+  });
+  if (error) {
+    return <Errorpage />;
+  }
+  if (pending) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="relative flex flex-col bg-[#FFFAF0]">
       <NavbarStudent></NavbarStudent>
       <StudentCourseName
-        name={id + course.name}
+        name={course.name}
         teacher={course.teacher}
       ></StudentCourseName>
       <div>
@@ -107,8 +109,8 @@ const CoursePage = () => {
           tab2={
             <div className="flex flex-col space-y-6 mt-8 mb-16 w-[800px]">
               <Participants
-                teacher={participants.teacher}
-                students={participants.student}
+                lecturer={data.lecturer}
+                students={data.students}
               ></Participants>
             </div>
           }

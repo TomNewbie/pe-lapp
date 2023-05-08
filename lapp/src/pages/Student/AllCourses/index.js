@@ -8,6 +8,7 @@ import {
 } from "../../../components";
 import { useEffect, useState } from "react";
 import { useAPI } from "../../../hooks/useAPI";
+import { Errorpage } from "../../common";
 /** Need to fetch:
  *  courses: {
     name: string;
@@ -16,67 +17,8 @@ import { useAPI } from "../../../hooks/useAPI";
 }[]
  */
 
-const courses = [
-  {
-    name: "1",
-    lecturer: "HHH",
-    semester: "SS2023",
-    picture: "/Coursecard_img/CourseStuPic.png",
-  },
-  {
-    name: "2",
-    lecturer: "HHH",
-    semester: "SS2023",
-    picture: "/Coursecard_img/CourseStuPic.png",
-  },
-  {
-    name: "3",
-    lecturer: "HHH",
-    semester: "SS2023",
-    picture: "/Coursecard_img/CourseStuPic.png",
-  },
-  {
-    name: "4",
-    lecturer: "HHH",
-    semester: "SS2023",
-    picture: "/Coursecard_img/CourseStuPic.png",
-  },
-  {
-    name: "5",
-    lecturer: "HHH",
-    semester: "SS2023",
-    picture: "/Coursecard_img/CourseStuPic.png",
-  },
-  {
-    name: "6",
-    lecturer: "HHH",
-    semester: "SS2023",
-    picture: "/Coursecard_img/CourseStuPic.png",
-  },
-  {
-    name: "7",
-    lecturer: "HHH",
-    semester: "SS2023",
-    picture: "/Coursecard_img/CourseStuPic.png",
-  },
-  {
-    name: "8",
-    lecturer: "HHH",
-    semester: "SS2023",
-    picture: "/Coursecard_img/CourseStuPic.png",
-  },
-];
-
 // Component  which displays a list of courses that a student is enrolled in
 const AllCoursesStudent = () => {
-  const {
-    data: test,
-    pending,
-    refresh,
-  } = useAPI({ path: " /api/courses?s=0&n=8&q=&S=" });
-  useEffect(() => {
-    console.log(test);
-  });
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
     const body = document.body;
@@ -87,6 +29,15 @@ const AllCoursesStudent = () => {
     }
     setModal(!modal);
   };
+  const { data: test, pending, error } = useAPI({ path: " /api/courses" });
+  console.log(test);
+  if (error) {
+    return <Errorpage />;
+  }
+  if (pending) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="relative">
       {modal && <JoinCourse handleClose={toggleModal}></JoinCourse>}
@@ -105,11 +56,14 @@ const AllCoursesStudent = () => {
       {/* Display all courses */}
       <div className="mt-8 ml-16 text-7xl">ALL COURSES</div>
       <div className="bg-[#F48F98]/50 grid grid-cols-4 grid-rows-2 mb-16 gap-x-32 gap-y-8 mx-16 rounded-2xl px-24 py-4">
-        {courses.map((course) => {
-          const link = "/course/" + course.name;
+        {test.map((course) => {
+          const link = "/course/" + course._id;
           return (
-            <Link to={link}>
-              <CoursecardStudent course={course}></CoursecardStudent>
+            <Link to={link} key={course._id}>
+              <CoursecardStudent
+                course={course}
+                courseId={course._id}
+              ></CoursecardStudent>
             </Link>
           );
         })}

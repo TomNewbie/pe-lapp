@@ -2,10 +2,14 @@ const CoursecardStudent = ({ course }) => {
   return (
     <div class="card">
       <div class="max-w-sm bg-[#DE5D83]/50 rounded-3xl h-67 w-44 shadow-xl">
-        <img class="w-fit h-2/3" src={`${course.picture}`} alt="Course" />
+        <img
+          class="w-fit h-2/3 rounded-3xl"
+          src={course.picture}
+          alt="Course"
+        />
 
         <div class="container content-around">
-          <h1 class="text-center text-2xl font-bold tracking-tight dark:text-[#1b1c1e]">
+          <h1 class="text-center text-2xl truncate font-bold tracking-tight dark:text-[#1b1c1e]">
             {course.name}
           </h1>
 
@@ -16,7 +20,7 @@ const CoursecardStudent = ({ course }) => {
               alt="Lecturer: "
             />
             <p class="text-center ml-2 tracking-tight dark:text-[#1b1c1e]">
-              {course.lecturer}
+              {course.lecturer_name}
             </p>
           </div>
 
@@ -27,7 +31,7 @@ const CoursecardStudent = ({ course }) => {
               alt="Progress: "
             />
             <p class="text-center ml-2 tracking-tight dark:text-[#1b1c1e]">
-              {course.semester}
+              {course.semester || "N/A"}
             </p>
           </div>
         </div>
