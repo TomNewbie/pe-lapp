@@ -1,6 +1,6 @@
 import { NavbarStudent, Footer } from "../../../components";
 import { useAPI } from "../../../hooks/useAPI";
-
+import React, { useState, useEffect } from "react";
 /** Need to fetch:
  * lecturers: {
     name: string;
@@ -48,8 +48,30 @@ const lecturers = [
 
 // Component renders a list of lecturers grouped by faculty, with each lecturer's name and email address.
 const Lecturers = () => {
-  const { data: lecturers1 } = useAPI({ path: "/api/lecturers" });
-  console.log(lecturers1);
+  const { data: lecturers1, pending } = useAPI({ path: "/api/lecturers" });
+  // console.log(lecturers1);
+  // const [data, setData] = useState(null);
+  // const [isLoading, setIsLoading] = useState(true);
+
+  // useEffect(() => {
+  //   console.log("asdasdas");
+  //   fetch("/api/lecturers")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       // Handle the data
+  //       console.log(data);
+  //       setIsLoading(false);
+  //       setData(data);
+  //     })
+  //     .catch((error) => {
+  //       // Handle any errors
+  //       console.error("Error:", error);
+  //     });
+  // }, []);
+
+  if (pending) {
+    return <div>Loading...</div>;
+  }
   const facultySection = lecturers1.reduce((acc, lecturer) => {
     const faculty = lecturer.faculty || "Others";
 
@@ -98,12 +120,11 @@ const Lecturers = () => {
       </div>
     )
   );
-
   return (
     <div>
       <NavbarStudent></NavbarStudent>
 
-      <div>{LecturerSection}</div>
+      {LecturerSection}
       <div className="absolute inset-x-0 bottom-0">
         <Footer></Footer>
       </div>
