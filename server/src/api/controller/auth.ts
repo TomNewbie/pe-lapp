@@ -66,6 +66,7 @@ const ACCESS_TOKEN_COOKIE_NAME = "access_token";
 
 const loginCallback = async (req: Request, res: Response): Promise<void> => {
   const { code, state: redirect_path } = req.query;
+  console.log(req.query);
   const { tokens } = await client.getToken(code as string);
   client.setCredentials(tokens);
 
@@ -81,7 +82,7 @@ const loginCallback = async (req: Request, res: Response): Promise<void> => {
     avatar: avatar!,
   });
 
-  res
+  res 
     .cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, {
       httpOnly: true,
       secure: SECURE_COOKIE_OPTION,
