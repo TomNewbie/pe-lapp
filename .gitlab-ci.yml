@@ -14,7 +14,7 @@ stages:
     paths:
       - "server/dist"
 
-.deploy:
+deploy:
   stage: deploy
   image: docker:stable
   services:
