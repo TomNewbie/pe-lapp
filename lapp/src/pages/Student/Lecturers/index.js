@@ -1,6 +1,7 @@
 import { NavbarStudent, Footer } from "../../../components";
 import { useAPI } from "../../../hooks/useAPI";
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { Errorpage } from "../../common";
 /** Need to fetch:
  * lecturers: {
     name: string;
@@ -13,80 +14,35 @@ import React, { useState, useEffect } from "react";
 function copyToClipboard(email) {
   navigator.clipboard.writeText(email);
 }
-const lecturers = [
-  {
-    name: "a",
-    faculty: "cse",
-    mail: "sd@vgu.edu.vn",
-    url: "/participants-icon/ava.png",
-  },
-  {
-    name: "b",
-    faculty: "ba",
-    mail: "sd1@vgu.edu.vn",
-    url: "/participants-icon/ava.png",
-  },
-  {
-    name: "c",
-    faculty: "cse",
-    mail: "sd2@vgu.edu.vn",
-    url: "/participants-icon/ava.png",
-  },
-  {
-    name: "d",
-    faculty: "ba",
-    mail: "s@vgu.edu.vn",
-    url: "/participants-icon/ava.png",
-  },
-  {
-    name: "e",
-    faculty: "ece",
-    mail: "s3d@vgu.edu.vn",
-    url: "/participants-icon/ava.png",
-  },
-];
 
 // Component renders a list of lecturers grouped by faculty, with each lecturer's name and email address.
 const Lecturers = () => {
-  const { data: lecturers1, pending } = useAPI({ path: "/api/lecturers" });
-  // console.log(lecturers1);
-  // const [data, setData] = useState(null);
-  // const [isLoading, setIsLoading] = useState(true);
-
-  // useEffect(() => {
-  //   console.log("asdasdas");
-  //   fetch("/api/lecturers")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       // Handle the data
-  //       console.log(data);
-  //       setIsLoading(false);
-  //       setData(data);
-  //     })
-  //     .catch((error) => {
-  //       // Handle any errors
-  //       console.error("Error:", error);
-  //     });
-  // }, []);
+  const {
+    data: lecturers1,
+    pending,
+    error,
+  } = useAPI({ path: "/api/lecturers" });
 
   if (pending) {
     return <div>Loading...</div>;
   }
-  const facultySection = lecturers1.reduce((acc, lecturer) => {
-    const faculty = lecturer.faculty || "Others";
+  if (error) {
+    return <Errorpage />;
+  }
+  const renderLecturerLists = () => {
+    const facultySection = lecturers1.reduce((acc, lecturer) => {
+      const faculty = lecturer.faculty || "Others";
+      if (!acc[faculty]) {
+        acc[faculty] = [lecturer];
+      } else {
+        acc[faculty].push(lecturer);
+      }
 
-    if (!acc[faculty]) {
-      acc[faculty] = [lecturer];
-    } else {
-      acc[faculty].push(lecturer);
-    }
-
-    return acc;
-  }, {});
-  const faculties = Object.keys(facultySection);
-  //Map over each faculty section and render the lecturers
-  const LecturerSection = Object.entries(facultySection).map(
-    ([key, val], index) => (
+      return acc;
+    }, {});
+    const faculties = Object.keys(facultySection);
+    //Map over each faculty section and render the lecturers
+    return Object.entries(facultySection).map(([key, val], index) => (
       <div key={index}>
         <div className="text-[#E36255] text-4xl h-8 border-b border-black">
           {faculties[index]}
@@ -118,13 +74,15 @@ const Lecturers = () => {
           ))}
         </div>
       </div>
-    )
-  );
+    ));
+  };
+
   return (
     <div>
       <NavbarStudent></NavbarStudent>
-
-      {LecturerSection}
+      {pending && <div>Loading...</div>}
+      {error && <Errorpage></Errorpage>}
+      {lecturers1 && renderLecturerLists(lecturers1)}
       <div className="absolute inset-x-0 bottom-0">
         <Footer></Footer>
       </div>
