@@ -30,9 +30,21 @@ interface ResponseBase<
   TData,
   TError extends Error | null
 > {
+  /**
+   * Whether the request is pending.
+   */
   pending: TPending;
+  /**
+   * The returned data if any.
+   */
   data: TData;
+  /**
+   * The error occurred if any.
+   */
   error: TError;
+  /**
+   * An async function for rerunning the request.
+   */
   refresh: () => Promise<void>;
 }
 
@@ -43,6 +55,24 @@ type Response<T> =
   | ResponseBase<false, T, null>
   | ResponseBase<false, null, Error>;
 
+/**
+ * A hook for calling an API using the fetch API internally.
+ * @param url an object to be converted into a url string. This object will be
+ * parsed into a `string` so it does not need to be wrapped with `useMemo` like
+ * `request` does.
+ * @param request the `RequestInit` object to be passed into the `fetch` API.
+ * This object, if provided, **must** be wrapped with `useMemo` or be a
+ * non-changing reference to an object to prevent passing in a new object on
+ * every render, which forces the internal effect to be run on every render.
+ * This can create a loop in the hook (the api is called on mount; if responsed
+ * with a json object, states in the hook are set, thus rerender the component;
+ * if on rerender, a new `RequestInit` is passed to the hook, the effect is run
+ * again, calling the api, receiving a new json object, setting states, rerender
+ * and repeat the loop) and this is not the desired behavior.
+ * See {@link RequestInit}.
+ * @returns an object holding the state of the request (pending, error or data),
+ * along with a function for rerunning the request.
+ */
 export function useAPI(
   url: { path: "/api/user/info" },
   request?: { method?: "GET" }
@@ -51,6 +81,24 @@ export function useAPI(
   name: string;
   role: "student" | "lecturer";
 }>;
+/**
+ * A hook for calling an API using the fetch API internally.
+ * @param url an object to be converted into a url string. This object will be
+ * parsed into a `string` so it does not need to be wrapped with `useMemo` like
+ * `request` does.
+ * @param request the `RequestInit` object to be passed into the `fetch` API.
+ * This object, if provided, **must** be wrapped with `useMemo` or be a
+ * non-changing reference to an object to prevent passing in a new object on
+ * every render, which forces the internal effect to be run on every render.
+ * This can create a loop in the hook (the api is called on mount; if responsed
+ * with a json object, states in the hook are set, thus rerender the component;
+ * if on rerender, a new `RequestInit` is passed to the hook, the effect is run
+ * again, calling the api, receiving a new json object, setting states, rerender
+ * and repeat the loop) and this is not the desired behavior.
+ * See {@link RequestInit}.
+ * @returns an object holding the state of the request (pending, error or data),
+ * along with a function for rerunning the request.
+ */
 export function useAPI(
   url: { path: "/api/student/:id"; params: { id: string } },
   request?: { method?: "GET" }
@@ -63,6 +111,24 @@ export function useAPI(
   major?: string;
   intake?: number;
 }>;
+/**
+ * A hook for calling an API using the fetch API internally.
+ * @param url an object to be converted into a url string. This object will be
+ * parsed into a `string` so it does not need to be wrapped with `useMemo` like
+ * `request` does.
+ * @param request the `RequestInit` object to be passed into the `fetch` API.
+ * This object, if provided, **must** be wrapped with `useMemo` or be a
+ * non-changing reference to an object to prevent passing in a new object on
+ * every render, which forces the internal effect to be run on every render.
+ * This can create a loop in the hook (the api is called on mount; if responsed
+ * with a json object, states in the hook are set, thus rerender the component;
+ * if on rerender, a new `RequestInit` is passed to the hook, the effect is run
+ * again, calling the api, receiving a new json object, setting states, rerender
+ * and repeat the loop) and this is not the desired behavior.
+ * See {@link RequestInit}.
+ * @returns an object holding the state of the request (pending, error or data),
+ * along with a function for rerunning the request.
+ */
 export function useAPI(
   url: { path: "/api/lecturer/:id"; params: { id: string } },
   request?: { method?: "GET" }
@@ -75,6 +141,24 @@ export function useAPI(
   faculty?: string;
   courses: Array<{ name: string; semester?: string }>;
 }>;
+/**
+ * A hook for calling an API using the fetch API internally.
+ * @param url an object to be converted into a url string. This object will be
+ * parsed into a `string` so it does not need to be wrapped with `useMemo` like
+ * `request` does.
+ * @param request the `RequestInit` object to be passed into the `fetch` API.
+ * This object, if provided, **must** be wrapped with `useMemo` or be a
+ * non-changing reference to an object to prevent passing in a new object on
+ * every render, which forces the internal effect to be run on every render.
+ * This can create a loop in the hook (the api is called on mount; if responsed
+ * with a json object, states in the hook are set, thus rerender the component;
+ * if on rerender, a new `RequestInit` is passed to the hook, the effect is run
+ * again, calling the api, receiving a new json object, setting states, rerender
+ * and repeat the loop) and this is not the desired behavior.
+ * See {@link RequestInit}.
+ * @returns an object holding the state of the request (pending, error or data),
+ * along with a function for rerunning the request.
+ */
 export function useAPI(
   url: { path: "/api/lecturers"; searchParams?: { s?: number; n?: number } },
   request?: { method?: "GET" }
@@ -86,6 +170,24 @@ export function useAPI(
   }>
 >;
 
+/**
+ * A hook for calling an API using the fetch API internally.
+ * @param url an object to be converted into a url string. This object will be
+ * parsed into a `string` so it does not need to be wrapped with `useMemo` like
+ * `request` does.
+ * @param request the `RequestInit` object to be passed into the `fetch` API.
+ * This object, if provided, **must** be wrapped with `useMemo` or be a
+ * non-changing reference to an object to prevent passing in a new object on
+ * every render, which forces the internal effect to be run on every render.
+ * This can create a loop in the hook (the api is called on mount; if responsed
+ * with a json object, states in the hook are set, thus rerender the component;
+ * if on rerender, a new `RequestInit` is passed to the hook, the effect is run
+ * again, calling the api, receiving a new json object, setting states, rerender
+ * and repeat the loop) and this is not the desired behavior.
+ * See {@link RequestInit}.
+ * @returns an object holding the state of the request (pending, error or data),
+ * along with a function for rerunning the request.
+ */
 export function useAPI(
   url: {
     path: "/api/courses";
@@ -113,6 +215,24 @@ export function useAPI(
       participant_count: number;
     }>
 >;
+/**
+ * A hook for calling an API using the fetch API internally.
+ * @param url an object to be converted into a url string. This object will be
+ * parsed into a `string` so it does not need to be wrapped with `useMemo` like
+ * `request` does.
+ * @param request the `RequestInit` object to be passed into the `fetch` API.
+ * This object, if provided, **must** be wrapped with `useMemo` or be a
+ * non-changing reference to an object to prevent passing in a new object on
+ * every render, which forces the internal effect to be run on every render.
+ * This can create a loop in the hook (the api is called on mount; if responsed
+ * with a json object, states in the hook are set, thus rerender the component;
+ * if on rerender, a new `RequestInit` is passed to the hook, the effect is run
+ * again, calling the api, receiving a new json object, setting states, rerender
+ * and repeat the loop) and this is not the desired behavior.
+ * See {@link RequestInit}.
+ * @returns an object holding the state of the request (pending, error or data),
+ * along with a function for rerunning the request.
+ */
 export function useAPI(
   url: {
     path: "/api/course/:id/participants";
