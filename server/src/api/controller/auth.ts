@@ -11,12 +11,17 @@ const DEFAULT_LOGIN_REDIRECT_PATH = "/";
 const login = (req: Request, res: Response) => {
   const { redirect: r } = req.query;
   const redirect_path = typeof r === "string" ? r : DEFAULT_LOGIN_REDIRECT_PATH;
+  const port = process.env.NODE_ENV === "production" ?
+    "" : ":" + process.env.PORT;
+  const redirect_uri = process.env.SERVER_DOMAIN as string + port + process.env.CLIENT_CALLBACK_URL;
 
   const url = client.generateAuthUrl({
     access_type: "offline",
     scope: ["profile", "email"],
     state: redirect_path,
+    redirect_uri
   });
+
 
   res.redirect(url);
 };
