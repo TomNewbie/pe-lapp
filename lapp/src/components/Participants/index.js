@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 function copyToClipboard(email) {
   navigator.clipboard.writeText(email);
 }
@@ -9,11 +10,14 @@ const Participants = ({ lecturer, students }) => {
         className="relative flex flex-row items-center h-16 text-xl border-black"
         key={student.email}
       >
-        <img
-          src={student.avatar}
-          alt=""
-          className="absolute w-8 h-8 mx-4 my-5 rounded-full"
-        ></img>
+        <Link>
+          <img
+            src={student.avatar}
+            alt=""
+            className="absolute w-8 h-8 mx-4 -my-5 rounded-full"
+          ></img>
+        </Link>
+
         <div className="absolute ml-20 text-2xl">{student.name}</div>
 
         <div>

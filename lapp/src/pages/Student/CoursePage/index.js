@@ -70,10 +70,23 @@ const exercises = [
 // Ccomponent renders the main content of a course page for students, including notifications, participants, and exercises.
 const CoursePage = () => {
   const { id } = useParams();
-  const { data, pending, error } = useAPI({
+  const {
+    data: participants,
+    pending,
+    error,
+  } = useAPI({
     path: "/api/course/:id/participants",
     params: { id },
   });
+
+  // const {
+  //   data: course,
+  //   pending: coursePenging,
+  //   error: courseError,
+  // } = useAPI({
+  //   path: "/api/course/:id",
+  //   params: { id },
+  // });
   if (error) {
     return <Errorpage />;
   }
@@ -109,8 +122,8 @@ const CoursePage = () => {
           tab2={
             <div className="flex flex-col space-y-6 mt-8 mb-16 w-[800px]">
               <Participants
-                lecturer={data.lecturer}
-                students={data.students}
+                lecturer={participants.lecturer}
+                students={participants.students}
               ></Participants>
             </div>
           }

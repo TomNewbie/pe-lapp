@@ -60,10 +60,7 @@ const AllCoursesStudent = () => {
           const link = "/course/" + course._id;
           return (
             <Link to={link} key={course._id}>
-              <CoursecardStudent
-                course={course}
-                courseId={course._id}
-              ></CoursecardStudent>
+              <CoursecardStudent course={course}></CoursecardStudent>
             </Link>
           );
         })}
