@@ -114,6 +114,8 @@ Array<{
   _id: string;
   name: string;
   faculty?: string;
+  avatar: string;
+  email: string;
 }>;
 ```
 
