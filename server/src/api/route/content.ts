@@ -22,5 +22,10 @@ router.patch(
   fileController.upload,
   contentController.update
 );
+router.get(
+  "/course/:id/contents",
+  courseController.isInCourse,
+  courseController.getAllContent
+);
 
 export { router as contentRouter };

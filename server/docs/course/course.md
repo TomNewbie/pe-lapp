@@ -131,3 +131,35 @@ _Error:_
 - 400: Invalid input
 
 Regular expression for semester to make sure it is from (WS|SS) 2010 - 2029 (On progress)
+
+# [GET] /api/course/:id
+
+Get detail from courseId
+
+Request
+
+Cookie: access_token=`<token>`
+
+## Response
+
+200 -> Return json
+
+```ts
+// Student:
+type CoursesOfStudent = {
+  _id: string;
+  name: string;
+  semester?: string;
+  picture: string;
+  lecturer_name: string;
+};
+
+// Lecturer:
+type CoursesOfLecturer = {
+  _id: string;
+  name: string;
+  semester?: string;
+  picture: string;
+  participant_count: number;
+};
+```

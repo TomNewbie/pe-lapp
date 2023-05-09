@@ -92,7 +92,7 @@ Cookie: access_token=`<token>`
 - 'LIMIT_UNEXPECTED_FILE' -> File field not match
 - File extension ... is not supported
 
-# [GET] /api/course/:id
+# [GET] /api/course/:id/contents
 
 Get all content from courseId
 
@@ -104,35 +104,9 @@ Cookie: access_token=`<token>`
 
 200 -> Return json
 
-- Student view
-
 ```ts
 {
-  name: string,
-  picture: string,
-  teacher_name: string,
-  contents: Array<{
-    title: string;
-    file?: Array<{
-      name: string;
-      url: string;
-    }>;
-    body: string;
-    createdAt: Date;
-    updatedAt: Date;
-  }>;
-}
-```
-
-- Teacher view
-
-```ts
-{
-  name: string,
-  picture: string,
-  semester?: string,
-  teacher_name: string,
-  contents: Array<{
+  Array<{
     title: string;
     file?: Array<{
       name: string;
@@ -148,3 +122,4 @@ Cookie: access_token=`<token>`
 _Error_:
 
 - 404 -> Course not found
+- 404 -> You are not join course `${courseId}`

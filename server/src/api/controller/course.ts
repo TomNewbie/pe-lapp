@@ -165,6 +165,28 @@ const verifyAuthorize = async (
 
   next();
 };
+const isInCourse = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id: courseId } = req.params;
+  const { _id: userId } = req.user!;
+  const result = await courseService.isInCourse(
+    req.user!.role,
+    userId,
+    courseId
+  );
+  if (result === CourseError.NOT_FOUND) {
+    res.status(404).send("Course not found");
+    return;
+  }
+  if (result === CourseError.NOT_JOINED) {
+    res.status(404).send(`You are not join course ${courseId}`);
+    return;
+  }
+  next();
+};
 const getAllContent = async (req: AuthRequest, res: Response) => {
   const { id: courseId } = req.params;
   const result = await courseService.getAllContent(courseId);
@@ -176,6 +198,7 @@ const getAllContent = async (req: AuthRequest, res: Response) => {
   }
   res.status(200).json(result);
 };
+
 export const courseController = {
   getAllCourses,
   joinCourse,
@@ -186,4 +209,5 @@ export const courseController = {
   removeParticipant,
   verifyAuthorize,
   getAllContent,
+  isInCourse,
 };

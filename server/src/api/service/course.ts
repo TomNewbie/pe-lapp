@@ -287,7 +287,7 @@ const removeContent = async (courseId: string, contentId: string) => {
 
 const getAllContent = async (
   courseId: string
-): Promise<teacherViewContent[] | CourseError.NOT_FOUND> => {
+): Promise<CourseContentType[] | CourseError.NOT_FOUND> => {
   if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
   const res = await Course.aggregate()
     .match({
@@ -301,17 +301,28 @@ const getAllContent = async (
     })
     .project({
       _id: 0,
-      participants: 0,
-      contents: 0,
-      __v: 0,
-    })
-    .exec();
+      contentFile: 1,
+      // __v: 0,
+    });
   if (res.length === 0) {
     return CourseError.NOT_FOUND;
   }
-  console.log(res);
-  return res;
+  return res[0].contentFile;
 };
+const isInCourse = async (
+  role: "student" | "lecturer",
+  userId: string,
+  courseId: string
+): Promise<void | CourseError.NOT_JOINED | CourseError.NOT_FOUND> => {
+  if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
+  if (role === "lecturer") {
+    const res = await Course.findOne({ _id: courseId, lecturer_id: userId });
+    if (!res) return CourseError.NOT_JOINED;
+  }
+  const res = await Course.findOne({ _id: courseId, participants: userId });
+  if (!res) return CourseError.NOT_JOINED;
+};
+console.log(isInCourse("student", "huhu", "6435878ffd053fc269ba4c89"));
 export const courseService = {
   create,
   update,
@@ -324,4 +335,5 @@ export const courseService = {
   addContent,
   removeContent,
   getAllContent,
+  isInCourse,
 };
