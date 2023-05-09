@@ -2,7 +2,7 @@ stages:
 - build
 - deploy
 
-.build_server:
+build_server:
   stage: build
   image: node:18-alpine
   script:
@@ -14,27 +14,29 @@ stages:
     paths:
       - "server/dist"
 
+build_client:
+  stage: build
+  image: node:18-alpine
+  script:
+    - cd ./lapp
+    - npm install
+    - npm run build
+  artifacts:
+    expire_in: "30 days"
+    paths:
+      - "lapp/build"
+
 deploy:
   stage: deploy
   image: docker:stable
   services:
     - docker:dind
     - node:18-alpine
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
   before_script:
     - apk add --update curl && rm -rf /var/cache/apk/*
     - curl -L https://fly.io/install.sh | sh
   script: 
     - echo ${FLY_API_TOKEN} 
     - /root/.fly/bin/flyctl deploy
-
-# build_client:
-#   stage: build
-#   image: node:18-alpine
-#   script:
-#     - cd ./lapp
-#     - npm install
-#     - npm run build
-#   artifacts:
-#     expire_in: "30 days"
-#     paths:
-#       - "lapp/build"
