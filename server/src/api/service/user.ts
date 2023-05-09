@@ -85,7 +85,7 @@ const getLecturerList = async ({
   await Lecturer.find(
     {},
     { _id: 1, name: 1, faculty: 1 },
-    { sort: "name", skip: start, limit: num }
+    { sort: "faculty name", skip: start, limit: num }
   ).lean();
 
 const getUserName = async (
