@@ -2,7 +2,6 @@ import path from "path";
 import dotenv from "dotenv";
 const envPath = path.resolve(__dirname, "../.env");
 dotenv.config({ path: envPath });
-
 import express from "express";
 import "express-async-errors";
 import { errorHandler } from "./utils/middleware";
@@ -23,7 +22,6 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 
 // Serve the API routes
 app.use("/api", apiRouter);
-
 // Serve the React app
 app.use(clientRouter);
 

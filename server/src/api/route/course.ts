@@ -16,5 +16,6 @@ router.delete(
   "/course/:id/participant/:studentId",
   courseController.removeParticipant
 );
+router.get("/course/:id", courseController.getAllContent);
 
 export { router as courseRouter };

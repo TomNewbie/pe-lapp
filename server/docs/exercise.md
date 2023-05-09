@@ -1,6 +1,6 @@
 # [GET] /api/course/:id/exercises
 
-Request
+Get all exercise from a specific course
 
 Cookie: access_token=`<token>`
 
@@ -8,7 +8,7 @@ Cookie: access_token=`<token>`
 
 - 200 -> Return json
 
-- Student view
+### Student view
 
 ```ts
 Array<{
@@ -20,21 +20,20 @@ Array<{
 }>;
 ```
 
-- Lecturer view
+### Lecturer view
 
 ```ts
 Array<{
   name: string;
   id: string;
   deadline: Date;
-  submission_count: number;
+  // submission_count: number; client count
   participant_count: number;
 }>;
 ```
 
-_Error_:
-
-- 404 -> Course not found
+- Error :  
+  404 -> Course not found
 
 # [POST] /api/course/:id/exercise
 
@@ -51,7 +50,10 @@ Create an exercise
 {
   name: string;
   deadline: Date;
-  file: Array<string>;
+  files?: Array<{
+    name: string,
+    url: string
+  }>,
   description: string;
 }
 ```
@@ -80,13 +82,20 @@ Get exercise detail by id
 
 ```ts
 {
+    // _id: string;
     name: string;
     deadline: Date;
     grade?: number;
     submitted: boolean;
     description: string;
-    exercise_files: Array<string>;
-    solution_files: Array<string>;
+    exercise_files: Array<{
+      name: string,
+      url: string
+    }>;
+    solution_files?: Array<{
+      name: string,
+      url: string
+    }>;
 }
 ```
 
@@ -98,6 +107,7 @@ Get exercise detail by id
   deadline: Date;
   description: string;
   exercise_files: Array<string>;
+
   solutions: Array<{
     student: {
       name: string;
@@ -134,6 +144,11 @@ Edit exercise by specify id. **Not modify files yet**
   name?: string;
   deadline?: Date;
   description?: string;
+  files?: Array<{
+    name: string,
+    url: string
+  }>,
+  remove?: url[]
 }
 ```
 
@@ -143,7 +158,7 @@ Edit exercise by specify id. **Not modify files yet**
 - 404 -> Exercise not found
 - 401 -> Unauthorize (student)
 
-# [POST] /api/exercises/:id/students/:id
+# [PATCH] /api/exercises/:id/students/:id
 
 Add grade for student solution
 
@@ -180,3 +195,29 @@ Delete exercise by id. All student solution related to that exercise will be del
 - 200 -> OK
 - 404 -> Exercise not found
 - 401 -> Unauthorize
+
+# [POST] /api/exercises/:id/
+
+Create solution
+
+## Request
+
+- Header  
+  Authorization: Bearer `token`
+
+- Body
+
+```ts
+{
+  files: Array<{
+    name: string;
+    url: string;
+  }>;
+}
+```
+
+## Response:
+
+- 201 -> OK
+- 404 -> Exercise not found
+- 404 -> Missing file

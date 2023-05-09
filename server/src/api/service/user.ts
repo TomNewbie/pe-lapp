@@ -71,6 +71,8 @@ type LecturerList = Array<{
   _id: string;
   name: string;
   faculty?: string;
+  avatar: string;
+  email: string;
 }>;
 
 interface GetLecturerListOptions {
@@ -84,8 +86,8 @@ const getLecturerList = async ({
 }: GetLecturerListOptions): Promise<LecturerList> =>
   await Lecturer.find(
     {},
-    { _id: 1, name: 1, faculty: 1 },
-    { sort: "name", skip: start, limit: num }
+    { _id: 1, name: 1, faculty: 1, avatar: 1, email: 1 },
+    { sort: "faculty name", skip: start, limit: num }
   ).lean();
 
 const getUserName = async (
