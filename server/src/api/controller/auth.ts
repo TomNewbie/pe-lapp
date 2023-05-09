@@ -18,6 +18,7 @@ const login = (req: Request, res: Response) => {
     state: redirect_path,
   });
 
+
   res.redirect(url);
 };
 
@@ -81,7 +82,7 @@ const loginCallback = async (req: Request, res: Response): Promise<void> => {
     avatar: avatar!,
   });
 
-  res
+  res 
     .cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, {
       httpOnly: true,
       secure: SECURE_COOKIE_OPTION,
