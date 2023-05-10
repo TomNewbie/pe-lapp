@@ -79,14 +79,6 @@ const CoursePage = () => {
     params: { id },
   });
 
-  // const {
-  //   data: course,
-  //   pending: coursePenging,
-  //   error: courseError,
-  // } = useAPI({
-  //   path: "/api/course/:id",
-  //   params: { id },
-  // });
   if (error) {
     return <Errorpage />;
   }

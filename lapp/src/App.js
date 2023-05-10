@@ -5,25 +5,63 @@ import {
   CoursePage,
   Exercise,
   Lecturers,
-  Profile,
+  ProfileStudentMe,
 } from "./pages/Student";
 import {
   AllCoursesLecturer,
-  Profile as ProfileLecturer,
+  ProfileTeacherMe,
   CoursePage as CoursePageLecturer,
   ExerciseDetail as ExerciseLecturer,
 } from "./pages/Lecturer";
-import { Home, Errorpage } from "./pages/common";
+import {
+  Home,
+  Errorpage,
+  ProfileLecturer,
+  ProfileStudent,
+} from "./pages/common";
 import { useAuth } from "./components/auth.js";
+import { NavbarLecturer, NavbarStudent } from "./components/index.js";
 
 function App() {
   const auth = useAuth();
   const role = auth.user?.role;
+  const user = {
+    name: "Kim Thanh",
+    role: "lecturer",
+    email: "sd@gmail.com",
+    avatar: "/ProfileTeacher/avatar.png",
+    _id: "sd",
+    courses: [{ name: "Sd", semester: "2023" }],
+  };
   return (
     <div className="App bg-[#FFFAF0]">
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route element={<RequireAuth />}>
+          <Route
+            element={
+              role === "student" ? (
+                <NavbarStudent></NavbarStudent>
+              ) : (
+                <NavbarLecturer></NavbarLecturer>
+              )
+            }
+          >
+            <Route path="/profile">
+              <Route
+                index
+                element={
+                  role === "student" ? (
+                    <ProfileStudentMe />
+                  ) : (
+                    <ProfileTeacherMe />
+                  )
+                }
+              ></Route>
+              <Route path="lecturer/:id" element={<ProfileLecturer />}></Route>
+              <Route path="student/:id" element={<ProfileStudent />}></Route>
+            </Route>
+          </Route>
           <Route
             path="/allcourses"
             element={
@@ -33,10 +71,6 @@ function App() {
                 <AllCoursesLecturer />
               )
             }
-          ></Route>
-          <Route
-            path="/profile"
-            element={role === "student" ? <Profile /> : <ProfileLecturer />}
           ></Route>
 
           <Route

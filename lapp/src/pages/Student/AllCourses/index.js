@@ -13,7 +13,7 @@ import { Errorpage } from "../../common";
  *  courses: {
     name: string;
     lecturer: string;
-    progress: string;
+    semester: string;
 }[]
  */
 

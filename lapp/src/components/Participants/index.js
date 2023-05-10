@@ -4,34 +4,40 @@ function copyToClipboard(email) {
   navigator.clipboard.writeText(email);
 }
 const Participants = ({ lecturer, students }) => {
-  const studentSection = students.map((student) => (
-    <div>
-      <div
-        className="relative flex flex-row items-center h-16 text-xl border-black"
-        key={student.email}
-      >
-        <Link>
+  const studentSection = students.map((student) => {
+    const link = "/profile/student/" + student._id;
+
+    return (
+      <div>
+        <div
+          className="relative flex flex-row items-center h-16 text-xl border-black"
+          key={student.email}
+        >
           <img
             src={student.avatar}
             alt=""
-            className="absolute w-8 h-8 mx-4 -my-5 rounded-full"
+            className="w-8 h-8 mx-4 -my-5 rounded-full "
           ></img>
-        </Link>
+          <Link to={link}>
+            <div className="mx-4 ml-2 -my-2 text-2xl hover:underline">
+              {student.name}
+            </div>
+          </Link>
 
-        <div className="absolute ml-20 text-2xl">{student.name}</div>
-
-        <div>
-          <button onClick={() => copyToClipboard(student.email)}>
-            <img
-              src="/participants-icon/mail.png"
-              alt=""
-              className="absolute w-5 h-5 right-4"
-            ></img>
-          </button>
+          <div>
+            <button onClick={() => copyToClipboard(student.email)}>
+              <img
+                src="/participants-icon/mail.png"
+                alt=""
+                className="absolute w-5 h-5 mx-4 -my-5 right-4"
+              ></img>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  ));
+    );
+  });
+  const lecturerLink = "/profile/lecturer/" + lecturer._id;
 
   return (
     <div className="max-w-full">
@@ -42,20 +48,23 @@ const Participants = ({ lecturer, students }) => {
             <img
               src={lecturer.avatar}
               alt=""
-              className="absolute w-8 h-8 mx-4 my-5 rounded-full"
+              className="w-8 h-8 mx-4 -my-5 rounded-full "
             ></img>
-            <div className="absolute ml-20 text-2xl">{lecturer.name}</div>
-            <button
-              onClick={() => {
-                copyToClipboard(lecturer.email);
-              }}
-            >
-              <img
-                src="/participants-icon/mail.png"
-                alt=""
-                className="absolute w-5 h-5 right-4"
-              ></img>
-            </button>
+            <Link to={lecturerLink}>
+              <div className="mx-4 ml-2 -my-2 text-2xl hover:underline">
+                {lecturer.name}
+              </div>
+            </Link>
+
+            <div>
+              <button onClick={() => copyToClipboard(lecturer.email)}>
+                <img
+                  src="/participants-icon/mail.png"
+                  alt=""
+                  className="absolute w-5 h-5 mx-4 -my-5 right-4"
+                ></img>
+              </button>
+            </div>
           </div>
         </div>
         <div className="divide-y">

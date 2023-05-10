@@ -10,7 +10,7 @@ import { Errorpage } from "../../common";
  */
 
 // This component is a profile page for a student, with the ability to edit and save their major, intake, and phone number.
-const Profile = () => {
+const ProfileStudentMe = () => {
   const [show, setShow] = useState(false);
   const [storeMajor, setStoreMajor] = useState("");
   const [storeIntake, setStoreIntake] = useState("");
@@ -23,11 +23,6 @@ const Profile = () => {
     pending: infoPending,
     error: infoError,
   } = useAPI({ path: "/api/user/info" });
-  // const {
-  //   data: profileData,
-  //   pending: profilePending,
-  //   error: profileError,
-  // } = useAPI({ path: "/api/user/profile" });
   console.log("Profiledata:" + infoData);
   if (infoError) {
     return <Errorpage />;
@@ -44,8 +39,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="h-screen overflow-hidden">
-      <NavbarStudent></NavbarStudent>
+    <div className="h-screen overflow-hidden bg-[#FFFAF0]">
       <div className="flex flex-row items-center justify-center">
         {/* First column */}
         <div className="grid grid-rows-2 mt-4 ml-10">
@@ -153,4 +147,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfileStudentMe;
