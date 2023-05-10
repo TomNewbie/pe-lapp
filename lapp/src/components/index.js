@@ -25,3 +25,4 @@ export { default as Announce } from "./Announce";
 // export { default as NavbarCourse } from "./NavbarCourse";
 export { default as StudentNavCourse } from "./NavbarCourse/StudentNavCourse";
 export { default as TeacherNavCourse } from "./NavbarCourse/TeacherNavCourse";
+export { default as NumCountUp } from "./NumCountUp";
