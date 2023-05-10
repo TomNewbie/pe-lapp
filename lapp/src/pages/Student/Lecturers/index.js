@@ -1,5 +1,8 @@
 import { NavbarStudent, Footer } from "../../../components";
-
+import { useAPI } from "../../../hooks/useAPI";
+import React from "react";
+import { Errorpage } from "../../common";
+import { Link } from "react-router-dom";
 /** Need to fetch:
  * lecturers: {
     name: string;
@@ -12,91 +15,83 @@ import { NavbarStudent, Footer } from "../../../components";
 function copyToClipboard(email) {
   navigator.clipboard.writeText(email);
 }
-const lecturers = [
-  {
-    name: "a",
-    faculty: "cse",
-    mail: "sd@vgu.edu.vn",
-    url: "/participants-icon/ava.png",
-  },
-  {
-    name: "b",
-    faculty: "ba",
-    mail: "sd1@vgu.edu.vn",
-    url: "/participants-icon/ava.png",
-  },
-  {
-    name: "c",
-    faculty: "cse",
-    mail: "sd2@vgu.edu.vn",
-    url: "/participants-icon/ava.png",
-  },
-  {
-    name: "d",
-    faculty: "ba",
-    mail: "s@vgu.edu.vn",
-    url: "/participants-icon/ava.png",
-  },
-  {
-    name: "e",
-    faculty: "ece",
-    mail: "s3d@vgu.edu.vn",
-    url: "/participants-icon/ava.png",
-  },
-];
 
 // Component renders a list of lecturers grouped by faculty, with each lecturer's name and email address.
 const Lecturers = () => {
-  const facultySection = lecturers.reduce((acc, lecturer) => {
-    if (!acc[lecturer.faculty]) {
-      acc[lecturer.faculty] = [lecturer];
-    } else {
-      acc[lecturer.faculty].push(lecturer);
-    }
-    return acc;
-  }, {});
-  const faculties = Object.keys(facultySection);
-  console.log(facultySection);
-  // Map over each faculty section and render the lecturers
-  const LecturerSection = Object.entries(facultySection).map(
-    ([key, val], index) => (
-      <div key={index}>
-        <div className="text-[#E36255] text-4xl h-8 border-b border-black">
-          {faculties[index]}
-        </div>
-        <div className="divide-y">
-          {val.map((lecturer) => (
-            <div
-              className="relative flex flex-row items-center h-16 text-xl"
-              key={lecturer.mail}
-            >
-              <img
-                src={lecturer.url}
-                alt=""
-                className="absolute mx-4 my-5"
-              ></img>
-              <div className="absolute ml-20 text-2xl">{lecturer.name}</div>
-              <div>
-                <button onClick={() => copyToClipboard(lecturer.mail)}>
+  const {
+    data: lecturers1,
+    pending,
+    error,
+  } = useAPI({ path: "/api/lecturers" });
+
+  if (pending) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <Errorpage />;
+  }
+  const renderLecturerLists = () => {
+    const facultySection = lecturers1.reduce((acc, lecturer) => {
+      const faculty = lecturer.faculty || "Others";
+      if (!acc[faculty]) {
+        acc[faculty] = [lecturer];
+      } else {
+        acc[faculty].push(lecturer);
+      }
+
+      return acc;
+    }, {});
+    const faculties = Object.keys(facultySection);
+    //Map over each faculty section and render the lecturers
+    return Object.entries(facultySection).map(([key, val], index) => {
+      return (
+        <div key={index}>
+          <div className="text-[#E36255] text-4xl mt-4 h-8 border-b border-black">
+            {faculties[index]}
+          </div>
+          <div className="divide-y">
+            {val.map((lecturer) => {
+              const link = "/profile/lecturer/" + lecturer._id;
+              return (
+                <div
+                  className="relative flex flex-row items-center h-16 text-xl"
+                  key={lecturer._id + "@vgu.edu.vn"}
+                >
                   <img
-                    src="/participants-icon/mail.png"
+                    src={lecturer.avatar || "/ProfileTeacher/avatar.png"}
                     alt=""
-                    className="absolute w-5 h-5 right-4"
+                    className="w-8 h-8 mx-4 -my-5 rounded-full "
                   ></img>
-                </button>
-              </div>
-            </div>
-          ))}
+                  <Link to={link}>
+                    <div className="mx-4 ml-2 -my-2 text-2xl hover:underline">
+                      {lecturer.name}
+                    </div>
+                  </Link>
+
+                  <div>
+                    <button onClick={() => copyToClipboard(lecturer.email)}>
+                      <img
+                        src="/participants-icon/mail.png"
+                        alt=""
+                        className="absolute w-5 h-5 mx-4 -my-5 right-4"
+                      ></img>
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    )
-  );
+      );
+    });
+  };
 
   return (
     <div>
       <NavbarStudent></NavbarStudent>
-
-      <div>{LecturerSection}</div>
+      {pending && <div>Loading...</div>}
+      {error && <Errorpage></Errorpage>}
+      {lecturers1 && renderLecturerLists(lecturers1)}
       <div className="absolute inset-x-0 bottom-0">
         <Footer></Footer>
       </div>

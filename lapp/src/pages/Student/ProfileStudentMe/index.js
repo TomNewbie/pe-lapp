@@ -1,24 +1,35 @@
 import React, { useState } from "react";
 import { NavbarStudent, Footer } from "../../../components";
+import { useAPI } from "../../../hooks/useAPI";
+import { Errorpage } from "../../common";
 
 /** Need to fetch:
  * name: string
  * id: string
  * email: string
  */
-const name = "Le Hoang Kim Thanh";
-const id = 18047;
-const email = "18047@student.vgu.edu.vn";
 
 // This component is a profile page for a student, with the ability to edit and save their major, intake, and phone number.
-const Profile = () => {
+const ProfileStudentMe = () => {
   const [show, setShow] = useState(false);
-  const [major, setMajor] = useState("");
-  const [intake, setIntake] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [storeMajor, setStoreMajor] = useState("");
   const [storeIntake, setStoreIntake] = useState("");
   const [storePhoneNumber, setStorePhoneNumber] = useState("");
+  const [major, setMajor] = useState("");
+  const [intake, setIntake] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const {
+    data: infoData,
+    pending: infoPending,
+    error: infoError,
+  } = useAPI({ path: "/api/user/info" });
+  console.log("Profiledata:" + infoData);
+  if (infoError) {
+    return <Errorpage />;
+  }
+  if (infoPending) {
+    return <div>Loading...</div>;
+  }
 
   const handleCancel = () => {
     setShow(false);
@@ -28,8 +39,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="h-screen overflow-hidden">
-      <NavbarStudent></NavbarStudent>
+    <div className="h-screen overflow-hidden bg-[#FFFAF0]">
       <div className="flex flex-row items-center justify-center">
         {/* First column */}
         <div className="grid grid-rows-2 mt-4 ml-10">
@@ -81,12 +91,12 @@ const Profile = () => {
         </div>
 
         {/* Third column */}
-        <div className="w-2/12 text-5xl text-[#1B1C1E] font-semibold mr-48 space-y-6 mb-32 grid grid-rows-6">
+        <div className="w-3/12 text-5xl text-[#1B1C1E] font-semibold mr-48 space-y-6 mb-32 grid grid-rows-6">
           <div className="flex items-end">
-            <p>{name}</p>
+            <p>{infoData.name}</p>
           </div>
-          <p>{id}</p>
-          <p>{email}</p>
+          <p>{infoData._id}</p>
+          <p>{infoData._id + "@vgu.edu.vn"}</p>
           <p>
             {show ? (
               <input
@@ -137,4 +147,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfileStudentMe;
