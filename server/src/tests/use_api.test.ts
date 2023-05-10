@@ -138,4 +138,25 @@ describe("user API testing", () => {
                 .expect(404);
         }) 
     })
+
+    describe("/api/lecturer/:id", () => {
+        it("GET student profile", async() => {
+            const lecturer = lecturers[0];
+            const accessToken = createAccessToken(lecturer._id, "lecturer");
+            const res = await api
+                .get(`/api/lecturer/${lecturer._id}`)
+                .set("Cookie", [`access_token=${accessToken}`])
+                .expect(200);
+            expect(res.body).to.deep.include(lecturer);
+        }) 
+
+        it("invalid GET", async() => {
+            const id = "19992@student.vgu.edu.vn";
+            const accessToken = createAccessToken(id, "lecturer");
+            await api
+                .get(`/api/lecturer/${id}`)
+                .set("Cookie", [`access_token=${accessToken}`])
+                .expect(404);
+        }) 
+    })
 })
