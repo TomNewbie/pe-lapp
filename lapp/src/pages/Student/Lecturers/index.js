@@ -18,37 +18,45 @@ function copyToClipboard(email) {
 
 // Component renders a list of lecturers grouped by faculty, with each lecturer's name and email address.
 const Lecturers = () => {
-  const facultySection = lecturers.reduce((acc, lecturer) => {
-    if (!acc[lecturer.faculty]) {
-      acc[lecturer.faculty] = [lecturer];
-    } else {
-      acc[lecturer.faculty].push(lecturer);
-    }
-    return acc;
-  }, {});
-  const faculties = Object.keys(facultySection);
-  console.log(facultySection);
-  // Map over each faculty section and render the lecturers
-  const LecturerSection = Object.entries(facultySection).map(
-    ([key, val], index) => (
-      <div key={index}>
-        <div className="text-[#E36255] text-4xl h-8 border-b border-black">
-          {faculties[index]}
-        </div>
-        <div className="divide-y">
-          {val.map((lecturer) => (
-            <div
-              className="relative flex flex-row items-center h-16 text-xl"
-              key={lecturer.mail}
-            >
-              <img
-                src={lecturer.url}
-                alt=""
-                className="absolute mx-4 my-5"
-              ></img>
-              <div className="absolute ml-20 text-2xl">{lecturer.name}</div>
-              <div>
-                <button onClick={() => copyToClipboard(lecturer.mail)}>
+  const {
+    data: lecturers1,
+    pending,
+    error,
+  } = useAPI({ path: "/api/lecturers" });
+
+  if (pending) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <Errorpage />;
+  }
+  const renderLecturerLists = () => {
+    const facultySection = lecturers1.reduce((acc, lecturer) => {
+      const faculty = lecturer.faculty || "Others";
+      if (!acc[faculty]) {
+        acc[faculty] = [lecturer];
+      } else {
+        acc[faculty].push(lecturer);
+      }
+
+      return acc;
+    }, {});
+    const faculties = Object.keys(facultySection);
+    //Map over each faculty section and render the lecturers
+    return Object.entries(facultySection).map(([key, val], index) => {
+      return (
+        <div key={index}>
+          <div className="text-[#E36255] text-4xl mt-4 h-8 border-b border-black">
+            {faculties[index]}
+          </div>
+          <div className="divide-y">
+            {val.map((lecturer) => {
+              const link = "/profile/lecturer/" + lecturer._id;
+              return (
+                <div
+                  className="relative flex flex-row items-center h-16 text-xl"
+                  key={lecturer._id + "@vgu.edu.vn"}
+                >
                   <img
                     src={lecturer.avatar || "/ProfileTeacher/avatar.png"}
                     alt=""
@@ -81,8 +89,9 @@ const Lecturers = () => {
   return (
     <div>
       <NavbarStudent></NavbarStudent>
-
-      <div>{LecturerSection}</div>
+      {pending && <div>Loading...</div>}
+      {error && <Errorpage></Errorpage>}
+      {lecturers1 && renderLecturerLists(lecturers1)}
       <div className="absolute inset-x-0 bottom-0">
         <Footer></Footer>
       </div>
