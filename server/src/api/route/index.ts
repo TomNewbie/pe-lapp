@@ -5,9 +5,6 @@ import { courseRouter } from "./course";
 import { contentRouter } from "./content";
 import { FileRequest, fileController } from "../controller/file";
 import { exerciseRouter } from "./exercise";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import path from "path";
-import { randomUUID } from "crypto";
 
 const router = Router();
 router.post(
@@ -16,8 +13,8 @@ router.post(
   fileController.upload,
   async (req: FileRequest, res: Response) => {
     // console.log(req.files);
-    // console.log(req.firebase);
-    res.sendStatus(200);
+    console.log(req.firebase);
+    res.status(200).send(req.firebase);
   }
 );
 router.use(authRouter);

@@ -8,12 +8,14 @@ const router = Router();
 router.post(
   "/course/:id/exercise",
   courseController.verifyAuthorize,
+  fileController.getFile,
   fileController.upload,
   exerciseController.createExercise
 );
 router.post(
   "/exercises/:id",
   exerciseController.verifyAuthorize,
+  fileController.getFile,
   fileController.upload,
   exerciseController.createSolution
 );

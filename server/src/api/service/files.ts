@@ -30,11 +30,11 @@ const handleUpload = multer({
   },
   limits: uploadLimit,
 }).array(fileFields);
-const removeFirebase = async (remove: string[]): Promise<void | string> => {
-  if (!remove) return;
+const removeFirebase = async (refPaths: string[]): Promise<void | string> => {
+  if (!refPaths) return;
   try {
     await Promise.all(
-      remove.map((refPath: string) => {
+      refPaths.map((refPath: string) => {
         const fileRef = ref(storageRef, refPath);
         return deleteObject(fileRef);
       })

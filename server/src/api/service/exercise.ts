@@ -257,7 +257,7 @@ const getLecturerViewExercise = async (
       name: 1,
       _id: 1,
       deadline: 1,
-      participant_count: 1,
+      submission_count: 1,
     });
   if (exercises.length === 0) {
     return Exercise_ErrorType.NOT_FOUND;
