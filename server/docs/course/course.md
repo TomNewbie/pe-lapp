@@ -1,3 +1,32 @@
+# [GET] /api/course/:id
+
+Get detail of a course.
+
+Request
+
+Cookie: access_token=`<token>`
+
+## Response
+
+200 -> Return json
+
+```ts
+type Response = {
+  _id: string;
+  name: string;
+  semester?: string;
+  picture: string;
+  lecturer: {
+    _id: string;
+    name: string;
+  };
+};
+```
+
+_Error:_
+
+- 404: Course not found
+
 # [PATCH] /api/course/:id
 
 Patch a course
@@ -131,35 +160,3 @@ _Error:_
 - 400: Invalid input
 
 Regular expression for semester to make sure it is from (WS|SS) 2010 - 2029 (On progress)
-
-# [GET] /api/course/:id
-
-Get detail from courseId
-
-Request
-
-Cookie: access_token=`<token>`
-
-## Response
-
-200 -> Return json
-
-```ts
-// Student:
-type CoursesOfStudent = {
-  _id: string;
-  name: string;
-  semester?: string;
-  picture: string;
-  lecturer_name: string;
-};
-
-// Lecturer:
-type CoursesOfLecturer = {
-  _id: string;
-  name: string;
-  semester?: string;
-  picture: string;
-  participant_count: number;
-};
-```
