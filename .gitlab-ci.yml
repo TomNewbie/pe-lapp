@@ -1,18 +1,15 @@
 stages:
-- build
+- test
 - deploy
 
-build_server:
-  stage: build
+test_server:
+  stage: test
   image: node:18-alpine
   script:
     - cd ./server
     - npm install
-    - npm run build
-  artifacts:
-    expire_in: "30 days"
-    paths:
-      - "server/dist"
+    - npm test
+
 
 deploy:
   stage: deploy
