@@ -18,6 +18,19 @@ const getAllCourses = async (req: AuthRequest, res: Response) => {
   res.json(courses);
 };
 
+const getCourse = async (req: AuthRequest, res: Response) => {
+  const { id } = req.params;
+
+  const result = await courseService.getCourseById(id);
+
+  if (result === CourseError.NOT_FOUND) {
+    res.status(404).send("Course not found");
+    return;
+  }
+
+  res.status(200).json(result);
+};
+
 const joinCourse = async (req: AuthRequest, res: Response) => {
   const { _id: studentId, role } = req.user!;
   const { id: courseId } = req.params;
@@ -201,6 +214,7 @@ const getAllContent = async (req: AuthRequest, res: Response) => {
 
 export const courseController = {
   getAllCourses,
+  getCourse,
   joinCourse,
   createCourse,
   updateCourse,

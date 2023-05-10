@@ -107,6 +107,45 @@ async function getCoursesOfUser(
   return await courses;
 }
 
+type GetCourseResponse = {
+  _id: string;
+  name: string;
+  semester?: string;
+  picture: string;
+  lecturer: {
+    _id: string;
+    name: string;
+  };
+};
+
+async function getCourseById(
+  id: string
+): Promise<GetCourseResponse | CourseError.NOT_FOUND> {
+  if (!isValidObjectId(id)) return CourseError.NOT_FOUND;
+
+  const [course] = await Course.aggregate()
+    .match({ _id: new Types.ObjectId(id) })
+    .lookup({
+      from: "lecturers",
+      localField: "lecturer_id",
+      foreignField: "_id",
+      as: "lecturer",
+    })
+    .unwind("$lecturer")
+    .project({
+      _id: 1,
+      name: 1,
+      semester: 1,
+      picture: 1,
+      lecturer: {
+        _id: 1,
+        name: 1,
+      },
+    });
+
+  return course ?? CourseError.NOT_FOUND;
+}
+
 export enum CourseError {
   NOT_FOUND,
   INVALID_INPUT,
@@ -328,6 +367,7 @@ export const courseService = {
   update,
   joinCourse,
   getCoursesOfUser,
+  getCourseById,
   getParticipants,
   addParticipant,
   removeParticipant,
