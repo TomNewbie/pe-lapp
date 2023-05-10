@@ -20,6 +20,8 @@ Array<{
 }>;
 ```
 
+"grade: undefined -> teacher not yet assign point to student"
+
 ### Lecturer view
 
 ```ts
@@ -27,8 +29,7 @@ Array<{
   name: string;
   id: string;
   deadline: Date;
-  // submission_count: number; client count
-  participant_count: number;
+  submission_count: number;
 }>;
 ```
 

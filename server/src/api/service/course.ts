@@ -322,7 +322,7 @@ const isInCourse = async (
   const res = await Course.findOne({ _id: courseId, participants: userId });
   if (!res) return CourseError.NOT_JOINED;
 };
-console.log(isInCourse("student", "huhu", "6435878ffd053fc269ba4c89"));
+// console.log(isInCourse("student", "huhu", "6435878ffd053fc269ba4c89"));
 export const courseService = {
   create,
   update,
