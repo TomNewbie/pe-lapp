@@ -54,18 +54,67 @@ describe("user API testing", () => {
 
     describe("/api/user/profile", () => {
         it("PATCH a student", async() => {
+            const expectedResponse = {
+                name: "John Doe",
+                _id: "17028@student.vgu.edu.vn",
+                email: "17028@student.vgu.edu.vn",
+                avatar: "https://example.com/avatar/johndoe.jpg",
+                phone_number: "0123456789",
+                major: "Business Administration",
+                intake: 2023
+            };
             const student = students[0];
             const accessToken = createAccessToken(student._id, "student");
             await api
                 .patch("/api/user/profile")
                 .send({
-                    major: "Business Administration",
-                    intake: 2023,
-                    phone_number: "0123456789"
+                    major: expectedResponse.major,
+                    intake: expectedResponse.intake,
+                    phone_number: expectedResponse.phone_number,
                 })
                 .set("Cookie", [`access_token=${accessToken}`])
                 .expect(200);
+            const updatedUser = await Student.findById(student._id);
+            expect(updatedUser).to.include(expectedResponse);
+        })
 
+        it("PATCH a lecturer", async() => {
+            const expectedResponse = {
+                name: "Dr. Sarah Lee",
+                _id: "sarahlee@example.com",
+                email: "sarahlee@example.com",
+                avatar: "https://example.com/avatar/sarahlee.jpg",
+                phone_number: "111-111-1112",
+                faculty: "Psychology"
+            };
+            const lecturer = lecturers[0];
+            const accessToken = createAccessToken(lecturer._id, "lecturer");
+            await api
+                .patch("/api/user/profile")
+                .send({
+                    phone_number: expectedResponse.phone_number,
+                    faculty: expectedResponse.faculty,
+                })
+                .set("Cookie", [`access_token=${accessToken}`])
+                .expect(200);
+            const updatedUser = await Lecturer.findById(lecturer._id);
+            expect(updatedUser).to.include(expectedResponse);
+        })
+
+        it("invalid patch", async() => {
+            const lecturer = lecturers[0];
+            const accessToken = createAccessToken(lecturer._id, "lecturer");
+            const res = await api
+                .patch("/api/user/profile")
+                .send({
+                    falcuty: "Psychology",
+                    major: "Psychology"
+                })
+                .set("Cookie", [`access_token=${accessToken}`])
+                .expect(400);
+            expect(res.text).to.be.equal("Invalid input");
+            const updatedUser = await Lecturer.findById(lecturer._id);
+            expect(updatedUser).to.include(lecturer);
         })
     })
 })
