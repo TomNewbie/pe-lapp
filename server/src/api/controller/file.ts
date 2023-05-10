@@ -41,18 +41,14 @@ const upload = async (req: FileRequest, res: Response, next: NextFunction) => {
 const remove = async (req: AuthRequest, res: Response, next: NextFunction) => {
   const { remove } = req.body;
 
-  const err = await fileService.remove(remove);
+  const err = await fileService.removeFirebase(remove);
   if (err) {
     res.status(500).send(err);
     return;
   }
   res.sendStatus(200);
 };
-const deleteTest = async (
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction
-) => {};
+
 const get = (req: AuthRequest, res: Response) => {
   const { url } = req.params;
   const fullUrl = join(filePath, url);

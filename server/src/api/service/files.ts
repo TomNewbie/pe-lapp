@@ -8,7 +8,12 @@ import {
   filePath,
   uploadLimit,
 } from "../../config/upload";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
 import { storageRef } from "../../config/firebase";
 import { randomUUID } from "crypto";
 import { NewFileType } from "../../utils/types";
@@ -25,10 +30,15 @@ const handleUpload = multer({
   },
   limits: uploadLimit,
 }).array(fileFields);
-const remove = async (remove: string[]): Promise<void | string> => {
+const removeFirebase = async (remove: string[]): Promise<void | string> => {
   if (!remove) return;
   try {
-    await Promise.all(remove.map((url: string) => unlink(join(filePath, url))));
+    await Promise.all(
+      remove.map((refPath: string) => {
+        const fileRef = ref(storageRef, refPath);
+        return deleteObject(fileRef);
+      })
+    );
   } catch (error) {
     return "file not exist";
   }
@@ -63,4 +73,4 @@ const uploadFirebase = async (
   });
   return result;
 };
-export const fileService = { handleUpload, remove, uploadFirebase };
+export const fileService = { handleUpload, removeFirebase, uploadFirebase };
