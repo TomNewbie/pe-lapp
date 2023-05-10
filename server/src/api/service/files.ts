@@ -8,15 +8,12 @@ import {
   filePath,
   uploadLimit,
 } from "../../config/upload";
-const storage = multer.diskStorage({
-  destination: filePath,
-  filename: (req, file, callback) => {
-    const { id } = req.params;
-    const fileName = id + "_" + Date.now() + path.extname(file.originalname);
-    callback(null, fileName);
-  },
-});
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storageRef } from "../../config/firebase";
+import { randomUUID } from "crypto";
+import { NewFileType } from "../../utils/types";
 
+const storage = multer.memoryStorage();
 const handleUpload = multer({
   storage: storage,
   fileFilter: function (req, file, callback) {
@@ -36,5 +33,34 @@ const remove = async (remove: string[]): Promise<void | string> => {
     return "file not exist";
   }
 };
-
-export const fileService = { handleUpload, remove };
+const uploadFirebase = async (
+  files: Express.Multer.File[]
+): Promise<NewFileType[] | undefined> => {
+  const metadata = {
+    contentType: files[0].mimetype,
+  };
+  let snapshots = await Promise.all(
+    files.map((file) =>
+      uploadBytes(
+        ref(
+          storageRef,
+          filePath + randomUUID() + path.extname(file.originalname)
+        ),
+        file.buffer,
+        metadata
+      )
+    )
+  );
+  const urls = await Promise.all(
+    snapshots.map((snapshot) => getDownloadURL(snapshot!.ref))
+  );
+  const result = snapshots.map((snapshot, index) => {
+    return {
+      url: urls[index],
+      refPath: snapshot?.metadata.fullPath!,
+      name: files[index].originalname,
+    };
+  });
+  return result;
+};
+export const fileService = { handleUpload, remove, uploadFirebase };

@@ -7,7 +7,9 @@ import { filePath } from "../../config/upload";
 import { join } from "path";
 import { existsSync } from "fs";
 
-const upload = (req: AuthRequest, res: Response, next: NextFunction) => {
+import { NewFileType } from "../../utils/types";
+
+const getFile = (req: AuthRequest, res: Response, next: NextFunction) => {
   fileService.handleUpload(req, res, function (err) {
     if (err instanceof multer.MulterError) {
       console.log(err.code);
@@ -20,7 +22,22 @@ const upload = (req: AuthRequest, res: Response, next: NextFunction) => {
     next();
   });
 };
-
+export interface FileRequest extends AuthRequest {
+  firebase?: NewFileType[];
+}
+const upload = async (req: FileRequest, res: Response, next: NextFunction) => {
+  const files = req.files as Express.Multer.File[];
+  if (!files) {
+    res.status(404).send("Missing files field");
+    return;
+  }
+  if (files.length === 0) {
+    next(); // no file in upload
+  }
+  const fileFilters = files.filter((file) => file.buffer);
+  req.firebase = await fileService.uploadFirebase(fileFilters);
+  next();
+};
 const remove = async (req: AuthRequest, res: Response, next: NextFunction) => {
   const { remove } = req.body;
 
@@ -31,7 +48,11 @@ const remove = async (req: AuthRequest, res: Response, next: NextFunction) => {
   }
   res.sendStatus(200);
 };
-
+const deleteTest = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {};
 const get = (req: AuthRequest, res: Response) => {
   const { url } = req.params;
   const fullUrl = join(filePath, url);
@@ -41,4 +62,4 @@ const get = (req: AuthRequest, res: Response) => {
   }
   res.status(200).sendFile(fullUrl);
 };
-export const fileController = { upload, remove, get };
+export const fileController = { upload, getFile, remove, get };
