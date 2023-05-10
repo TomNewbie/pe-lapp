@@ -101,7 +101,7 @@ describe("user API testing", () => {
             expect(updatedUser).to.include(expectedResponse);
         })
 
-        it("invalid patch", async() => {
+        it("invalid PATCH", async() => {
             const lecturer = lecturers[0];
             const accessToken = createAccessToken(lecturer._id, "lecturer");
             const res = await api
@@ -116,5 +116,26 @@ describe("user API testing", () => {
             const updatedUser = await Lecturer.findById(lecturer._id);
             expect(updatedUser).to.include(lecturer);
         })
+    })
+
+    describe("/api/student/:id", () => {
+        it("GET student profile", async() => {
+            const student = students[0];
+            const accessToken = createAccessToken(student._id, "student");
+            const res = await api
+                .get(`/api/student/${student._id}`)
+                .set("Cookie", [`access_token=${accessToken}`])
+                .expect(200);
+            expect(res.body).to.deep.equal(student);
+        }) 
+
+        it("invalid GET", async() => {
+            const id = "19992@student.vgu.edu.vn";
+            const accessToken = createAccessToken(id, "student");
+            await api
+                .get(`/api/student/${id}`)
+                .set("Cookie", [`access_token=${accessToken}`])
+                .expect(404);
+        }) 
     })
 })
