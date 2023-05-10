@@ -8,7 +8,7 @@ const TeacherCourseName = ({ name, semester }) => {
           backgroundImage: `url('../CourseName/teacher.png')`,
         }}
       >
-        <div className="h-8 mt-4 text-5xl place-self-center">{name}</div>
+        <p className="h-8 mt-4 text-5xl place-self-center">{name}</p>
         <div className="mb-4 text-3xl place-self-center">{semester}</div>
       </div>
     </div>

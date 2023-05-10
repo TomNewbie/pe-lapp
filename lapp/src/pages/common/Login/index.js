@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
-import { Footer } from "../../../components";
+import { useEffect } from "react";
 import { useAuth } from "../../../components/auth";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [user, setUser] = useState("thanh");
   const auth = useAuth();
+
   const navigate = useNavigate();
-  const location = useLocation();
-  const redirectPath = location.state?.path || "/allcourses";
+  useEffect(() => {
+    if (auth.user) {
+      navigate("/allcourses");
+    }
+  });
   const handleLogin = () => {
-    auth.login(user);
-    navigate(redirectPath, { replace: true });
+    auth.login();
   };
   return (
     <div>

@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "isolatedModules": true
+  }
+}
