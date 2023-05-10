@@ -128,7 +128,7 @@ const CoursePage = () => {
       )}
       <NavbarLecturer></NavbarLecturer>
       <TeacherCourseName
-        name={id + course.name}
+        name={id}
         semester={course.semester}
       ></TeacherCourseName>
       <div className="mt-8">

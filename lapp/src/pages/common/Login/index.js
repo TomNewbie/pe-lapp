@@ -1,10 +1,16 @@
-import { useEffect, useState } from "react";
-import { Footer } from "../../../components";
+import { useEffect } from "react";
 import { useAuth } from "../../../components/auth";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const auth = useAuth();
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (auth.user) {
+      navigate("/allcourses");
+    }
+  });
   const handleLogin = () => {
     auth.login();
   };

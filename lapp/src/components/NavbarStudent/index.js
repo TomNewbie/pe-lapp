@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth";
 import { useState } from "react";
 const NavbarStudent = () => {
@@ -9,7 +9,7 @@ const NavbarStudent = () => {
     navigate("/");
   };
   return (
-    <header className="bg-[#CC6666]/20">
+    <div className="bg-[#CC6666]/20">
       <nav className="relative flex items-center h-20 max-w-full">
         <div className="ml-8">
           <img src="/navbar_img/Logo.png" alt="logo" width={50} height={50} />
@@ -41,7 +41,8 @@ const NavbarStudent = () => {
           </button>
         </div>
       </nav>
-    </header>
+      <Outlet />
+    </div>
   );
 };
 

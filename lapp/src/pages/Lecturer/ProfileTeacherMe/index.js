@@ -13,7 +13,7 @@ const email = "htt.vgu.edu.vn";
 const faculty = "CSE";
 
 // This is a functional component for the profile page of a teacher.
-const ProfileTeacher = () => {
+const ProfileTeacherMe = () => {
   const [show, setShow] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [storePhoneNumber, setStorePhoneNumber] = useState("");
@@ -23,9 +23,7 @@ const ProfileTeacher = () => {
     setPhoneNumber(storePhoneNumber);
   };
   return (
-    <div className="h-screen overflow-y-hidden">
-      <NavbarLecturer></NavbarLecturer>
-
+    <div className="h-screen overflow-y-hidden bg-[#FFFAF0]">
       <div className="flex flex-row items-center justify-center mt-6 space-x-40">
         <div className="grid items-center grid-rows-2 mt-20 ml-60">
           <img src="/ProfileTeacher/avatar.png" alt="avatar" loading="lazy" />
@@ -115,4 +113,4 @@ const ProfileTeacher = () => {
   );
 };
 
-export default ProfileTeacher;
+export default ProfileTeacherMe;

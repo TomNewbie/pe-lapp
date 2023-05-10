@@ -6,24 +6,16 @@ import {
   CoursecardStudent,
   JoinCourse,
 } from "../../../components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAPI } from "../../../hooks/useAPI";
+import { Errorpage } from "../../common";
 /** Need to fetch:
  *  courses: {
     name: string;
     lecturer: string;
-    progress: string;
+    semester: string;
 }[]
  */
-const courses = [
-  { name: "1", lecturer: "HHH", progress: "80%" },
-  { name: "2", lecturer: "HHH", progress: "80%" },
-  { name: "3", lecturer: "HHH", progress: "80%" },
-  { name: "4", lecturer: "HHH", progress: "80%" },
-  { name: "5", lecturer: "HHH", progress: "80%" },
-  { name: "6", lecturer: "HHH", progress: "80%" },
-  { name: "7", lecturer: "HHH", progress: "80%" },
-  { name: "8", lecturer: "HHH", progress: "80%" },
-];
 
 // Component  which displays a list of courses that a student is enrolled in
 const AllCoursesStudent = () => {
@@ -37,6 +29,15 @@ const AllCoursesStudent = () => {
     }
     setModal(!modal);
   };
+  const { data: test, pending, error } = useAPI({ path: " /api/courses" });
+  console.log(test);
+  if (error) {
+    return <Errorpage />;
+  }
+  if (pending) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="relative">
       {modal && <JoinCourse handleClose={toggleModal}></JoinCourse>}
@@ -55,15 +56,11 @@ const AllCoursesStudent = () => {
       {/* Display all courses */}
       <div className="mt-8 ml-16 text-7xl">ALL COURSES</div>
       <div className="bg-[#F48F98]/50 grid grid-cols-4 grid-rows-2 mb-16 gap-x-32 gap-y-8 mx-16 rounded-2xl px-24 py-4">
-        {courses.map((course) => {
-          const link = "/course/" + course.name;
+        {test.map((course) => {
+          const link = "/course/" + course._id;
           return (
-            <Link to={link}>
-              <CoursecardStudent
-                courseName={course.name}
-                lecturerName={course.lecturer}
-                progress={course.progress}
-              ></CoursecardStudent>
+            <Link to={link} key={course._id}>
+              <CoursecardStudent course={course}></CoursecardStudent>
             </Link>
           );
         })}
