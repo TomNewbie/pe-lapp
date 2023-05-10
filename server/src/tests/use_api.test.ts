@@ -3,7 +3,7 @@ import supertest from "supertest";
 import app from "../app";
 import * as mongoServer from "./utils/memory_mongodb_helper";
 import {students, lecturers} from "./utils/initials";
-import { Student, Lecturer } from "../api/model/user";
+import { Student, Lecturer, LecturerType } from "../api/model/user";
 import { UserRole } from "../api/service/user";
 import jwt from "jsonwebtoken";
 
@@ -80,7 +80,7 @@ describe("user API testing", () => {
 
         it("PATCH a lecturer", async() => {
             const expectedResponse = {
-                name: "Dr. Sarah Lee",
+                name: "Sarah Lee",
                 _id: "sarahlee@example.com",
                 email: "sarahlee@example.com",
                 avatar: "https://example.com/avatar/sarahlee.jpg",
@@ -158,5 +158,40 @@ describe("user API testing", () => {
                 .set("Cookie", [`access_token=${accessToken}`])
                 .expect(404);
         }) 
+    })
+
+    describe("/api/lecturers?s={start}&n={num}", () => {
+        it("get all the lecturers", async() => {
+            const lecturer = lecturers[0];
+            const accessToken = createAccessToken(lecturer._id, "lecturer");
+            const response = await api
+                .get("/api/lecturers")
+                .set("Cookie", [`access_token=${accessToken}`])
+                .expect(200);
+            expect(response.body).to.have.length(lecturers.length);
+        })
+
+        it ("get all the lecturers from the 2nd lecturerer", async() => {
+            const start = 1;
+            const lecturer = lecturers[0];
+            const accessToken = createAccessToken(lecturer._id, "lecturer");
+            const response = await api
+                .get(`/api/lecturers?s=${start}`)
+                .set("Cookie", [`access_token=${accessToken}`])
+                .expect(200);
+            expect(response.body).to.have.length(lecturers.length - start);
+        })
+
+        it ("get 2 lecturers from the 1st lecturer", async() => {
+            const num = 2; 
+            const start = 0;
+            const lecturer = lecturers[0];
+            const accessToken = createAccessToken(lecturer._id, "lecturer");
+            const response = await api
+                .get(`/api/lecturers?s=${start}&n=${num}`)
+                .set("Cookie", [`access_token=${accessToken}`])
+                .expect(200);
+            expect(response.body).to.have.length(num);
+        })
     })
 })

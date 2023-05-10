@@ -1,6 +1,6 @@
 export const lecturers = [
     {
-      name: "Dr. Sarah Lee",
+      name: "Sarah Lee",
       _id: "sarahlee@example.com",
       email: "sarahlee@example.com",
       avatar: "https://example.com/avatar/sarahlee.jpg",
@@ -8,7 +8,7 @@ export const lecturers = [
       faculty: "Computer Science"
     },
     {
-      name: "Dr. Michael Johnson",
+      name: "Michael Johnson",
       _id: "michaeljohnson@example.com",
       email: "michaeljohnson@example.com",
       avatar: "https://example.com/avatar/michaeljohnson.jpg",
@@ -16,7 +16,7 @@ export const lecturers = [
       faculty: "Business Administration"
     },
     {
-      name: "Dr. Lisa Chen",
+      name: "Lisa Chen",
       _id: "lisachen@example.com",
       email: "lisachen@example.com",
       avatar: "https://example.com/avatar/lisachen.jpg",
