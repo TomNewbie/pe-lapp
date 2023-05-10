@@ -67,6 +67,7 @@ API for create content with specified course id
 Request
 
 Cookie: access_token=`<token>`
+enctype="multipart/form-data"
 
 ## Request Body
 
@@ -111,6 +112,7 @@ Cookie: access_token=`<token>`
     file?: Array<{
       name: string;
       url: string;
+      refPath: string;
     }>;
     body: string;
     createdAt: Date;

@@ -56,7 +56,7 @@ type contentPath = {
 const getAllFilePath = async (contentId: string) => {
   const result = await CourseContent.aggregate()
     .match({ _id: new mongoose.Types.ObjectId(contentId) })
-    .project({ "files.url": 1, _id: 0 })
+    .project({ "files.refPath": 1, _id: 0 })
     .unwind("files");
   // const result = await CourseContent.findOne({ _id: contentId });
   return result;

@@ -46,9 +46,6 @@ const removeFirebase = async (remove: string[]): Promise<void | string> => {
 const uploadFirebase = async (
   files: Express.Multer.File[]
 ): Promise<NewFileType[] | undefined> => {
-  const metadata = {
-    contentType: files[0].mimetype,
-  };
   let snapshots = await Promise.all(
     files.map((file) =>
       uploadBytes(
@@ -57,7 +54,9 @@ const uploadFirebase = async (
           filePath + randomUUID() + path.extname(file.originalname)
         ),
         file.buffer,
-        metadata
+        {
+          contentType: file.mimetype,
+        }
       )
     )
   );

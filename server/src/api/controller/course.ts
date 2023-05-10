@@ -203,12 +203,12 @@ const isInCourse = async (
 const getAllContent = async (req: AuthRequest, res: Response) => {
   const { id: courseId } = req.params;
   const result = await courseService.getAllContent(courseId);
-  if (result === CourseError.NOT_FOUND) {
-    res
-      .status(404)
-      .send(`Cannot find course "${courseId}" created by you to upload`);
-    return;
-  }
+  // if (result === CourseError.NOT_FOUND) {
+  //   res
+  //     .status(404)
+  //     .send(`Cannot find course "${courseId}"`);
+  //   return;
+  // }
   res.status(200).json(result);
 };
 

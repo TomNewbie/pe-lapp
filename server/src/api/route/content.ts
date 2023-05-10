@@ -13,12 +13,14 @@ router.delete(
 router.post(
   "/course/:id/content",
   courseController.verifyAuthorize,
+  fileController.getFile,
   fileController.upload,
   contentController.create
 );
 router.patch(
   "/course/:id/content/:course_content_id",
   contentController.verifyAuthorize,
+  fileController.getFile,
   fileController.upload,
   contentController.update
 );

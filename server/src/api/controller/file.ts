@@ -12,7 +12,7 @@ import { NewFileType } from "../../utils/types";
 const getFile = (req: AuthRequest, res: Response, next: NextFunction) => {
   fileService.handleUpload(req, res, function (err) {
     if (err instanceof multer.MulterError) {
-      console.log(err.code);
+      // console.log(err.code);
       res.status(400).send(err.code);
       return;
     } else if (err) {

@@ -354,11 +354,12 @@ const isInCourse = async (
   courseId: string
 ): Promise<void | CourseError.NOT_JOINED | CourseError.NOT_FOUND> => {
   if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
+  let res;
   if (role === "lecturer") {
-    const res = await Course.findOne({ _id: courseId, lecturer_id: userId });
-    if (!res) return CourseError.NOT_JOINED;
+    res = await Course.findOne({ _id: courseId, lecturer_id: userId });
+  } else {
+    res = await Course.findOne({ _id: courseId, participants: userId });
   }
-  const res = await Course.findOne({ _id: courseId, participants: userId });
   if (!res) return CourseError.NOT_JOINED;
 };
 // console.log(isInCourse("student", "huhu", "6435878ffd053fc269ba4c89"));
