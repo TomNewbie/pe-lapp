@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  test_server:
+    build: .
+    image: lapp_backend_test
+    container_name: lapp_backend_test
+    env_file:
+      - ./.env
+
