@@ -1,16 +1,15 @@
 import { NextFunction, Request, Response } from "express";
 import { ContentError, contentService } from "../service/content";
 import { AuthRequest } from "./auth";
-import { CourseError, courseService } from "../service/course";
+import { courseService } from "../service/course";
 import { fileService } from "../service/files";
-import { error } from "console";
-import { FileRequest, fileController } from "./file";
-import { FileType, NewFileType } from "../../utils/types";
+import { FileRequest } from "./file";
+import { FileType } from "../../utils/types";
 
 const create = async (req: FileRequest, res: Response, next: NextFunction) => {
   const { id: courseId } = req.params;
   const { title, body } = req.body;
-  const files = req.firebase as NewFileType[];
+  const files = req.firebase as FileType[];
   if (!title) {
     res.status(400).send("Missing Title");
     fileService.removeFirebase(files.map((file) => file.refPath));
@@ -59,7 +58,7 @@ const update = async (req: FileRequest, res: Response) => {
   await fileService.removeFirebase(remove);
   // delete all files in remove
   let updateFiles = files.filter(
-    (file: NewFileType) => !remove.includes(file.refPath)
+    (file: FileType) => !remove.includes(file.refPath)
   );
   // if user dont upload new file
   if (!req.firebase) {
@@ -71,7 +70,7 @@ const update = async (req: FileRequest, res: Response) => {
     res.sendStatus(200);
     return;
   }
-  const newFiles = req.firebase as NewFileType[];
+  const newFiles = req.firebase as FileType[];
   // add new files
   updateFiles = updateFiles.concat(newFiles);
   await contentService.update(course_content_id, {

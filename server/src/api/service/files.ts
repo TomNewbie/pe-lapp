@@ -16,7 +16,7 @@ import {
 } from "firebase/storage";
 import { storageRef } from "../../config/firebase";
 import { randomUUID } from "crypto";
-import { NewFileType } from "../../utils/types";
+import { FileType } from "../../utils/types";
 
 const storage = multer.memoryStorage();
 const handleUpload = multer({
@@ -45,7 +45,7 @@ const removeFirebase = async (refPaths: string[]): Promise<void | string> => {
 };
 const uploadFirebase = async (
   files: Express.Multer.File[]
-): Promise<NewFileType[] | undefined> => {
+): Promise<FileType[] | undefined> => {
   let snapshots = await Promise.all(
     files.map((file) =>
       uploadBytes(

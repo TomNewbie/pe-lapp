@@ -7,7 +7,7 @@ import { filePath } from "../../config/upload";
 import { join } from "path";
 import { existsSync } from "fs";
 
-import { NewFileType } from "../../utils/types";
+import { FileType } from "../../utils/types";
 
 const getFile = (req: AuthRequest, res: Response, next: NextFunction) => {
   fileService.handleUpload(req, res, function (err) {
@@ -23,7 +23,7 @@ const getFile = (req: AuthRequest, res: Response, next: NextFunction) => {
   });
 };
 export interface FileRequest extends AuthRequest {
-  firebase?: NewFileType[];
+  firebase?: FileType[];
 }
 const upload = async (req: FileRequest, res: Response, next: NextFunction) => {
   const files = req.files as Express.Multer.File[];

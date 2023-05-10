@@ -9,7 +9,7 @@ import {
 } from "../service/exercise";
 import mongoose, { Types } from "mongoose";
 import { fileService } from "../service/files";
-import { FileType, NewFileType } from "../../utils/types";
+import { FileType } from "../../utils/types";
 import { FileRequest } from "./file";
 const getAllExercises = async (req: AuthRequest, res: Response) => {
   const { id: courseId } = req.params;
@@ -34,7 +34,7 @@ const createExercise = async (req: FileRequest, res: Response) => {
   const { name, deadline, description } = req.body;
   const { id: courseId } = req.params;
   const lecturer = req.user!._id;
-  const files = req.firebase as NewFileType[];
+  const files = req.firebase as FileType[];
   if (!name) {
     res.status(400).send("Missing name");
     fileService.removeFirebase(files.map((file) => file.refPath));
@@ -84,7 +84,7 @@ const editExercise = async (req: FileRequest, res: Response) => {
   await fileService.removeFirebase(remove);
   // delete all files in remove
   let updateFiles = files.filter(
-    (file: NewFileType) => !remove.includes(file.refPath)
+    (file: FileType) => !remove.includes(file.refPath)
   );
   // if user dont upload new file
   if (!req.files) {
@@ -97,7 +97,7 @@ const editExercise = async (req: FileRequest, res: Response) => {
     res.sendStatus(200);
     return;
   }
-  const newFiles = req.firebase as NewFileType[];
+  const newFiles = req.firebase as FileType[];
   // add new files
 
   updateFiles = updateFiles.concat(newFiles);
@@ -149,18 +149,15 @@ const verifyAuthorize = async (
   }
   next();
 };
-const createSolution = async (req: AuthRequest, res: Response) => {
+const createSolution = async (req: FileRequest, res: Response) => {
   const studentId = req.user!._id;
   const { id: exerciseId } = req.params;
-  const files = req.files as Express.Multer.File[];
+  const files = req.firebase as FileType[];
   if (files.length === 0) {
     res.status(404).send("Missing file");
     return;
   }
-  const filesFilter = files.map((file) => {
-    return { name: file.originalname, url: file.filename };
-  });
-  await exerciseService.createSolution(studentId, exerciseId, filesFilter);
+  await exerciseService.createSolution(studentId, exerciseId, files);
   res.sendStatus(201);
 };
 const verifyOwner = async (
