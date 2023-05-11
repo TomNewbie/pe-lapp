@@ -288,6 +288,25 @@ const verifyOwner = async (lecturerId: string, exerciseId: string) => {
   if (!result) return Exercise_ErrorType.NOT_FOUND;
 };
 // addGrade("6453e5b3c027dda9947cc2de", "huhu", 70);
+const getAllFilePath = async (exerciseId: string) => {
+  // get all ref path in exercise solution
+  const result = await Exercise.aggregate()
+    .match({
+      _id: new Types.ObjectId(exerciseId),
+    })
+    .lookup({
+      from: "solutions",
+      localField: "_id",
+      foreignField: "_id.exercise",
+      as: "solution",
+    })
+    .unwind("files")
+    .project({ solution: 1, _id: 0 });
+  // const result = await CourseContent.findOne({ _id: contentId });
+  // return result;
+  console.log(result);
+};
+getAllFilePath("645bd287b84013ab0df85f3e");
 export const exerciseService = {
   create,
   verifyAuthorize,
@@ -299,4 +318,5 @@ export const exerciseService = {
   getStudentViewDetail,
   addGrade,
   verifyOwner,
+  getAllFilePath,
 };

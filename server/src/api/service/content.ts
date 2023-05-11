@@ -58,9 +58,11 @@ const getAllFilePath = async (contentId: string) => {
     .match({ _id: new mongoose.Types.ObjectId(contentId) })
     .project({ "files.refPath": 1, _id: 0 })
     .unwind("files");
+  console.log(result);
   // const result = await CourseContent.findOne({ _id: contentId });
   return result;
 };
+// getAllFilePath("645b57050eeae6de9c52cfac");
 export const contentService = {
   create,
   remove,

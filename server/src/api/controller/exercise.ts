@@ -129,7 +129,10 @@ const addGrade = async (req: AuthRequest, res: Response) => {
   res.sendStatus(204);
 };
 
-const deleteExercise = () => {};
+// const remove = async (req: AuthRequest, res: Response) => {
+//   const { id: exerciseId } = req.params;
+//   const filePaths = await exerciseService.getAllFilePath(exerciseId);
+// };
 const verifyAuthorize = async (
   req: AuthRequest,
   res: Response,
@@ -186,7 +189,7 @@ export const exerciseController = {
   getAllExercises,
   createExercise,
   addGrade,
-  deleteExercise,
+  // remove,
   editExercise,
   getDetail,
   verifyOwner,
