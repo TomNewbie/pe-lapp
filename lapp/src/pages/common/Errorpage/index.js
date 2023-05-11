@@ -1,12 +1,13 @@
-/**
- * Component that displays an error message with a title and a description.
- * This component can be used to show an error page in a React application when something goes wrong.
- */
 const Errorpage = () => {
   return (
-    <div className="text-4xl text-center text-red-600">
-      <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
+    <div className="bg-[#FFFAF0]">
+      <lottie-player
+        src="https://assets1.lottiefiles.com/packages/lf20_yCCORfUI6a.json"
+        speed="0.4"
+        width="300px"
+        height="300px"
+        loop
+        autoplay></lottie-player>
     </div>
   );
 };
