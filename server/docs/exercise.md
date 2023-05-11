@@ -45,16 +45,15 @@ Create an exercise
 - Header  
   Cookie: access_token=`<token>`
 
+  Content-Type="multipart/form-data"
+
 - Body
 
 ```ts
 {
   name: string;
   deadline: Date;
-  files?: Array<{
-    name: string,
-    url: string
-  }>,
+  files?: File[]
   description: string;
 }
 ```
@@ -138,6 +137,8 @@ Edit exercise by specify id. **Not modify files yet**
 - Header  
   Cookie: access_token=`<token>`
 
+  Content-Type="multipart/form-data"
+
 - Body
 
 ```ts
@@ -145,11 +146,8 @@ Edit exercise by specify id. **Not modify files yet**
   name?: string;
   deadline?: Date;
   description?: string;
-  files?: Array<{
-    name: string,
-    url: string
-  }>,
-  remove?: url[]
+  remove?: url[];
+  files?: File[]
 }
 ```
 
@@ -204,16 +202,15 @@ Create solution
 ## Request
 
 - Header  
-  Authorization: Bearer `token`
+   Authorization: Bearer `token`
+
+  Content-Type="multipart/form-data"
 
 - Body
 
 ```ts
 {
-  files: Array<{
-    name: string;
-    url: string;
-  }>;
+  files: File[]
 }
 ```
 

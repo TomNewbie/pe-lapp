@@ -11,14 +11,14 @@ import cookieParser from "cookie-parser";
 import { clientRouter } from "./client/route";
 import morgan from "morgan";
 
-
-
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
+app.use(
+  morgan(":method :url :status :res[content-length] - :response-time ms")
+);
 
 // Serve the API routes
 app.use("/api", apiRouter);
