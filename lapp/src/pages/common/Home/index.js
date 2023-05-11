@@ -1,4 +1,5 @@
 import { Footer, KeyFeature } from "../../../components";
+import FeedbackSection from "../../../components/Feedback";
 import Login from "../Login";
 /**
  * Component that represents the home page of the application.
@@ -11,6 +12,7 @@ const Home = () => {
       <div className="flex justify-center mt-40 mb-12">
         <KeyFeature />
       </div>
+      <FeedbackSection />
       <Footer></Footer>
     </div>
   );
