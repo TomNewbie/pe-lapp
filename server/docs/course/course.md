@@ -1,3 +1,32 @@
+# [GET] /api/course/:id
+
+Get detail of a course.
+
+Request
+
+Cookie: access_token=`<token>`
+
+## Response
+
+200 -> Return json
+
+```ts
+type Response = {
+  _id: string;
+  name: string;
+  semester?: string;
+  picture: string;
+  lecturer: {
+    _id: string;
+    name: string;
+  };
+};
+```
+
+_Error:_
+
+- 404: Course not found
+
 # [PATCH] /api/course/:id
 
 Patch a course

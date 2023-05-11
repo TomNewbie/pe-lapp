@@ -107,16 +107,16 @@ const getLecturerViewDetail = async (
       from: "students",
       localField: "solutionFields._id.student",
       foreignField: "_id",
-      as: "studentHehe",
+      as: "students",
     })
-    .unwind("studentHehe")
+    .unwind("students")
     .project({
       _id: 1,
       name: 1,
       deadline: 1,
       description: 1,
       exercise_files: "$files",
-      student: { name: "$studentHehe.name", id: "$studentHehe._id" },
+      student: { name: "$students.name", id: "$students._id" },
       submit_time: "$solutionFields.createdAt",
       file: "$solutionFields.files",
       grade: "$solutionFields.grade",
@@ -139,8 +139,8 @@ const getLecturerViewDetail = async (
       },
     });
   if (!exercises) return Exercise_ErrorType.NOT_FOUND;
-
-  return { ...exercises._id, solutions: exercises.solutions };
+  const result = { ...exercises._id, solutions: exercises.solutions };
+  return result;
 };
 const getStudentViewDetail = async (exerciseId: string, studentId: string) => {
   const [exercises] = await Exercise.aggregate()
@@ -179,7 +179,6 @@ const getStudentViewDetail = async (exerciseId: string, studentId: string) => {
   if (exercises.solution.length === 0) {
     exercises.submitted = false;
     delete exercises.solution;
-    console.log(exercises);
     return exercises;
   }
   exercises.submitted = true;
@@ -252,13 +251,13 @@ const getLecturerViewExercise = async (
       as: "solution",
     })
     .addFields({
-      participant_count: { $size: "$solution" },
+      submission_count: { $size: "$solution" },
     })
     .project({
       name: 1,
       _id: 1,
       deadline: 1,
-      participant_count: 1,
+      submission_count: 1,
     });
   if (exercises.length === 0) {
     return Exercise_ErrorType.NOT_FOUND;
@@ -268,7 +267,8 @@ const getLecturerViewExercise = async (
 // console.log("asdasdasd");
 // getLecturerViewDetail("6453e5b3c027dda9947cc2de", "god");
 // getStudentViewExercise("6435878ffd053fc269ba4c89", "huhu");
-// getStudentViewDetail("6451f45011a6cb2c92fcef41", "huhu");
+// getLecturerViewExercise("6435878ffd053fc269ba4c89", "god");
+// getStudentViewDetail("6453e5b3c027dda9947cc2de", "17232");
 const addGrade = async (
   exerciseId: string,
   studentId: string,
@@ -288,6 +288,25 @@ const verifyOwner = async (lecturerId: string, exerciseId: string) => {
   if (!result) return Exercise_ErrorType.NOT_FOUND;
 };
 // addGrade("6453e5b3c027dda9947cc2de", "huhu", 70);
+const getAllFilePath = async (exerciseId: string) => {
+  // get all ref path in exercise solution
+  const result = await Exercise.aggregate()
+    .match({
+      _id: new Types.ObjectId(exerciseId),
+    })
+    .lookup({
+      from: "solutions",
+      localField: "_id",
+      foreignField: "_id.exercise",
+      as: "solution",
+    })
+    .unwind("files")
+    .project({ solution: 1, _id: 0 });
+  // const result = await CourseContent.findOne({ _id: contentId });
+  // return result;
+  console.log(result);
+};
+getAllFilePath("645bd287b84013ab0df85f3e");
 export const exerciseService = {
   create,
   verifyAuthorize,
@@ -299,4 +318,5 @@ export const exerciseService = {
   getStudentViewDetail,
   addGrade,
   verifyOwner,
+  getAllFilePath,
 };

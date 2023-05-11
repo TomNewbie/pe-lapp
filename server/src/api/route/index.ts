@@ -1,13 +1,22 @@
-import { Request, Response, Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 import { authRouter } from "./auth";
 import { userRouter } from "./user";
 import { courseRouter } from "./course";
 import { contentRouter } from "./content";
-import { fileController } from "../controller/file";
+import { FileRequest, fileController } from "../controller/file";
 import { exerciseRouter } from "./exercise";
 
 const router = Router();
-
+router.post(
+  "/test",
+  fileController.getFile,
+  fileController.upload,
+  async (req: FileRequest, res: Response) => {
+    // console.log(req.files);
+    console.log(req.firebase);
+    res.status(200).send(req.firebase);
+  }
+);
 router.use(authRouter);
 router.use(exerciseRouter);
 router.use(userRouter);

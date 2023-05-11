@@ -8,12 +8,14 @@ const router = Router();
 router.post(
   "/course/:id/exercise",
   courseController.verifyAuthorize,
+  fileController.getFile,
   fileController.upload,
   exerciseController.createExercise
 );
 router.post(
   "/exercises/:id",
   exerciseController.verifyAuthorize,
+  fileController.getFile,
   fileController.upload,
   exerciseController.createSolution
 );
@@ -23,12 +25,22 @@ router.get(
   // exerciseController.verifyAuthorize,
   exerciseController.getDetail
 );
-// router.patch("/exercises/:id", exerciseController.editExercise);
+router.patch(
+  "/exercises/:id",
+  exerciseController.verifyOwner,
+  fileController.getFile,
+  fileController.upload,
+  exerciseController.editExercise
+);
 router.patch(
   "/exercises/:id/students/:studentId",
   exerciseController.verifyOwner,
   exerciseController.addGrade
 );
-// router.delete("/exercises/:id", exerciseController.deleteExercise);
+// router.delete(
+//   "/exercises/:id",
+//   exerciseController.verifyOwner,
+//   exerciseController.remove
+// );
 
 export { router as exerciseRouter };

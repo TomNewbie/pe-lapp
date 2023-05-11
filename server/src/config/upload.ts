@@ -19,6 +19,6 @@ export const uploadLimit = {
   fieldSize: 256, // text limit
 };
 
-export const filePath = path.join(__dirname, "..", "..", "upload");
+export const filePath = "/test/";
 // console.log(filePath);
 export const fileFields = "files"; // field name that contain file

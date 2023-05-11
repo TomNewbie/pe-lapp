@@ -1,32 +1,28 @@
 import { NextFunction, Request, Response } from "express";
 import { ContentError, contentService } from "../service/content";
 import { AuthRequest } from "./auth";
-import { CourseError, courseService } from "../service/course";
+import { courseService } from "../service/course";
 import { fileService } from "../service/files";
-import { error } from "console";
-import { fileController } from "./file";
+import { FileRequest } from "./file";
 import { FileType } from "../../utils/types";
 
-const create = async (req: AuthRequest, res: Response, next: NextFunction) => {
+const create = async (req: FileRequest, res: Response, next: NextFunction) => {
   const { id: courseId } = req.params;
   const { title, body } = req.body;
-  const files = req.files as Express.Multer.File[];
-  const filesFilter = files.map((file) => {
-    return { name: file.originalname, url: file.filename };
-  });
+  const files = req.firebase as FileType[];
   if (!title) {
     res.status(400).send("Missing Title");
-    fileService.remove(filesFilter.map((file) => file.url));
+    fileService.removeFirebase(files.map((file) => file.refPath));
     return;
   }
   if (!body) {
     res.status(400).send("Missing Body");
-    fileService.remove(filesFilter.map((file) => file.url));
+    fileService.removeFirebase(files.map((file) => file.refPath));
     return;
   }
   const contentId = await contentService.create({
     title,
-    files: filesFilter,
+    files,
     body,
   });
   await courseService.addContent(courseId, contentId!);
@@ -55,17 +51,17 @@ const verifyAuthorize = async (
   next();
 };
 
-const update = async (req: AuthRequest, res: Response, next: NextFunction) => {
+const update = async (req: FileRequest, res: Response) => {
   const { remove, title, files, body } = req.body;
   const { course_content_id } = req.params;
 
-  await fileService.remove(remove);
+  await fileService.removeFirebase(remove);
   // delete all files in remove
   let updateFiles = files.filter(
-    (file: FileType) => !remove.includes(file.url)
+    (file: FileType) => !remove.includes(file.refPath)
   );
   // if user dont upload new file
-  if (!req.files) {
+  if (!req.firebase) {
     await contentService.update(course_content_id, {
       title,
       body,
@@ -74,9 +70,7 @@ const update = async (req: AuthRequest, res: Response, next: NextFunction) => {
     res.sendStatus(200);
     return;
   }
-  const newFiles = (req.files as Express.Multer.File[]).map((file) => {
-    return { name: file.originalname, url: file.filename };
-  });
+  const newFiles = req.firebase as FileType[];
   // add new files
   updateFiles = updateFiles.concat(newFiles);
   await contentService.update(course_content_id, {
@@ -95,11 +89,12 @@ const remove = async (req: AuthRequest, res: Response, next: NextFunction) => {
     await Promise.all([
       contentService.remove(course_content_id),
       courseService.removeContent(courseId, course_content_id),
-      fileService.remove(filePaths.map(({ files }) => files.url)),
+      fileService.removeFirebase(filePaths.map(({ files }) => files.refPath)),
     ]);
     res.sendStatus(200);
-  } catch (error) {}
-  next(error);
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const contentController = {

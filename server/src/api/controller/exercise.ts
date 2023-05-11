@@ -10,6 +10,7 @@ import {
 import mongoose, { Types } from "mongoose";
 import { fileService } from "../service/files";
 import { FileType } from "../../utils/types";
+import { FileRequest } from "./file";
 const getAllExercises = async (req: AuthRequest, res: Response) => {
   const { id: courseId } = req.params;
   const { role, _id: userId } = req.user!;
@@ -29,35 +30,31 @@ const getAllExercises = async (req: AuthRequest, res: Response) => {
   res.status(200).json(result);
 };
 
-const createExercise = async (req: AuthRequest, res: Response) => {
+const createExercise = async (req: FileRequest, res: Response) => {
   const { name, deadline, description } = req.body;
   const { id: courseId } = req.params;
   const lecturer = req.user!._id;
-  const files = req.files as Express.Multer.File[];
-  const filesFilter = files.map((file) => {
-    return { name: file.originalname, url: file.filename };
-  });
+  const files = req.firebase as FileType[];
   if (!name) {
     res.status(400).send("Missing name");
-    fileService.remove(filesFilter.map((file) => file.url));
+    fileService.removeFirebase(files.map((file) => file.refPath));
     return;
   }
   if (!description) {
     res.status(400).send("Missing description");
-    fileService.remove(filesFilter.map((file) => file.url));
+    fileService.removeFirebase(files.map((file) => file.refPath));
     return;
   }
   if (!deadline) {
     res.status(400).send("Missing Deadline");
-    fileService.remove(filesFilter.map((file) => file.url));
+    fileService.removeFirebase(files.map((file) => file.refPath));
     return;
   }
-  // const result = await
   await exerciseService.create({
     course: new mongoose.Types.ObjectId(courseId),
     deadline,
     description,
-    files: filesFilter,
+    files,
     lecturer,
     name,
   });
@@ -80,14 +77,14 @@ const getDetail = async (req: AuthRequest, res: Response) => {
   res.status(200).json(result);
 };
 
-const editExercise = async (req: AuthRequest, res: Response) => {
+const editExercise = async (req: FileRequest, res: Response) => {
   const { remove, name, files, description, deadline } = req.body;
   const { id: exerciseId } = req.params;
 
-  await fileService.remove(remove);
+  await fileService.removeFirebase(remove);
   // delete all files in remove
   let updateFiles = files.filter(
-    (file: FileType) => !remove.includes(file.url)
+    (file: FileType) => !remove.includes(file.refPath)
   );
   // if user dont upload new file
   if (!req.files) {
@@ -100,10 +97,9 @@ const editExercise = async (req: AuthRequest, res: Response) => {
     res.sendStatus(200);
     return;
   }
-  const newFiles = (req.files as Express.Multer.File[]).map((file) => {
-    return { name: file.originalname, url: file.filename };
-  });
+  const newFiles = req.firebase as FileType[];
   // add new files
+
   updateFiles = updateFiles.concat(newFiles);
   await exerciseService.update(exerciseId, {
     name,
@@ -114,11 +110,7 @@ const editExercise = async (req: AuthRequest, res: Response) => {
   res.sendStatus(200);
 };
 
-const addGrade = async (
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction
-) => {
+const addGrade = async (req: AuthRequest, res: Response) => {
   const { grade } = req.body;
   const { id: exerciseId, studentId } = req.params;
   if (isNaN(grade)) {
@@ -137,7 +129,10 @@ const addGrade = async (
   res.sendStatus(204);
 };
 
-const deleteExercise = () => {};
+// const remove = async (req: AuthRequest, res: Response) => {
+//   const { id: exerciseId } = req.params;
+//   const filePaths = await exerciseService.getAllFilePath(exerciseId);
+// };
 const verifyAuthorize = async (
   req: AuthRequest,
   res: Response,
@@ -157,18 +152,15 @@ const verifyAuthorize = async (
   }
   next();
 };
-const createSolution = async (req: AuthRequest, res: Response) => {
+const createSolution = async (req: FileRequest, res: Response) => {
   const studentId = req.user!._id;
   const { id: exerciseId } = req.params;
-  const files = req.files as Express.Multer.File[];
+  const files = req.firebase as FileType[];
   if (files.length === 0) {
     res.status(404).send("Missing file");
     return;
   }
-  const filesFilter = files.map((file) => {
-    return { name: file.originalname, url: file.filename };
-  });
-  await exerciseService.createSolution(studentId, exerciseId, filesFilter);
+  await exerciseService.createSolution(studentId, exerciseId, files);
   res.sendStatus(201);
 };
 const verifyOwner = async (
@@ -197,7 +189,7 @@ export const exerciseController = {
   getAllExercises,
   createExercise,
   addGrade,
-  deleteExercise,
+  // remove,
   editExercise,
   getDetail,
   verifyOwner,

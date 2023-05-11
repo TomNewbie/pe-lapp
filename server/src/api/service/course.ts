@@ -107,6 +107,45 @@ async function getCoursesOfUser(
   return await courses;
 }
 
+type GetCourseResponse = {
+  _id: string;
+  name: string;
+  semester?: string;
+  picture: string;
+  lecturer: {
+    _id: string;
+    name: string;
+  };
+};
+
+async function getCourseById(
+  id: string
+): Promise<GetCourseResponse | CourseError.NOT_FOUND> {
+  if (!isValidObjectId(id)) return CourseError.NOT_FOUND;
+
+  const [course] = await Course.aggregate()
+    .match({ _id: new Types.ObjectId(id) })
+    .lookup({
+      from: "lecturers",
+      localField: "lecturer_id",
+      foreignField: "_id",
+      as: "lecturer",
+    })
+    .unwind("$lecturer")
+    .project({
+      _id: 1,
+      name: 1,
+      semester: 1,
+      picture: 1,
+      lecturer: {
+        _id: 1,
+        name: 1,
+      },
+    });
+
+  return course ?? CourseError.NOT_FOUND;
+}
+
 export enum CourseError {
   NOT_FOUND,
   INVALID_INPUT,
@@ -287,7 +326,7 @@ const removeContent = async (courseId: string, contentId: string) => {
 
 const getAllContent = async (
   courseId: string
-): Promise<teacherViewContent[] | CourseError.NOT_FOUND> => {
+): Promise<CourseContentType[] | CourseError.NOT_FOUND> => {
   if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
   const res = await Course.aggregate()
     .match({
@@ -301,22 +340,35 @@ const getAllContent = async (
     })
     .project({
       _id: 0,
-      participants: 0,
-      contents: 0,
-      __v: 0,
-    })
-    .exec();
+      contentFile: 1,
+      // __v: 0,
+    });
   if (res.length === 0) {
     return CourseError.NOT_FOUND;
   }
-  console.log(res);
-  return res;
+  return res[0].contentFile;
 };
+const isInCourse = async (
+  role: "student" | "lecturer",
+  userId: string,
+  courseId: string
+): Promise<void | CourseError.NOT_JOINED | CourseError.NOT_FOUND> => {
+  if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
+  let res;
+  if (role === "lecturer") {
+    res = await Course.findOne({ _id: courseId, lecturer_id: userId });
+  } else {
+    res = await Course.findOne({ _id: courseId, participants: userId });
+  }
+  if (!res) return CourseError.NOT_JOINED;
+};
+// console.log(isInCourse("student", "huhu", "6435878ffd053fc269ba4c89"));
 export const courseService = {
   create,
   update,
   joinCourse,
   getCoursesOfUser,
+  getCourseById,
   getParticipants,
   addParticipant,
   removeParticipant,
@@ -324,4 +376,5 @@ export const courseService = {
   addContent,
   removeContent,
   getAllContent,
+  isInCourse,
 };

@@ -16,6 +16,10 @@ const exercise = new Schema(
           type: String,
           required: true,
         },
+        refPath: {
+          type: String,
+          required: true,
+        },
         _id: false,
       },
     ],
