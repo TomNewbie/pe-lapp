@@ -9,28 +9,7 @@ const create = async (
   const a = await Exercise.create(exercise);
   console.log(a);
 };
-const verifyAuthorize = async (studentId: string, exerciseId: string) => {
-  const [exercise] = await Exercise.aggregate()
-    .match({ _id: new mongoose.Types.ObjectId(exerciseId) })
-    .lookup({
-      from: "courses",
-      localField: "course",
-      foreignField: "_id",
-      as: "course",
-    })
-    .match({ "course.participants": studentId });
-  if (!exercise) return Exercise_ErrorType.NOT_FOUND;
-};
-const createSolution = async (
-  studentId: string,
-  exerciseId: string,
-  file: FileType[]
-): Promise<void> => {
-  await Solution.create({
-    _id: { student: studentId, exercise: exerciseId },
-    files: file,
-  });
-};
+
 const update = async (
   exerciseId: string,
   {
@@ -48,6 +27,7 @@ const update = async (
 };
 export enum Exercise_ErrorType {
   NOT_FOUND,
+  SOLUTION_EXIST,
 }
 export type StudentViewExercise = Array<{
   name: string;
@@ -269,18 +249,8 @@ const getLecturerViewExercise = async (
 // getStudentViewExercise("6435878ffd053fc269ba4c89", "huhu");
 // getLecturerViewExercise("6435878ffd053fc269ba4c89", "god");
 // getStudentViewDetail("6453e5b3c027dda9947cc2de", "17232");
-const addGrade = async (
-  exerciseId: string,
-  studentId: string,
-  grade: number
-) => {
-  const result = await Solution.updateOne(
-    { "_id.student": studentId, "_id.exercise": exerciseId },
-    { grade }
-  );
-  if (result.matchedCount === 0) return Exercise_ErrorType.NOT_FOUND;
-};
-const verifyOwner = async (lecturerId: string, exerciseId: string) => {
+
+const verifyAuthorize = async (lecturerId: string, exerciseId: string) => {
   const result = await Exercise.findOne({
     _id: exerciseId,
     lecturer: lecturerId,
@@ -306,17 +276,14 @@ const getAllFilePath = async (exerciseId: string) => {
   // return result;
   console.log(result);
 };
-getAllFilePath("645bd287b84013ab0df85f3e");
+// getAllFilePath("645bd287b84013ab0df85f3e");
 export const exerciseService = {
   create,
   verifyAuthorize,
-  createSolution,
   update,
   getStudentViewExercise,
   getLecturerViewExercise,
   getLecturerViewDetail,
   getStudentViewDetail,
-  addGrade,
-  verifyOwner,
   getAllFilePath,
 };
