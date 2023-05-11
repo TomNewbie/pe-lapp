@@ -33,13 +33,20 @@ const verifyAuthorize = async (
   }
   const studentId = req.user!._id;
   const { id: exerciseId } = req.params;
-  const err = await exerciseService.verifyAuthorize(studentId, exerciseId);
-  if (err === Exercise_ErrorType.NOT_FOUND) {
-    res
-      .status(404)
-      .send(`Exercise ${exerciseId} not found in student ${studentId}`);
-    return;
+  const err = await solutionService.verifyAuthorize(studentId, exerciseId);
+  switch (err) {
+    case Exercise_ErrorType.NOT_FOUND: {
+      res
+        .status(404)
+        .send(`Exercise ${exerciseId} not found in student ${studentId}`);
+      return;
+    }
+    case Exercise_ErrorType.SOLUTION_EXIST: {
+      res.status(404).send(`Already send solution`);
+      return;
+    }
   }
+
   next();
 };
 const createSolution = async (req: FileRequest, res: Response) => {

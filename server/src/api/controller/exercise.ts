@@ -126,7 +126,7 @@ const verifyAuthorize = async (
     res.status(401).send("Unauthorize");
     return;
   }
-  const err = await exerciseService.verifyOwner(lecturerId, exerciseId);
+  const err = await exerciseService.verifyAuthorize(lecturerId, exerciseId);
   if (err === Exercise_ErrorType.NOT_FOUND) {
     res
       .status(401)
