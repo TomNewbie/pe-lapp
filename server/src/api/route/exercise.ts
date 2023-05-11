@@ -2,6 +2,7 @@ import { Router } from "express";
 import { exerciseController } from "../controller/exercise";
 import { courseController } from "../controller/course";
 import { fileController } from "../controller/file";
+import { solutionController } from "../controller/solution";
 
 const router = Router();
 
@@ -14,10 +15,10 @@ router.post(
 );
 router.post(
   "/exercises/:id",
-  exerciseController.verifyAuthorize,
+  solutionController.verifyAuthorize,
   fileController.getFile,
   fileController.upload,
-  exerciseController.createSolution
+  solutionController.createSolution
 );
 router.get("/course/:id/exercises", exerciseController.getAllExercises);
 router.get(
@@ -27,15 +28,15 @@ router.get(
 );
 router.patch(
   "/exercises/:id",
-  exerciseController.verifyOwner,
+  exerciseController.verifyAuthorize,
   fileController.getFile,
   fileController.upload,
   exerciseController.editExercise
 );
 router.patch(
   "/exercises/:id/students/:studentId",
-  exerciseController.verifyOwner,
-  exerciseController.addGrade
+  exerciseController.verifyAuthorize,
+  solutionController.addGrade
 );
 // router.delete(
 //   "/exercises/:id",
