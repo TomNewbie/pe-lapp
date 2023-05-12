@@ -25,14 +25,7 @@ import { NavbarLecturer, NavbarStudent } from "./components/index.js";
 function App() {
   const auth = useAuth();
   const role = auth.user?.role;
-  const user = {
-    name: "Kim Thanh",
-    role: "lecturer",
-    email: "sd@gmail.com",
-    avatar: "/ProfileTeacher/avatar.png",
-    _id: "sd",
-    courses: [{ name: "Sd", semester: "2023" }],
-  };
+  const id = auth.user?._id;
   return (
     <div className="App bg-[#FFFAF0]">
       <Routes>
@@ -52,9 +45,9 @@ function App() {
                 index
                 element={
                   role === "student" ? (
-                    <ProfileStudentMe />
+                    <ProfileStudentMe id={id}></ProfileStudentMe>
                   ) : (
-                    <ProfileTeacherMe />
+                    <ProfileTeacherMe id={id}></ProfileTeacherMe>
                   )
                 }
               ></Route>

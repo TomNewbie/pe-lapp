@@ -42,7 +42,7 @@ const ProfileStudent = () => {
 
           <div className="grid grid-cols-2">
             <p>Email:</p>
-            <p className="mr-24 font-normal">{user._id + "@vgu.edu.vn"}</p>
+            <p className="mr-24 font-normal">{user.email}</p>
           </div>
 
           <div className="grid grid-cols-2">

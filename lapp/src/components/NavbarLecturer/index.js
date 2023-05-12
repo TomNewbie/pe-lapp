@@ -1,6 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth";
-import { useState } from "react";
 const NavbarLecturer = () => {
   const auth = useAuth();
   const navigate = useNavigate();
@@ -9,17 +8,15 @@ const NavbarLecturer = () => {
     navigate("/");
   };
   return (
-    <header className="bg-[#CC6666]/20">
+    <div className="bg-[#CC6666]/20">
       <nav className="relative flex items-center h-20 max-w-full">
         <div className="ml-8">
           <img src="/navbar_img/Logo.png" alt="logo" width={50} height={50} />
         </div>
         <div className="absolute ml-96">
           <ul className="flex flex-row items-center space-x-72">
-            <li>
-              <a className="text-4xl hover:text-[#B02B3B]" href="#">
-                <Link to="/allcourses">Courses</Link>
-              </a>
+            <li className="text-4xl hover:text-[#B02B3B]">
+              <Link to="/allcourses">Courses</Link>
             </li>
           </ul>
         </div>
@@ -40,7 +37,8 @@ const NavbarLecturer = () => {
           </button>
         </div>
       </nav>
-    </header>
+      <Outlet />
+    </div>
   );
 };
 export default NavbarLecturer;

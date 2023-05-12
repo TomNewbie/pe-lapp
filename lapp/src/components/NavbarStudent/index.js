@@ -1,6 +1,5 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth";
-import { useState } from "react";
 const NavbarStudent = () => {
   const auth = useAuth();
   const navigate = useNavigate();
