@@ -38,17 +38,16 @@ Request
 
 Cookie: access_token=`<token>`
 
+enctype="multipart/form-data"
+
 ## Request Body
 
 ```ts
 {
   title?: string,
-  files?: Array<{
-    name: string,
-    url: string
-  }>,
   body?: string,
   remove?: url[]
+  files?: File[]
 }
 ```
 
@@ -67,12 +66,14 @@ API for create content with specified course id
 Request
 
 Cookie: access_token=`<token>`
+
 enctype="multipart/form-data"
 
 ## Request Body
 
 ```ts
 {
+  files: File[],
   title: string,
   body: string,
 }
@@ -112,7 +113,6 @@ Cookie: access_token=`<token>`
     file?: Array<{
       name: string;
       url: string;
-      refPath: string;
     }>;
     body: string;
     createdAt: Date;
