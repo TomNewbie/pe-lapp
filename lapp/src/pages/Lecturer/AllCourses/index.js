@@ -7,6 +7,8 @@ import {
   CreateCourse,
 } from "../../../components";
 import { useState } from "react";
+import { useAPI } from "../../../hooks/useAPI";
+import { Errorpage } from "../../common";
 /**Need to fetch courses:
  * const courses: {
     name: string;
@@ -14,16 +16,6 @@ import { useState } from "react";
     semester: string;
 }[]
 */
-const courses = [
-  { name: "1", participants: 12, semester: "SS2023" },
-  { name: "2", participants: 12, semester: "SS2023" },
-  { name: "3", participants: 12, semester: "SS2023" },
-  { name: "4", participants: 12, semester: "SS2023" },
-  { name: "5", participants: 12, semester: "SS2023" },
-  { name: "6", participants: 12, semester: "SS2023" },
-  { name: "7", participants: 12, semester: "SS2023" },
-  { name: "8", participants: 12, semester: "SS2023" },
-];
 
 /**
  * Component that represents the page displaying all courses for a lecturer.
@@ -38,6 +30,26 @@ const AllCoursesLecturer = () => {
   const toggleModal = () => {
     setModal(!modal);
   };
+  const { data: courses, pending, error } = useAPI({ path: " /api/courses" });
+  const {
+    data: infoData,
+    pending: infoPending,
+    error: infoError,
+  } = useAPI({ path: "/api/user/info" });
+
+  if (infoError) {
+    return <Errorpage />;
+  }
+  if (infoPending) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <Errorpage />;
+  }
+  if (pending) {
+    return <div>Loading...</div>;
+  }
+  console.log(infoData);
 
   return (
     <div className="relative">
