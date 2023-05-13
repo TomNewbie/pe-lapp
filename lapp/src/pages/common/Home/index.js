@@ -1,4 +1,4 @@
-import { Footer, KeyFeature } from "../../../components";
+import { Footer, KeyFeature, NumCountUp } from "../../../components";
 import FeedbackSection from "../../../components/Feedback";
 import Login from "../Login";
 /**
@@ -12,6 +12,7 @@ const Home = () => {
       <div className="flex justify-center mt-40 mb-12">
         <KeyFeature />
       </div>
+      <NumCountUp />
       <FeedbackSection />
       <Footer></Footer>
     </div>
