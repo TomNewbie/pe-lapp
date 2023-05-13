@@ -2,6 +2,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth";
 const NavbarStudent = () => {
   const auth = useAuth();
+  const id = auth.user?._id;
   const navigate = useNavigate();
   const handleLogout = () => {
     auth.logout();
@@ -24,7 +25,7 @@ const NavbarStudent = () => {
           </ul>
         </div>
         <div className="absolute mt-1 right-48">
-          <div className="text-3xl text">Hi Student ID,</div>
+          <div className="text-4xl">Hi Student {id},</div>
         </div>
         <div className="absolute right-36">
           <Link to="/profile">
