@@ -26,3 +26,5 @@ export { default as Announce } from "./Announce";
 export { default as StudentNavCourse } from "./NavbarCourse/StudentNavCourse";
 export { default as TeacherNavCourse } from "./NavbarCourse/TeacherNavCourse";
 export { default as NumCountUp } from "./NumCountUp";
+export { default as OverallGrade } from "./overallGrade";
+export { default as KeyFeature } from "./KeyFeature";

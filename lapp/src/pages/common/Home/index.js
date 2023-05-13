@@ -1,11 +1,18 @@
-import { Footer, NavbarStudent } from "../../../components";
-
+import { Footer, KeyFeature } from "../../../components";
+import FeedbackSection from "../../../components/Feedback";
+import Login from "../Login";
+/**
+ * Component that represents the home page of the application.
+ * This component renders a login form, a key feature section, and a footer section.
+ */
 const Home = () => {
   return (
-    <div>
-      <NavbarStudent></NavbarStudent>
-      <p className="text-8xl">Home</p>
-      <button>Login</button>
+    <div className="scroll-smooth">
+      <Login />
+      <div className="flex justify-center mt-40 mb-12">
+        <KeyFeature />
+      </div>
+      <FeedbackSection />
       <Footer></Footer>
     </div>
   );

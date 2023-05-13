@@ -2,6 +2,8 @@
 
 ## Project: [LAPP](https://docs.google.com/document/d/1-nmSOiMTKfd_a97TnvdPY18_VqLa1RAgG1yS37_zXLo/edit)
 
+## Link: https://lapp.fly.dev/
+
 ## Members:
 
 1.  Phan Chí Thọ: https://gitlab.com/TomNewbie (17232)
@@ -21,7 +23,7 @@ Use-Case Diagrams and Sequence diagrams
 
 - 16 use cases
 <p align="center">
-<img src="images/use-case/usecase5.png" width="500">
+<img src="images/use-case/usecase6.png" width="500">
 </p>
 
 ### Actor: Lecturer
@@ -37,7 +39,7 @@ Use-Case Diagrams and Sequence diagrams
 | Date Last Updated | 05/03/2023         |
 
 | Actors               | Lecturer                                                                                           |
-| -------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| -------------------- | -------------------------------------------------------------------------------------------------- | 
 | Description          | Lecturer creates course for students to join                                                       |
 | Trigger              | Lecturer clicks the “Create Course” button                                                         |
 | Preconditions        | The lecturer is logged in to the site with their account.                                          |
@@ -75,7 +77,7 @@ Use-Case Diagrams and Sequence diagrams
 | Created By        | Minh Quan            |
 | Date Created      | 28/02/2023           |
 | Last Updated By   | Nguyen Le Hoang Dang |
-| Date Last Updated | 05/03/2023           |
+| Date Last Updated | 28/03/2023           |
 
 | Actors               | Lecturer                                                                                                                                            |
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -192,7 +194,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Created By        | Minh Quan                    |
 | Date Created      | 28/02/2023                   |
 | Last Updated By   | Quan Tran Nguyen Minh        |
-| Date Last Updated | 06/03/2023                   |
+| Date Last Updated | 07/04/2023                   |
 
 | Actors               | Lecturer                                                                                                                                 |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
@@ -215,7 +217,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Notes and Issues     |                                                                                                                                          |
 
 <p align="center">
-<img src="images/sequence/track-activity.jpg" width="500">
+<img src="images/sequence/track-activity.jpeg" width="1200">
 </p>
 
 #### 6. Upload exercise
@@ -226,7 +228,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Created By        | Minh Quan             |
 | Date Created      | 28/02/2023            |
 | Last Updated By   | Quan Tran Nguyen Minh |
-| Date Last Updated | 07/03/2023            |
+| Date Last Updated | 07/04/2023            |
 
 | Actors               | Lecturer                                                                                                                                                       |
 | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -247,7 +249,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Notes and Issues     |                                                                                                                                                                |
 
 <p align="center">
-<img src="images/sequence/upload-exercise.jpg" width="500">
+<img src="images/sequence/upload-exercise.jpeg" width="1200">
 </p>
 
 #### 7. Delete Exercise:
@@ -328,34 +330,43 @@ For uploading materials and modifying materials requirement, the sequence diagra
 <img src="images/sequence/modify-exercise.png" width="500">
 </p>
 
-#### 9. Evaluate Students’ Performance
+#### 9. Modify grade
 
-| Use Case ID       | Evaluate Students’ Performance_9 |
+| Use Case ID       | Modify grade_9 |
 | ----------------- | -------------------------------- |
-| Use Case Name     | Evaluate Students’ Performance   |
-| Created By        | Minh Quan                        |
-| Date Created      | 28/02/2023                       |
-| Last Updated By   | Minh Quan                    |
-| Date Last Updated | 25/03/2023                       |
+| Use Case Name     | Modify Grade |
+| Created By        |  Khanh Linh|
+| Date Created      | 14/04/2023                       |
+| Last Updated By   |  Khanh Linh |
+| Date Last Updated | 14/04/2023                        |
 
-| Actors               | Lecturer                                                                                  |
-| -------------------- | ------------------------------------------------ | 
-| Description          | Lecturer can evaluate students’ performance to determine he/she passes the Course or not at the end of the Course |
-| Trigger              | Teacher clicks the “Evaluate Performance” button in the specific course page|
-| Preconditions        |                                                                                           |
-| Postconditions       | Lecturer can see the performance (how many exercises are accomplished, % of progress,...) |
-| Priority             | high                                                                                      |
-| Normal Flow          | 1. Teacher clicks the “Evaluate Performance” button to see the student’s performance      |
-|                      |2. A list of student who attending the class will appear|
-|                      | 3. The teacher click pass or not pass button next to each name|
-| Alternative Flows    | The student didn’t pass the course                 |
-|                      | 3.1 A red notification text with percentage to show the student didn’t pass the course    |
-| Exceptions           |                                |
-| Special Requirements |                                                                                           |
-| Notes and Issues     |                                                                                           |
+| Actors |Lecturer  |
+| ----------------- | -------------------------------- |
+| Description          | Lecturer can grade students’ exercise |
+| Trigger              | Lecturer clicks the “Edit” button in the Exercise tab in the course page|
+| Preconditions        | The Lecturer must be logged in to the learning system.|
+||The Lecturer must have permission to edit grades.|
+||The exercise already existed.|
+||The grade that has never been edited will be N/A |
+| Postconditions |The grade has been modified to reflect the lecturer's changes, or remains unchanged if modifications were not saved.  |
+| Priority             | high                                                                                                              |
+| Normal Flow          | 1. The lecturer clicks the "Edit" button to directly edit the “Grade” column of the record table|
+|                      | 2.  The lecturer enters grade for all students in the record table |
+|                      | 3. The lecturer click “Save” to save changes|
+| Alternative Flows    | Alternate Flow 1: Lecturer cancels grade modifications    |
+|                      | 1. The lecturer decides not to make changes to the grade after all  |
+|                      |2. The lecturer navigates away from the grade editing interface without saving any changes  |
+|                      | 3.The learning system confirms that no changes were made to the grade |
+|                      |Alternate Flow 2: Lecturer saves grade modifications |
+|                      | 1. The grade is returned red if below the average |
+| Exceptions           |          The lecturer encounters an error when modifying. |
+|                      |1. An error occurs while modifying the grade (such as invalid data) |
+|                      |2. The system prompts the lecturer to correct the errors before submitting the modification. |
+| Special Requirements |                                                                                                                   |
+| Notes and Issues     |                                                                                                                   |
 
 <p align="center">
-<img src="images/sequence/evaluate.jpg" width="500">
+<img src="images/sequence/evaluate.jpeg" width="600">
 </p>
 
 ### Actor: Lecturer and Student
@@ -387,18 +398,18 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Notes and Issues     |                                                                                                    |
 
 <p align="center">
-<img src="images/sequence/log-in.png" width="500">
+<img src="images/sequence/log-in.jpg" width="500">
 </p>
 
 #### 11. Log out
 
-| Use Case ID       | Log out_11   |
-| ----------------- | ------------ |
-| Use Case Name     | Log out      |
-| Created By        | Minh Quan    |
-| Date Created      | 28/02/2023   |
-| Last Updated By   | Tho Phan Chi |
-| Date Last Updated | 05/03/2023   |
+| Use Case ID       | Log out_11       |
+| ----------------- | ------------     |
+| Use Case Name     | Log out          |
+| Created By        | Minh Quan        |
+| Date Created      | 28/02/2023       |
+| Last Updated By   | Thong Hoang Minh |
+| Date Last Updated | 11/04/2023       |
 
 | Actors               | Lecturer, Student                                              |
 | -------------------- | -------------------------------------------------------------- |
@@ -408,7 +419,8 @@ For uploading materials and modifying materials requirement, the sequence diagra
 | Postconditions       | Lecturer/Student successfully logs out                         |
 | Priority             | high                                                           |
 | Normal Flow          | 1. Lecturer/Student clicks the “Log out” button                |
-|                      | 2. Lecturer/Student confirms logging out and log out           |
+|                      | 2. Server notify browser to remove login token from user       |
+|                      | 3. Redirect user to the main page                              |
 | Alternative Flows    |                                                                |
 | Exceptions           |                                                                |
 | Special Requirements |                                                                |
@@ -425,7 +437,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 |Created By| Minh Quan |
 |Date Created| 06/03/2023 |
 |Last Updated By|  Minh Quan|
-|Date Last Updated|  07/03/2023|
+|Date Last Updated|  07/04/2023|
 
 | Actors               | User (Lecturer or Student)                                                                                                                                                  |
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -454,7 +466,7 @@ For uploading materials and modifying materials requirement, the sequence diagra
 
 #### 13. Find contact information
 
-| Use Case ID       | Find contact information_16 |
+| Use Case ID       | Find contact information_13 |
 | ----------------- | --------------------------- |
 | Use Case Name     | Leave Course                |
 | Created By        | Thanh Le Hoang Kim          |
@@ -486,7 +498,7 @@ The sequence for send message and find contact
 
 <p align="center">
 <p align="center">
-<img src="images/sequence/send-message.jpg" width="500">
+<img src="images/sequence/send-message.jpeg" width="1200">
 </p>
 </p>
 
@@ -494,13 +506,13 @@ The sequence for send message and find contact
 
 #### 14. Register Course
 
-| Use Case ID       | Attend Course_13 |
+| Use Case ID       | Attend Course_14 |
 | ----------------- | ---------------- |
 | Use Case Name     | Attend Course    |
 | Created By        | Minh Quan        |
 | Date Created      | 28/02/2023       |
-| Last Updated By   | Tho Phan Chi     |
-| Date Last Updated | 06/03/2023       |
+| Last Updated By   | Thong Hoang Minh |
+| Date Last Updated | 11/04/2023       |
 
 | Actors               | Student                                                                                        |
 | -------------------- | ---------------------------------------------------------------------------------------------- |
@@ -509,19 +521,13 @@ The sequence for send message and find contact
 | Preconditions        |                                                                                                |
 | Postconditions       | Student successfully joins the Course and access to all the materials, exercises in the Course |
 | Priority             | high                                                                                           |
-| Normal Flow          | 1. Student clicks the “Course” button                                                          |
+| Normal Flow          | 1. Student clicks the “Courses” button                                                         |
 |                      | 2. The system will show all the course                                                         |
-|                      | 3. Student selects a Course                                                                    |
-|                      | 4. Student confirms registration                                                               |
-| Alternative Flows    | At step 2,                                                                                     |
-|                      | 2.1. Student searches for a Course                                                             |
-|                      | Continue step 3 in the Normal Flow                                                             |
-| Exceptions           | At step 2.1: The course not found                                                              |
-|                      | 2.1.1: System notify that course not found                                                     |
-|                      | 2.1.2: Back to step 2                                                                          |
-|                      | At step 3: The course no longer available                                                      |
-|                      | 3.1: System will show error (course can not register) to student                               |
-|                      | 3.2: Back to step 2                                                                            |
+|                      | 3. Student click "Join course" button                                                          |
+|                      | 4. Student enter course code                                                                   |
+|                      | 5. The system notify "Success" and return course                                               |
+| Exceptions           | At step 4: The course not found                                                                |
+|                      | 4.1: System notify that course not found                                                       |
 | Special Requirements |                                                                                                |
 | Notes and Issues     |                                                                                                |
 
@@ -531,7 +537,7 @@ The sequence for send message and find contact
 
 #### 15. Track Course Progress
 
-| Use Case ID       | Track Course_14    |
+| Use Case ID       | Track Course_15    |
 | ----------------- | ------------------ |
 | Use Case Name     | Track Course       |
 | Created By        | Minh Quan          |
@@ -540,7 +546,7 @@ The sequence for send message and find contact
 | Date Last Updated | 05/03/2023         |
 
 | Actors               | Student                                                                                                                                                  |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | --------------- |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Description          | Student can track his/her own progress to see how much of the course he/                                                                                 | she | has accomlished |
 | Trigger              | Student clicks the “Progress” button on each course page                                                                                                 |
 | Preconditions        | Student has already registered for that course                                                                                                           |
@@ -557,12 +563,12 @@ The sequence for send message and find contact
 | Notes and Issues     |                                                                                                                                                          |
 
 <p align="center">
-<img src="images/sequence/track-course.jpg" width="500">
+<img src="images/sequence/track_course.jpg" width="500">
 </p>
 
 #### 16. Submit Exercise
 
-| Use Case ID       | Submit Exercise_15    |
+| Use Case ID       | Submit Exercise_16    |
 | ----------------- | --------------------- |
 | Use Case Name     | Submit Exercise       |
 | Created By        | Minh Quan             |
@@ -589,13 +595,13 @@ The sequence for send message and find contact
 | Notes and Issues     |                                                                                                                                               |
 
 <p align="center">
-<img src="images/sequence/submit-exercise.jpg" width="500">
+<img src="images/sequence/submit-exercise.jpg" width="800">
 </p>
 
 ## ER diagram
 
 <p align="center">
-<img src="images/ER2.png" width="500">
+<img src="images/ER_diagram.png" width="500">
 </p>
 
 ## Getting started
@@ -699,3 +705,17 @@ For open source projects, say how it is licensed.
 ## Project status
 
 If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+
+## API
+
+#  user
+
+GET user: {name, ID, email, avatar}
+
+# course
+
+User view : GET course return {course name, ten teacher, progress, picture }
+
+Teacher view: GET course return {course name, số participant, semester, picture}
+
+Detail Course: return {rich text}, participants {name, email, avatar}[], exercises {name, deadline, isdone} -> cai exercise chua lam

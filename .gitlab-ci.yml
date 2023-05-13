@@ -1,13 +1,27 @@
-# You can override the included template(s) by including variable overrides
-# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
-# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/#customizing-settings
-# Dependency Scanning customization: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/#customizing-the-dependency-scanning-settings
-# Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
-# Note that environment variables can be set in several places
-# See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
 - test
-sast:
+- deploy
+
+test_server:
   stage: test
-include:
-- template: Security/SAST.gitlab-ci.yml
+  image: node:18
+  script:
+    - cd ./server
+    - npm install
+    - npm test
+
+
+deploy:
+  stage: deploy
+  image: docker:stable
+  services:
+    - docker:dind
+    - node:18-alpine
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  before_script:
+    - apk add --update curl && rm -rf /var/cache/apk/*
+    - curl -L https://fly.io/install.sh | sh
+  script: 
+    - echo ${FLY_API_TOKEN} 
+    - /root/.fly/bin/flyctl deploy

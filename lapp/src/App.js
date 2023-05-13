@@ -1,44 +1,87 @@
 import RequireAuth from "./components/RequireAuth.js";
-import { AuthProvider } from "./components/auth";
+import { Route, Routes } from "react-router-dom";
 import {
   AllCoursesStudent,
   CoursePage,
-  ExerciseDetail,
-  JoinCourse,
+  Exercise,
   Lecturers,
-  Profile,
+  ProfileStudentMe,
 } from "./pages/Student";
-import { Login, Home } from "./pages/common";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  AllCoursesLecturer,
+  ProfileTeacherMe,
+  CoursePage as CoursePageLecturer,
+  ExerciseDetail as ExerciseLecturer,
+} from "./pages/Lecturer";
+import {
+  Home,
+  Errorpage,
+  ProfileLecturer,
+  ProfileStudent,
+} from "./pages/common";
+import { useAuth } from "./components/auth.js";
+import { NavbarLecturer, NavbarStudent } from "./components/index.js";
+
 function App() {
+  const auth = useAuth();
+  const role = auth.user?.role;
+  const id = auth.user?._id;
   return (
-    <div className=" App">
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route
-              path="/allcourses"
-              element={
-                <RequireAuth>
-                  <AllCoursesStudent />
-                </RequireAuth>
-              }
-            ></Route>
-            <Route path="/lecturers" element={<Lecturers />}></Route>
-            <Route
-              path="/profile"
-              element={
-                <RequireAuth>
-                  <Profile />
-                </RequireAuth>
-              }
-            ></Route>
-            <Route path="*" element={<div>Page not found</div>} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+    <div className="App bg-[#FFFAF0]">
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route element={<RequireAuth />}>
+          <Route
+            element={
+              role === "student" ? (
+                <NavbarStudent></NavbarStudent>
+              ) : (
+                <NavbarLecturer></NavbarLecturer>
+              )
+            }
+          >
+            <Route path="/profile">
+              <Route
+                index
+                element={
+                  role === "student" ? (
+                    <ProfileStudentMe id={id}></ProfileStudentMe>
+                  ) : (
+                    <ProfileTeacherMe id={id}></ProfileTeacherMe>
+                  )
+                }
+              ></Route>
+              <Route path="lecturer/:id" element={<ProfileLecturer />}></Route>
+              <Route path="student/:id" element={<ProfileStudent />}></Route>
+            </Route>
+          </Route>
+          <Route
+            path="/allcourses"
+            element={
+              role === "student" ? (
+                <AllCoursesStudent />
+              ) : (
+                <AllCoursesLecturer />
+              )
+            }
+          ></Route>
+
+          <Route
+            path="/course/:id"
+            element={
+              role === "student" ? <CoursePage /> : <CoursePageLecturer />
+            }
+          ></Route>
+          <Route
+            path="/exercise/:id"
+            element={role === "student" ? <Exercise /> : <ExerciseLecturer />}
+          ></Route>
+
+          <Route path="/lecturers" element={<Lecturers />}></Route>
+        </Route>
+
+        <Route path="*" element={<Errorpage />} />
+      </Routes>
     </div>
   );
 }

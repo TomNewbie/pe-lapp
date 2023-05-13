@@ -19,3 +19,6 @@ body {
 .active {
     display: block;
 }
+.modal-open {
+    overflow: hidden;
+  }

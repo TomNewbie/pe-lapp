@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
-import { Footer } from "../../../components";
+import { useEffect } from "react";
 import { useAuth } from "../../../components/auth";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [user, setUser] = useState("thanh");
   const auth = useAuth();
+
   const navigate = useNavigate();
-  const location = useLocation();
-  const redirectPath = location.state?.path || "/";
+  useEffect(() => {
+    if (auth.user) {
+      navigate("/allcourses");
+    }
+  });
   const handleLogin = () => {
-    auth.login(user);
-    navigate(redirectPath, { replace: true });
+    auth.login();
   };
   return (
     <div>
@@ -102,7 +103,7 @@ const Login = () => {
                   height={120}
                 />
               </div>
-              <div className="absolute ml-48 -bottom-16 left-96">
+              <div className="absolute ml-48 -bottom-12 left-96">
                 <img
                   src="/login/diamond.png"
                   alt="diamond"
@@ -111,6 +112,21 @@ const Login = () => {
                 />
               </div>
               {/* End: icon section */}
+
+              {/* Start: More button */}
+              <div class="absolute ml-48 -bottom-28 left-[600px] ">
+                <img
+                  src="/login/down.svg"
+                  alt=""
+                  width={50}
+                  height={50}
+                  className="animate-bounce"
+                />
+              </div>
+              <div class="absolute ml-48 -bottom-36 left-[500px] text-3xl">
+                <p className="animate-bounce">Scroll down for more details</p>
+              </div>
+              {/* End: More button */}
             </div>
             {/* End: Text */}
 
@@ -122,9 +138,6 @@ const Login = () => {
           </div>
         </div>
         {/* End: Intro section */}
-      </div>
-      <div className="absolute bottom-0">
-        <Footer></Footer>
       </div>
     </div>
   );
