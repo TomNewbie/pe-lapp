@@ -1,6 +1,6 @@
 const Quote = () => {
   return (
-    <div class="bg-[#FFFAF0]">
+    <div class="bg-[#FFFAF0] relative">
       <img src="/Quote/bangtinh.png" alt="" class="absolute left-80 top-48" />
       <img
         src="/QUote/eke.png"
