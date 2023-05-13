@@ -1,24 +1,6 @@
-const Quote = () => {
+const QuoteComponent = () => {
   return (
-    <div class="bg-[#FFFAF0] relative">
-      <img src="/Quote/bangtinh.png" alt="" class="absolute left-80 top-48" />
-      <img
-        src="/QUote/eke.png"
-        alt=""
-        class="w-[80px] h-[80px] absolute pl-4 ml-80 left-96 top-56"
-      />
-      <img
-        src="/QUote/ruler.png"
-        alt=""
-        class="w-[40px] h-[40px] bottom-16 left-48"
-      />
-      <img src="/QUote/congtrunhanchia.gif" alt="" class="w-[40px] h-[40px]" />
-      <img
-        src="/QUote/ghibai.gif"
-        alt=""
-        class="w-[40px] h-[40px] absolute bottom-10 left-20"
-      />
-      <img src="/QUote/pencil.gif" alt="" class="w-[40px] h-[40px]" />
+    <div className="relative">
       <div class="flex min-h-screen items-center justify-center  p-10">
         <div class="w-max">
           <h1 class="animate-typing overflow-hidden whitespace-nowrap border-r-4 border-r-[#B02B3B] pr-5 text-5xl text-[#B02B3B] font-bold">
@@ -30,8 +12,48 @@ const Quote = () => {
           </p>
         </div>
       </div>
+      <img
+        src="/Quote/bangtinh.png"
+        alt=""
+        className="absolute left-20 top-10"
+      />
+      <img
+        src="/Quote/eke.png"
+        alt=""
+        className="w-[80px] h-[80px] absolute left-32 top-20"
+      />
+      <img
+        src="/Quote/eke.png"
+        alt=""
+        className="w-[80px] h-[80px] absolute right-32 top-96"
+      />
+      <img
+        src="/Quote/ruler.png"
+        alt=""
+        className="w-[40px] h-[40px] absolute top-16 right-20"
+      />
+      <img
+        src="/Quote/congtrunhanchia.gif"
+        alt=""
+        className="w-[40px] h-[40px] absolute bottom-48 left-80"
+      />
+      <img
+        src="/Quote/congtrunhanchia.gif"
+        alt=""
+        className="w-[40px] h-[40px] absolute top-48 right-80"
+      />
+      <img
+        src="/Quote/ghibai.gif"
+        alt=""
+        className="w-[40px] h-[40px] absolute bottom-6 left-20"
+      />
+      <img
+        src="/Quote/pencil.gif"
+        alt=""
+        className="w-[40px] h-[40px] absolute right-20 bottom-10"
+      />
     </div>
   );
 };
 
-export default Quote;
+export default QuoteComponent;
