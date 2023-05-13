@@ -63,16 +63,27 @@ const FeedbackSection = () => {
   };
 
   return (
-    <div className="flex pb-12 place-content-center">
-      <div className="flex flex-row justify-center w-2/3">
-        <div className="flex flex-row items-center px-16" onClick={handlePrev}>
-          <img src="/login/down.svg" className="w-20 h-20 rotate-90"></img>
-        </div>
-        <div>
-          <Card image={images[active]} />
-        </div>
-        <div className="flex flex-row items-center px-16" onClick={handleNext}>
-          <img src="/login/down.svg" className="w-20 h-20 -rotate-90"></img>
+    <div className="py-48">
+      <div className="pb-16 text-center text-8xl">
+        What our customers say about us?
+      </div>
+      <div className="flex place-content-center">
+        <div className="flex flex-row justify-center w-2/3">
+          <div
+            className="flex flex-row items-center px-16"
+            onClick={handlePrev}
+          >
+            <img src="/login/down.svg" className="w-20 h-20 rotate-90"></img>
+          </div>
+          <div>
+            <Card image={images[active]} />
+          </div>
+          <div
+            className="flex flex-row items-center px-16"
+            onClick={handleNext}
+          >
+            <img src="/login/down.svg" className="w-20 h-20 -rotate-90"></img>
+          </div>
         </div>
       </div>
     </div>
