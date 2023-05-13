@@ -13,6 +13,8 @@ import {
 } from "../../../components";
 import { Participants, Assignment, PostAnnEx } from "../../../components";
 import { useState } from "react";
+import { useAPI } from "../../../hooks/useAPI";
+import { Errorpage } from "../../common";
 
 /** Need to fetch:
  - const course: { name: string; semester: string;}
@@ -55,15 +57,6 @@ const notis = [
   },
 ];
 
-//Participants tab: Participants section
-const participants = {
-  student: [
-    { url: "/participants-icon/ava.png", name: "A", mail: "ava.gmail.com" },
-    { url: "/participants-icon/ava.png", name: "B", mail: "ava1.gmail.com" },
-    { url: "/participants-icon/ava.png", name: "C", mail: "ava2.gmail.com" },
-  ],
-  teacher: { name: "Huynh Trung Hieu", mail: "sd@gmail.com" },
-};
 //Exercise tab
 const exercises = [
   { duedate: "No due date", exName: "Exercise 1" },
@@ -91,10 +84,41 @@ const classCode = "12345";
 /**This component displays a course page for a lecturer, with four tabs: General, Exercise, Participants, and Grade. */
 const CoursePage = () => {
   const { id } = useParams();
+  const {
+    data: participants,
+    pending: participantsPending,
+    error: participantsError,
+  } = useAPI({
+    path: "/api/course/:id/participants",
+    params: { id },
+  });
+  const {
+    data: contents,
+    pending: contentsPending,
+    error: contentsError,
+  } = useAPI({
+    path: "/api/course/:id/contents",
+    params: { id },
+  });
+  const {
+    data: exercises,
+    pending: exercisesPending,
+    error: exercisesError,
+  } = useAPI({
+    path: "/api/course/:id/exercises",
+    params: { id },
+  });
+  const [postModal, setPostModal] = useState(false);
+  const [exerciseModal, setExerciseModal] = useState(false);
+  if (participantsError || contentsError || exercisesError) {
+    return <Errorpage />;
+  }
+  if (participantsPending || contentsPending || exercisesPending) {
+    return <div>Loading...</div>;
+  }
+  console.log(exercises);
 
   // logic for modal
-  const [postModal, setPostModal] = useState(false);
-
   const togglePostModal = () => {
     const body = document.body;
     if (postModal) {
@@ -105,7 +129,6 @@ const CoursePage = () => {
     setPostModal(!postModal);
   };
 
-  const [exerciseModal, setExerciseModal] = useState(false);
   const toggleExerciseModal = () => {
     const body = document.body;
     if (exerciseModal) {
@@ -141,15 +164,8 @@ const CoursePage = () => {
                   <Announce></Announce>
                 </div>
 
-                {notis.map((noti) => {
-                  return (
-                    <Notification
-                      status={noti.status}
-                      title={noti.title}
-                      content={noti.content}
-                      Files={noti.files}
-                    ></Notification>
-                  );
+                {contents.map((content) => {
+                  return <Notification content={content}></Notification>;
                 })}
               </div>
               <div>
@@ -167,12 +183,16 @@ const CoursePage = () => {
                 handleButton={toggleExerciseModal}
               ></CustomButton>
               <div className="flex flex-col mt-8 mb-16 divide-y">
-                <Link to="/exercise">
-                  <Assignment></Assignment>
-                </Link>
-
-                <Assignment></Assignment>
-                <Assignment></Assignment>
+                {exercises.map((exercise) => {
+                  const link = "/exercise/" + exercise._id;
+                  return (
+                    <div>
+                      <Link to={link}>
+                        <Assignment exercise={exercise} />
+                      </Link>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           }
@@ -180,8 +200,8 @@ const CoursePage = () => {
           tab3={
             <div className="flex flex-col space-y-6 mt-8 mb-16 w-[1000px] min-h-[370px]">
               <Participants
-                teacher={participants.teacher}
-                students={participants.student}
+                lecturer={participants.lecturer}
+                students={participants.students}
               ></Participants>
             </div>
           }
