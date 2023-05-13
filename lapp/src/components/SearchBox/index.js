@@ -1,29 +1,71 @@
-function SearchBox({ variant }) {
-  const style = {
-    small: "w-36 h-8 border-2 border-black rounded-xl text-xl",
-    big: "w-56 h-8 border-2 border-black rounded-xl text-xl",
+import React, { useState } from "react";
+import { AutoComplete, Input } from "antd";
+import { useAPI } from "../../hooks/useAPI";
+import { Errorpage } from "../../pages/common";
+import { Link } from "react-router-dom";
+
+const SearchComponent = () => {
+  const { data: courses, pending, error } = useAPI({ path: "/api/courses" });
+  const coursesName = courses?.map((course) => ({
+    id: course._id,
+    lecturer: course.lecturer_name,
+    name: course.name,
+    link: "/course/" + course._id,
+  }));
+  const [options, setOptions] = useState([]);
+
+  if (error) {
+    return <Errorpage />;
+  }
+
+  if (pending) {
+    return <div>Loading...</div>;
+  }
+
+  const searchResult = (query) => {
+    const filteredOptions = coursesName.filter((course) =>
+      course.name.toLowerCase().includes(query.toLowerCase())
+    );
+
+    return filteredOptions.map((option) => ({
+      value: option.id,
+      label: (
+        <Link to={option.link}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <span>{option.name}</span>
+            <span>{option.id}</span>
+          </div>
+        </Link>
+      ),
+    }));
   };
-  const icon = {
-    small: "absolute ml-28",
-    big: "absolute ml-48",
+
+  const handleSearch = (value) => {
+    setOptions(value ? searchResult(value) : []);
   };
+
+  const onSelect = (value, option) => {
+    console.log("onSelect", value);
+  };
+
   return (
     <div>
-      <div className="flex items-center ">
-        <img
-          src="/SearchBox/searchicon.svg"
-          alt=""
-          className={icon[variant]}
-          width={25}
-          height={25}
+      <AutoComplete
+        dropdownMatchSelectWidth={400}
+        style={{ width: 400 }}
+        options={options}
+        onSelect={onSelect}
+        onSearch={handleSearch}
+      >
+        <Input.Search
+          size="large"
+          placeholder="Search courses"
+          style={{ fontFamily: "Dongle", fontSize: "40px" }}
+          className="bg-red-200 border-none rounded-xl"
         />
-        <input
-          type="text"
-          className={style[variant]}
-          placeholder="Search"
-        ></input>
-      </div>
+      </AutoComplete>
     </div>
   );
-}
-export default SearchBox;
+};
+
+export default SearchComponent;

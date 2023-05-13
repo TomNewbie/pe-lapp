@@ -20,7 +20,7 @@ const CoursecardTeacher = ({ course }) => {
               alt="Participants: "
             />
             <p class="text-center ml-2 tracking-tight dark:text-[#1b1c1e]">
-              {course.name}
+              {course.participant_count}
             </p>
           </div>
 
