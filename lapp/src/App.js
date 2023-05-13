@@ -73,7 +73,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/exercise"
+            path="/exercise/:id"
             element={role === "student" ? <Exercise /> : <ExerciseLecturer />}
           ></Route>
 

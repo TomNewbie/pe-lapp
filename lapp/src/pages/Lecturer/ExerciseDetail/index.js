@@ -8,7 +8,9 @@ import {
   Footer,
 } from "../../../components";
 import { PostAnnEx } from "../../../components";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useAPI } from "../../../hooks/useAPI";
+import { Errorpage } from "../../common";
 
 /** Need to fetch:
  * course:
@@ -48,13 +50,32 @@ const students = [
     grade: 9,
   },
 ];
-const numOfSubmission = students.reduce((a, student) => {
-  return a + student.file ? 1 : 0;
-}, 0);
-const sumScore = students.reduce((a, student) => {
-  return a + student.grade ? student.grade : 0;
-}, 0);
-const averageScore = sumScore / numOfSubmission;
+const numOfSubmission = (student) => {
+  students.reduce((a, student) => {
+    return a + student.file ? 1 : 0;
+  }, 0);
+};
+const sumScore = (student) => {
+  students.reduce((a, student) => {
+    return a + student.grade ? student.grade : 0;
+  }, 0);
+};
+
+const averageScore = (student) => {
+  return sumScore(student) / numOfSubmission(student);
+};
+
+const convertDate = (timestamp) => {
+  const date = new Date(timestamp);
+
+  const month = date.toLocaleString("en-US", { month: "long" });
+  const year = date.getFullYear();
+  const hour = date.getHours();
+
+  const formattedDate = `${month} ${year} ${hour}:00`;
+
+  return formattedDate;
+};
 
 /**Component that displays the details of a exercise,
  * including the exercise name, due date, maximum points,
@@ -62,8 +83,14 @@ const averageScore = sumScore / numOfSubmission;
  * It also allows the lecturer to edit and delete the exercise,
  * view the submission records of the students, and edit the records. */
 const ExerciseDetail = () => {
+  const { id } = useParams();
+  const { data, pending, error } = useAPI({
+    path: "/api/exercises/:id",
+    params: { id },
+  });
   // logic for modal
   const [exerciseModal, setExerciseModal] = useState(false);
+
   const toggleExerciseModal = () => {
     const body = document.body;
     if (exerciseModal) {
@@ -73,6 +100,31 @@ const ExerciseDetail = () => {
     }
     setExerciseModal(!exerciseModal);
   };
+
+  if (error) {
+    return <Errorpage />;
+  }
+  if (pending) {
+    return <div>Loading...</div>;
+  }
+
+  const numOfSubmission = data.solutions.length;
+  const sumScore = data.solutions?.reduce((a, solution) => {
+    return a + (solution.grade ? solution.grade : 0);
+  }, 0);
+  const averageScore = sumScore / numOfSubmission;
+  const convertDate = (timestamp) => {
+    const date = new Date(timestamp);
+
+    const month = date.toLocaleString("en-US", { month: "long" });
+    const year = date.getFullYear();
+    const hour = date.getHours();
+
+    const formattedDate = `${month} ${year} ${hour}:00`;
+
+    return formattedDate;
+  };
+  const deadline = convertDate(data.deadline);
 
   return (
     <div class="relative text-[#1B1C1E] flex flex-col bg-[#FFFAF0]">
@@ -96,7 +148,7 @@ const ExerciseDetail = () => {
       {/* Exercise details */}
 
       <div class="flex flex-col space-y-8 px-20">
-        <p class="text-bold text-7xl text-center mt-8">{notification.name}</p>
+        <p class="text-bold text-7xl text-center mt-8">{data.name}</p>
         {/* Button */}
         <div class="flex flex-row items-center justify-around ">
           <CustomButton
@@ -118,15 +170,31 @@ const ExerciseDetail = () => {
         </div>
 
         <div class="flex flex-row justify-between text-[37px] px-10">
-          <p>{notification.maxpoints} points</p>
-          <p>Due date: {notification.duedate}</p>
+          <p>100 points</p>
+          <p>Due date: {deadline}</p>
         </div>
         <div className="flex justify-center">
-          <Notification
-            title={"Announcement"}
-            content={notification.content}
-            Files={notification.Files}
-          ></Notification>
+          <div className="bg-[#F4C2C2]/30 rounded-3xl w-3/4 h-auto pt-4 pb-6">
+            <div className="flex flex-col ml-4 space-y-4">
+              <div className="text-3xl font-light">{data.description}</div>
+            </div>
+            <div className="flex flex-row ml-4 space-x-4">
+              {data.exercise_files?.map((file) => (
+                <a href={file.url}>
+                  <div className="flex px-2 py-3 border border-black w-fit rounded-2xl">
+                    <img
+                      src="/notification/upload.svg"
+                      alt=""
+                      className="w-9 h-9"
+                    ></img>
+                    <div className="ml-3 text-3xl font-semibold">
+                      {file.name}
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div class="flex flex-row justify-between text-[37px] px-10">
@@ -134,7 +202,15 @@ const ExerciseDetail = () => {
           <p>Average score: {averageScore}</p>
         </div>
       </div>
-      <RecordTable class="px-10" students={students}></RecordTable>
+      {data.solutions ? (
+        <RecordTable
+          class="px-10"
+          data={data.solutions}
+          deadline={data.deadline}
+        ></RecordTable>
+      ) : (
+        <div></div>
+      )}
 
       <div class="flex place-content-center py-8">
         <CustomButton
