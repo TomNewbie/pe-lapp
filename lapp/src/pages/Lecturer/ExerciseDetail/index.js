@@ -107,7 +107,7 @@ const ExerciseDetail = () => {
   if (pending) {
     return <div>Loading...</div>;
   }
-  console.log(data);
+
   const numOfSubmission = data.solutions.length;
   const sumScore = data.solutions?.reduce((a, solution) => {
     return a + (solution.grade ? solution.grade : 0);

@@ -35,34 +35,6 @@ import { Errorpage } from "../../common";
 //course heading
 const course = { name: "Programming exercise", semester: "SS2023" };
 
-//General tab: Notification
-const notis = [
-  {
-    status: "no",
-    title: "Announcement",
-    content: "Today we learn Bayes Rules, hope you like the lecture.",
-    files: [{ name: "Probability" }, { name: "Statistic" }],
-  },
-  {
-    status: "true",
-    title: "Announcement",
-    content: "Tomorrow we will have an mini exam.",
-    files: [],
-  },
-  {
-    status: "true",
-    title: "Practice test",
-    content: "Hello",
-    files: [{ name: "Math" }, { name: "Science" }],
-  },
-];
-
-//Exercise tab
-const exercises = [
-  { duedate: "No due date", exName: "Exercise 1" },
-  { duedate: "No due date", exName: "Exercise 2" },
-];
-
 const studentGrade = [
   {
     name: "A",
@@ -116,7 +88,6 @@ const CoursePage = () => {
   if (participantsPending || contentsPending || exercisesPending) {
     return <div>Loading...</div>;
   }
-  console.log(exercises);
 
   // logic for modal
   const togglePostModal = () => {
