@@ -1,54 +1,79 @@
-const RecordTable = ({ students }) => {
-  const index = students
-    ? students.map((student) => (
-        <tr class="">
-          <td class="px-6 py-4 text-center border border-slate-300 ">
-            {student.name}
-          </td>
-          <td class="px-6 py-4 text-center border border-slate-300">
-            {student.id}
-          </td>
-          <td class="px-6 py-4 text-center border border-slate-300">
-            {student.submittime}
-          </td>
-          <td
-            class={
-              student.status === "on-time"
-                ? "px-6 py-4 text-center text-[#1B1C1E] border border-slate-300"
-                : student.status === "missing"
-                ? "text-[#7F1734] text-center border border-slate-300"
-                : "text-[#FBA70E] text-center border border-slate-300"
-            }
-          >
-            {student.status}
-          </td>
-          <td class="px-2 py-2 text-center border border-slate-300">
-            <div className="grid grid-cols-2 gap-2">
-              {student.file ? (
-                student.file.map((file) => (
-                  <div>
-                    <div className="flex px-3 py-2 mb-1 space-y-3 border border-black col rounded-2xl">
-                      <img
-                        src="/notification/upload.svg"
-                        alt=""
-                        className="mt-3 ml-4 w-9 h-9"
-                      ></img>
-                      <div className="ml-8 mr-4 text-3xl font-semibold">
-                        {file}
-                      </div>
+const RecordTable = ({ data, deadline }) => {
+  if (!data) {
+    return null;
+  }
+  console.log(data);
+  const findStatus = () => {
+    const submitDate = new Date(data.submit_time);
+    const deadlineDate = new Date(deadline);
+    if (submitDate > deadlineDate || !submitDate) {
+      return "missing";
+    } else {
+      return "ontime";
+    }
+  };
+  const convertDate = (timestamp) => {
+    const date = new Date(timestamp);
+
+    const month = date.toLocaleString("en-US", { month: "long" });
+    const year = date.getFullYear();
+    const hour = date.getHours();
+
+    const formattedDate = `${month} ${year} ${hour}:00`;
+
+    return formattedDate;
+  };
+
+  const status = findStatus();
+  const index = data
+    ? data.map((d) => {
+        const submittime = convertDate(d.submit_time);
+        return (
+          <tr>
+            <td class="px-8 py-2 border border-slate-300">{d.student.name}</td>
+            <td class="px-6 py-4 border border-slate-300">{d.student.id}</td>
+            <td class="px-6 py-4 border border-slate-300">{submittime}</td>
+            <td
+              class={
+                status === "on-time"
+                  ? "px-6 py-4 text-center text-[#1B1C1E] border border-slate-300"
+                  : status === "missing"
+                  ? "text-[#7F1734] text-center border border-slate-300"
+                  : "text-[#FBA70E] text-center border border-slate-300"
+              }
+            >
+              {status}
+            </td>
+            <td class="px-2 py-2  border border-slate-300">
+              <div>
+                {d.file ? (
+                  d.file.map((file, index) => (
+                    <div key={index}>
+                      <a href={file.url}>
+                        <div className="flex px-3 py-2 mb-1 border border-black col rounded-2xl">
+                          <img
+                            src="/notification/upload.svg"
+                            alt=""
+                            className="w-9 h-9"
+                          ></img>
+                          <div className="ml-8 mr-4 text-3xl font-semibold">
+                            {file.name}
+                          </div>
+                        </div>
+                      </a>
                     </div>
-                  </div>
-                ))
-              ) : (
-                <div></div>
-              )}
-            </div>
-          </td>
-          <td class="px-6 py-4 text-center border border-slate-300">
-            {student.grade ? <span>{student.grade}</span> : <span>N/A</span>}
-          </td>
-        </tr>
-      ))
+                  ))
+                ) : (
+                  <div></div>
+                )}
+              </div>
+            </td>
+            <td class="px-6 py-4 text-center border border-slate-300">
+              {d.grade ? <span>{d.grade}</span> : <span>N/A</span>}
+            </td>
+          </tr>
+        );
+      })
     : null;
   return (
     <div class="flex flex-col h-full pb-2 px-10 text-[30px] ">

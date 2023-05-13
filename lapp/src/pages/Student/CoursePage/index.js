@@ -51,40 +51,40 @@ const notis = [
   },
 ];
 
-// Exercise tab
-const exercises = [
-  {
-    name: "Exercise 1",
-    deadline: "Monday, 15 February 2023, 12:00 AM",
-    grade: "null",
-    status: "undone",
-  },
-  {
-    name: "Exercise 2",
-    deadline: "Monday, 23 February 2023, 12:00 AM",
-    grade: "null",
-    status: "done",
-  },
-];
-
 // Ccomponent renders the main content of a course page for students, including notifications, participants, and exercises.
 const CoursePage = () => {
   const { id } = useParams();
   const {
     data: participants,
-    pending,
-    error,
+    pending: participantsPending,
+    error: participantsError,
   } = useAPI({
     path: "/api/course/:id/participants",
     params: { id },
   });
-
-  if (error) {
+  const {
+    data: contents,
+    pending: contentsPending,
+    error: contentsError,
+  } = useAPI({
+    path: "/api/course/:id/contents",
+    params: { id },
+  });
+  const {
+    data: exercises,
+    pending: exercisesPending,
+    error: exercisesError,
+  } = useAPI({
+    path: "/api/course/:id/exercises",
+    params: { id },
+  });
+  if (participantsError || contentsError || exercisesError) {
     return <Errorpage />;
   }
-  if (pending) {
+  if (participantsPending || contentsPending || exercisesPending) {
     return <div>Loading...</div>;
   }
+  console.log(exercises);
   return (
     <div className="relative flex flex-col bg-[#FFFAF0]">
       <NavbarStudent></NavbarStudent>
@@ -98,15 +98,8 @@ const CoursePage = () => {
 
           tab1={
             <div className="flex flex-col space-y-6 mt-8 mb-16  w-[1000px]">
-              {notis.map((noti) => {
-                return (
-                  <Notification
-                    status={noti.status}
-                    title={noti.title}
-                    content={noti.content}
-                    Files={noti.files}
-                  ></Notification>
-                );
+              {contents.map((content) => {
+                return <Notification content={content}></Notification>;
               })}
             </div>
           }
@@ -123,15 +116,10 @@ const CoursePage = () => {
           tab3={
             <div className="flex flex-col space-y-6 mt-8 mb-16 w-[1000px]">
               {exercises.map((exercise) => {
+                const link = "/exercise/" + exercise._id;
                 return (
-                  <Link to="/exercise">
-                    <ExerciseSection
-                      name={exercise.name}
-                      deadline={exercise.deadline}
-                      status={exercise.status}
-                      grade={exercise.grade}
-                    ></ExerciseSection>
-                    ;
+                  <Link to={link}>
+                    <ExerciseSection exercise={exercise}></ExerciseSection>;
                   </Link>
                 );
               })}

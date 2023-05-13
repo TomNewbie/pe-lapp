@@ -6,7 +6,7 @@ import {
   CoursecardStudent,
   JoinCourse,
 } from "../../../components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage } from "../../common";
 /** Need to fetch:
@@ -27,7 +27,6 @@ const AllCoursesStudent = () => {
     } else {
       body.classList.add("modal-open");
     }
-    setModal(!modal);
   };
   const { data: test, pending, error } = useAPI({ path: " /api/courses" });
   console.log(test);
@@ -59,7 +58,7 @@ const AllCoursesStudent = () => {
         {test.map((course) => {
           const link = "/course/" + course._id;
           return (
-            <Link to={link} key={course._id}>
+            <Link to={link}>
               <CoursecardStudent course={course}></CoursecardStudent>
             </Link>
           );

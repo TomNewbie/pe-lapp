@@ -1,16 +1,16 @@
-const CoursecardTeacher = ({ courseName, numberOfParticipants, semester }) => {
+const CoursecardTeacher = ({ course }) => {
   return (
     <div class="card">
       <div class="max-w-sm bg-[#EC9A86]/80 rounded-3xl h-67 w-44 shadow-xl ">
         <img
           class="w-fit h-2/3"
-          src="/Coursecard_img/CourseTePic.png"
-          alt="Course Picture"
+          src={course.picture || "/Coursecard_img/CourseTePic.png"}
+          alt="Course"
         />
 
         <div class="container content-around">
           <h1 class="text-center text-2xl font-bold tracking-tight dark:text-[#1b1c1e]">
-            {courseName}
+            {course.name}
           </h1>
 
           <div class="flex flex-row ml-8">
@@ -20,7 +20,7 @@ const CoursecardTeacher = ({ courseName, numberOfParticipants, semester }) => {
               alt="Participants: "
             />
             <p class="text-center ml-2 tracking-tight dark:text-[#1b1c1e]">
-              {numberOfParticipants}
+              {course.name}
             </p>
           </div>
 
@@ -31,7 +31,7 @@ const CoursecardTeacher = ({ courseName, numberOfParticipants, semester }) => {
               alt="Semester:: "
             />
             <p class="text-center ml-2 tracking-tight dark:text-[#1b1c1e]">
-              {semester}
+              {course.semester || "N/A"}
             </p>
           </div>
         </div>

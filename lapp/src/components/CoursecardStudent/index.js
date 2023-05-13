@@ -4,7 +4,7 @@ const CoursecardStudent = ({ course }) => {
       <div class="max-w-sm bg-[#DE5D83]/50 rounded-3xl h-67 w-44 shadow-xl">
         <img
           class="w-fit h-2/3 rounded-3xl"
-          src={course.picture}
+          src={course.picture || "/Coursecard_img/CourseTePic.png"}
           alt="Course"
         />
 
