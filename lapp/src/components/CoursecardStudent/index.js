@@ -1,36 +1,36 @@
 const CoursecardStudent = ({ course }) => {
   return (
     <div class="card">
-      <div class="max-w-sm bg-[#DE5D83]/50 rounded-3xl h-67 w-44 shadow-xl">
+      <div class="flex flex-col bg-[#DE5D83]/50 rounded-3xl h-64 w-[300px] shadow-xl place-items-center">
         <img
-          class="w-fit h-2/3 rounded-3xl"
+          class="w-[300px] h-[154px] rounded-t-3xl rounded-b-none"
           src={course.picture || "/Coursecard_img/CourseTePic.png"}
           alt="Course"
         />
 
-        <div class="container content-around">
-          <h1 class="text-center text-2xl truncate font-bold tracking-tight dark:text-[#1b1c1e]">
+        <div class="flex flex-col container">
+          <h1 class="text-3xl font-bold truncate dark:text-[#1b1c1e] ml-4">
             {course.name}
           </h1>
 
-          <div class="flex flex-row ml-8">
+          <div class="flex flex-row text-2xl ml-4">
             <img
-              class="w-4 h-4"
+              class="w-5 h-5"
               src="/Coursecard_img/human.png"
               alt="Lecturer: "
             />
-            <p class="text-center ml-2 tracking-tight dark:text-[#1b1c1e]">
+            <p class="text-center ml-2 dark:text-[#1b1c1e] truncate">
               {course.lecturer_name}
             </p>
           </div>
 
-          <div class="flex flex-row ml-8">
+          <div class="flex flex-row text-2xl ml-4 place-items-center justify-start">
             <img
-              class="w-4 h-4"
-              src="/Coursecard_img/progress.png"
-              alt="Progress: "
+              class="w-5 h-5"
+              src="/Coursecard_img/Icon.png"
+              alt="Semester: "
             />
-            <p class="text-center ml-2 tracking-tight dark:text-[#1b1c1e]">
+            <p class="text-left ml-2 dark:text-[#1b1c1e] truncate">
               {course.semester || "N/A"}
             </p>
           </div>
