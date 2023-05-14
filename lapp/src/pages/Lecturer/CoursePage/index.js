@@ -50,9 +50,6 @@ const studentGrade = [
   },
 ];
 
-//class code
-const classCode = "12345";
-
 /**This component displays a course page for a lecturer, with four tabs: General, Exercise, Participants, and Grade. */
 const CoursePage = () => {
   const { id } = useParams();
@@ -140,7 +137,7 @@ const CoursePage = () => {
                 })}
               </div>
               <div>
-                <ClassCode code={classCode}></ClassCode>
+                <ClassCode code={id}></ClassCode>
               </div>
             </div>
           }
