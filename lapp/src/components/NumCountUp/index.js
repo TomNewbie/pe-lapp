@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-const NumCountUp = () => {
+const NumCountUp = ({ target, content }) => {
   const [upto, setUpto] = useState(0);
-  const desiredNumber = 1700;
+  const desiredNumber = target;
   let interval;
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const NumCountUp = () => {
   };
 
   return (
-    <div style={{ textAlign: "center" }} className="text-8xl">
+    <div style={{ textAlign: "center" }} className="text-5xl">
       <div id="counter">
         <span role="img" aria-label="users">
           🎉
@@ -31,7 +31,7 @@ const NumCountUp = () => {
           🎉
         </span>
       </div>
-      <h1>Users using LAPP</h1>
+      <h1>{content}</h1>
     </div>
   );
 };
