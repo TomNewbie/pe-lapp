@@ -113,15 +113,19 @@ Get exercise detail by id
       name: string;
       id: string;
     };
-    submit_time: Date;
-    file: {
+    submit_time?: Date;
+    file?: {
       url: string;
       name: string;
     };
-    grade?: number;
+    grade?: number | null;
   }>;
 }
 ```
+
+The `grade` in lecturer view can be a `number` or `null` (if the teacher not assign grade to student yet).
+
+If the student have not submit the solutions, there will be no attribute `{submit_time, file, grade}`
 
 _Error_:
 
