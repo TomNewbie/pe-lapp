@@ -28,9 +28,16 @@ const AllCoursesLecturer = () => {
    */
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
+    const body = document.body;
+    body.classList.toggle("modal-open");
     setModal(!modal);
   };
-  const { data: courses, pending, error } = useAPI({ path: " /api/courses" });
+  const {
+    data: courses,
+    pending,
+    error,
+    refresh,
+  } = useAPI({ path: "/api/courses" });
 
   if (error) {
     return <Errorpage />;
@@ -41,31 +48,36 @@ const AllCoursesLecturer = () => {
 
   return (
     <div className="relative">
-      {modal && <CreateCourse handleClose={toggleModal}></CreateCourse>}
+      {modal && (
+        <CreateCourse
+          handleClose={toggleModal}
+          onCreateCourse={refresh}
+        ></CreateCourse>
+      )}
       <NavbarLecturer></NavbarLecturer>
       <div className="flex flex-row justify-between mt-8 ml-16 mr-16">
         <SearchBox variant={"small"}></SearchBox>
         <button
           className="border-[#B02B3B] border-4 box-border px-2 h-9 pb-8 leading-9 rounded-xl hover:border-slate-500 text-dongle text-3xl ml-4 bg-[#ffffff] shadow-xl text-[#1B1C1E]"
-          onClick={() => {
-            toggleModal();
-          }}
+          onClick={toggleModal}
         >
           + Create class
         </button>
       </div>
 
       <div className="mt-8 ml-16 text-7xl">ALL COURSES</div>
-      <div className="bg-[#F48F98]/50 grid grid-cols-4 grid-rows-2 mb-16 gap-x-32 gap-y-8 mx-16 rounded-2xl px-24 py-4">
-        {courses.map((course) => {
-          const link = "/course/" + course._id;
-          return (
-            <Link to={link}>
-              <CoursecardTeacher course={course}></CoursecardTeacher>
-            </Link>
-          );
-        })}
-      </div>
+      {courses && (
+        <div className="bg-[#F48F98]/50 grid grid-cols-4 grid-rows-2 mb-16 gap-x-2 gap-y-8 mx-16 rounded-2xl px-24 py-4">
+          {courses.map((course) => {
+            const link = "/course/" + course._id;
+            return (
+              <Link to={link}>
+                <CoursecardTeacher course={course}></CoursecardTeacher>
+              </Link>
+            );
+          })}
+        </div>
+      )}
       <Footer></Footer>
     </div>
   );

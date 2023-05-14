@@ -29,28 +29,6 @@ import { Errorpage, LoadingPage } from "../../common";
 
 const course = { name: "Programming exercise", teacher: "Huynh Trung Hieu" };
 
-//General tab: Notification
-const notis = [
-  {
-    status: "no",
-    title: "Announcement",
-    content: "Today we learn Bayes Rules, hope you like the lecture.",
-    files: [{ name: "Probability" }, { name: "Statistic" }],
-  },
-  {
-    status: "true",
-    title: "Announcement",
-    content: "Tomorrow we will have an mini exam.",
-    files: [],
-  },
-  {
-    status: "true",
-    title: "Practice test",
-    content: "Hello",
-    files: [{ name: "Math" }, { name: "Science" }],
-  },
-];
-
 // Ccomponent renders the main content of a course page for students, including notifications, participants, and exercises.
 const CoursePage = () => {
   const { id } = useParams();
