@@ -1,4 +1,9 @@
-import { Footer, KeyFeature, NumCountUp } from "../../../components";
+import {
+  Footer,
+  KeyFeature,
+  NumCountUp,
+  QuoteTyping,
+} from "../../../components";
 import FeedbackSection from "../../../components/Feedback";
 import Login from "../Login";
 /**
@@ -9,10 +14,12 @@ const Home = () => {
   return (
     <div className="scroll-smooth">
       <Login />
+
       <div className="flex justify-center mt-40 mb-12">
         <KeyFeature />
       </div>
       <NumCountUp />
+      <QuoteTyping />
       <FeedbackSection />
       <Footer></Footer>
     </div>
