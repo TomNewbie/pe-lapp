@@ -24,11 +24,18 @@ const AllCoursesStudent = () => {
     const body = document.body;
     if (modal) {
       body.classList.remove("modal-open");
+      setModal(false);
     } else {
       body.classList.add("modal-open");
+      setModal(true);
     }
   };
-  const { data: test, pending, error } = useAPI({ path: " /api/courses" });
+  const {
+    data: courses,
+    pending,
+    error,
+    refresh,
+  } = useAPI({ path: "/api/courses" });
   console.log(test);
   if (error) {
     return <Errorpage />;
@@ -39,7 +46,12 @@ const AllCoursesStudent = () => {
 
   return (
     <div className="relative">
-      {modal && <JoinCourse handleClose={toggleModal}></JoinCourse>}
+      {modal && (
+        <JoinCourse
+          handleClose={toggleModal}
+          onJoinCourse={refresh}
+        ></JoinCourse>
+      )}
       <NavbarStudent></NavbarStudent>
       {/* Searchbox and join course button */}
       <div className="flex flex-row justify-between mt-8 ml-16 mr-16">
@@ -54,16 +66,18 @@ const AllCoursesStudent = () => {
 
       {/* Display all courses */}
       <div className="mt-8 ml-16 text-7xl">ALL COURSES</div>
-      <div className="bg-[#F48F98]/50 grid grid-cols-4 grid-rows-2 mb-16 gap-x-16 gap-y-8 mx-16 rounded-2xl px-24 py-4">
-        {test.map((course) => {
-          const link = "/course/" + course._id;
-          return (
-            <Link to={link}>
-              <CoursecardStudent course={course}></CoursecardStudent>
-            </Link>
-          );
-        })}
-      </div>
+      {courses && (
+        <div className="bg-[#F48F98]/50 grid grid-cols-4 grid-rows-2 mb-16 gap-x-2 gap-y-8 mx-16 rounded-2xl px-24 py-4">
+          {courses.map((course) => {
+            const link = "/course/" + course._id;
+            return (
+              <Link to={link}>
+                <CoursecardStudent course={course}></CoursecardStudent>
+              </Link>
+            );
+          })}
+        </div>
+      )}
       <Footer></Footer>
     </div>
   );
