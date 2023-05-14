@@ -18,7 +18,6 @@ import {
   Errorpage,
   ProfileLecturer,
   ProfileStudent,
-  LoadingPage,
 } from "./pages/common";
 import { useAuth } from "./components/auth.js";
 import { NavbarLecturer, NavbarStudent } from "./components/index.js";
