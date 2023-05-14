@@ -12,7 +12,7 @@ import {
   ExerciseSection,
 } from "../../../components";
 import { useAPI } from "../../../hooks/useAPI";
-import { Errorpage } from "../../common";
+import { Errorpage, LoadingPage } from "../../common";
 
 /** Need to fetch:
  * notis: { status: string; title: string; content: string; files: {name: string;}[];}[]
@@ -82,7 +82,7 @@ const CoursePage = () => {
     return <Errorpage />;
   }
   if (participantsPending || contentsPending || exercisesPending) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
   console.log(exercises);
   return (

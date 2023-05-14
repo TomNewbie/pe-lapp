@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Footer } from "../../../components";
 import { useAPI } from "../../../hooks/useAPI";
-import { Errorpage } from "../../common";
+import { Errorpage, LoadingPage } from "../../common";
 import { updateUserProfile } from "../../../services/user";
 /** Need to fetch:
  * course:
@@ -41,7 +41,7 @@ const ProfileTeacherMe = ({ id }) => {
     return <Errorpage />;
   }
   if (infoPending) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
 
   const handleCancel = () => {

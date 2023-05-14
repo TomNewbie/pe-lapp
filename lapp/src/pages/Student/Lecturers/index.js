@@ -1,7 +1,7 @@
 import { NavbarStudent, Footer } from "../../../components";
 import { useAPI } from "../../../hooks/useAPI";
 import React from "react";
-import { Errorpage } from "../../common";
+import { Errorpage, LoadingPage } from "../../common";
 import { Link } from "react-router-dom";
 /** Need to fetch:
  * lecturers: {
@@ -25,7 +25,7 @@ const Lecturers = () => {
   } = useAPI({ path: "/api/lecturers" });
 
   if (pending) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
   if (error) {
     return <Errorpage />;

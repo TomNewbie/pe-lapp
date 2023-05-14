@@ -8,7 +8,7 @@ import {
 } from "../../../components";
 import { useState } from "react";
 import { useAPI } from "../../../hooks/useAPI";
-import { Errorpage } from "../../common";
+import { Errorpage, LoadingPage } from "../../common";
 /**Need to fetch courses:
  * const courses: {
     name: string;
@@ -36,7 +36,7 @@ const AllCoursesLecturer = () => {
     return <Errorpage />;
   }
   if (pending) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
 
   return (

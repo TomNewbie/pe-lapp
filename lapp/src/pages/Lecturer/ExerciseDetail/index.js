@@ -10,7 +10,7 @@ import {
 import { PostAnnEx } from "../../../components";
 import { Link, useParams } from "react-router-dom";
 import { useAPI } from "../../../hooks/useAPI";
-import { Errorpage } from "../../common";
+import { Errorpage, LoadingPage } from "../../common";
 
 /** Need to fetch:
  * course:
@@ -105,7 +105,7 @@ const ExerciseDetail = () => {
     return <Errorpage />;
   }
   if (pending) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
 
   const numOfSubmission = data.solutions.length;

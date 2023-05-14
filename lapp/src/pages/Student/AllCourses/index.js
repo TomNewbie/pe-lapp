@@ -8,7 +8,7 @@ import {
 } from "../../../components";
 import { useState } from "react";
 import { useAPI } from "../../../hooks/useAPI";
-import { Errorpage } from "../../common";
+import { Errorpage, LoadingPage } from "../../common";
 /** Need to fetch:
  *  courses: {
     name: string;
@@ -34,7 +34,7 @@ const AllCoursesStudent = () => {
     return <Errorpage />;
   }
   if (pending) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
 
   return (
@@ -43,7 +43,7 @@ const AllCoursesStudent = () => {
       <NavbarStudent></NavbarStudent>
       {/* Searchbox and join course button */}
       <div className="flex flex-row justify-between mt-8 ml-16 mr-16">
-        <SearchBox ></SearchBox>
+        <SearchBox></SearchBox>
         <button
           className="border-[#B02B3B] border-4 box-border px-2 h-9 pb-8 leading-9 rounded-xl hover:border-slate-500 text-dongle text-3xl ml-4 bg-[#ffffff] shadow-lg text-[#1B1C1E]"
           onClick={toggleModal}
