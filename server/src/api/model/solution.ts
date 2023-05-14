@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { InferSchemaType, Schema } from "mongoose";
 
 const solution = new Schema(
   {
@@ -41,3 +41,4 @@ const solution = new Schema(
 );
 
 export const Solution = mongoose.model("Solution", solution);
+export type SolutionType = InferSchemaType<typeof solution>;

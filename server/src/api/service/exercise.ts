@@ -1,6 +1,6 @@
 import mongoose, { Types } from "mongoose";
 import { Exercise, ExerciseType } from "../model/exercise";
-import { Solution } from "../model/solution";
+import { Solution, SolutionType } from "../model/solution";
 import { FileType } from "../../utils/types";
 
 const create = async (
@@ -52,54 +52,82 @@ export type StudentViewDetail = {
   exercise_files: Array<FileType>;
   solution_files?: FileType;
 };
-export type LecturerViewDetail = Array<{
+
+type studentSolution = {
+  student: {
+    name: string;
+    id: string;
+  };
+  submit_time?: Date;
+  file?: Array<Omit<FileType, "refPath">>;
+  grade?: number;
+};
+type lectureViewDetail = {
   name: string;
   deadline: Date;
   description: string;
-  exercise_files: Array<string>;
-  solutions: Array<{
-    student: {
-      name: string;
-      id: string;
-    };
-    submit_time: Date;
-    file: FileType;
-    grade?: number;
-  }>;
-}>;
+  exercise_files: Array<Omit<FileType, "refPath">>;
+  solutions: Array<studentSolution>;
+};
 const getLecturerViewDetail = async (
   exerciseId: string,
   lecturerId: string
-) => {
-  const [exercises] = await Exercise.aggregate()
+): Promise<lectureViewDetail> => {
+  const [exercise] = await Exercise.aggregate()
     .match({
       _id: new Types.ObjectId(exerciseId),
       lecturer: lecturerId,
     })
     .lookup({
-      from: "solutions",
-      localField: "_id",
-      foreignField: "_id.exercise",
-      as: "solutionFields",
+      from: "courses",
+      foreignField: "_id",
+      localField: "course",
+      as: "course",
     })
-    .unwind("solutionFields")
+    .unwind("course")
     .lookup({
       from: "students",
-      localField: "solutionFields._id.student",
+      localField: "course.participants",
       foreignField: "_id",
       as: "students",
     })
     .unwind("students")
+    .lookup({
+      from: "solutions",
+      let: { exerciseId: "$_id", studentId: "$students._id" },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $and: [
+                { $eq: ["$_id.exercise", "$$exerciseId"] },
+                { $eq: ["$_id.student", "$$studentId"] },
+              ],
+            },
+          },
+        },
+      ],
+      as: "solution",
+    })
     .project({
       _id: 1,
       name: 1,
       deadline: 1,
       description: 1,
-      exercise_files: "$files",
+      exercise_files: {
+        $map: {
+          input: "$files",
+          as: "files",
+          in: {
+            name: "$$files.name",
+            url: "$$files.url",
+          },
+        },
+      },
       student: { name: "$students.name", id: "$students._id" },
-      submit_time: "$solutionFields.createdAt",
-      file: "$solutionFields.files",
-      grade: "$solutionFields.grade",
+      submit_time: "$solution.createdAt",
+      file: "$solution.files",
+      grade: "$solution.grade",
       solution: 1,
     })
     .group({
@@ -118,10 +146,34 @@ const getLecturerViewDetail = async (
         },
       },
     });
-  if (!exercises) return Exercise_ErrorType.NOT_FOUND;
-  const result = { ...exercises._id, solutions: exercises.solutions };
-  return result;
+
+  const filterSolutions = exercise.solutions.map(
+    (solution: {
+      student: {
+        name: string;
+        id: string;
+      };
+      submit_time?: Date[];
+      file?: FileType[];
+      grade?: number[];
+    }) => {
+      if (!solution.submit_time![0]) {
+        const { student } = solution;
+
+        return { student: student };
+      }
+      return {
+        ...solution,
+        submit_time: solution.submit_time![0],
+        file: solution.file![0],
+        grade: solution.grade![0] ? solution.grade![0] : null,
+      };
+    }
+  );
+  return { ...exercise._id, solutions: filterSolutions };
 };
+// getLecturerViewDetail("645bd287b84013ab0df85f3e", "god");
+// getLecturerViewDetail("6451f42211a6cb2c92fcef3e", "god");
 const getStudentViewDetail = async (exerciseId: string, studentId: string) => {
   const [exercises] = await Exercise.aggregate()
     .match({
@@ -239,6 +291,7 @@ const getLecturerViewExercise = async (
       deadline: 1,
       submission_count: 1,
     });
+  console.log(exercises);
   if (exercises.length === 0) {
     return Exercise_ErrorType.NOT_FOUND;
   }
