@@ -1,6 +1,7 @@
 import {
   Footer,
   KeyFeature,
+  Members,
   NumCountUp,
   QuoteTyping,
 } from "../../../components";
@@ -25,6 +26,7 @@ const Home = () => {
 
       <QuoteTyping />
       <FeedbackSection />
+      <Members />
       <Footer></Footer>
     </div>
   );
