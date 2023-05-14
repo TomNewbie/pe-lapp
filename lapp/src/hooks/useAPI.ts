@@ -160,7 +160,20 @@ export function useAPI(
  * along with a function for rerunning the request.
  */
 export function useAPI(
-  url: { path: "/api/lecturers"; searchParams?: { s?: number; n?: number } },
+  url: {
+    /** Get all lecturers, sorted alphabetically by name in ascending order.*/
+    path: "/api/lecturers";
+    searchParams?: {
+      /** query a list starting at the `s + 1`-th lecturer. (0-based index;
+       * defaults to 0)
+       */
+      s?: number;
+      /** number of lecturers to return in a list. If `n` is 0, return ALL
+       * lecturers, skipping the first `s` lecturers. (defaults to 0)
+       */
+      n?: number;
+    };
+  },
   request?: { method?: "GET" }
 ): Response<
   Array<{
@@ -190,6 +203,7 @@ export function useAPI(
  */
 export function useAPI(
   url: {
+    /** Get detail of a course. */
     path: "/api/course/:id";
     params: { id: string };
   },
@@ -224,11 +238,39 @@ export function useAPI(
  */
 export function useAPI(
   url: {
+    /** Get the courses of a user. For a student, it will be the courses that
+     * they have joined. For a lecturer, it will be the courses that they have
+     * created.
+     */
     path: "/api/courses";
     searchParams?: {
+      /**
+       * query a list starting at the `s + 1`-th course. (0-based index;
+       * defaults to 0)
+       */
       s?: number;
+      /**
+       * number of courses to return in a list. If `n` is 0, return ALL courses,
+       * skipping the first `s` courses. (defaults to 0)
+       */
       n?: number;
+      /**
+       * the string to search/filter the courses by. Can be a regular
+       * expression. For a student, this will search in the order of course
+       * name, lecturer name and semester. For a lecturer, this will search for
+       * the course name and semester.
+       */
       q?: string;
+      /**
+       * the sort string, containing the names of the fields appearing in the
+       * Response body, by which to sort the resulting query. The sort order of
+       * each field is ascending unless the field name is prefixed with `-`,
+       * which will be treated as descending. Multiple field names can appear in
+       * a single sort string, separated by spaces (e.g., `"-semester%20name"`
+       * when URL encoded), or there can be multiple sort strings provided as a
+       * string array. Any field not provided in the sort string is not going to
+       * be sorted.
+       */
       S?: string | string[];
     };
   },
@@ -269,6 +311,7 @@ export function useAPI(
  */
 export function useAPI(
   url: {
+    /** Get all participants of a course */
     path: "/api/course/:id/participants";
     params: { id: string };
   },
