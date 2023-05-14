@@ -14,7 +14,7 @@ import {
 import { Participants, Assignment, PostAnnEx } from "../../../components";
 import { useState } from "react";
 import { useAPI } from "../../../hooks/useAPI";
-import { Errorpage } from "../../common";
+import { Errorpage, LoadingPage } from "../../common";
 
 /** Need to fetch:
  - const course: { name: string; semester: string;}
@@ -86,7 +86,7 @@ const CoursePage = () => {
     return <Errorpage />;
   }
   if (participantsPending || contentsPending || exercisesPending) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
 
   // logic for modal

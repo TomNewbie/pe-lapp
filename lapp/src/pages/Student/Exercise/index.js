@@ -9,7 +9,7 @@ import {
 } from "../../../components";
 import { useParams } from "react-router-dom";
 import { useAPI } from "../../../hooks/useAPI";
-import { Errorpage } from "../../common";
+import { Errorpage, LoadingPage } from "../../common";
 
 /** Need to fetch: 
  * course: { name: string; teacher: string;}
@@ -31,7 +31,7 @@ const ExerciseDetail = () => {
     return <Errorpage />;
   }
   if (pending) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
   console.log(data);
   const convertDate = (timestamp) => {

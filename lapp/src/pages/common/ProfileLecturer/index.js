@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { Footer } from "../../../components";
 import { useAPI } from "../../../hooks/useAPI";
 import Errorpage from "../Errorpage";
+import LoadingPage from "../LoadingPage";
 
 const ProfileLecturer = () => {
   const { id } = useParams();
@@ -19,7 +20,7 @@ const ProfileLecturer = () => {
     return <Errorpage />;
   }
   if (pending) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
   return (
     <div>
