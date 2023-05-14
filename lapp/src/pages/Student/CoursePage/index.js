@@ -86,7 +86,7 @@ const CoursePage = () => {
   }
   console.log(exercises);
   return (
-    <div className="relative flex flex-col bg-[#FFFAF0]">
+    <div className="relative flex flex-col bg-[#FFFAF0] ">
       <NavbarStudent></NavbarStudent>
       <StudentCourseName
         name={course.name}
@@ -97,7 +97,7 @@ const CoursePage = () => {
           // General tab
 
           tab1={
-            <div className="flex flex-col space-y-6 mt-8 mb-16  w-[1000px]">
+            <div className="flex flex-col space-y-6 mt-8 mb-16  w-[1000px] min-h-[350px]">
               {contents.map((content) => {
                 return <Notification content={content}></Notification>;
               })}
@@ -105,7 +105,7 @@ const CoursePage = () => {
           }
           // Participants tab
           tab2={
-            <div className="flex flex-col space-y-6 mt-8 mb-16 w-[800px]">
+            <div className="flex flex-col space-y-6 mt-8 w-[1000px] min-h-[350px]">
               <Participants
                 lecturer={participants.lecturer}
                 students={participants.students}
@@ -114,13 +114,15 @@ const CoursePage = () => {
           }
           // Exercise tab
           tab3={
-            <div className="flex flex-col space-y-6 mt-8 mb-16 w-[1000px]">
+            <div className="flex flex-col space-y-6 mt-8 mb-16 w-[1000px] min-h-[350px]">
               {exercises.map((exercise) => {
                 const link = "/exercise/" + exercise._id;
                 return (
-                  <Link to={link}>
-                    <ExerciseSection exercise={exercise}></ExerciseSection>;
-                  </Link>
+                  <div>
+                    <Link to={link}>
+                      <ExerciseSection exercise={exercise}></ExerciseSection>
+                    </Link>
+                  </div>
                 );
               })}
             </div>

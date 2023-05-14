@@ -5,9 +5,9 @@ const StudentNavCourse = ({ tab1, tab2, tab3 }) => {
     setActiveTab(index);
   };
   return (
-    <div className="grid h-full max-w-full justify-items-center">
+    <div className="grid h-full justify-items-center">
       {/* Tab link */}
-      <div className="flex justify-between w-2/3 h-8 border-b cursor-pointer border-slate-300">
+      <div className="flex justify-between w-full h-8 border-b cursor-pointer border-slate-300">
         <div
           className={
             activeTab === 1

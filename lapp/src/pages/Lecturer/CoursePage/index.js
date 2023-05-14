@@ -125,11 +125,11 @@ const CoursePage = () => {
         name={id}
         semester={course.semester}
       ></TeacherCourseName>
-      <div className="mt-8">
+      <div className="w-full mt-8">
         <TeacherNavCourse
           // General tab
           tab1={
-            <div className="flex justify-around w-[1440px] min-h-[370px]">
+            <div className="flex flex-row justify-evenly space-x-24 w-[1000px] min-h-[370px]">
               <div className="flex flex-col space-y-6 mt-8 mb-16 w-[900px]">
                 <div onClick={togglePostModal}>
                   <Announce></Announce>
@@ -146,7 +146,7 @@ const CoursePage = () => {
           }
           //Exercise tab
           tab2={
-            <div className="mt-4 w-[1200px] min-h-[370px]">
+            <div className="mt-4 w-[1000px] min-h-[370px]">
               <CustomButton
                 variant={"filled"}
                 className={"px-5 py-0"}
@@ -178,7 +178,7 @@ const CoursePage = () => {
           }
           // Grade tab
           tab4={
-            <div className="min-h-[370px] px-10 w-screen mt-4">
+            <div className="min-h-[370px] px-10 w-[1440px] mt-4">
               <OverallGrade
                 students={studentGrade}
                 exercises={exercises}

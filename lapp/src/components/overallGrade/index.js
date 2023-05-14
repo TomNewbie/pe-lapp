@@ -42,7 +42,7 @@ const OverallGrade = ({ students, exercises }) => {
       ))
     : null;
   return (
-    <div class="flex flex-col h-screen">
+    <div class="flex flex-col">
       <div class="flex-grow overflow-auto">
         <table class="relative w-full border-collapse border  ">
           <thead>
