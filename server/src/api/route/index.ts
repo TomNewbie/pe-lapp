@@ -9,12 +9,12 @@ import { exerciseRouter } from "./exercise";
 const router = Router();
 router.post(
   "/test",
-  fileController.getFile,
-  fileController.upload,
+  fileController.getFileFromUser,
+  // fileController.upload,
   async (req: FileRequest, res: Response) => {
     // console.log(req.files);
-    console.log(req.firebase);
-    res.status(200).send(req.firebase);
+    console.log(req.files);
+    res.status(200).send("hehe");
   }
 );
 router.use(authRouter);

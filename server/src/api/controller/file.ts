@@ -9,7 +9,11 @@ import { existsSync } from "fs";
 
 import { FileType } from "../../utils/types";
 
-const getFile = (req: AuthRequest, res: Response, next: NextFunction) => {
+const getFileFromUser = (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
   fileService.handleUpload(req, res, function (err) {
     if (err instanceof multer.MulterError) {
       // console.log(err.code);
@@ -58,4 +62,4 @@ const get = (req: AuthRequest, res: Response) => {
   }
   res.status(200).sendFile(fullUrl);
 };
-export const fileController = { upload, getFile, remove, get };
+export const fileController = { upload, getFileFromUser, remove, get };
