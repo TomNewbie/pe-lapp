@@ -29,3 +29,4 @@ export { default as OverallGrade } from "./overallGrade";
 export { default as KeyFeature } from "./KeyFeature";
 export { default as QuoteTyping } from "./QuoteTyping";
 export { default as Members } from "./Members";
+export { default as AddStudent } from "./PopUp/AddStudent";
