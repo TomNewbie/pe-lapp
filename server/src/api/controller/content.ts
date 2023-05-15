@@ -34,7 +34,7 @@ const verifyAuthorize = async (
   next: NextFunction
 ) => {
   if (req.user!.role !== "lecturer") {
-    res.status(404).send("Unauthorized");
+    res.status(401).send("Unauthorized");
     return;
   }
   const { id: courseId, course_content_id: contentId } = req.params;
@@ -45,7 +45,7 @@ const verifyAuthorize = async (
     lecturerId
   );
   if (err === ContentError.NOT_FOUND) {
-    res.status(404).send("Unauthorized");
+    res.status(404).send("Content not found");
     return;
   }
   next();

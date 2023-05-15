@@ -118,7 +118,7 @@ Get exercise detail by id
       url: string;
       name: string;
     };
-    grade?: number | null;
+    grade?: number;
   }>;
 }
 ```

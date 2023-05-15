@@ -11,13 +11,13 @@ export const allowed: Array<string> = [
   ".gif",
 ];
 
-export const uploadLimit = {
-  fileSize: 5 * 1024 * 1024, // file size
-  fieldNameSize: 50, // field name for text
-  fields: 5, // number of text field
-  files: 5, // number of file
-  fieldSize: 256, // text limit
-};
+// export const uploadLimit = {
+//   fileSize: 5 * 1024 * 1024, // file size
+//   fieldNameSize: 50, // field name for text
+//   fields: 10, // number of text field
+//   files: 5, // number of file
+//   fieldSize: 256, // text limit
+// };
 
 export const filePath = "/test/";
 // console.log(filePath);

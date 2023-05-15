@@ -9,14 +9,14 @@ const router = Router();
 router.post(
   "/course/:id/exercise",
   courseController.verifyAuthorize,
-  fileController.getFile,
+  fileController.getFileFromUser,
   fileController.upload,
   exerciseController.createExercise
 );
 router.post(
   "/exercises/:id",
   solutionController.verifyAuthorize,
-  fileController.getFile,
+  fileController.getFileFromUser,
   fileController.upload,
   solutionController.createSolution
 );
@@ -29,7 +29,7 @@ router.get(
 router.patch(
   "/exercises/:id",
   exerciseController.verifyAuthorize,
-  fileController.getFile,
+  fileController.getFileFromUser,
   fileController.upload,
   exerciseController.editExercise
 );
