@@ -38,8 +38,7 @@ const upload = async (req: FileRequest, res: Response, next: NextFunction) => {
   if (files.length === 0) {
     next(); // no file in upload
   }
-  const fileFilters = files.filter((file) => file.buffer);
-  req.firebase = await fileService.uploadFirebase(fileFilters);
+  req.firebase = await fileService.uploadFirebase(files);
   next();
 };
 const remove = async (req: AuthRequest, res: Response, next: NextFunction) => {

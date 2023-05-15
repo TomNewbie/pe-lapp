@@ -2,12 +2,7 @@ import multer from "multer";
 import path, { join } from "path";
 import { unlink } from "fs/promises";
 
-import {
-  allowed,
-  fileFields,
-  filePath,
-  uploadLimit,
-} from "../../config/upload";
+import { allowed, fileFields, filePath } from "../../config/upload";
 import {
   deleteObject,
   getDownloadURL,
@@ -28,7 +23,6 @@ const handleUpload = multer({
     }
     callback(null, true);
   },
-  limits: uploadLimit,
 }).array(fileFields);
 const removeFirebase = async (refPaths: string[]): Promise<void | string> => {
   if (!refPaths) return;
