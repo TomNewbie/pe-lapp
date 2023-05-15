@@ -10,6 +10,7 @@ import {
   Notification,
   Footer,
   OverallGrade,
+  AddStudent,
 } from "../../../components";
 import { Participants, Assignment, PostAnnEx } from "../../../components";
 import { useState } from "react";
@@ -57,6 +58,7 @@ const CoursePage = () => {
     data: participants,
     pending: participantsPending,
     error: participantsError,
+    refresh: participantsRefresh,
   } = useAPI({
     path: "/api/course/:id/participants",
     params: { id },
@@ -80,6 +82,11 @@ const CoursePage = () => {
   });
   const [postModal, setPostModal] = useState(false);
   const [exerciseModal, setExerciseModal] = useState(false);
+  const [studentModal, setStudentModal] = useState(false);
+  const [activeTab, setActiveTab] = useState(1);
+  const handleClick = (index) => {
+    setActiveTab(index);
+  };
   if (participantsError || contentsError || exercisesError) {
     return <Errorpage />;
   }
@@ -110,6 +117,17 @@ const CoursePage = () => {
     setExerciseModal(!exerciseModal);
   };
 
+  const toggleStudentModal = () => {
+    const body = document.body;
+    if (studentModal) {
+      body.classList.remove("modal-open");
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      body.classList.add("modal-open");
+    }
+    setStudentModal(!studentModal);
+  };
+  console.log(participants.students);
   return (
     // <body className="bg-[#FFFAF0]">
     <div className="relative flex flex-col bg-[#FFFAF0] min-h-screen">
@@ -120,6 +138,16 @@ const CoursePage = () => {
           handleClose={toggleExerciseModal}
         ></PostAnnEx>
       )}
+      {studentModal && (
+        <AddStudent
+          handleClose={toggleStudentModal}
+          courseId={id}
+          onAddStudent={() => {
+            participantsRefresh();
+            handleClick(3);
+          }}
+        ></AddStudent>
+      )}
       <NavbarLecturer></NavbarLecturer>
       <TeacherCourseName
         name={id}
@@ -128,6 +156,8 @@ const CoursePage = () => {
       ></TeacherCourseName>
       <div className="flex-grow w-full mt-8">
         <TeacherNavCourse
+          activeTab={activeTab}
+          handleClick={handleClick}
           // General tab
           tab1={
             <div className="flex flex-row justify-evenly space-x-24 w-[1000px] min-h-[370px]">
@@ -171,6 +201,7 @@ const CoursePage = () => {
               <Participants
                 lecturer={participants.lecturer}
                 students={participants.students}
+                handleModal={toggleStudentModal}
               ></Participants>
             </div>
           }

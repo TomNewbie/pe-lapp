@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-const TeacherNavCourse = ({ tab1, tab2, tab3, tab4 }) => {
-  const [activeTab, setActiveTab] = useState(1);
-  const handleClick = (index) => {
-    setActiveTab(index);
-  };
+import React from "react";
+const TeacherNavCourse = ({
+  tab1,
+  tab2,
+  tab3,
+  tab4,
+  activeTab,
+  handleClick,
+}) => {
   return (
     <div className="grid h-full max-w-full justify-items-center">
       {/* Tab link */}
