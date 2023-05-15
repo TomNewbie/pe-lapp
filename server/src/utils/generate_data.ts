@@ -6,11 +6,12 @@ import { db } from '../config/database'
 import { Student, Lecturer } from '../api/model/user'
 import { CourseContent, Course } from "../api/model/course";
 import { Exercise } from "../api/model/exercise";
-import { students, lecturers, contents, courses, exercises } from './dummies';
+import { Solution } from "../api/model/solution";
+import { students, lecturers, contents, courses, exercises, solutions } from './dummies';
 
 const insertData = async(Model: any, data: any) => {
   try {
-    console.log(data);
+    console.info(data);
     await Model.insertMany(data);
   } catch(err) {
     console.log(err);
@@ -33,12 +34,14 @@ db.then(async () => {
     await insertData(CourseContent, contents);
     await insertData(Course, courses);
     await insertData(Exercise, exercises);
+    await insertData(Solution, solutions);
   } else {
     await deleteData(Student);
     await deleteData(Lecturer);
     await deleteData(CourseContent);
     await deleteData(Course);
     await deleteData(Exercise);
+    await deleteData(Solution);
   }
   process.exit();
 }).catch(err => {

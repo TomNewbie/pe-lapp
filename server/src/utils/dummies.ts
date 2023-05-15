@@ -122,4 +122,32 @@ const generateExercise = (lecturer: string, course: string) => {
     }
 }
 
-export const exercises = courses.map(course => generateExercise(course.lecturer_id, course._id))
+export const exercises = courses.flatMap(course => {
+    let res = [];
+    let numOfExercises = 4;
+    for (let i = 0; i < numOfExercises; i++) {
+        res.push(generateExercise(course.lecturer_id, course._id))
+    }
+    return res;
+})
+
+const generateSolution = (exercise: string, student: string) => {
+    return {
+        _id: {
+            student,
+            exercise,
+        },
+        files: faker.helpers.arrayElements(files),
+        grade: faker.number.int({
+            max: 100,
+            min: 70,
+        })
+    }
+}
+
+export const solutions = exercises.flatMap(
+    exercise => courses
+        .find(course => course._id === exercise.course)
+        ?.participants
+        .map(student =>  generateSolution(exercise._id, student))
+    )
