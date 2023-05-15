@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import mongoose from 'mongoose';
 
 faker.seed(123);
 
@@ -91,12 +92,12 @@ const courseNames = [
     "Data structure and Algorithm",
     "IT security",
 ]
+const lecturerIds = lecturers.map(lecturer => lecturer._id);
+const participantIds = students.map(student => student._id);
 
 const generateCourse = (name: string) => {
     const contentIds = contents.map(content => content._id);
     const semesters = ["SS2023", "WS2023"];
-    const lecturerIds = lecturers.map(lecturer => lecturer._id);
-    const participantIds = students.map(student => student._id);
     return {
         _id: faker.database.mongodbObjectId(),
         name,
@@ -108,3 +109,17 @@ const generateCourse = (name: string) => {
 }
 
 export const courses = courseNames.map(name => generateCourse(name));
+
+const generateExercise = (lecturer: string, course: string) => {
+    return {
+        _id: faker.database.mongodbObjectId(),
+        name: faker.lorem.sentence(),
+        files: faker.helpers.arrayElements(files),
+        description: faker.lorem.lines(),
+        lecturer,
+        course,
+        deadline: new Date("2023-12-31"),
+    }
+}
+
+export const exercises = courses.map(course => generateExercise(course.lecturer_id, course._id))

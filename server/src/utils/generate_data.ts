@@ -5,7 +5,8 @@ dotenv.config({ path: envPath });
 import { db } from '../config/database'
 import { Student, Lecturer } from '../api/model/user'
 import { CourseContent, Course } from "../api/model/course";
-import { students, lecturers, contents, courses } from './dummies';
+import { Exercise } from "../api/model/exercise";
+import { students, lecturers, contents, courses, exercises } from './dummies';
 
 const insertData = async(Model: any, data: any) => {
   try {
@@ -31,11 +32,13 @@ db.then(async () => {
     await insertData(Lecturer, lecturers);
     await insertData(CourseContent, contents);
     await insertData(Course, courses);
+    await insertData(Exercise, exercises);
   } else {
     await deleteData(Student);
     await deleteData(Lecturer);
     await deleteData(CourseContent);
     await deleteData(Course);
+    await deleteData(Exercise);
   }
   process.exit();
 }).catch(err => {
