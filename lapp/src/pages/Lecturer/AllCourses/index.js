@@ -29,7 +29,12 @@ const AllCoursesLecturer = () => {
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
     const body = document.body;
-    body.classList.toggle("modal-open");
+    if (modal) {
+      body.classList.remove("modal-open");
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      body.classList.add("modal-open");
+    }
     setModal(!modal);
   };
   const {
@@ -58,7 +63,7 @@ const AllCoursesLecturer = () => {
       <div className="flex flex-row justify-between mt-8 ml-16 mr-16">
         <SearchBox variant={"small"}></SearchBox>
         <button
-          className="border-[#B02B3B] border-4 box-border px-2 h-9 pb-8 leading-9 rounded-xl hover:border-slate-500 text-dongle text-3xl ml-4 bg-[#ffffff] shadow-xl text-[#1B1C1E]"
+          className="border-[#B02B3B] border-4 box-border px-2 h-9 pb-8 leading-9 rounded-xl hover:border-slate-500 text-dongle text-4xl ml-4 bg-[#ffffff] shadow-lg text-[#1B1C1E]"
           onClick={toggleModal}
         >
           + Create class

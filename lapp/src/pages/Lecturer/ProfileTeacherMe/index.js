@@ -72,8 +72,8 @@ const ProfileTeacherMe = ({ id }) => {
   };
 
   return (
-    <div className="h-full bg-[#FFFAF0]">
-      <div className="grid grid-cols-7 items-center h-full pt-10 bg-[#FFFAF0] pb-8 ">
+    <div className="h-full bg-[#FFFAF0] min-h-screen">
+      <div className="grid grid-cols-7 items-center h-full pt-10 bg-[#FFFAF0] pb-8 flex-grow">
         <div className="flex flex-row justify-center col-span-2">
           <img
             src={infoData.avatar || "/ProfileTeacher/avatar.png"}
@@ -144,7 +144,7 @@ const ProfileTeacherMe = ({ id }) => {
         <div className="flex self-start justify-center mt-6 mb-10">
           <button
             onClick={() => setShow(true)}
-            className="bg-[#CC6666] opacity-80 px-10 rounded-xl border hover:border-slate-500 text-3xl text-[#1B1C1E] font-dongle"
+            className="p-4 h-12 text-white text-center text-4xl bg-[#B02B3B]/70 border border-[#560319] px-10 py-2 rounded-xl hover:bg-[#CC6666]/40"
           >
             Edit
           </button>

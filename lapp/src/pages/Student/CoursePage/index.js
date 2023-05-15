@@ -1,4 +1,3 @@
-// import for General tab
 import { Link, useParams } from "react-router-dom";
 import {
   NavbarStudent,
@@ -14,24 +13,11 @@ import {
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
 
-/** Need to fetch:
- * notis: { status: string; title: string; content: string; files: {name: string;}[];}[]
- * - const participants: {
-    student: {
-        url: string;
-        name: string;
-        mail: string;
-    }[];
-    lecturer: string;
-}
- * exercises: { name: string; deadline: string; grade: string; status: string;}[]
- */
-
 const course = { name: "Programming exercise", teacher: "Huynh Trung Hieu" };
 
-// Ccomponent renders the main content of a course page for students, including notifications, participants, and exercises.
 const CoursePage = () => {
   const { id } = useParams();
+
   const {
     data: participants,
     pending: participantsPending,
@@ -40,6 +26,7 @@ const CoursePage = () => {
     path: "/api/course/:id/participants",
     params: { id },
   });
+
   const {
     data: contents,
     pending: contentsPending,
@@ -48,6 +35,7 @@ const CoursePage = () => {
     path: "/api/course/:id/contents",
     params: { id },
   });
+
   const {
     data: exercises,
     pending: exercisesPending,
@@ -56,31 +44,31 @@ const CoursePage = () => {
     path: "/api/course/:id/exercises",
     params: { id },
   });
+
   if (participantsError || contentsError || exercisesError) {
     return <Errorpage />;
   }
+
   if (participantsPending || contentsPending || exercisesPending) {
     return <LoadingPage />;
   }
+
   return (
-    <div className="relative flex flex-col bg-[#FFFAF0] ">
+    <div className="relative flex flex-col bg-[#FFFAF0] h-screen">
       <NavbarStudent></NavbarStudent>
       <StudentCourseName
         name={course.name}
         teacher={course.teacher}
       ></StudentCourseName>
-      <div>
+      <div className="flex-grow">
         <StudentNavCourse
-          // General tab
-
           tab1={
-            <div className="flex flex-col space-y-6 mt-8 mb-16  w-[1000px] min-h-[350px]">
+            <div className="flex flex-col space-y-6 mt-8 mb-16 w-[1000px] min-h-[350px]">
               {contents.map((content) => {
                 return <Notification content={content}></Notification>;
               })}
             </div>
           }
-          // Participants tab
           tab2={
             <div className="flex flex-col space-y-6 mt-8 w-[1000px] min-h-[350px]">
               <Participants
@@ -89,7 +77,6 @@ const CoursePage = () => {
               ></Participants>
             </div>
           }
-          // Exercise tab
           tab3={
             <div className="flex flex-col space-y-6 mt-8 mb-16 w-[1000px] min-h-[350px]">
               {exercises.map((exercise) => {
@@ -109,7 +96,7 @@ const CoursePage = () => {
 
       <Footer></Footer>
     </div>
-    // </body>
   );
 };
+
 export default CoursePage;
