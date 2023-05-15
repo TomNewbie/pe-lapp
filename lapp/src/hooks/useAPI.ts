@@ -351,6 +351,7 @@ export function useAPI(
  */
 export function useAPI(
   url: {
+    /** Get all content from courseId */
     path: "/api/course/:id/contents";
     params: { id: string };
   },
