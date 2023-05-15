@@ -65,7 +65,7 @@ const ExerciseDetail = () => {
             </div>
           </div>
           <div className="flex mt-4">
-            <div className="bg-[#F4C2C2]/30 rounded-3xl w-full h-auto pt-4 pb-6">
+            <div className="w-full h-auto pt-4 pb-6  rounded-3xl">
               <div className="flex flex-col ml-4 space-y-4">
                 <div className="text-3xl font-light">{data.description}</div>
               </div>

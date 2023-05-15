@@ -56,7 +56,7 @@ const AllCoursesStudent = () => {
       <div className="flex flex-row justify-between mt-8 ml-16 mr-16">
         <SearchBox></SearchBox>
         <button
-          className="border-[#B02B3B] border-4 box-border px-2 h-9 pb-8 leading-9 rounded-xl hover:border-slate-500 text-dongle text-3xl ml-4 bg-[#ffffff] shadow-lg text-[#1B1C1E]"
+          className="border-[#B02B3B] border-4 box-border px-2 h-9 pb-8 leading-9 rounded-xl hover:border-slate-500 text-dongle text-4xl ml-4 bg-[#ffffff] shadow-lg text-[#1B1C1E]"
           onClick={toggleModal}
         >
           Enter class code
@@ -66,7 +66,7 @@ const AllCoursesStudent = () => {
       {/* Display all courses */}
       <div className="mt-8 ml-16 text-7xl">ALL COURSES</div>
       {courses && (
-        <div className="bg-[#F48F98]/50 grid grid-cols-4 grid-rows-2 mb-16 gap-x-2 gap-y-8 mx-16 rounded-2xl px-24 py-4">
+        <div className="bg-[#F48F98]/30 grid grid-cols-4 grid-rows-2 mb-16 gap-x-2 gap-y-8 mx-16 rounded-2xl px-24 py-4">
           {courses.map((course) => {
             const link = "/course/" + course._id;
             return (

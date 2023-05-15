@@ -46,7 +46,7 @@ const Lecturers = () => {
     return Object.entries(facultySection).map(([key, val], index) => {
       return (
         <div key={index}>
-          <div className="text-[#E36255] text-4xl mt-4 h-8 border-b border-black">
+          <div className="text-[#E36255] text-5xl mt-4  border-b border-black/50">
             {faculties[index]}
           </div>
           <div className="divide-y">
@@ -54,7 +54,7 @@ const Lecturers = () => {
               const link = "/profile/lecturer/" + lecturer._id;
               return (
                 <div
-                  className="relative flex flex-row items-center h-16 text-xl"
+                  className="relative flex flex-row items-center h-16 text-3xl"
                   key={lecturer._id + "@vgu.edu.vn"}
                 >
                   <img
@@ -63,7 +63,7 @@ const Lecturers = () => {
                     className="w-8 h-8 mx-4 -my-5 rounded-full "
                   ></img>
                   <Link to={link}>
-                    <div className="mx-4 ml-2 -my-2 text-2xl hover:underline">
+                    <div className="mx-4 ml-2 -my-2 hover:underline">
                       {lecturer.name}
                     </div>
                   </Link>
@@ -73,7 +73,7 @@ const Lecturers = () => {
                       <img
                         src="/participants-icon/mail.png"
                         alt=""
-                        className="absolute w-5 h-5 mx-4 -my-5 right-4"
+                        className="absolute mx-4 -my-5 w-7 h-7 right-4"
                       ></img>
                     </button>
                   </div>
@@ -91,10 +91,10 @@ const Lecturers = () => {
       <NavbarStudent></NavbarStudent>
       {pending && <div>Loading...</div>}
       {error && <Errorpage></Errorpage>}
-      {lecturers1 && renderLecturerLists(lecturers1)}
-      <div className="absolute inset-x-0 bottom-0">
-        <Footer></Footer>
+      <div className="mx-10">
+        {lecturers1 && renderLecturerLists(lecturers1)}
       </div>
+      <Footer></Footer>
     </div>
   );
 };
