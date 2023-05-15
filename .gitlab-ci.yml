@@ -5,6 +5,8 @@ stages:
 test_server:
   stage: test
   image: node:18
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
   script:
     - cd ./server
     - npm install
