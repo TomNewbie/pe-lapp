@@ -389,6 +389,7 @@ export function useAPI(
  */
 export function useAPI(
   url: {
+    /** Get all exercise from a specific course */
     path: "/api/course/:id/exercises";
     params: { id: string };
   },
@@ -428,6 +429,7 @@ export function useAPI(
  */
 export function useAPI(
   url: {
+    /** Get exercise detail by id */
     path: "/api/exercises/:id";
     params: { id: string };
   },
@@ -458,8 +460,8 @@ export function useAPI(
           name: string;
           id: string;
         };
-        submit_time: Date;
-        file: {
+        submit_time?: Date;
+        file?: {
           url: string;
           name: string;
         };
