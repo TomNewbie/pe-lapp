@@ -30,6 +30,7 @@ const verifyAuthorize = async (
 ) => {
   if (req.user!.role === "lecturer") {
     res.status(401).send("Unauthorize");
+    return;
   }
   const studentId = req.user!._id;
   const { id: exerciseId } = req.params;

@@ -1,6 +1,7 @@
 import mongoose, { ObjectId, Types, isValidObjectId } from "mongoose";
 import { CourseContent, CourseContentType } from "../model/course";
 import { Course } from "../model/course";
+import { FileType } from "../../utils/types";
 
 const create = async ({
   title,
@@ -14,17 +15,54 @@ const create = async ({
   console.log(_id);
   return _id;
 };
-
-const update = async (
-  contentId: string,
-  { title, files, body }: Omit<CourseContentType, "createdAt" | "updatedAt">
-) => {
-  const result = await CourseContent.updateOne(
-    { _id: contentId },
-    { title, files, body }
-  );
-  // return result;
+type updateContentType = Omit<
+  Partial<CourseContentType>,
+  "updatedAt" | "createdAt"
+> & {
+  remove?: string[];
 };
+const update = async (contentId: string, updateContent: updateContentType) =>
+  // : Omit<CourseContentType, "createdAt" | "updatedAt">
+  {
+    let update: {
+      $set: {
+        [key in keyof updateContentType]?: string;
+      };
+      $pull: {
+        files?: {
+          url: string[];
+        };
+      };
+    } = {
+      $set: {},
+      $pull: { files: { url: [] } },
+    };
+
+    // Iterate over request body and add fields to update object
+    for (const [key, value] of Object.entries(updateContent)) {
+      if (value !== undefined) {
+        if (key === "remove") {
+          update.$pull.files!.url = value as string[];
+          continue;
+        }
+        update.$set[key as keyof updateContentType] = value as string;
+      }
+    }
+    const result = await CourseContent.findOneAndUpdate(
+      { _id: contentId },
+      update,
+      { returnDocument: "before" }
+    );
+
+    console.log(result?.files);
+  };
+// update("645b565c14514ad6063542ab", {
+//   body: "asdasdasd",
+//   title: "test2",
+//   remove: [
+//     "https://firebasestorage.googleapis.com/v0/b/pe-lapp-384707.appspot.com/o/test%2F75d4f067-29ad-4ade-87d7-ba1b45ece121.pdf?alt=media&token=4eef136f-c1e9-43f2-b84e-f7e724d5a8b7",
+//   ],
+// });
 export enum ContentError {
   NOT_FOUND,
   INVALID_INPUT,

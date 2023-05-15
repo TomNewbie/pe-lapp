@@ -13,7 +13,8 @@ router.post(
   // fileController.upload,
   async (req: FileRequest, res: Response) => {
     // console.log(req.files);
-    console.log(req.files);
+    const date = req.body.test;
+    console.log(new Date(date));
     res.status(200).send("hehe");
   }
 );
