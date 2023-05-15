@@ -21,15 +21,6 @@ Cookie: access_token=`<token>`
 - 404 -> Course Content not found
 - 403 -> Unauthorized
 
-# [GET] /api/view/:file_path
-
-API for viewing/ downloading the file
-
-## Response
-
-- Return a file to browser
-- 404 -> File not found
-
 # [PATCH] /api/course/:id/content/:course_content_id
 
 API for update course content
@@ -38,17 +29,23 @@ Request
 
 Cookie: access_token=`<token>`
 
-enctype="multipart/form-data"
+Content-Type="multipart/form-data"
 
 ## Request Body
 
 ```ts
-{
-  title?: string,
-  body?: string,
-  remove?: url[]
-  files?: File[]
-}
+type Body = {
+  title?: string;
+  body?: string;
+  /**
+   * remove contain url string of the file that being store on cloud storage
+   */
+  remove?: string[];
+  /**
+   * the new File that upload from the user
+   */
+  files?: File[];
+};
 ```
 
 ## Response
@@ -67,12 +64,15 @@ Request
 
 Cookie: access_token=`<token>`
 
-enctype="multipart/form-data"
+Content-Type="multipart/form-data"
 
 ## Request Body
 
 ```ts
 {
+  /**
+   * the new File that upload from the user
+   */
   files: File[],
   title: string,
   body: string,

@@ -134,7 +134,7 @@ _Error_:
 
 # [PATCH] /api/exercises/:id
 
-Edit exercise by specify id. **Not modify files yet**
+Edit exercise by specify id.
 
 ## Request
 
@@ -150,7 +150,13 @@ Edit exercise by specify id. **Not modify files yet**
   name?: string;
   deadline?: Date;
   description?: string;
-  remove?: url[];
+  /**
+   * remove contain url string of the file that being store on cloud storage
+   */
+  remove?: string[];
+  /**
+   * the new File that upload from the user
+   */
   files?: File[]
 }
 ```
