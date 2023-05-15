@@ -11,20 +11,22 @@
     "build": "tsc",
     "mongosh": ". ./.env && mongosh \"$MONGODB_URI\"",
     "fake-log-in": "ts-node src/utils/fake_log_in.ts",
-    "build:ui": "rm -rf build && cd ../lapp && npm run build"
+    "build:ui": "rm -rf build && cd ../lapp && npm run build",
+    "generate": "ts-node src/utils/generate_data"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^8.0.0",
     "@types/chai": "^4.3.4",
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/jsonwebtoken": "^9.0.1",
     "@types/mocha": "^10.0.1",
-    "@types/multer": "^1.4.7",
     "@types/morgan": "^1.9.4",
+    "@types/multer": "^1.4.7",
     "@types/node": "^18.15.3",
     "@types/supertest": "^2.0.12",
     "chai": "^4.3.7",
@@ -45,7 +47,7 @@
     "google-auth-library": "^8.7.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.2",
-    "multer": "^1.4.5-lts.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1"
   }
 }
