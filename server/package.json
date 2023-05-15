@@ -12,7 +12,9 @@
     "mongosh": ". ./.env && mongosh \"$MONGODB_URI\"",
     "fake-log-in": "ts-node src/utils/fake_log_in.ts",
     "build:ui": "rm -rf build && cd ../lapp && npm run build",
-    "generate": "ts-node src/utils/generate_data"
+    "insert-data": "ts-node src/utils/generate_data -i",
+    "remove-data": "ts-node src/utils/generate_data -d",
+    "generate-data": "npm run remove-data && npm run insert-data"
   },
   "keywords": [],
   "author": "",
