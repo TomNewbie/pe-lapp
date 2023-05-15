@@ -18,7 +18,6 @@ const ProfileStudentMe = ({ id }) => {
     error: infoError,
     refresh: refreshProfileData,
   } = useAPI({ path: "/api/student/:id", params: { id } });
-  console.log(infoData);
   const [show, setShow] = useState(false);
   const [major, setMajor] = useState("");
   const [intake, setIntake] = useState("");

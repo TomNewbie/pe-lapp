@@ -33,7 +33,6 @@ const ExerciseDetail = () => {
   if (pending) {
     return <LoadingPage />;
   }
-  console.log(data);
   const convertDate = (timestamp) => {
     const date = new Date(timestamp);
 

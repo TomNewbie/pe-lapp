@@ -36,7 +36,6 @@ const AllCoursesStudent = () => {
     error,
     refresh,
   } = useAPI({ path: "/api/courses" });
-  console.log(test);
   if (error) {
     return <Errorpage />;
   }

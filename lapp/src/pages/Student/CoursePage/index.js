@@ -62,7 +62,6 @@ const CoursePage = () => {
   if (participantsPending || contentsPending || exercisesPending) {
     return <LoadingPage />;
   }
-  console.log(exercises);
   return (
     <div className="relative flex flex-col bg-[#FFFAF0] ">
       <NavbarStudent></NavbarStudent>
