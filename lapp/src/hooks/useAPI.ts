@@ -160,7 +160,20 @@ export function useAPI(
  * along with a function for rerunning the request.
  */
 export function useAPI(
-  url: { path: "/api/lecturers"; searchParams?: { s?: number; n?: number } },
+  url: {
+    /** Get all lecturers, sorted alphabetically by name in ascending order.*/
+    path: "/api/lecturers";
+    searchParams?: {
+      /** query a list starting at the `s + 1`-th lecturer. (0-based index;
+       * defaults to 0)
+       */
+      s?: number;
+      /** number of lecturers to return in a list. If `n` is 0, return ALL
+       * lecturers, skipping the first `s` lecturers. (defaults to 0)
+       */
+      n?: number;
+    };
+  },
   request?: { method?: "GET" }
 ): Response<
   Array<{
@@ -190,11 +203,74 @@ export function useAPI(
  */
 export function useAPI(
   url: {
+    /** Get detail of a course. */
+    path: "/api/course/:id";
+    params: { id: string };
+  },
+  request?: { method?: "GET" }
+): Response<{
+  _id: string;
+  name: string;
+  semester?: string;
+  picture: string;
+  lecturer: {
+    _id: string;
+    name: string;
+  };
+}>;
+/**
+ * A hook for calling an API using the fetch API internally.
+ * @param url an object to be converted into a url string. This object will be
+ * parsed into a `string` so it does not need to be wrapped with `useMemo` like
+ * `request` does.
+ * @param request the `RequestInit` object to be passed into the `fetch` API.
+ * This object, if provided, **must** be wrapped with `useMemo` or be a
+ * non-changing reference to an object to prevent passing in a new object on
+ * every render, which forces the internal effect to be run on every render.
+ * This can create a loop in the hook (the api is called on mount; if responsed
+ * with a json object, states in the hook are set, thus rerender the component;
+ * if on rerender, a new `RequestInit` is passed to the hook, the effect is run
+ * again, calling the api, receiving a new json object, setting states, rerender
+ * and repeat the loop) and this is not the desired behavior.
+ * See {@link RequestInit}.
+ * @returns an object holding the state of the request (pending, error or data),
+ * along with a function for rerunning the request.
+ */
+export function useAPI(
+  url: {
+    /** Get the courses of a user. For a student, it will be the courses that
+     * they have joined. For a lecturer, it will be the courses that they have
+     * created.
+     */
     path: "/api/courses";
     searchParams?: {
+      /**
+       * query a list starting at the `s + 1`-th course. (0-based index;
+       * defaults to 0)
+       */
       s?: number;
+      /**
+       * number of courses to return in a list. If `n` is 0, return ALL courses,
+       * skipping the first `s` courses. (defaults to 0)
+       */
       n?: number;
+      /**
+       * the string to search/filter the courses by. Can be a regular
+       * expression. For a student, this will search in the order of course
+       * name, lecturer name and semester. For a lecturer, this will search for
+       * the course name and semester.
+       */
       q?: string;
+      /**
+       * the sort string, containing the names of the fields appearing in the
+       * Response body, by which to sort the resulting query. The sort order of
+       * each field is ascending unless the field name is prefixed with `-`,
+       * which will be treated as descending. Multiple field names can appear in
+       * a single sort string, separated by spaces (e.g., `"-semester%20name"`
+       * when URL encoded), or there can be multiple sort strings provided as a
+       * string array. Any field not provided in the sort string is not going to
+       * be sorted.
+       */
       S?: string | string[];
     };
   },
@@ -235,6 +311,7 @@ export function useAPI(
  */
 export function useAPI(
   url: {
+    /** Get all participants of a course */
     path: "/api/course/:id/participants";
     params: { id: string };
   },
@@ -274,6 +351,7 @@ export function useAPI(
  */
 export function useAPI(
   url: {
+    /** Get all content from courseId */
     path: "/api/course/:id/contents";
     params: { id: string };
   },
@@ -311,6 +389,7 @@ export function useAPI(
  */
 export function useAPI(
   url: {
+    /** Get all exercise from a specific course */
     path: "/api/course/:id/exercises";
     params: { id: string };
   },
@@ -350,6 +429,7 @@ export function useAPI(
  */
 export function useAPI(
   url: {
+    /** Get exercise detail by id */
     path: "/api/exercises/:id";
     params: { id: string };
   },
@@ -380,8 +460,8 @@ export function useAPI(
           name: string;
           id: string;
         };
-        submit_time: Date;
-        file: {
+        submit_time?: Date;
+        file?: {
           url: string;
           name: string;
         };

@@ -30,21 +30,3 @@ export const createCourse = async (fields: {
     body: JSON.stringify(fields),
   });
 };
-
-export const addCourseParticipant = async (
-  courseId: string,
-  studentId: string
-) => {
-  await apiRequest(`/api/course/${courseId}/participant/${studentId}`, {
-    method: "POST",
-  });
-};
-
-export const removeCourseParticipant = async (
-  courseId: string,
-  studentId: string
-) => {
-  await apiRequest(`/api/course/${courseId}/participant/${studentId}`, {
-    method: "DELETE",
-  });
-};

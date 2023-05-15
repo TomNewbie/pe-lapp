@@ -212,7 +212,7 @@ Create solution
 ## Request
 
 - Header  
-   Authorization: Bearer `token`
+  Cookie: access_token=`<token>`
 
   Content-Type="multipart/form-data"
 
