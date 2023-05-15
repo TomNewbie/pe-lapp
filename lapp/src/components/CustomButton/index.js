@@ -12,7 +12,7 @@ const CustomButton = ({ variant, text, className, handleButton }) => {
           handleButton();
         }}
       >
-        <span>{text}</span>
+        <span className="text-4xl">{text}</span>
       </button>
       {/* <div>Thanh</div> */}
     </div>

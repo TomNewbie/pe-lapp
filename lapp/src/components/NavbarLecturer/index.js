@@ -16,13 +16,13 @@ const NavbarLecturer = () => {
         </div>
         <div className="absolute ml-96">
           <ul className="flex flex-row items-center mt-1 space-x-72">
-            <li className="text-4xl hover:text-[#B02B3B]">
+            <li className="text-[42px] hover:text-[#B02B3B]">
               <Link to="/allcourses">Courses</Link>
             </li>
           </ul>
         </div>
         <div className="absolute mt-1 right-56">
-          <div className="text-4xl">Hi Teacher {id},</div>
+          <div className="text-[42px]">Hi Teacher {id},</div>
         </div>
         <div className="absolute right-44 top-6">
           <Link to="/profile">
@@ -31,7 +31,7 @@ const NavbarLecturer = () => {
         </div>
         <div className="absolute right-0 mr-8 top-3">
           <button
-            className="p-8 h-12 text-white text-center text-3xl bg-[#B02B3B]/70 border border-[#560319] px-4 py-2 rounded-full hover:bg-[#CC6666]/40"
+            className="p-8 h-12 text-white text-center text-3xl bg-[#B02B3B]/70 border border-[#560319] px-4 py-2 rounded-xl hover:bg-[#CC6666]/40"
             onClick={handleLogout}
           >
             Log out

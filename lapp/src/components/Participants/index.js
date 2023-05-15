@@ -10,16 +10,16 @@ const Participants = ({ lecturer, students }) => {
     return (
       <div>
         <div
-          className="relative flex flex-row items-center h-16 text-xl border-black"
+          className="relative flex flex-row items-center h-16 text-3xl border-black"
           key={student.email}
         >
           <img
             src={student.avatar}
             alt=""
-            className="w-8 h-8 mx-4 -my-5 rounded-full "
+            className="mx-4 -my-5 rounded-full w-7 h-7 "
           ></img>
           <Link to={link}>
-            <div className="mx-4 ml-2 -my-2 text-2xl hover:underline">
+            <div className="mx-4 ml-2 -my-2 hover:underline">
               {student.name}
             </div>
           </Link>
@@ -29,7 +29,7 @@ const Participants = ({ lecturer, students }) => {
               <img
                 src="/participants-icon/mail.png"
                 alt=""
-                className="absolute w-5 h-5 mx-4 -my-5 right-4"
+                className="absolute mx-4 -my-5 w-7 h-7 right-4"
               ></img>
             </button>
           </div>
@@ -43,15 +43,15 @@ const Participants = ({ lecturer, students }) => {
     <div className="max-w-full">
       <div className="flex flex-col w-full h-fit">
         <div>
-          <div className="text-[#E36255] text-4xl h-8">LECTURER</div>
+          <div className="text-[#E36255] text-5xl">Lecturer</div>
           <div className="relative flex flex-row items-center h-16 border-t border-black">
             <img
               src={lecturer.avatar}
               alt=""
-              className="w-8 h-8 mx-4 -my-5 rounded-full "
+              className="mx-4 -my-5 rounded-full w-7 h-7 "
             ></img>
             <Link to={lecturerLink}>
-              <div className="mx-4 ml-2 -my-2 text-2xl hover:underline">
+              <div className="mx-4 ml-2 -my-2 text-3xl hover:underline">
                 {lecturer.name}
               </div>
             </Link>
@@ -61,15 +61,15 @@ const Participants = ({ lecturer, students }) => {
                 <img
                   src="/participants-icon/mail.png"
                   alt=""
-                  className="absolute w-5 h-5 mx-4 -my-5 right-4"
+                  className="absolute mx-4 -my-5 w-7 h-7 right-4"
                 ></img>
               </button>
             </div>
           </div>
         </div>
         <div className="divide-y">
-          <div className="text-[#E36255] text-4xl h-8 border-b border-black">
-            STUDENTS
+          <div className="text-[#E36255] text-5xl border-b border-black">
+            Students
           </div>
           {studentSection}
         </div>

@@ -69,6 +69,7 @@ const CoursePage = () => {
     path: "/api/course/:id/contents",
     params: { id },
   });
+
   const {
     data: exercises,
     pending: exercisesPending,
@@ -92,6 +93,7 @@ const CoursePage = () => {
     if (postModal) {
       body.classList.remove("modal-open");
     } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
       body.classList.add("modal-open");
     }
     setPostModal(!postModal);
@@ -102,6 +104,7 @@ const CoursePage = () => {
     if (exerciseModal) {
       body.classList.remove("modal-open");
     } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
       body.classList.add("modal-open");
     }
     setExerciseModal(!exerciseModal);
@@ -109,7 +112,7 @@ const CoursePage = () => {
 
   return (
     // <body className="bg-[#FFFAF0]">
-    <div className="relative flex flex-col bg-[#FFFAF0]">
+    <div className="relative flex flex-col bg-[#FFFAF0] min-h-screen">
       {postModal && <PostAnnEx handleClose={togglePostModal}></PostAnnEx>}
       {exerciseModal && (
         <PostAnnEx
@@ -121,8 +124,9 @@ const CoursePage = () => {
       <TeacherCourseName
         name={id}
         semester={course.semester}
+        classCode={id}
       ></TeacherCourseName>
-      <div className="w-full mt-8">
+      <div className="flex-grow w-full mt-8">
         <TeacherNavCourse
           // General tab
           tab1={
@@ -136,14 +140,11 @@ const CoursePage = () => {
                   return <Notification content={content}></Notification>;
                 })}
               </div>
-              <div>
-                <ClassCode code={id}></ClassCode>
-              </div>
             </div>
           }
           //Exercise tab
           tab2={
-            <div className="mt-4 w-[1000px] min-h-[370px]">
+            <div className="pt-8 w-[1000px] min-h-[370px]">
               <CustomButton
                 variant={"filled"}
                 className={"px-5 py-0"}

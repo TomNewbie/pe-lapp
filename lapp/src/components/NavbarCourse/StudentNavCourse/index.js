@@ -7,16 +7,16 @@ const StudentNavCourse = ({ tab1, tab2, tab3 }) => {
   return (
     <div className="grid h-full justify-items-center">
       {/* Tab link */}
-      <div className="flex justify-between w-full h-8 border-b cursor-pointer border-slate-300">
+      <div className="flex justify-between w-3/4 h-8 text-4xl border-b cursor-pointer border-slate-300">
         <div
           className={
             activeTab === 1
-              ? "ml-8  border-[#E36255] w-20 h-8 border-b-2 text-[#E36255]"
+              ? "ml-8  border-[#E36255] w-24 h-8 border-b-2 text-[#E36255]"
               : "ml-8  border-[#E36255] w-20 h-8 text-black"
           }
         >
           <p
-            className="ml-3 text-2xl hover:text-[#E36255]"
+            className="ml-3  hover:text-[#E36255]"
             onClick={() => {
               handleClick(1);
             }}
@@ -28,27 +28,27 @@ const StudentNavCourse = ({ tab1, tab2, tab3 }) => {
         <div
           className={
             activeTab === 2
-              ? "mr-5  border-[#E36255] w-20 h-8 border-b-2 text-[#E36255]"
+              ? "mr-5  border-[#E36255] w-32 h-8 border-b-2 text-[#E36255]"
               : "mr-5  border-[#E36255] w-20 h-8 text-black"
           }
           onClick={() => {
             handleClick(2);
           }}
         >
-          <p className="text-2xl hover:text-[#E36255]">Participants</p>
+          <p className=" hover:text-[#E36255]">Participants</p>
         </div>
 
         <div
           className={
             activeTab === 3
-              ? "mr-8  border-[#E36255] w-20 h-8 border-b-2 text-[#E36255]"
+              ? "mr-8  border-[#E36255] w-28 h-8 border-b-2 text-[#E36255]"
               : "mr-8  border-[#E36255] w-20 h-8 text-black"
           }
           onClick={() => {
             handleClick(3);
           }}
         >
-          <p className="ml-3 text-2xl hover:text-[#E36255]">Exercise</p>
+          <p className="ml-3 hover:text-[#E36255]">Exercise</p>
         </div>
       </div>
 

@@ -16,12 +16,12 @@ const Assignment = ({ exercise }) => {
   };
   const deadline = convertDate(exercise.deadline);
   return (
-    <div class="w-full h-fit text-[#1B1C1E] divide-y divide-[#808080]/30 text-2xl">
+    <div class="w-full h-fit text-[#1B1C1E] divide-y divide-[#808080]/30 text-3xl">
       <div class="flex flex-row justify-between px-2.5 py-2">
         <button class="flex flex-row place-items-center space-x-10 hover:text-bold hover:text-[#560319] hover:underline ">
-          <img class="w-7 h-7" src="/Assignment/AssignmentIcon.png" alt="" />
+          <img class="w-10 h-10" src="/Assignment/AssignmentIcon.png" alt="" />
           <div class="text-left">
-            <p>{exercise.name}</p>
+            <p className="text-4xl">{exercise.name}</p>
             <p>{exercise.submission_count} submissions</p>
           </div>
         </button>

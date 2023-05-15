@@ -18,7 +18,6 @@ const ProfileStudentMe = ({ id }) => {
     error: infoError,
     refresh: refreshProfileData,
   } = useAPI({ path: "/api/student/:id", params: { id } });
-  console.log(infoData);
   const [show, setShow] = useState(false);
   const [major, setMajor] = useState("");
   const [intake, setIntake] = useState("");
@@ -156,7 +155,7 @@ const ProfileStudentMe = ({ id }) => {
         <div className="flex self-start justify-center mt-6 mb-14">
           <button
             onClick={() => setShow(true)}
-            className="bg-[#CC6666] opacity-80 px-10 rounded-xl border hover:border-slate-500 text-3xl text-[#1B1C1E] font-dongle"
+            className="p-4 h-12 text-white text-center text-4xl bg-[#B02B3B]/70 border border-[#560319] px-10 py-2 rounded-xl hover:bg-[#CC6666]/40"
           >
             Edit
           </button>

@@ -7,16 +7,16 @@ const TeacherNavCourse = ({ tab1, tab2, tab3, tab4 }) => {
   return (
     <div className="grid h-full max-w-full justify-items-center">
       {/* Tab link */}
-      <div className="flex justify-between w-full h-8 border-b cursor-pointer border-slate-300">
+      <div className="flex justify-between w-3/4 h-8 text-4xl border-b cursor-pointer border-slate-300">
         <div
           className={
             activeTab === 1
-              ? "ml-20  border-[#E36255] w-20 h-8 border-b-2 text-[#E36255] text-center"
-              : "ml-20  border-[#E36255] w-20 h-8 text-black text-center"
+              ? "ml-8  border-[#E36255] w-20 h-8 border-b-2 text-[#E36255] text-center"
+              : "ml-8  border-[#E36255] w-20 h-8 text-black text-center"
           }
         >
           <p
-            className="text-2xl hover:text-[#E36255]"
+            className=" hover:text-[#E36255]"
             onClick={() => {
               handleClick(1);
             }}
@@ -35,7 +35,7 @@ const TeacherNavCourse = ({ tab1, tab2, tab3, tab4 }) => {
             handleClick(2);
           }}
         >
-          <p className="text-2xl hover:text-[#E36255]">Exercise</p>
+          <p className=" hover:text-[#E36255]">Exercise</p>
         </div>
 
         <div
@@ -48,7 +48,7 @@ const TeacherNavCourse = ({ tab1, tab2, tab3, tab4 }) => {
             handleClick(3);
           }}
         >
-          <p className="text-2xl hover:text-[#E36255]">Participants</p>
+          <p className=" hover:text-[#E36255]">Participants</p>
         </div>
 
         <div
@@ -61,7 +61,7 @@ const TeacherNavCourse = ({ tab1, tab2, tab3, tab4 }) => {
             handleClick(4);
           }}
         >
-          <p className="text-2xl hover:text-[#E36255]">Grade</p>
+          <p className=" hover:text-[#E36255]">Grade</p>
         </div>
       </div>
 

@@ -2,7 +2,7 @@ import CustomButton from "../../CustomButton";
 const PostAnnEx = ({ type, handleClose }) => {
   return (
     <div className="absolute flex items-center justify-center w-full h-screen bg-black/60">
-      <div class="flex flex-col justify-between space-y-3 px-5 py-2 w-[800px] h-fit bg-[#FFFCF7] text-[#1B1C1E] rounded-xl shadow-xl place-items-center">
+      <div class="flex flex-col justify-between space-y-3 px-5 py-2 w-[800px] h-fit bg-[#FFFCF7] text-[#1B1C1E] rounded-xl shadow-xl place-items-center text-3xl">
         <input
           type="text"
           placeholder="Enter title here"
