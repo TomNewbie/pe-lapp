@@ -6,14 +6,6 @@ Request
 
 Cookie: access_token=`<token>`
 
-## Request Body
-
-```ts
-{
-  remove?: url[]
-}
-```
-
 ## Response
 
 - 200 -> OK
