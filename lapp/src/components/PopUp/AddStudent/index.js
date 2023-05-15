@@ -1,4 +1,4 @@
-import { addCourseParticipant } from "../../../services/course";
+import { addCourseParticipant } from "../../../services/course/participant";
 import CustomButton from "../../CustomButton";
 import { useState } from "react";
 
