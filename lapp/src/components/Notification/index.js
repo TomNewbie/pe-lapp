@@ -5,9 +5,9 @@ const Notification = ({ content }) => {
   const fileSection =
     content.files?.map((file) => (
       <a href={file.url}>
-        <div className="flex px-2 py-3 border border-black rounded-2xl">
+        <div className="flex px-2 py-3 border w-96 border-[#530619] rounded-2xl">
           <img src="/notification/upload.svg" alt="" className="w-9 h-9"></img>
-          <div className="ml-3 text-3xl font-semibold">{file.name}</div>
+          <div className="ml-3 text-3xl font-semibold text-[#530619]">{file.name}</div>
         </div>
       </a>
     )) ?? [];

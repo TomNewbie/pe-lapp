@@ -75,12 +75,12 @@ const ExerciseDetail = () => {
                 {data.exercise_files?.map((file) => (
                   <a href={file.url}>
                     {/* Uploaded file section */}
-                    <div className="flex px-2 py-3 border border-black w-96 rounded-2xl">
+                    <div className="flex px-2 py-3 border border-[#530619] w-96 rounded-2xl">
                       <img
                         src="/notification/upload.svg"
                         alt=""
                         className="w-9 h-9"></img>
-                      <div className="ml-3 text-3xl font-semibold truncate">
+                      <div className="ml-3 text-3xl font-semibold truncate text-[#530619] ">
                         {file.name}
                       </div>
                     </div>
