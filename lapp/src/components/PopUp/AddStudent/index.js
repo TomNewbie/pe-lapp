@@ -7,11 +7,11 @@ const AddStudent = ({ handleClose, courseId, onAddStudent }) => {
   const handleAddStudent = async () => {
     addCourseParticipant(courseId, studentId)
       .then(() => {
-        console.log("Course joined successfully!");
+        alert("Add student successfully!");
         onAddStudent();
       })
       .catch((error) => {
-        console.error("Failed to join course:", error);
+        alert("Failed to add student: " + error);
       }); // Log the course code
     handleClose();
   };

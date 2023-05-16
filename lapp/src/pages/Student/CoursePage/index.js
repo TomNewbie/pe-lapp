@@ -54,7 +54,7 @@ const CoursePage = () => {
   }
 
   return (
-    <div className="relative flex flex-col bg-[#FFFAF0] h-screen">
+    <div className="relative flex flex-col h-screeb">
       <NavbarStudent></NavbarStudent>
       <StudentCourseName
         name={course.name}
