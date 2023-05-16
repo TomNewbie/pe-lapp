@@ -229,3 +229,44 @@ Create solution
 - 201 -> OK
 - 404 -> Exercise not found
 - 404 -> Missing file
+
+# [GET] /api/course/:id/exercises/grade?s=`start`&n=`num`
+
+Get all grades of students in all exercises in the course `:id`
+
+- `start`
+  query a list starting at the `start + 1`-th student (0-based index; defaults to 0)
+- `num`
+  number of students to return in a list. If `num` is 0, return ALL students,
+
+## Request
+
+- Header  
+  Cookie: access_token=`<token>`
+
+## Response
+
+- 200 -> Return json
+- 401 -> Unauthorize (student)
+
+```ts
+{
+  /**
+   * all exercise name
+   */
+  exercises: {
+    _id: string;
+    name: string;
+  }[];
+  students: {
+    name: string;
+    id: string;
+    /**
+     * all the grade corresponding to the exercise
+     * the order of grade[] will similar to the exercise_name[]
+     * if the grade[i] of exercise_name[i] is not set grade[i] will be null, i is index of the array
+     */
+    grade: (number | null)[];
+  }[]
+}
+```
