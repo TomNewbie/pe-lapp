@@ -31,7 +31,7 @@ router.patch(
   exerciseController.verifyAuthorize,
   fileController.getFileFromUser,
   fileController.upload,
-  exerciseController.editExercise
+  exerciseController.update
 );
 router.patch(
   "/exercises/:id/students/:studentId",
