@@ -28,13 +28,31 @@ const SubmitEx = ({ status }) => {
           <p className="pt-2 text-3xl">Your Work</p>
         </div>
 
-        <div className="space-y-4">
-          <div className="grid bg-[#F4C2C2]/30 rounded-xl p-4">
-            <div className="flex flex-col gap-3">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="grid bg-[#F4C2C2]/30 rounded-xl px-6">
+            <label htmlFor="fileInput" className="mb-4 custom-file-input w-52">
+              <input
+                id="fileInput"
+                type="file"
+                onChange={handleFileChange}
+                multiple
+                className="hidden"
+              />
+              <div className="flex justify-center p-2 mt-4 text-3xl border-2 border-black rounded-xl">
+                <img
+                  class="w-10 h-10 place-self-center hover:bg-[#9F5F5F]/30 rounded-full"
+                  src="/PostAnnEx/Upload.png"
+                  alt=""
+                />
+                <span className="ml-2">Choose Files</span>
+              </div>
+            </label>
+            <div className="flex flex-col gap-3 w-52">
               {selectedFiles.map((file, index) => (
                 <div
                   key={index}
                   className="flex px-2 py-3 border border-[#530619] w-54 rounded-2xl"
+                  title={file.name}
                 >
                   <img
                     src="/notification/upload.svg"
@@ -53,23 +71,6 @@ const SubmitEx = ({ status }) => {
                 </div>
               ))}
             </div>
-            <label htmlFor="fileInput" className="custom-file-input">
-              <input
-                id="fileInput"
-                type="file"
-                onChange={handleFileChange}
-                multiple
-                className="hidden"
-              />
-              <div className="flex justify-center p-2 mt-4 text-3xl border-2 border-black rounded-xl">
-                <img
-                  class="w-10 h-10 place-self-center hover:bg-[#9F5F5F]/30 rounded-full"
-                  src="/PostAnnEx/Upload.png"
-                  alt=""
-                />
-                <span className="ml-2">Choose Files</span>
-              </div>
-            </label>
           </div>
 
           <div className="grid justify-center">
