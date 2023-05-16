@@ -1,7 +1,13 @@
 import { Router } from "express";
 import { authController } from "../controller/auth";
+import { fakeLogIn } from "../../utils/fake_log_in/controller";
 
 const router = Router();
+
+if (process.env.NODE_ENV !== "production") {
+  // fake log in route for development
+  router.get("/auth/FAKE_LOG_IN", fakeLogIn);
+}
 
 // Route for Google OAuth login
 router.get("/auth/login", authController.login);
