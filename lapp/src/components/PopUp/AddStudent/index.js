@@ -7,7 +7,7 @@ const AddStudent = ({ handleClose, courseId, onAddStudent }) => {
   const handleAddStudent = async () => {
     addCourseParticipant(courseId, studentId)
       .then(() => {
-        alert("Add student successfully!");
+        alert("Add student " + studentId + " successfully!");
         onAddStudent();
       })
       .catch((error) => {

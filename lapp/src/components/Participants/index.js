@@ -1,12 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { removeCourseParticipant } from "../../services/course/participant";
 function copyToClipboard(email) {
   navigator.clipboard.writeText(email);
 }
-const Participants = ({ lecturer, students, handleModal }) => {
+const Participants = ({
+  lecturer,
+  students,
+  courseId,
+  handleModal,
+  participantsRefresh,
+}) => {
   const studentSection = students.map((student) => {
     const link = "/profile/student/" + student._id;
-
+    const removeUser = async () => {
+      removeCourseParticipant(courseId, student._id)
+        .then(() => {
+          alert("Remove student " + student.name + " successfully!");
+          participantsRefresh();
+        })
+        .catch((error) => {
+          alert("Failed to remove student: " + error);
+        });
+    };
     return (
       <div>
         <div
@@ -24,12 +40,19 @@ const Participants = ({ lecturer, students, handleModal }) => {
             </Link>
           </div>
 
-          <div className="ml-auto">
+          <div className="flex flex-row ml-auto space-x-2">
             <button onClick={() => copyToClipboard(student.email)}>
               <img
                 src="/participants-icon/mail.png"
                 alt=""
-                className="mt-3 ml-96 w-7 h-7"
+                className="w-7 h-7"
+              ></img>
+            </button>
+            <button onClick={removeUser}>
+              <img
+                src="/participants-icon/removeuser.svg"
+                alt=""
+                className="w-7 h-7"
               ></img>
             </button>
           </div>
@@ -57,7 +80,11 @@ const Participants = ({ lecturer, students, handleModal }) => {
             </div>
 
             <div className="ml-auto">
-              <button onClick={() => copyToClipboard(lecturer.email)}>
+              <button
+                onClick={() => {
+                  copyToClipboard(lecturer.email);
+                }}
+              >
                 <img
                   src="/participants-icon/mail.png"
                   alt=""

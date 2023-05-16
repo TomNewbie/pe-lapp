@@ -16,6 +16,7 @@ import { Participants, Assignment, PostAnnEx } from "../../../components";
 import { useState } from "react";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
+import { removeCourseParticipant } from "../../../services/course/participant";
 
 /** Need to fetch:
  - const course: { name: string; semester: string;}
@@ -127,7 +128,7 @@ const CoursePage = () => {
     }
     setStudentModal(!studentModal);
   };
-  console.log(participants.students);
+
   return (
     // <body className="bg-[#FFFAF0]">
     <div className="relative flex flex-col bg-[#FFFAF0] min-h-screen">
@@ -202,6 +203,8 @@ const CoursePage = () => {
                 lecturer={participants.lecturer}
                 students={participants.students}
                 handleModal={toggleStudentModal}
+                courseId={id}
+                participantsRefresh={participantsRefresh}
               ></Participants>
             </div>
           }
