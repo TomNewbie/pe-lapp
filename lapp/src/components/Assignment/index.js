@@ -26,12 +26,8 @@ const Assignment = ({ exercise }) => {
           </div>
         </button>
 
-        <div class="flex flex-row place-items-center space-x-14">
+        <div class="flex flex-row flex-start space-x-14">
           <p>Due date: {deadline}</p>
-          <div class="flex flex-row place-items-center space-x-8">
-            {/* <img class="w-4 h-4" src="/Assignment/Expand.png" alt="" /> */}
-            <img class="w-4 h-4" src="/Assignment/More.png" alt="" />
-          </div>
         </div>
       </div>
     </div>

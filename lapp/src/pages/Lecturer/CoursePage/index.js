@@ -76,6 +76,7 @@ const CoursePage = () => {
     data: contents,
     pending: contentsPending,
     error: contentsError,
+    refresh: contentRefresh,
   } = useAPI({
     path: "/api/course/:id/contents",
     params: { id },
@@ -85,6 +86,7 @@ const CoursePage = () => {
     data: exercises,
     pending: exercisesPending,
     error: exercisesError,
+    refresh: exercisesRefresh,
   } = useAPI({
     path: "/api/course/:id/exercises",
     params: { id },
@@ -159,11 +161,19 @@ const CoursePage = () => {
   return (
     // <body className="bg-[#FFFAF0]">
     <div className="relative flex flex-col bg-[#FFFAF0] min-h-screen">
-      {postModal && <PostAnnEx handleClose={togglePostModal}></PostAnnEx>}
+      {postModal && (
+        <PostAnnEx
+          handleClose={togglePostModal}
+          onAddContent={contentRefresh}
+          courseId={id}
+        ></PostAnnEx>
+      )}
       {exerciseModal && (
         <PostAnnEx
+          courseId={id}
           type={"exercise"}
           handleClose={toggleExerciseModal}
+          onAddExercise={exercisesRefresh}
         ></PostAnnEx>
       )}
       {studentModal && (
