@@ -77,44 +77,43 @@ const getDetail = async (req: AuthRequest, res: Response) => {
   res.status(200).json(result);
 };
 
-const editExercise = async (req: FileRequest, res: Response) => {
-  const { remove, name, files, description, deadline } = req.body;
-  const { id: exerciseId } = req.params;
-
-  await fileService.removeFirebase(remove);
-  // delete all files in remove
-  let updateFiles = files.filter(
-    (file: FileType) => !remove.includes(file.refPath)
-  );
-  // if user dont upload new file
-  if (!req.files) {
-    await exerciseService.update(exerciseId, {
-      name,
-      description,
-      files: updateFiles,
-      deadline,
-    });
-    res.sendStatus(200);
-    return;
-  }
-  const newFiles = req.firebase as FileType[];
-  // add new files
-
-  updateFiles = updateFiles.concat(newFiles);
-  await exerciseService.update(exerciseId, {
-    name,
-    description,
-    files: updateFiles,
-    deadline,
-  });
-  res.sendStatus(200);
-};
-
 // const remove = async (req: AuthRequest, res: Response) => {
 //   const { id: exerciseId } = req.params;
 //   const filePaths = await exerciseService.getAllFilePath(exerciseId);
 // };
-
+const update = async (req: FileRequest, res: Response) => {
+  const { remove, name, description } = req.body;
+  const { course_content_id } = req.params;
+  await fileService.removeFirebase(remove);
+  // delete all files in remove
+  // if user dont upload new file
+  // console.log(remove);
+  const files = await exerciseService.updateExercise(
+    course_content_id,
+    {
+      name,
+      description,
+    },
+    remove
+  );
+  const filesRemoveRefPath = files
+    .filter((file) => remove.includes(file.url))
+    .map((file) => file.refPath);
+  // if no new file upload then return status
+  if (!req.firebase) {
+    await fileService.removeFirebase(filesRemoveRefPath);
+    res.sendStatus(204);
+    return;
+  }
+  const newFiles = req.firebase as FileType[];
+  // add new files and remove the old files
+  const result = await Promise.all([
+    exerciseService.addNewFiles(course_content_id, newFiles),
+    fileService.removeFirebase(filesRemoveRefPath),
+  ]);
+  console.log(result);
+  res.sendStatus(200);
+};
 const verifyAuthorize = async (
   req: AuthRequest,
   res: Response,
@@ -139,7 +138,7 @@ export const exerciseController = {
   getAllExercises,
   createExercise,
   // remove,
-  editExercise,
+  update,
   getDetail,
   verifyAuthorize,
 };

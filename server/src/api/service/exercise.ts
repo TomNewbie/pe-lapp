@@ -330,6 +330,52 @@ const getAllFilePath = async (exerciseId: string) => {
   console.log(result);
 };
 // getAllFilePath("645bd287b84013ab0df85f3e");
+type updateExerciseType = Omit<
+  Partial<ExerciseType>,
+  "updatedAt" | "createdAt" | "files"
+>;
+const updateExercise = async (
+  exerciseId: string,
+  exercise: updateExerciseType,
+  removeFiles: string[]
+) =>
+  // : Omit<CourseContentType, "createdAt" | "updatedAt">
+  {
+    let update: {
+      $set: {
+        [key in keyof updateExerciseType]?: string;
+      };
+      $pull: {
+        files?: {
+          url: string[];
+        };
+      };
+    } = {
+      $set: {},
+      $pull: { files: { url: removeFiles } },
+    };
+
+    // Iterate over request body and add fields to update object
+    for (const [key, value] of Object.entries(exercise)) {
+      if (value !== undefined) {
+        update.$set[key as keyof updateExerciseType] = value as string;
+      }
+    }
+    console.log(update);
+    const result = await Exercise.findOneAndUpdate(
+      { _id: exerciseId },
+      update,
+      { returnDocument: "before", projection: "files" }
+    );
+
+    return result!.files;
+  };
+const addNewFiles = async (exerciseId: string, files: FileType[]) => {
+  await Exercise.updateOne(
+    { _id: exerciseId },
+    { $addToSet: { files: files } }
+  );
+};
 export const exerciseService = {
   create,
   verifyAuthorize,
@@ -339,4 +385,6 @@ export const exerciseService = {
   getLecturerViewDetail,
   getStudentViewDetail,
   getAllFilePath,
+  updateExercise,
+  addNewFiles,
 };
