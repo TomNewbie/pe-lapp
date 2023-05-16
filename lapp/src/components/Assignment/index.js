@@ -27,16 +27,16 @@ const Assignment = ({
   const link = "/exercise/" + exerciseId;
   const deadline = convertDate(exercise.deadline);
   const handleDelete = async () => {
-    // deleteExercise(exerciseId)
-    //   .then(() => {
-    //     // Handle successful deletion of course content
-    //     alert("Exercise deleted successfully.");
-    //     onChangeExercise();
-    //   })
-    //   .catch((error) => {
-    //     // Handle error during course content deletion
-    //     alert("Error deleting exercise:" + error);
-    //   });
+    deleteExercise(exerciseId)
+      .then(() => {
+        // Handle successful deletion of course content
+        alert("Exercise deleted successfully.");
+        onChangeExercise();
+      })
+      .catch((error) => {
+        // Handle error during course content deletion
+        alert("Error deleting exercise:" + error);
+      });
   };
   return (
     <div class="w-full h-fit text-[#1B1C1E] divide-y divide-[#808080]/30 text-3xl">
