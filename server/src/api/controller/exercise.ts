@@ -77,14 +77,18 @@ const getDetail = async (req: AuthRequest, res: Response) => {
   res.status(200).json(result);
 };
 
-// const remove = async (req: AuthRequest, res: Response) => {
-//   const { id: exerciseId } = req.params;
-//   const filePaths = await exerciseService.getAllFilePath(exerciseId);
-// };
+const remove = async (req: AuthRequest, res: Response) => {
+  const { id: exerciseId } = req.params;
+  const filesRemoveRefPath = await exerciseService.getAllFilePath(exerciseId);
+  await Promise.all([
+    fileService.removeFirebase(filesRemoveRefPath),
+    exerciseService.remove(exerciseId),
+  ]);
+  res.sendStatus(204);
+};
 const update = async (req: FileRequest, res: Response) => {
   const { remove, name, description } = req.body;
   const { course_content_id } = req.params;
-  await fileService.removeFirebase(remove);
   // delete all files in remove
   // if user dont upload new file
   // console.log(remove);
@@ -111,8 +115,8 @@ const update = async (req: FileRequest, res: Response) => {
     exerciseService.addNewFiles(course_content_id, newFiles),
     fileService.removeFirebase(filesRemoveRefPath),
   ]);
-  console.log(result);
-  res.sendStatus(200);
+  // console.log(result);
+  res.sendStatus(204);
 };
 const verifyAuthorize = async (
   req: AuthRequest,
@@ -137,7 +141,7 @@ const verifyAuthorize = async (
 export const exerciseController = {
   getAllExercises,
   createExercise,
-  // remove,
+  remove,
   update,
   getDetail,
   verifyAuthorize,

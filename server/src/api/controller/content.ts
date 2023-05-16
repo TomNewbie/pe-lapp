@@ -54,7 +54,6 @@ const verifyAuthorize = async (
 const update = async (req: FileRequest, res: Response) => {
   const { remove, title, body } = req.body;
   const { course_content_id } = req.params;
-  await fileService.removeFirebase(remove);
   // delete all files in remove
   // if user dont upload new file
   // console.log(remove);

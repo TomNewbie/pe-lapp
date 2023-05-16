@@ -38,10 +38,10 @@ router.patch(
   exerciseController.verifyAuthorize,
   solutionController.addGrade
 );
-// router.delete(
-//   "/exercises/:id",
-//   exerciseController.verifyOwner,
-//   exerciseController.remove
-// );
+router.delete(
+  "/exercises/:id",
+  exerciseController.verifyAuthorize,
+  exerciseController.remove
+);
 
 export { router as exerciseRouter };
