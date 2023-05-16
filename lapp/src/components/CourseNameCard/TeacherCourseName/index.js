@@ -1,7 +1,7 @@
 import React from "react";
-const TeacherCourseName = ({ name, semester, classCode }) => {
+const TeacherCourseName = ({ course }) => {
   function copyToClipboard() {
-    navigator.clipboard.writeText(classCode);
+    navigator.clipboard.writeText(course._id);
   }
   return (
     <div className="w-full h-40">
@@ -11,16 +11,16 @@ const TeacherCourseName = ({ name, semester, classCode }) => {
           backgroundImage: `url('../CourseName/teacher.png')`,
         }}
       >
-        <div className="mt-4 text-5xl place-self-center">{name}</div>
+        <div className="mt-4 text-5xl place-self-center">{course.name}</div>
         <div className="mb-4 text-3xl place-self-center">
-          Semester: {semester}
+          Semester: {course.semester}
         </div>
         <div
           className="mb-4 text-3xl truncate place-self-center"
-          title={classCode}
+          title={course._id}
           onClick={copyToClipboard}
         >
-          Class code: {classCode}
+          Class code: {course._id}
         </div>
       </div>
     </div>

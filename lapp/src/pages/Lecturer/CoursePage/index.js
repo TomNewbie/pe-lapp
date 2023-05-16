@@ -56,6 +56,14 @@ const studentGrade = [
 const CoursePage = () => {
   const { id } = useParams();
   const {
+    data: course,
+    pending: coursePending,
+    error: courseError,
+  } = useAPI({
+    path: "/api/course/:id",
+    params: { id },
+  });
+  const {
     data: participants,
     pending: participantsPending,
     error: participantsError,
@@ -88,12 +96,18 @@ const CoursePage = () => {
   const handleClick = (index) => {
     setActiveTab(index);
   };
-  if (participantsError || contentsError || exercisesError) {
+  if (participantsError || contentsError || exercisesError || courseError) {
     return <Errorpage />;
   }
-  if (participantsPending || contentsPending || exercisesPending) {
+  if (
+    participantsPending ||
+    contentsPending ||
+    exercisesPending ||
+    coursePending
+  ) {
     return <LoadingPage />;
   }
+  console.log(course);
 
   // logic for modal
   const togglePostModal = () => {
@@ -150,11 +164,7 @@ const CoursePage = () => {
         ></AddStudent>
       )}
       <NavbarLecturer></NavbarLecturer>
-      <TeacherCourseName
-        name={id}
-        semester={course.semester}
-        classCode={id}
-      ></TeacherCourseName>
+      <TeacherCourseName course={course}></TeacherCourseName>
       <div className="flex-grow w-full mt-8">
         <TeacherNavCourse
           activeTab={activeTab}

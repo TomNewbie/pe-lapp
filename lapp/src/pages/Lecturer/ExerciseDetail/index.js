@@ -140,10 +140,7 @@ const ExerciseDetail = () => {
       <NavbarLecturer />
       {/* Course name */}
       <div>
-        <TeacherCourseName
-          name={course.name}
-          semester={course.semester}
-        ></TeacherCourseName>
+        <TeacherCourseName course={course}></TeacherCourseName>
       </div>
       {/* Exercise details */}
 
