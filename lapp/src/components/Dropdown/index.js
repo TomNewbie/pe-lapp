@@ -1,5 +1,5 @@
 import { useState } from "react";
-function Dropdown({ onDelete, onEdit }) {
+const Dropdown = ({ onDelete, onEdit }) => {
   const [active, setActive] = useState(0);
   const handleClick = () => {
     if (active === 0) {
@@ -19,7 +19,7 @@ function Dropdown({ onDelete, onEdit }) {
       {active === 0 ? (
         <div></div>
       ) : (
-        <div className="absolute -left-32">
+        <div className="absolute z-10 -left-32">
           <div className="w-40 h-24 bg-white border rounded-2xl">
             <div className="flex flex-col mt-3 ml-4 space-y-2">
               <div className="flex flex-row hover:text-[#B02B3B] cursor-pointer">
@@ -38,7 +38,13 @@ function Dropdown({ onDelete, onEdit }) {
                   alt=""
                   className="w-5 h-5 mt-1"
                 ></img>
-                <div className="ml-12 text-3xl" onDelete={onDelete}>
+                <div
+                  className="ml-12 text-3xl"
+                  onClick={() => {
+                    onDelete();
+                    handleClick();
+                  }}
+                >
                   Delete
                 </div>
               </div>
@@ -48,6 +54,6 @@ function Dropdown({ onDelete, onEdit }) {
       )}
     </div>
   );
-}
+};
 
 export default Dropdown;

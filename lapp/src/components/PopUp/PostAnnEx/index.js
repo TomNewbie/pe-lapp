@@ -38,7 +38,8 @@ const PostAnnEx = ({
       createExercise(courseId, fields)
         .then(() => {
           // Handle successful creation of exercise
-          console.log("Exercise created successfully.");
+          alert("Exercise created successfully.");
+          onAddExercise();
         })
         .catch((error) => {
           // Handle error during exercise creation
@@ -50,6 +51,7 @@ const PostAnnEx = ({
         .then(() => {
           // Handle successful creation of course content
           alert("Course content created successfully.");
+          onAddContent();
         })
         .catch((error) => {
           // Handle error during course content creation

@@ -201,7 +201,13 @@ const CoursePage = () => {
                 </div>
 
                 {contents.map((content) => {
-                  return <Notification content={content}></Notification>;
+                  return (
+                    <Notification
+                      content={content}
+                      courseId={id}
+                      onChangeContents={contentRefresh}
+                    ></Notification>
+                  );
                 })}
               </div>
             </div>
@@ -218,12 +224,13 @@ const CoursePage = () => {
               {exercises && (
                 <div className="flex flex-col mt-8 mb-16 divide-y">
                   {exercises.map((exercise) => {
-                    const link = "/exercise/" + exercise._id;
                     return (
                       <div>
-                        <Link to={link}>
-                          <Assignment exercise={exercise} />
-                        </Link>
+                        <Assignment
+                          exercise={exercise}
+                          exerciseId={exercise._id}
+                          onChangeExercise={exercisesRefresh}
+                        />
                       </div>
                     );
                   })}
