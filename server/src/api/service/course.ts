@@ -7,6 +7,7 @@ import {
 } from "../model/course";
 import { UserRole } from "./user";
 import { Optional } from "../../utils/types";
+import { Student } from "../model/user";
 
 type CoursesOfStudent = Array<{
   _id: string;
@@ -150,7 +151,7 @@ export enum CourseError {
   NOT_FOUND,
   INVALID_INPUT,
   ALREADY_JOINED,
-  NOT_JOINED,
+  STUDENT_NOT_FOUND,
 }
 const joinCourse = async (
   studentId: string,
@@ -285,8 +286,16 @@ const getParticipants = async (
 const addParticipant = async (
   { lecturerId, courseId }: QueryCourseId,
   studentId: string
-): Promise<CourseError.ALREADY_JOINED | CourseError.NOT_FOUND | undefined> => {
+): Promise<
+  | CourseError.ALREADY_JOINED
+  | CourseError.NOT_FOUND
+  | CourseError.STUDENT_NOT_FOUND
+  | undefined
+> => {
   if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
+
+  if (!(await Student.findById(studentId).lean()))
+    return CourseError.STUDENT_NOT_FOUND;
 
   const res = await Course.updateOne(
     { _id: courseId, lecturer_id: lecturerId },
@@ -300,7 +309,9 @@ const addParticipant = async (
 const removeParticipant = async (
   { lecturerId, courseId }: QueryCourseId,
   studentId: string
-): Promise<CourseError.NOT_JOINED | CourseError.NOT_FOUND | undefined> => {
+): Promise<
+  CourseError.STUDENT_NOT_FOUND | CourseError.NOT_FOUND | undefined
+> => {
   if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
 
   const res = await Course.updateOne(
@@ -309,7 +320,7 @@ const removeParticipant = async (
   );
 
   if (res.matchedCount === 0) return CourseError.NOT_FOUND;
-  if (res.modifiedCount === 0) return CourseError.NOT_JOINED;
+  if (res.modifiedCount === 0) return CourseError.STUDENT_NOT_FOUND;
 };
 
 const verifyAuthorize = async ({
@@ -352,7 +363,7 @@ const isInCourse = async (
   role: "student" | "lecturer",
   userId: string,
   courseId: string
-): Promise<void | CourseError.NOT_JOINED | CourseError.NOT_FOUND> => {
+): Promise<void | CourseError.STUDENT_NOT_FOUND | CourseError.NOT_FOUND> => {
   if (!isValidObjectId(courseId)) return CourseError.NOT_FOUND;
   let res;
   if (role === "lecturer") {
@@ -360,7 +371,7 @@ const isInCourse = async (
   } else {
     res = await Course.findOne({ _id: courseId, participants: userId });
   }
-  if (!res) return CourseError.NOT_JOINED;
+  if (!res) return CourseError.STUDENT_NOT_FOUND;
 };
 // console.log(isInCourse("student", "huhu", "6435878ffd053fc269ba4c89"));
 export const courseService = {

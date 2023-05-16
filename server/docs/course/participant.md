@@ -44,6 +44,7 @@ Cookie: access_token=`<token>`
 204 -> No content
 401 -> Unauthorized
 404 -> Cannot find course "`id`" created by you
+404 -> Student not found on our system (They may not have registered (have not logged in the first time) with our app yet.)
 400 -> Already joined
 
 # [DELETE] /api/course/:id/participant/:studentId

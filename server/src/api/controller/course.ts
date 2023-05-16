@@ -127,6 +127,9 @@ const addParticipant = async (req: AuthRequest, res: Response) => {
     case CourseError.NOT_FOUND:
       res.status(404).send(`Cannot find course "${courseId}" created by you`);
       return;
+    case CourseError.STUDENT_NOT_FOUND:
+      res.status(404).send("Student not found on our system");
+      return;
   }
 
   res.sendStatus(204);
@@ -147,7 +150,7 @@ const removeParticipant = async (req: AuthRequest, res: Response) => {
   );
 
   switch (err) {
-    case CourseError.NOT_JOINED:
+    case CourseError.STUDENT_NOT_FOUND:
       res.status(404).send("Student not found in course");
       return;
     case CourseError.NOT_FOUND:
@@ -194,7 +197,7 @@ const isInCourse = async (
     res.status(404).send("Course not found");
     return;
   }
-  if (result === CourseError.NOT_JOINED) {
+  if (result === CourseError.STUDENT_NOT_FOUND) {
     res.status(404).send(`You are not join course ${courseId}`);
     return;
   }
