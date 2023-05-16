@@ -1,29 +1,85 @@
+import { useState } from "react";
 import CustomButton from "../../CustomButton";
 
-const SubmitEx = ({ status, handleSubmit }) => {
+const SubmitEx = ({ status }) => {
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files);
+    setSelectedFiles([...selectedFiles, ...files]);
+  };
+
+  const handleRemoveFile = (index) => {
+    const updatedFiles = [...selectedFiles];
+    updatedFiles.splice(index, 1);
+    setSelectedFiles(updatedFiles);
+  };
+
+  const handleSubmit = () => {
+    // Perform your submission logic here
+    // For demonstration, we'll log the selected files
+    console.log("Selected Files:", selectedFiles);
+  };
+
   return (
-    <div class="flex flex-col justify-around p-2 rounded-lg text-xl text-[#1B1C1E] bg-[#FFFCF7] shadow-xl w-[280px] h-fit border">
-      <div class="w-full">
-        <div class="flex flex-row justify-between place-items-center">
-          <p class="text-3xl pt-2">Your Work</p>
+    <div className="flex flex-col justify-around p-2 rounded-lg text-xl text-[#1B1C1E] bg-[#FFFCF7] shadow-xl w-[280px] h-fit border">
+      <div className="w-full">
+        <div className="flex flex-row justify-between place-items-center">
+          <p className="pt-2 text-3xl">Your Work</p>
         </div>
 
-        <div class="space-y-4">
-          <div class="grid w-7/8 h-24 bg-[#F4C2C2]/30 rounded-xl">
-            <img
-              class="w-8 h-8 place-self-center hover:bg-[#9F5F5F]/30 rounded-full"
-              src="/PostAnnEx/Upload.png"
-              alt=""
-            />
+        <div className="flex flex-col items-center space-y-4">
+          <div className="grid bg-[#F4C2C2]/30 rounded-xl px-6">
+            <label htmlFor="fileInput" className="mb-4 custom-file-input w-52">
+              <input
+                id="fileInput"
+                type="file"
+                onChange={handleFileChange}
+                multiple
+                className="hidden"
+              />
+              <div className="flex justify-center p-2 mt-4 text-3xl border-2 border-black rounded-xl">
+                <img
+                  class="w-10 h-10 place-self-center hover:bg-[#9F5F5F]/30 rounded-full"
+                  src="/PostAnnEx/Upload.png"
+                  alt=""
+                />
+                <span className="ml-2">Choose Files</span>
+              </div>
+            </label>
+            <div className="flex flex-col gap-3 w-52">
+              {selectedFiles.map((file, index) => (
+                <div
+                  key={index}
+                  className="flex px-2 py-3 border border-[#530619] w-54 rounded-2xl"
+                  title={file.name}
+                >
+                  <img
+                    src="/notification/upload.svg"
+                    alt=""
+                    className="w-9 h-9"
+                  />
+                  <div className="ml-3 text-3xl font-semibold truncate text-[#530619]">
+                    {file.name}
+                  </div>
+                  <button
+                    className="ml-auto text-[#530619] hover:text-red-500"
+                    onClick={() => handleRemoveFile(index)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div class="grid justify-center">
+          <div className="grid justify-center">
             <CustomButton
-              variant={"filled"}
-              className={"px-5 pt-1 pb-0.75"}
-              text={"Submit"}
+              variant="filled"
+              className="px-5 pt-1 pb-0.75"
+              text="Submit"
               handleButton={handleSubmit}
-            ></CustomButton>
+            />
           </div>
         </div>
       </div>

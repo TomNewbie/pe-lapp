@@ -1,7 +1,25 @@
-const Notification = ({ content }) => {
+import { Dropdown } from "../../components";
+import { deleteCourseContent } from "../../services/course/content";
+
+const Notification = ({ content, courseId, onChangeContents }) => {
   if (!content) {
     return null;
   }
+  const onDelete = async () => {
+    deleteCourseContent(courseId, content._id)
+      .then(() => {
+        // Handle successful deletion of course content
+        alert("Course content deleted successfully.");
+        onChangeContents();
+      })
+      .catch((error) => {
+        // Handle error during course content deletion
+        alert("Error deleting course content:" + error);
+      });
+  };
+  const onEdit = () => {
+    console.log("Edit");
+  };
 
   const fileSection =
     content.files?.map((file) => (
@@ -22,6 +40,11 @@ const Notification = ({ content }) => {
 
   return (
     <div className="bg-[#F4C2C2]/30 rounded-3xl w-full h-auto pt-4 pb-6">
+      <div className="relative">
+        <div className="absolute top-0 right-0">
+          <Dropdown onDelete={onDelete} onEdit={onEdit} />
+        </div>
+      </div>
       <div className="flex flex-col ml-4 space-y-4">
         <div className="text-5xl font-bold">{content.title}</div>
         <div className="text-3xl font-light">{content.body}</div>

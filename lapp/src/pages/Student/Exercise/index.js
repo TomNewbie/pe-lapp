@@ -34,6 +34,9 @@ const ExerciseDetail = () => {
     return <LoadingPage />;
   }
   const convertDate = (timestamp) => {
+    if (timestamp === null) {
+      return "No submission";
+    }
     const date = new Date(timestamp);
 
     const month = date.toLocaleString("en-US", { month: "long" });
@@ -46,19 +49,20 @@ const ExerciseDetail = () => {
   };
   const deadline = convertDate(data.deadline);
   return (
-    <div class="text-[#1B1C1E] flex flex-col bg-[#FFFAF0]">
+    <div class="text-[#1B1C1E] flex flex-col bg-[#FFFAF0] min-h-screen">
       <NavbarStudent></NavbarStudent>
 
       {/* Course name card */}
       <div class="mb-16">
         <StudentCourseName
           name={course.name}
-          teacher={course.teacher}></StudentCourseName>
+          teacher={course.teacher}
+        ></StudentCourseName>
       </div>
 
       {/* Instruction part */}
-      <div class="flex flex-row items-center justify-around space-x-5 mx-16">
-        <div class="basis-2/3">
+      <div class="flex flex-row items-start justify-around mx-16 flex-grow">
+        <div class="">
           <div class=" flex flex-col px-2">
             <p class="text-bold text-7xl text-left">{data.name}</p>
             <div class="flex flex-row justify-between text-[37px]">
@@ -67,7 +71,7 @@ const ExerciseDetail = () => {
             </div>
           </div>
           <div className="flex mt-4">
-            <div className="w-full h-auto pt-4 pb-6  rounded-3xl">
+            <div className="w-full h-auto pt-4 pb-6 rounded-3xl">
               <div className="flex flex-col ml-4 space-y-4">
                 <div className="text-3xl font-light">{data.description}</div>
               </div>
@@ -79,7 +83,8 @@ const ExerciseDetail = () => {
                       <img
                         src="/notification/upload.svg"
                         alt=""
-                        className="w-9 h-9"></img>
+                        className="w-9 h-9"
+                      ></img>
                       <div className="ml-3 text-3xl font-semibold truncate text-[#530619] ">
                         {file.name}
                       </div>
@@ -92,7 +97,7 @@ const ExerciseDetail = () => {
         </div>
 
         {/* Grading & submit exercise section */}
-        <div className="flex flex-col items-center basis-1/4">
+        <div className="flex flex-col items-center mb-16">
           <div>
             <CommentSection grade={comment.grade}></CommentSection>
           </div>
@@ -100,7 +105,8 @@ const ExerciseDetail = () => {
             <SubmitEx
               handleSubmit={() => {
                 console.log("submit");
-              }}></SubmitEx>
+              }}
+            ></SubmitEx>
           </div>
         </div>
       </div>

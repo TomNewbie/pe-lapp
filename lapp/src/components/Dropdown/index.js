@@ -1,5 +1,5 @@
 import { useState } from "react";
-function Dropdown() {
+const Dropdown = ({ onDelete, onEdit }) => {
   const [active, setActive] = useState(0);
   const handleClick = () => {
     if (active === 0) {
@@ -9,7 +9,7 @@ function Dropdown() {
     }
   };
   return (
-    <div className="relative">
+    <div className="relative ">
       <img
         src="/dropdown/more.svg"
         alt=""
@@ -19,7 +19,7 @@ function Dropdown() {
       {active === 0 ? (
         <div></div>
       ) : (
-        <div className="absolute -left-32">
+        <div className="absolute z-10 -left-32">
           <div className="w-40 h-24 bg-white border rounded-2xl">
             <div className="flex flex-col mt-3 ml-4 space-y-2">
               <div className="flex flex-row hover:text-[#B02B3B] cursor-pointer">
@@ -28,7 +28,9 @@ function Dropdown() {
                   alt=""
                   className="w-5 h-5 mt-1"
                 ></img>
-                <div className="ml-12 text-2xl">Edit</div>
+                <div className="ml-12 text-3xl" onClick={onEdit}>
+                  Edit
+                </div>
               </div>
               <div className="flex flex-row mt-3 hover:text-[#B02B3B] cursor-pointer">
                 <img
@@ -36,7 +38,15 @@ function Dropdown() {
                   alt=""
                   className="w-5 h-5 mt-1"
                 ></img>
-                <div className="ml-12 text-2xl">Delete</div>
+                <div
+                  className="ml-12 text-3xl"
+                  onClick={() => {
+                    onDelete();
+                    handleClick();
+                  }}
+                >
+                  Delete
+                </div>
               </div>
             </div>
           </div>
@@ -44,6 +54,6 @@ function Dropdown() {
       )}
     </div>
   );
-}
+};
 
 export default Dropdown;

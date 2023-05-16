@@ -76,6 +76,7 @@ const CoursePage = () => {
     data: contents,
     pending: contentsPending,
     error: contentsError,
+    refresh: contentRefresh,
   } = useAPI({
     path: "/api/course/:id/contents",
     params: { id },
@@ -85,6 +86,7 @@ const CoursePage = () => {
     data: exercises,
     pending: exercisesPending,
     error: exercisesError,
+    refresh: exercisesRefresh,
   } = useAPI({
     path: "/api/course/:id/exercises",
     params: { id },
@@ -96,7 +98,20 @@ const CoursePage = () => {
   const handleClick = (index) => {
     setActiveTab(index);
   };
-  if (participantsError || contentsError || exercisesError || courseError) {
+  if (participantsError) {
+    console.log(participantsError);
+    return <Errorpage />;
+  }
+  if (contentsError) {
+    console.log(contentsError);
+    return <Errorpage />;
+  }
+  if (exercisesError) {
+    console.log(exercisesError);
+    return <Errorpage />;
+  }
+  if (courseError) {
+    console.log(courseError);
     return <Errorpage />;
   }
   if (
@@ -146,11 +161,19 @@ const CoursePage = () => {
   return (
     // <body className="bg-[#FFFAF0]">
     <div className="relative flex flex-col bg-[#FFFAF0] min-h-screen">
-      {postModal && <PostAnnEx handleClose={togglePostModal}></PostAnnEx>}
+      {postModal && (
+        <PostAnnEx
+          handleClose={togglePostModal}
+          onAddContent={contentRefresh}
+          courseId={id}
+        ></PostAnnEx>
+      )}
       {exerciseModal && (
         <PostAnnEx
+          courseId={id}
           type={"exercise"}
           handleClose={toggleExerciseModal}
+          onAddExercise={exercisesRefresh}
         ></PostAnnEx>
       )}
       {studentModal && (
@@ -178,7 +201,13 @@ const CoursePage = () => {
                 </div>
 
                 {contents.map((content) => {
-                  return <Notification content={content}></Notification>;
+                  return (
+                    <Notification
+                      content={content}
+                      courseId={id}
+                      onChangeContents={contentRefresh}
+                    ></Notification>
+                  );
                 })}
               </div>
             </div>
@@ -192,18 +221,21 @@ const CoursePage = () => {
                 text={"+ Create"}
                 handleButton={toggleExerciseModal}
               ></CustomButton>
-              <div className="flex flex-col mt-8 mb-16 divide-y">
-                {exercises.map((exercise) => {
-                  const link = "/exercise/" + exercise._id;
-                  return (
-                    <div>
-                      <Link to={link}>
-                        <Assignment exercise={exercise} />
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div>
+              {exercises && (
+                <div className="flex flex-col mt-8 mb-16 divide-y">
+                  {exercises.map((exercise) => {
+                    return (
+                      <div>
+                        <Assignment
+                          exercise={exercise}
+                          exerciseId={exercise._id}
+                          onChangeExercise={exercisesRefresh}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           }
           // Participants tab
