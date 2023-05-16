@@ -27,7 +27,7 @@ const handleUpload = multer({
 const removeFirebase = async (refPaths: string[]): Promise<void | string> => {
   if (!refPaths) return;
   try {
-    await Promise.all(
+    const result = await Promise.all(
       refPaths.map((refPath: string) => {
         const fileRef = ref(storageRef, refPath);
         return deleteObject(fileRef);
