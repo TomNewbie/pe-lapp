@@ -52,32 +52,37 @@ const verifyAuthorize = async (
 };
 
 const update = async (req: FileRequest, res: Response) => {
-  // const { remove, title, body } = req.body;
-  // const { course_content_id } = req.params;
-  // await fileService.removeFirebase(remove);
-  // // delete all files in remove
-  // let updateFiles = files.filter(
-  //   (file: FileType) => !remove.includes(file.refPath)
-  // );
-  // // if user dont upload new file
-  // if (!req.firebase) {
-  //   await contentService.update(course_content_id, {
-  //     title,
-  //     body,
-  //     files: updateFiles,
-  //   });
-  //   res.sendStatus(200);
-  //   return;
-  // }
-  // const newFiles = req.firebase as FileType[];
-  // // add new files
-  // updateFiles = updateFiles.concat(newFiles);
-  // await contentService.update(course_content_id, {
-  //   title,
-  //   body,
-  //   files: updateFiles,
-  // });
-  // res.sendStatus(200);
+  const { remove, title, body } = req.body;
+  const { course_content_id } = req.params;
+  await fileService.removeFirebase(remove);
+  // delete all files in remove
+  // if user dont upload new file
+  // console.log(remove);
+  const files = await contentService.updateOldContent(
+    course_content_id,
+    {
+      title,
+      body,
+    },
+    remove
+  );
+  const filesRemoveRefPath = files
+    .filter((file) => remove.includes(file.url))
+    .map((file) => file.refPath);
+  // if no new file upload then return status
+  if (!req.firebase) {
+    await fileService.removeFirebase(filesRemoveRefPath);
+    res.sendStatus(204);
+    return;
+  }
+  const newFiles = req.firebase as FileType[];
+  // add new files and remove the old files
+  const result = await Promise.all([
+    contentService.addNewFiles(course_content_id, newFiles),
+    fileService.removeFirebase(filesRemoveRefPath),
+  ]);
+  console.log(result);
+  res.sendStatus(200);
 };
 
 const remove = async (req: AuthRequest, res: Response, next: NextFunction) => {

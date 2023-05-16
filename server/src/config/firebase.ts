@@ -1,8 +1,6 @@
-import { File } from "buffer";
 import { initializeApp } from "firebase/app";
-import { deleteObject, getStorage, ref, uploadBytes } from "firebase/storage";
-import { createReadStream } from "fs";
-import multer from "multer";
+import { getStorage, ref } from "firebase/storage";
+
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_APIKEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
