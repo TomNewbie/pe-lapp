@@ -37,6 +37,7 @@ const upload = async (req: FileRequest, res: Response, next: NextFunction) => {
   }
   if (files.length === 0) {
     next(); // no file in upload
+    return;
   }
   req.firebase = await fileService.uploadFirebase(files);
   next();

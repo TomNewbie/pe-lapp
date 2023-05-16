@@ -52,23 +52,25 @@ const verifyAuthorize = async (
 };
 
 const update = async (req: FileRequest, res: Response) => {
-  // const { remove, title, body } = req.body;
-  // const { course_content_id } = req.params;
-  // await fileService.removeFirebase(remove);
-  // // delete all files in remove
+  const { remove, title, body } = req.body;
+  const { course_content_id } = req.params;
+  // delete all files in remove
   // let updateFiles = files.filter(
   //   (file: FileType) => !remove.includes(file.refPath)
   // );
-  // // if user dont upload new file
-  // if (!req.firebase) {
-  //   await contentService.update(course_content_id, {
-  //     title,
-  //     body,
-  //     files: updateFiles,
-  //   });
-  //   res.sendStatus(200);
-  //   return;
-  // }
+  // if user dont upload new file
+  const filesRemove = await contentService.update(
+    course_content_id,
+    {
+      title,
+      body,
+    },
+    remove
+  );
+  await fileService.removeFirebase(filesRemove.map((file) => file.refPath));
+
+  // res.sendStatus(200);
+
   // const newFiles = req.firebase as FileType[];
   // // add new files
   // updateFiles = updateFiles.concat(newFiles);

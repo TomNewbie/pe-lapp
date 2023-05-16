@@ -17,11 +17,13 @@ const create = async ({
 };
 type updateContentType = Omit<
   Partial<CourseContentType>,
-  "updatedAt" | "createdAt"
-> & {
-  remove?: string[];
-};
-const update = async (contentId: string, updateContent: updateContentType) =>
+  "updatedAt" | "createdAt" | "files"
+>;
+const update = async (
+  contentId: string,
+  updateContent: updateContentType,
+  removeFiles: string[]
+) =>
   // : Omit<CourseContentType, "createdAt" | "updatedAt">
   {
     let update: {
@@ -35,34 +37,33 @@ const update = async (contentId: string, updateContent: updateContentType) =>
       };
     } = {
       $set: {},
-      $pull: { files: { url: [] } },
+      $pull: { files: { url: removeFiles } },
     };
 
     // Iterate over request body and add fields to update object
     for (const [key, value] of Object.entries(updateContent)) {
       if (value !== undefined) {
-        if (key === "remove") {
-          update.$pull.files!.url = value as string[];
-          continue;
-        }
         update.$set[key as keyof updateContentType] = value as string;
       }
     }
     const result = await CourseContent.findOneAndUpdate(
       { _id: contentId },
       update,
-      { returnDocument: "before" }
+      { returnDocument: "before", projection: "files" }
     );
 
-    console.log(result?.files);
+    return result!.files;
   };
-// update("645b565c14514ad6063542ab", {
-//   body: "asdasdasd",
-//   title: "test2",
-//   remove: [
-//     "https://firebasestorage.googleapis.com/v0/b/pe-lapp-384707.appspot.com/o/test%2F75d4f067-29ad-4ade-87d7-ba1b45ece121.pdf?alt=media&token=4eef136f-c1e9-43f2-b84e-f7e724d5a8b7",
-//   ],
-// });
+// update(
+//   "6462fd3a6d69f221ddb74349",
+//   {
+//     body: "asdasdasd",
+//     title: "test2",
+//   },
+//   [
+//     "https://firebasestorage.googleapis.com/v0/b/pe-lapp-384707.appspot.com/o/test%2F2881bd32-954d-4ecf-b136-04c5872e683a.png?alt=media&token=502041a7-7c18-4ba6-b863-007ecf8f296e",
+//   ]
+// );
 export enum ContentError {
   NOT_FOUND,
   INVALID_INPUT,
