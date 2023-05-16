@@ -21,7 +21,7 @@ const Assignment = ({ exercise }) => {
         <button class="flex flex-row place-items-center space-x-10 hover:text-bold hover:text-[#560319] hover:underline ">
           <img class="w-10 h-10" src="/Assignment/AssignmentIcon.png" alt="" />
           <div class="text-left">
-            <p className="text-4xl">{exercise.name}</p>
+            <p className="text-4xl truncate">{exercise.name}</p>
             <p>{exercise.submission_count} submissions</p>
           </div>
         </button>
@@ -36,6 +36,6 @@ const Assignment = ({ exercise }) => {
       </div>
     </div>
   );
-};
+};-m 
 
 export default Assignment;
