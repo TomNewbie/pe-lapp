@@ -9,7 +9,10 @@ const Notification = ({ content }) => {
         <a href={file.url}>
           <div className="flex px-2 py-3 border w-96 border-[#530619] rounded-2xl">
             <img src="/notification/upload.svg" alt="" className="w-9 h-9" />
-            <div className="ml-3 text-3xl font-semibold truncate text-[#530619]">
+            <div
+              className="ml-3 text-3xl font-semibold truncate text-[#530619]"
+              title={file.name}
+            >
               {file.name}
             </div>
           </div>
