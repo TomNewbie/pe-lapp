@@ -96,7 +96,20 @@ const CoursePage = () => {
   const handleClick = (index) => {
     setActiveTab(index);
   };
-  if (participantsError || contentsError || exercisesError || courseError) {
+  if (participantsError) {
+    console.log(participantsError);
+    return <Errorpage />;
+  }
+  if (contentsError) {
+    console.log(contentsError);
+    return <Errorpage />;
+  }
+  if (exercisesError) {
+    console.log(exercisesError);
+    return <Errorpage />;
+  }
+  if (courseError) {
+    console.log(courseError);
     return <Errorpage />;
   }
   if (
@@ -192,18 +205,20 @@ const CoursePage = () => {
                 text={"+ Create"}
                 handleButton={toggleExerciseModal}
               ></CustomButton>
-              <div className="flex flex-col mt-8 mb-16 divide-y">
-                {exercises.map((exercise) => {
-                  const link = "/exercise/" + exercise._id;
-                  return (
-                    <div>
-                      <Link to={link}>
-                        <Assignment exercise={exercise} />
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div>
+              {exercises && (
+                <div className="flex flex-col mt-8 mb-16 divide-y">
+                  {exercises.map((exercise) => {
+                    const link = "/exercise/" + exercise._id;
+                    return (
+                      <div>
+                        <Link to={link}>
+                          <Assignment exercise={exercise} />
+                        </Link>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           }
           // Participants tab
