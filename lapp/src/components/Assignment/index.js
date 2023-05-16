@@ -36,6 +36,6 @@ const Assignment = ({ exercise }) => {
       </div>
     </div>
   );
-};-m 
+};
 
 export default Assignment;

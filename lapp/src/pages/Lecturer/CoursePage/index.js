@@ -172,7 +172,7 @@ const CoursePage = () => {
           // General tab
           tab1={
             <div className="flex flex-row justify-evenly space-x-24 w-[1000px] min-h-[370px]">
-              <div className="flex flex-col space-y-6 mt-8 mb-16 w-[900px]">
+              <div className="flex flex-col  space-y-6 mt-8 mb-16 w-[900px]">
                 <div onClick={togglePostModal}>
                   <Announce></Announce>
                 </div>
