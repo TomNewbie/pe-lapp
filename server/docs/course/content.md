@@ -47,6 +47,7 @@ type Body = {
 - 404 -> Course Content not found
 - 403 -> Unauthorized
 - 400 -> Missing information to update
+- 404 -> Wrong content-type header
 
 # [POST] /api/course/:id/content
 
@@ -76,6 +77,7 @@ Content-Type="multipart/form-data"
 - 200 -> OK
 - 404 -> Course not found
 - 403 -> Unauthorized
+- 404 -> Wrong content-type header
 - 400 -> Missing _title, body_
 
 ## Multer Error will return error code 400

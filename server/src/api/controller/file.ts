@@ -31,8 +31,11 @@ export interface FileRequest extends AuthRequest {
 }
 const upload = async (req: FileRequest, res: Response, next: NextFunction) => {
   const files = req.files as Express.Multer.File[];
+  console.log(files);
   if (!files) {
-    res.status(404).send("Missing files field");
+    res
+      .status(404)
+      .send("Please set the Content-Type header to multipart/form-data");
     return;
   }
   if (files.length === 0) {

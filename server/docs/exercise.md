@@ -64,6 +64,7 @@ Create an exercise
 - 404 -> Course not found
 - 401 -> Unauthorize (student)
 - 400 -> Missing info
+- 404 -> Wrong content-type header
 
 # [GET] /api/exercises/:id
 
@@ -166,6 +167,7 @@ Edit exercise by specify id.
 - 200 -> OK
 - 404 -> Exercise not found
 - 401 -> Unauthorize (student)
+- 404 -> Wrong content-type header
 
 # [PATCH] /api/exercises/:id/students/:id
 
@@ -189,6 +191,7 @@ Add grade for student solution
 - 201 -> OK
 - 404 -> Solution not found
 - 401 -> Unauthorize (student)
+- 404 -> Wrong content-type header
 
 # [DELETE] /api/exercises/:id
 
@@ -229,6 +232,7 @@ Create solution
 - 201 -> OK
 - 404 -> Exercise not found
 - 404 -> Missing file
+- 404 -> Wrong content-type header
 
 # [GET] /api/course/:id/exercises/grade?s=`start`&n=`num`
 
