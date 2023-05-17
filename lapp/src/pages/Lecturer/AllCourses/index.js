@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import {
   NavbarLecturer,
   Footer,
@@ -9,6 +8,7 @@ import {
 import { useState } from "react";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
+import EditCourse from "../../../components/PopUp/EditCourse";
 /**Need to fetch courses:
  * const courses: {
     name: string;
@@ -26,17 +26,30 @@ const AllCoursesLecturer = () => {
   /**
    * Toggles the state of the modal for creating a new course.
    */
-  const [modal, setModal] = useState(false);
-  const toggleModal = () => {
+  const [createModal, setCreateModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [editCourse, setEditCourse] = useState([]);
+  const toggleCreateModal = () => {
     const body = document.body;
-    if (modal) {
+    if (createModal) {
       body.classList.remove("modal-open");
     } else {
       window.scrollTo({ top: 0, behavior: "smooth" });
       body.classList.add("modal-open");
     }
-    setModal(!modal);
+    setCreateModal(!createModal);
   };
+  const toggleEditModal = () => {
+    const body = document.body;
+    if (editModal) {
+      body.classList.remove("modal-open");
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      body.classList.add("modal-open");
+    }
+    setEditModal(!editModal);
+  };
+
   const {
     data: courses,
     pending,
@@ -53,18 +66,25 @@ const AllCoursesLecturer = () => {
 
   return (
     <div className="relative">
-      {modal && (
+      {createModal && (
         <CreateCourse
-          handleClose={toggleModal}
+          handleClose={toggleCreateModal}
           onCreateCourse={refresh}
         ></CreateCourse>
+      )}
+      {editModal && (
+        <EditCourse
+          handleClose={toggleEditModal}
+          onEditCourse={refresh}
+          editCourse={editCourse}
+        ></EditCourse>
       )}
       <NavbarLecturer></NavbarLecturer>
       <div className="flex flex-row justify-between mt-8 ml-16 mr-16">
         <SearchBox variant={"small"}></SearchBox>
         <button
           className="border-[#B02B3B] border-4 box-border px-2 h-9 pb-8 leading-9 rounded-xl hover:border-slate-500 text-dongle text-4xl ml-4 bg-[#ffffff] shadow-lg text-[#1B1C1E]"
-          onClick={toggleModal}
+          onClick={toggleCreateModal}
         >
           + Create class
         </button>
@@ -74,11 +94,14 @@ const AllCoursesLecturer = () => {
       {courses && (
         <div className="bg-[#F48F98]/50 grid grid-cols-4 grid-rows-2 mb-16 gap-x-2 gap-y-8 mx-16 rounded-2xl px-24 py-4">
           {courses.map((course) => {
-            const link = "/course/" + course._id;
             return (
-              <Link to={link}>
-                <CoursecardTeacher course={course}></CoursecardTeacher>
-              </Link>
+              <CoursecardTeacher
+                course={course}
+                handleEdit={() => {
+                  setEditCourse(course);
+                  toggleEditModal();
+                }}
+              ></CoursecardTeacher>
             );
           })}
         </div>

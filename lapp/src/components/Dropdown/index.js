@@ -1,39 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 
 const Dropdown = ({ onDelete, onEdit }) => {
   const [active, setActive] = useState(false);
-  const timeoutRef = useRef(null);
 
   const handleClick = () => {
     setActive(!active);
   };
-
-  useEffect(() => {
-    if (active) {
-      timeoutRef.current = setTimeout(() => {
-        setActive(false);
-      }, 5000);
-    }
-
-    return () => {
-      clearTimeout(timeoutRef.current);
-    };
-  }, [active]);
-
-  const handleOutsideClick = (event) => {
-    if (timeoutRef.current && !event.target.closest(".absolute")) {
-      clearTimeout(timeoutRef.current);
-      setActive(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleOutsideClick);
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
 
   return (
     <div className="relative">
@@ -45,11 +17,14 @@ const Dropdown = ({ onDelete, onEdit }) => {
       />
       {active && (
         <div className="absolute z-10 -left-32">
-          <div className="w-40 h-24 bg-white border rounded-2xl">
+          <div className="w-40 h-24 bg-white border shadow-xl rounded-2xl">
             <div className="flex flex-col mt-3 ml-4 space-y-2">
               <div
                 className="flex flex-row hover:text-[#B02B3B] cursor-pointer"
-                onClick={onEdit}
+                onClick={() => {
+                  onEdit();
+                  setActive(false);
+                }}
               >
                 <img src="/dropdown/edit.png" alt="" className="w-5 h-5 mt-1" />
                 <div className="ml-12 text-3xl">Edit</div>

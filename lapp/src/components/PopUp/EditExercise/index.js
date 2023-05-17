@@ -16,7 +16,6 @@ const EditExercise = ({
   const [removedFiles, setRemovedFiles] = useState([]);
   const [newlySelectedFiles, setNewlySelectedFiles] = useState([]);
 
-  console.log(exercise);
   useEffect(() => {
     setName(exercise.name);
     setDeadline(exercise.deadline);
