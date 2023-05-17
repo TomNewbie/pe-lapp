@@ -132,6 +132,10 @@ const verifyAuthorize = async (
       .send(`Can not find exercise ${exerciseId} that ${lecturerId} created`);
     return;
   }
+  if (err === Exercise_ErrorType.INVALID_ID) {
+    res.status(401).send(`Invalid exercise id`);
+    return;
+  }
   next();
 };
 export const exerciseController = {

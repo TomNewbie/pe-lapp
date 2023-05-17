@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 import { FileType } from "../../utils/types";
 import { Exercise } from "../model/exercise";
 import { Solution } from "../model/solution";
@@ -26,6 +26,7 @@ const addGrade = async (
   if (result.matchedCount === 0) return Exercise_ErrorType.NOT_FOUND;
 };
 const verifyAuthorize = async (studentId: string, exerciseId: string) => {
+  if (!isValidObjectId(exerciseId)) return Exercise_ErrorType.INVALID_ID;
   const [exercise] = await Exercise.aggregate()
     .match({ _id: new mongoose.Types.ObjectId(exerciseId) })
     .lookup({
