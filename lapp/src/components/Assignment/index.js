@@ -1,14 +1,6 @@
 import { Link } from "react-router-dom";
-import { Dropdown } from "../../components";
-import { deleteExercise } from "../../services/course/exercise";
 
-const Assignment = ({
-  exercise,
-  onDelete,
-  onEdit,
-  exerciseId,
-  onChangeExercise,
-}) => {
+const Assignment = ({ exercise, exerciseId, courseId }) => {
   if (!exercise) {
     return null;
   }
@@ -26,22 +18,22 @@ const Assignment = ({
   };
   const link = "/exercise/" + exerciseId;
   const deadline = convertDate(exercise.deadline);
-  const handleDelete = async () => {
-    deleteExercise(exerciseId)
-      .then(() => {
-        // Handle successful deletion of course content
-        alert("Exercise deleted successfully.");
-        onChangeExercise();
-      })
-      .catch((error) => {
-        // Handle error during course content deletion
-        alert("Error deleting exercise:" + error);
-      });
-  };
+  // const handleDelete = async () => {
+  //   deleteExercise(exerciseId)
+  //     .then(() => {
+  //       // Handle successful deletion of course content
+  //       alert("Exercise deleted successfully.");
+  //       onChangeExercise();
+  //     })
+  //     .catch((error) => {
+  //       // Handle error during course content deletion
+  //       alert("Error deleting exercise:" + error);
+  //     });
+  // };
   return (
     <div class="w-full h-fit text-[#1B1C1E] divide-y divide-[#808080]/30 text-3xl">
       <div class="flex flex-row justify-between px-2.5 py-2">
-        <Link to={link}>
+        <Link to={{ pathname: link, state: { courseId: courseId } }}>
           <button class="flex flex-row place-items-center space-x-10 hover:text-bold hover:text-[#560319] hover:underline ">
             <img
               class="w-10 h-10"
@@ -57,9 +49,6 @@ const Assignment = ({
 
         <div class="flex flex-row flex-start space-x-14">
           <p className="mt-2">Due date: {deadline}</p>
-          <div>
-            <Dropdown onDelete={handleDelete} />
-          </div>
         </div>
       </div>
     </div>

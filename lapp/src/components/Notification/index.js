@@ -1,10 +1,19 @@
 import { Dropdown } from "../../components";
 import { deleteCourseContent } from "../../services/course/content";
+import { useAuth } from "../auth";
 
-const Notification = ({ content, courseId, onChangeContents }) => {
+const Notification = ({
+  content,
+  courseId,
+  onChangeContents,
+  handleEditContent,
+}) => {
+  const auth = useAuth();
+  const role = auth.user?.role;
   if (!content) {
     return null;
   }
+
   const onDelete = async () => {
     deleteCourseContent(courseId, content._id)
       .then(() => {
@@ -18,7 +27,7 @@ const Notification = ({ content, courseId, onChangeContents }) => {
       });
   };
   const onEdit = () => {
-    console.log("Edit");
+    handleEditContent();
   };
 
   const fileSection =
@@ -40,11 +49,13 @@ const Notification = ({ content, courseId, onChangeContents }) => {
 
   return (
     <div className="bg-[#F4C2C2]/30 rounded-3xl w-full h-auto pt-4 pb-6">
-      <div className="relative">
-        <div className="absolute top-0 right-0">
-          <Dropdown onDelete={onDelete} onEdit={onEdit} />
+      {role === "lecturer" && (
+        <div className="relative">
+          <div className="absolute top-0 right-0">
+            <Dropdown onDelete={onDelete} onEdit={onEdit} />
+          </div>
         </div>
-      </div>
+      )}
       <div className="flex flex-col ml-4 space-y-4">
         <div className="text-5xl font-bold">{content.title}</div>
         <div className="text-3xl font-light">{content.body}</div>

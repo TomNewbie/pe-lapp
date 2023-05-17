@@ -16,7 +16,8 @@ import { Participants, Assignment, PostAnnEx } from "../../../components";
 import { useState } from "react";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
-import { removeCourseParticipant } from "../../../services/course/participant";
+import EditPost from "../../../components/PopUp/EditPost";
+import EditExercise from "../../../components/PopUp/EditExercise";
 
 /** Need to fetch:
  - const course: { name: string; semester: string;}
@@ -33,9 +34,6 @@ import { removeCourseParticipant } from "../../../services/course/participant";
 - const studentGrade: {name: string;id: string;total: string;detailGrade: number[];}[]
 - const classcode: string
  */
-
-//course heading
-const course = { name: "Programming exercise", semester: "SS2023" };
 
 const studentGrade = [
   {
@@ -93,8 +91,11 @@ const CoursePage = () => {
   });
   const [postModal, setPostModal] = useState(false);
   const [exerciseModal, setExerciseModal] = useState(false);
+  const [editPostModal, setEditPostModal] = useState(false);
   const [studentModal, setStudentModal] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
+  const [editContent, setEditContent] = useState([]);
+
   const handleClick = (index) => {
     setActiveTab(index);
   };
@@ -122,7 +123,6 @@ const CoursePage = () => {
   ) {
     return <LoadingPage />;
   }
-  console.log(course);
 
   // logic for modal
   const togglePostModal = () => {
@@ -134,6 +134,16 @@ const CoursePage = () => {
       body.classList.add("modal-open");
     }
     setPostModal(!postModal);
+  };
+  const toggleEditPost = () => {
+    const body = document.body;
+    if (editPostModal) {
+      body.classList.remove("modal-open");
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      body.classList.add("modal-open");
+    }
+    setEditPostModal(!editPostModal);
   };
 
   const toggleExerciseModal = () => {
@@ -168,6 +178,14 @@ const CoursePage = () => {
           courseId={id}
         ></PostAnnEx>
       )}
+      {editPostModal && (
+        <EditPost
+          handleClose={toggleEditPost}
+          onUpdateContent={contentRefresh}
+          courseId={id}
+          editContent={editContent}
+        ></EditPost>
+      )}
       {exerciseModal && (
         <PostAnnEx
           courseId={id}
@@ -199,16 +217,25 @@ const CoursePage = () => {
                 <div onClick={togglePostModal}>
                   <Announce></Announce>
                 </div>
-
-                {contents.map((content) => {
-                  return (
-                    <Notification
-                      content={content}
-                      courseId={id}
-                      onChangeContents={contentRefresh}
-                    ></Notification>
-                  );
-                })}
+                {contents ? (
+                  <div>
+                    {contents.map((content) => {
+                      return (
+                        <Notification
+                          content={content}
+                          courseId={id}
+                          onChangeContents={contentRefresh}
+                          handleEditContent={() => {
+                            setEditContent(content);
+                            toggleEditPost();
+                          }}
+                        ></Notification>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div></div>
+                )}
               </div>
             </div>
           }
@@ -221,20 +248,22 @@ const CoursePage = () => {
                 text={"+ Create"}
                 handleButton={toggleExerciseModal}
               ></CustomButton>
-              {exercises && (
+              {exercises ? (
                 <div className="flex flex-col mt-8 mb-16 divide-y">
                   {exercises.map((exercise) => {
                     return (
                       <div>
                         <Assignment
+                          courseId={id}
                           exercise={exercise}
                           exerciseId={exercise._id}
-                          onChangeExercise={exercisesRefresh}
                         />
                       </div>
                     );
                   })}
                 </div>
+              ) : (
+                <div></div>
               )}
             </div>
           }
