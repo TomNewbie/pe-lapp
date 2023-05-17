@@ -217,20 +217,25 @@ const CoursePage = () => {
                 <div onClick={togglePostModal}>
                   <Announce></Announce>
                 </div>
-
-                {contents.map((content) => {
-                  return (
-                    <Notification
-                      content={content}
-                      courseId={id}
-                      onChangeContents={contentRefresh}
-                      handleEditContent={() => {
-                        setEditContent(content);
-                        toggleEditPost();
-                      }}
-                    ></Notification>
-                  );
-                })}
+                {contents ? (
+                  <div>
+                    {contents.map((content) => {
+                      return (
+                        <Notification
+                          content={content}
+                          courseId={id}
+                          onChangeContents={contentRefresh}
+                          handleEditContent={() => {
+                            setEditContent(content);
+                            toggleEditPost();
+                          }}
+                        ></Notification>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div></div>
+                )}
               </div>
             </div>
           }

@@ -64,9 +64,15 @@ const CoursePage = () => {
         <StudentNavCourse
           tab1={
             <div className="flex flex-col space-y-6 mt-8 mb-16 w-[1000px] min-h-[350px]">
-              {contents.map((content) => {
-                return <Notification content={content}></Notification>;
-              })}
+              {contents ? (
+                <div>
+                  {contents.map((content) => {
+                    return <Notification content={content}></Notification>;
+                  })}
+                </div>
+              ) : (
+                <div></div>
+              )}
             </div>
           }
           tab2={
