@@ -61,8 +61,12 @@ export const getAccessToken = async (
   return { ...jwtUser, accessToken };
 };
 
-const SECURE_COOKIE_OPTION = process.env.NODE_ENV === "production";
-const ACCESS_TOKEN_COOKIE_NAME = "access_token";
+export const ACCESS_TOKEN_COOKIE_NAME = "access_token";
+export const ACCESS_TOKEN_COOKIE_OPTIONS = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  path: "/api",
+};
 
 const loginCallback = async (req: Request, res: Response): Promise<void> => {
   const { code, state: redirect_path } = req.query;
@@ -82,16 +86,14 @@ const loginCallback = async (req: Request, res: Response): Promise<void> => {
   });
 
   res
-    .cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, {
-      httpOnly: true,
-      secure: SECURE_COOKIE_OPTION,
-      path: "/api",
-    })
+    .cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, ACCESS_TOKEN_COOKIE_OPTIONS)
     .redirect(redirect_path as string);
 };
 
 const logout = (_: Request, res: Response) => {
-  res.clearCookie(ACCESS_TOKEN_COOKIE_NAME).sendStatus(200);
+  res
+    .clearCookie(ACCESS_TOKEN_COOKIE_NAME, ACCESS_TOKEN_COOKIE_OPTIONS)
+    .sendStatus(200);
 };
 
 export interface AuthRequest extends Request {
