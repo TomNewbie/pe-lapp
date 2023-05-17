@@ -46,6 +46,10 @@ const verifyAuthorize = async (
       res.status(404).send(`Already send solution`);
       return;
     }
+    case Exercise_ErrorType.INVALID_ID: {
+      res.status(404).send(`Invalid exercise id`);
+      return;
+    }
   }
 
   next();

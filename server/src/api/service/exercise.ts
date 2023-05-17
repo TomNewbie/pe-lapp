@@ -1,4 +1,4 @@
-import mongoose, { Types } from "mongoose";
+import mongoose, { Types, isValidObjectId } from "mongoose";
 import { Exercise, ExerciseType } from "../model/exercise";
 import { Solution, SolutionType } from "../model/solution";
 import { FileType } from "../../utils/types";
@@ -28,6 +28,7 @@ const update = async (
 export enum Exercise_ErrorType {
   NOT_FOUND,
   SOLUTION_EXIST,
+  INVALID_ID,
 }
 export type StudentViewExercise = Array<{
   name: string;
@@ -72,7 +73,7 @@ type lectureViewDetail = {
 const getLecturerViewDetail = async (
   exerciseId: string,
   lecturerId: string
-): Promise<lectureViewDetail> => {
+) => {
   const [exercise] = await Exercise.aggregate()
     .match({
       _id: new Types.ObjectId(exerciseId),
@@ -146,7 +147,18 @@ const getLecturerViewDetail = async (
         },
       },
     });
-
+  if (!exercise) {
+    const [result] = await Exercise.aggregate()
+      .match({ _id: new Types.ObjectId(exerciseId) })
+      .project({
+        name: 1,
+        deadline: 1,
+        exercise_files: "$files",
+        description: 1,
+        _id: 0,
+      });
+    return { ...result, solutions: [] };
+  }
   const filterSolutions = exercise.solutions.map(
     (solution: {
       student: {
@@ -172,7 +184,7 @@ const getLecturerViewDetail = async (
   );
   return { ...exercise._id, solutions: filterSolutions };
 };
-// getLecturerViewDetail("645bd287b84013ab0df85f3e", "god");
+getLecturerViewDetail("646475f03d15450947d160a2", "god");
 // getLecturerViewDetail("6451f42211a6cb2c92fcef3e", "god");
 const getStudentViewDetail = async (exerciseId: string, studentId: string) => {
   const [exercises] = await Exercise.aggregate()
@@ -307,6 +319,7 @@ const getLecturerViewExercise = async (
 // getStudentViewDetail("6453e5b3c027dda9947cc2de", "17232");
 
 const verifyAuthorize = async (lecturerId: string, exerciseId: string) => {
+  if (!isValidObjectId(exerciseId)) return Exercise_ErrorType.INVALID_ID;
   const result = await Exercise.findOne({
     _id: exerciseId,
     lecturer: lecturerId,
