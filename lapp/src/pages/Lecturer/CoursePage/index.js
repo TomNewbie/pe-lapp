@@ -17,6 +17,7 @@ import { useState } from "react";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
 import { removeCourseParticipant } from "../../../services/course/participant";
+import EditPost from "../../../components/PopUp/EditPost";
 
 /** Need to fetch:
  - const course: { name: string; semester: string;}
@@ -33,9 +34,6 @@ import { removeCourseParticipant } from "../../../services/course/participant";
 - const studentGrade: {name: string;id: string;total: string;detailGrade: number[];}[]
 - const classcode: string
  */
-
-//course heading
-const course = { name: "Programming exercise", semester: "SS2023" };
 
 const studentGrade = [
   {
@@ -93,6 +91,7 @@ const CoursePage = () => {
   });
   const [postModal, setPostModal] = useState(false);
   const [exerciseModal, setExerciseModal] = useState(false);
+  const [editPostModal, setEditPostModal] = useState(false);
   const [studentModal, setStudentModal] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
   const handleClick = (index) => {
@@ -135,6 +134,16 @@ const CoursePage = () => {
     }
     setPostModal(!postModal);
   };
+  const toggleEditPost = () => {
+    const body = document.body;
+    if (editPostModal) {
+      body.classList.remove("modal-open");
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      body.classList.add("modal-open");
+    }
+    setEditPostModal(!editPostModal);
+  };
 
   const toggleExerciseModal = () => {
     const body = document.body;
@@ -167,6 +176,13 @@ const CoursePage = () => {
           onAddContent={contentRefresh}
           courseId={id}
         ></PostAnnEx>
+      )}
+      {editPostModal && (
+        <EditPost
+          handleClose={toggleEditPost}
+          onAddContent={contentRefresh}
+          courseId={id}
+        ></EditPost>
       )}
       {exerciseModal && (
         <PostAnnEx
@@ -206,6 +222,7 @@ const CoursePage = () => {
                       content={content}
                       courseId={id}
                       onChangeContents={contentRefresh}
+                      handleEditContent={toggleEditPost}
                     ></Notification>
                   );
                 })}

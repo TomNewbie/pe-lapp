@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { removeCourseParticipant } from "../../services/course/participant";
+import { useAuth } from "../auth";
 function copyToClipboard(email) {
   navigator.clipboard.writeText(email);
 }
@@ -11,6 +12,8 @@ const Participants = ({
   handleModal,
   participantsRefresh,
 }) => {
+  const auth = useAuth();
+  const role = auth.user?.role;
   const studentSection = students.map((student) => {
     const link = "/profile/student/" + student._id;
     const removeUser = async () => {
@@ -48,13 +51,15 @@ const Participants = ({
                 className="w-7 h-7"
               ></img>
             </button>
-            <button onClick={removeUser}>
-              <img
-                src="/participants-icon/removeuser.svg"
-                alt=""
-                className="w-7 h-7"
-              ></img>
-            </button>
+            {role === "lecturer" && (
+              <button onClick={removeUser}>
+                <img
+                  src="/participants-icon/removeuser.svg"
+                  alt=""
+                  className="w-7 h-7"
+                ></img>
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -97,12 +102,14 @@ const Participants = ({
         <div className="mt-8 divide-y">
           <div className="text-[#E36255] text-5xl border-b border-black flex flex-row">
             <div>Students</div>
-            <img
-              src="/participants-icon/adduser.svg"
-              alt="add"
-              className="w-8 h-8 ml-auto top-2"
-              onClick={handleModal}
-            ></img>
+            {role === "lecturer" && (
+              <img
+                src="/participants-icon/adduser.svg"
+                alt="add"
+                className="w-8 h-8 ml-auto top-2"
+                onClick={handleModal}
+              ></img>
+            )}
           </div>
           {studentSection}
         </div>

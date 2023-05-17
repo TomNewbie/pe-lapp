@@ -3,7 +3,7 @@ import { createExercise } from "../../../services/course/exercise";
 import CustomButton from "../../CustomButton";
 import { useState } from "react";
 
-const PostAnnEx = ({
+const EditPost = ({
   type,
   handleClose,
   courseId,
@@ -154,4 +154,4 @@ const PostAnnEx = ({
   );
 };
 
-export default PostAnnEx;
+export default EditPost;

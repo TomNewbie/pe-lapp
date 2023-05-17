@@ -2,13 +2,7 @@ import { Link } from "react-router-dom";
 import { Dropdown } from "../../components";
 import { deleteExercise } from "../../services/course/exercise";
 
-const Assignment = ({
-  exercise,
-  onDelete,
-  onEdit,
-  exerciseId,
-  onChangeExercise,
-}) => {
+const Assignment = ({ exercise, exerciseId, onChangeExercise }) => {
   if (!exercise) {
     return null;
   }

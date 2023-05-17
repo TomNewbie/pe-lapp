@@ -28,8 +28,6 @@ const ProfileTeacherMe = ({ id }) => {
   const [storeFaculty, setStoreFaculty] = useState("");
   useEffect(() => {
     if (infoData) {
-      // Set initial values based on fetched data
-
       setPhoneNumber(infoData.phone_number);
       setStorePhoneNumber(infoData.phone_number);
       setFaculty(infoData.faculty);

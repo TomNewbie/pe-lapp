@@ -27,7 +27,7 @@ const CreateCourse = ({ handleClose, onCreateCourse }) => {
     setCourseName(event.target.value); // Update the course code state
   };
   return (
-    <div className="absolute flex items-center justify-center w-full h-screen bg-black/60">
+    <div className="absolute z-30 flex items-center justify-center w-full h-screen bg-black/60">
       <div class="w-[800px] h-fit flex flex-col justify-between space-y-4 px-5 py-2 bg-[#FFFCF7] rounded-xl shadow-xl place-items-center text-[#1B1C1E] border">
         <p class="text-6xl mt-2">Enter Course Name</p>
         <input
