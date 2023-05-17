@@ -48,7 +48,7 @@ const Notification = ({
     )) ?? [];
 
   return (
-    <div className="bg-[#F4C2C2]/30 rounded-3xl w-full h-auto pt-4 pb-6">
+    <div className="bg-[#F4C2C2]/30 rounded-3xl w-full h-auto pt-4 pb-6 mb-8">
       {role === "lecturer" && (
         <div className="relative">
           <div className="absolute top-0 right-0">
