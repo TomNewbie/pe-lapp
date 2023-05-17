@@ -1,13 +1,12 @@
 import React from "react";
 import {
-  Notification,
   NavbarStudent,
   CommentSection,
   StudentCourseName,
   SubmitEx,
   Footer,
 } from "../../../components";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
 
@@ -22,15 +21,25 @@ const comment = { grade: 100, content: "Very good!" };
 
 // The component renders a page displaying information about a particular exercise, including the exercise name, maximum points, due date, announcement, and a comment section for student view.
 const ExerciseDetail = () => {
+  const location = useLocation();
+  const courseId = location.state?.courseId;
   const { id } = useParams();
   const { data, pending, error } = useAPI({
     path: "/api/exercises/:id",
     params: { id },
   });
-  if (error) {
+  const {
+    data: course,
+    pending: coursePending,
+    error: courseError,
+  } = useAPI({
+    path: "/api/course/:id",
+    params: { id: courseId },
+  });
+  if (error || courseError) {
     return <Errorpage />;
   }
-  if (pending) {
+  if (pending || coursePending) {
     return <LoadingPage />;
   }
   const convertDate = (timestamp) => {
@@ -48,6 +57,7 @@ const ExerciseDetail = () => {
     return formattedDate;
   };
   const deadline = convertDate(data.deadline);
+  console.log(course);
   return (
     <div class="text-[#1B1C1E] flex flex-col bg-[#FFFAF0] min-h-screen">
       <NavbarStudent></NavbarStudent>
@@ -56,7 +66,7 @@ const ExerciseDetail = () => {
       <div class="mb-16">
         <StudentCourseName
           name={course.name}
-          teacher={course.teacher}
+          teacher={course.lecturer.name}
         ></StudentCourseName>
       </div>
 
