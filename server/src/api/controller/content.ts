@@ -52,22 +52,24 @@ const verifyAuthorize = async (
 };
 
 const update = async (req: FileRequest, res: Response) => {
-  const { remove, title, body } = req.body;
+  const { title, body } = req.body;
+  let { remove } = req.body;
   const { course_content_id } = req.params;
-  // delete all files in remove
-  // if user dont upload new file
-  // console.log(remove);
+  // if user dont remove anything remove will become undefined
+  remove = remove ? remove : [];
   const files = await contentService.updateOldContent(
     course_content_id,
     {
       title,
       body,
     },
-    remove
+    remove ? remove : []
   );
   const filesRemoveRefPath = files
     .filter((file) => remove.includes(file.url))
     .map((file) => file.refPath);
+  console.log(files);
+  console.log(filesRemoveRefPath);
   // if no new file upload then return status
   if (!req.firebase) {
     await fileService.removeFirebase(filesRemoveRefPath);

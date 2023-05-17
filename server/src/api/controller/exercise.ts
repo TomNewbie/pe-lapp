@@ -83,13 +83,13 @@ const remove = async (req: AuthRequest, res: Response) => {
   res.sendStatus(204);
 };
 const update = async (req: FileRequest, res: Response) => {
-  const { remove, name, description } = req.body;
-  const { course_content_id } = req.params;
-  // delete all files in remove
-  // if user dont upload new file
-  console.log(remove);
+  const { name, description } = req.body;
+  let { remove } = req.body;
+  const { id } = req.params;
+  // if user dont remove anything remove will become undefined
+  remove = remove ? remove : [];
   const files = await exerciseService.updateExercise(
-    course_content_id,
+    id,
     {
       name,
       description,
@@ -108,7 +108,7 @@ const update = async (req: FileRequest, res: Response) => {
   const newFiles = req.firebase as FileType[];
   // add new files and remove the old files
   const result = await Promise.all([
-    exerciseService.addNewFiles(course_content_id, newFiles),
+    exerciseService.addNewFiles(id, newFiles),
     fileService.removeFirebase(filesRemoveRefPath),
   ]);
   // console.log(result);

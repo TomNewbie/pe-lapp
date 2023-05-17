@@ -377,7 +377,6 @@ const updateExercise = async (
       update,
       { returnDocument: "before", projection: "files" }
     );
-
     return result!.files;
   };
 const addNewFiles = async (exerciseId: string, files: FileType[]) => {
