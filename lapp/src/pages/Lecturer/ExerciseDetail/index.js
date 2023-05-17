@@ -6,11 +6,11 @@ import {
   CustomButton,
   Footer,
 } from "../../../components";
-import { PostAnnEx } from "../../../components";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
 import EditExercise from "../../../components/PopUp/EditExercise";
+import { deleteExercise } from "../../../services/course/exercise";
 
 /** Need to fetch:
  * course:
@@ -23,8 +23,6 @@ import EditExercise from "../../../components/PopUp/EditExercise";
  *      status: string; file: string[]/null; grade: number/null;}
  */
 
-const course = { name: "Programming exercise", semester: "SS2023" };
-
 /**Component that displays the details of a exercise,
  * including the exercise name, due date, maximum points,
  * announcement, number of submissions, and average score.
@@ -33,26 +31,24 @@ const course = { name: "Programming exercise", semester: "SS2023" };
 const ExerciseDetail = () => {
   const location = useLocation();
   const courseId = location.state?.courseId;
-
-  console.log("Previous of Previous Link:", courseId);
   const { id } = useParams();
+  const exerciseId = id;
   const { data, pending, error, refresh } = useAPI({
     path: "/api/exercises/:id",
-    params: { id },
+    params: { id: exerciseId },
+  });
+  const {
+    data: course,
+    pending: coursePending,
+    error: courseError,
+  } = useAPI({
+    path: "/api/course/:id",
+    params: { id: courseId },
   });
   // logic for modal
-  const [exerciseModal, setExerciseModal] = useState(false);
   const [editExerciseModal, setEditExerciseModal] = useState(false);
+  const [exercise, setExercise] = useState([]);
 
-  const toggleExerciseModal = () => {
-    const body = document.body;
-    if (exerciseModal) {
-      body.classList.remove("modal-open");
-    } else {
-      body.classList.add("modal-open");
-    }
-    setExerciseModal(!exerciseModal);
-  };
   const toggleEditExerciseModal = () => {
     const body = document.body;
     if (editExerciseModal) {
@@ -64,10 +60,10 @@ const ExerciseDetail = () => {
     setEditExerciseModal(!editExerciseModal);
   };
 
-  if (error) {
+  if (error || courseError) {
     return <Errorpage />;
   }
-  if (pending) {
+  if (pending || coursePending) {
     return <LoadingPage />;
   }
 
@@ -88,25 +84,31 @@ const ExerciseDetail = () => {
     return formattedDate;
   };
   const deadline = convertDate(data.deadline);
+  const handleDelete = async () => {
+    deleteExercise(exerciseId)
+      .then(() => {
+        // Handle successful deletion of course content
+        alert("Exercise deleted successfully.");
+        refresh();
+      })
+      .catch((error) => {
+        // Handle error during course content deletion
+        alert("Error deleting exercise:" + error);
+      });
+  };
+  console.log(course);
 
   return (
     <div class="relative text-[#1B1C1E] flex flex-col bg-[#FFFAF0]">
       {editExerciseModal && (
         <EditExercise
           handleClose={toggleEditExerciseModal}
-          courseId={12}
+          courseId={courseId}
           onUpdateExercise={refresh}
-          editExerciseId={id}
+          exercise={data}
+          exerciseId={id}
         ></EditExercise>
       )}
-      <div>
-        {exerciseModal && (
-          <PostAnnEx
-            type={"exercise"}
-            handleClose={toggleExerciseModal}
-          ></PostAnnEx>
-        )}
-      </div>
 
       <NavbarLecturer />
       {/* Course name */}
@@ -123,16 +125,17 @@ const ExerciseDetail = () => {
             variant={"filled"}
             className={"px-8 py-0 border-[#CC6666] "}
             text={"Edit"}
-            handleButton={toggleExerciseModal}
+            handleButton={() => {
+              toggleEditExerciseModal();
+              setExercise(data);
+            }}
           ></CustomButton>
-          <Link to="/allcourses">
+          <Link to={`/course/` + courseId}>
             <CustomButton
               variant={"border"}
               className={"px-8 py-0"}
               text={"Delete"}
-              handleButton={() => {
-                console.log("Delete this course");
-              }}
+              handleButton={handleDelete}
             ></CustomButton>
           </Link>
         </div>

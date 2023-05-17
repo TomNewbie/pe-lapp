@@ -1,4 +1,3 @@
-import { useAPI } from "../../../hooks/useAPI";
 import { updateExercise } from "../../../services/course/exercise";
 import CustomButton from "../../CustomButton";
 import { useState, useEffect } from "react";
@@ -6,13 +5,10 @@ import { useState, useEffect } from "react";
 const EditExercise = ({
   handleClose,
   courseId,
-  editExerciseId,
+  exerciseId,
   onUpdateExercise,
+  exercise,
 }) => {
-  const { data: editExercise } = useAPI({
-    path: "/api/exercises/:id",
-    params: { editExerciseId },
-  });
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
@@ -20,13 +16,14 @@ const EditExercise = ({
   const [removedFiles, setRemovedFiles] = useState([]);
   const [newlySelectedFiles, setNewlySelectedFiles] = useState([]);
 
+  console.log(exercise);
   useEffect(() => {
-    setName(editExercise.name);
-    setDeadline(editExercise.deadline);
-    setDescription(editExercise.description);
-    setSelectedFiles(editExercise.files);
-  }, [editExercise]);
-  console.log(editExercise);
+    setName(exercise.name);
+    setDeadline(exercise.deadline);
+    setDescription(exercise.description);
+    setSelectedFiles(exercise.exercise_files);
+  }, [exercise]);
+
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
     const filteredFiles = files.filter((file) => !removedFiles.includes(file));
@@ -44,6 +41,7 @@ const EditExercise = ({
       removedFile.url &&
       !newlySelectedFiles.includes(removedFile)
     ) {
+      console.log(removedFile);
       setRemovedFiles([...removedFiles, removedFile.url]); // Add the URL of the removed file
     }
   };
@@ -56,11 +54,10 @@ const EditExercise = ({
       remove: removedFiles || null, // URLs of files to be removed
       files: newlySelectedFiles || null, // Array of new files to be uploaded
     };
-    updateExercise(courseId, editExercise._id, fields)
+    console.log(fields);
+    updateExercise(exerciseId, fields)
       .then(() => {
         alert("Exercise updated successfully");
-        // Additional code after successful update
-        console.log(fields);
         onUpdateExercise();
       })
       .catch((error) => {
@@ -84,7 +81,7 @@ const EditExercise = ({
         ></input>
         <input
           type="text"
-          placeholder="Enter due date here"
+          placeholder="Enter deadline here"
           class="bg-[#9F5F5F]/30 rounded-xl px-3 w-full text-3xl"
           value={deadline}
           onChange={(event) => {
@@ -120,26 +117,34 @@ const EditExercise = ({
             <span className="ml-2">Choose Files</span>
           </div>
         </label>
-        <div className="flex flex-wrap w-full gap-3">
-          {selectedFiles.map((file, index) => (
-            <div
-              key={index}
-              className="flex px-2 py-3 border border-[#530619] w-48 rounded-2xl"
-              title={file.name}
-            >
-              <img src="/notification/upload.svg" alt="" className="w-9 h-9" />
-              <div className="ml-3 text-3xl font-semibold truncate text-[#530619]">
-                {file.name}
-              </div>
-              <button
-                className="ml-auto text-[#530619] hover:text-red-500"
-                onClick={() => handleRemoveFile(index)}
+        {selectedFiles ? (
+          <div className="flex flex-wrap w-full gap-3">
+            {selectedFiles.map((file, index) => (
+              <div
+                key={index}
+                className="flex px-2 py-3 border border-[#530619] w-48 rounded-2xl"
+                title={file.name}
               >
-                Remove
-              </button>
-            </div>
-          ))}
-        </div>
+                <img
+                  src="/notification/upload.svg"
+                  alt=""
+                  className="w-9 h-9"
+                />
+                <div className="ml-3 text-3xl font-semibold truncate text-[#530619]">
+                  {file.name}
+                </div>
+                <button
+                  className="ml-auto text-[#530619] hover:text-red-500"
+                  onClick={() => handleRemoveFile(index)}
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div></div>
+        )}
 
         <div class=" flex flex-row justify-center space-x-48 w-full text-xl pb-2">
           <CustomButton

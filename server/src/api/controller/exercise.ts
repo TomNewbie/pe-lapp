@@ -87,7 +87,7 @@ const update = async (req: FileRequest, res: Response) => {
   const { course_content_id } = req.params;
   // delete all files in remove
   // if user dont upload new file
-  // console.log(remove);
+  console.log(remove);
   const files = await exerciseService.updateExercise(
     course_content_id,
     {

@@ -1,10 +1,9 @@
 // import for General tab
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   NavbarLecturer,
   TeacherNavCourse,
   CustomButton,
-  ClassCode,
   TeacherCourseName,
   Announce,
   Notification,
@@ -17,7 +16,6 @@ import { useState } from "react";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
 import EditPost from "../../../components/PopUp/EditPost";
-import EditExercise from "../../../components/PopUp/EditExercise";
 
 /** Need to fetch:
  - const course: { name: string; semester: string;}
