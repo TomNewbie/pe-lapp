@@ -14,7 +14,7 @@ router.post(
   async (req: FileRequest, res: Response) => {
     // console.log(req.files);
     const date = req.body.test;
-    console.log(new Date(date));
+    console.log(date);
     res.status(200).send("hehe");
   }
 );
