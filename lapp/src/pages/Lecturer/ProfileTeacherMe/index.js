@@ -20,7 +20,6 @@ const ProfileTeacherMe = ({ id }) => {
     error: infoError,
     refresh: refreshProfileData,
   } = useAPI({ path: "/api/lecturer/:id", params: { id } });
-  console.log(infoData);
   const [show, setShow] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [storePhoneNumber, setStorePhoneNumber] = useState("");

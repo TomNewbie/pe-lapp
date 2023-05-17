@@ -1,63 +1,59 @@
-import { createCourseContent } from "../../../services/course/content";
-import { createExercise } from "../../../services/course/exercise";
+import { updateCourseContent } from "../../../services/course/content";
 import CustomButton from "../../CustomButton";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const EditPost = ({
-  type,
-  handleClose,
-  courseId,
-  onAddExercise,
-  onAddContent,
-}) => {
+const EditPost = ({ handleClose, courseId, editContent, onUpdateContent }) => {
   const [title, setTitle] = useState("");
-  const [duedate, setDueDate] = useState("");
-  const [content, setContent] = useState("");
+  const [body, setBody] = useState("");
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [removedFiles, setRemovedFiles] = useState([]);
+  const [newlySelectedFiles, setNewlySelectedFiles] = useState([]);
 
+  useEffect(() => {
+    setTitle(editContent.title);
+    setBody(editContent.body);
+    setSelectedFiles(editContent.files);
+  }, [editContent]);
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
-    setSelectedFiles([...selectedFiles, ...files]);
+    const filteredFiles = files.filter((file) => !removedFiles.includes(file));
+    setSelectedFiles([...selectedFiles, ...filteredFiles]);
+    setNewlySelectedFiles([...newlySelectedFiles, ...filteredFiles]);
   };
-  console.log(selectedFiles);
+
   const handleRemoveFile = (index) => {
+    const removedFile = selectedFiles[index];
     const updatedFiles = [...selectedFiles];
     updatedFiles.splice(index, 1);
     setSelectedFiles(updatedFiles);
+    if (
+      removedFile &&
+      removedFile.url &&
+      !newlySelectedFiles.includes(removedFile)
+    ) {
+      setRemovedFiles([...removedFiles, removedFile.url]); // Add the URL of the removed file
+    }
   };
 
   const handleSubmit = async () => {
-    if (type === "exercise") {
-      const deadline = new Date(duedate);
-      const fields = {
-        name: title,
-        deadline,
-        files: selectedFiles,
-        description: content,
-      };
-      createExercise(courseId, fields)
-        .then(() => {
-          // Handle successful creation of exercise
-          alert("Exercise created successfully.");
-          onAddExercise();
-        })
-        .catch((error) => {
-          // Handle error during exercise creation
-          alert("Error creating exercise:" + error);
-        });
-    } else {
-      const fields = { files: selectedFiles, title, body: content };
-      createCourseContent(courseId, fields)
-        .then(() => {
-          // Handle successful creation of course content
-          alert("Course content created successfully.");
-          onAddContent();
-        })
-        .catch((error) => {
-          // Handle error during course content creation
-          alert("Error creating course content:" + error);
-        });
-    }
+    const fields = {
+      title,
+      body,
+      remove: removedFiles || null, // URLs of files to be removed
+      files: newlySelectedFiles || null, // Array of new files to be uploaded
+    };
+    updateCourseContent(courseId, editContent._id, fields)
+      .then(() => {
+        alert("Course content updated successfully");
+        // Additional code after successful update
+        console.log(fields);
+        onUpdateContent();
+      })
+      .catch((error) => {
+        alert("Failed to update course content:" + error);
+        // Error handling code
+      });
+
     handleClose();
   };
   return (
@@ -67,30 +63,20 @@ const EditPost = ({
           type="text"
           placeholder="Enter title here"
           class="bg-[#9F5F5F]/30 rounded-xl px-3 w-full text-3xl"
+          value={title}
           onChange={(event) => {
             setTitle(event.target.value);
           }}
         ></input>
-        {type === "exercise" ? (
-          <input
-            type="date"
-            placeholder="Enter due date here"
-            class="bg-[#9F5F5F]/30 rounded-xl px-3 w-full text-3xl"
-            onChange={(event) => {
-              setDueDate(event.target.value);
-            }}
-          ></input>
-        ) : (
-          <div></div>
-        )}
 
         <textarea
           id="message"
           rows="4"
           class="block p-2.5 w-full border-[#560319] border-2 rounded-xl text-3xl"
           placeholder="Announce something..."
+          value={body}
           onChange={(event) => {
-            setContent(event.target.value);
+            setBody(event.target.value);
           }}
         ></textarea>
 

@@ -16,7 +16,6 @@ import { Participants, Assignment, PostAnnEx } from "../../../components";
 import { useState } from "react";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
-import { removeCourseParticipant } from "../../../services/course/participant";
 import EditPost from "../../../components/PopUp/EditPost";
 
 /** Need to fetch:
@@ -94,6 +93,9 @@ const CoursePage = () => {
   const [editPostModal, setEditPostModal] = useState(false);
   const [studentModal, setStudentModal] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
+  const [editContent, setEditContent] = useState([]);
+  const [exerciseId, setExerciseId] = useState();
+
   const handleClick = (index) => {
     setActiveTab(index);
   };
@@ -121,7 +123,6 @@ const CoursePage = () => {
   ) {
     return <LoadingPage />;
   }
-  console.log(course);
 
   // logic for modal
   const togglePostModal = () => {
@@ -180,8 +181,9 @@ const CoursePage = () => {
       {editPostModal && (
         <EditPost
           handleClose={toggleEditPost}
-          onAddContent={contentRefresh}
+          onUpdateContent={contentRefresh}
           courseId={id}
+          editContent={editContent}
         ></EditPost>
       )}
       {exerciseModal && (
@@ -222,7 +224,10 @@ const CoursePage = () => {
                       content={content}
                       courseId={id}
                       onChangeContents={contentRefresh}
-                      handleEditContent={toggleEditPost}
+                      handleEditContent={() => {
+                        setEditContent(content);
+                        toggleEditPost();
+                      }}
                     ></Notification>
                   );
                 })}
