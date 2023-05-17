@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import path from "path";
-import { getAccessToken } from "../../api/controller/auth";
+import {
+  ACCESS_TOKEN_COOKIE_NAME,
+  ACCESS_TOKEN_COOKIE_OPTIONS,
+  getAccessToken,
+} from "../../api/controller/auth";
 
 export const fakeLogIn = async (req: Request, res: Response) => {
   const { email, name, avatar, expire } = req.query as any;
@@ -16,9 +20,6 @@ export const fakeLogIn = async (req: Request, res: Response) => {
   );
 
   res
-    .cookie("access_token", accessToken, {
-      httpOnly: true,
-      path: "/api",
-    })
+    .cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, ACCESS_TOKEN_COOKIE_OPTIONS)
     .redirect("/");
 };
