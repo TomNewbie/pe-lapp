@@ -13,10 +13,9 @@ import {
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
 
-const course = { name: "Programming exercise", teacher: "Huynh Trung Hieu" };
-
 const CoursePage = () => {
   const { id } = useParams();
+  const courseId = id;
   const {
     data: course,
     pending: coursePending,
@@ -100,10 +99,11 @@ const CoursePage = () => {
           tab3={
             <div className="flex flex-col space-y-6 mt-8 mb-16 w-[1000px] min-h-[350px]">
               {exercises.map((exercise) => {
-                const link = "/exercise/" + exercise._id;
+                const id = exercise._id;
+                console.log(exercise);
                 return (
                   <div>
-                    <Link to={link} state={{ id }}>
+                    <Link to={`/exercise/${id}`} state={{ courseId: courseId }}>
                       <ExerciseSection exercise={exercise}></ExerciseSection>
                     </Link>
                   </div>

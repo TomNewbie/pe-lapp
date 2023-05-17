@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   NavbarStudent,
   CommentSection,
@@ -16,7 +16,6 @@ import { Errorpage, LoadingPage } from "../../common";
   duedate: string; content: string; Files: { name: string;  }[];}
 * comment: { grade: number; content: string;}
  */
-const course = { name: "Programming exercise", teacher: "Huynh Trung Hieu" };
 const comment = { grade: 100, content: "Very good!" };
 
 // The component renders a page displaying information about a particular exercise, including the exercise name, maximum points, due date, announcement, and a comment section for student view.
@@ -24,10 +23,14 @@ const ExerciseDetail = () => {
   const location = useLocation();
   const courseId = location.state?.courseId;
   const { id } = useParams();
+
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
   const { data, pending, error } = useAPI({
     path: "/api/exercises/:id",
     params: { id },
   });
+
   const {
     data: course,
     pending: coursePending,
@@ -36,6 +39,7 @@ const ExerciseDetail = () => {
     path: "/api/course/:id",
     params: { id: courseId },
   });
+
   if (error || courseError) {
     return <Errorpage />;
   }
@@ -57,7 +61,6 @@ const ExerciseDetail = () => {
     return formattedDate;
   };
   const deadline = convertDate(data.deadline);
-  console.log(course);
   return (
     <div class="text-[#1B1C1E] flex flex-col bg-[#FFFAF0] min-h-screen">
       <NavbarStudent></NavbarStudent>
@@ -76,8 +79,8 @@ const ExerciseDetail = () => {
           <div class=" flex flex-col px-2">
             <p class="text-bold text-7xl text-left">{data.name}</p>
             <div class="flex flex-row justify-between text-[37px]">
-              <p>Maximum points: 100 points</p>
-              <p>Due date: {deadline}</p>
+              <p>100 points</p>
+              <p>{deadline}</p>
             </div>
           </div>
           <div className="flex mt-4">
@@ -111,8 +114,9 @@ const ExerciseDetail = () => {
           <div>
             <CommentSection grade={comment.grade}></CommentSection>
           </div>
-          <div class="">
+          <div>
             <SubmitEx
+              exerciseId={id}
               handleSubmit={() => {
                 console.log("submit");
               }}

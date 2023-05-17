@@ -1,8 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CustomButton from "../../CustomButton";
+import { createSolution } from "../../../services/course/exercise";
+import { useAPI } from "../../../hooks/useAPI";
+import { Errorpage, LoadingPage } from "../../../pages/common";
 
-const SubmitEx = ({ status }) => {
+const SubmitEx = ({ status, exerciseId }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
+
+  const { data, pending, error } = useAPI({
+    path: "/api/exercises/:id",
+    params: { id: exerciseId },
+  });
+
+  useEffect(() => {
+    setSelectedFiles(data?.solution_files || []);
+  }, [data]);
+
+  if (error) {
+    return <Errorpage />;
+  }
+  if (pending) {
+    return <LoadingPage />;
+  }
 
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
@@ -15,10 +34,13 @@ const SubmitEx = ({ status }) => {
     setSelectedFiles(updatedFiles);
   };
 
-  const handleSubmit = () => {
-    // Perform your submission logic here
-    // For demonstration, we'll log the selected files
-    console.log("Selected Files:", selectedFiles);
+  const handleSubmit = async () => {
+    try {
+      await createSolution(exerciseId, { files: selectedFiles });
+      alert("Solution created successfully!");
+    } catch (error) {
+      alert("Failed to create solution:" + error);
+    }
   };
 
   return (
@@ -47,7 +69,7 @@ const SubmitEx = ({ status }) => {
                 <span className="ml-2">Choose Files</span>
               </div>
             </label>
-            <div className="flex flex-col gap-3 w-52">
+            <div className="flex flex-col gap-3 mb-4 w-52">
               {selectedFiles.map((file, index) => (
                 <div
                   key={index}

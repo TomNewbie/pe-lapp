@@ -32,7 +32,6 @@ const ExerciseDetail = () => {
   const location = useLocation();
   const courseId = location.state?.courseId;
   const { id } = useParams();
-  console.log(id);
   const exerciseId = id;
   const { data, pending, error, refresh } = useAPI({
     path: "/api/exercises/:id",
