@@ -2,7 +2,6 @@ const RecordTable = ({ data, deadline }) => {
   if (!data) {
     return null;
   }
-  console.log(data);
   const findStatus = () => {
     const submitDate = new Date(data.submit_time);
     const deadlineDate = new Date(deadline);
