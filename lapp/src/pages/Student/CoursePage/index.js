@@ -17,6 +17,14 @@ const course = { name: "Programming exercise", teacher: "Huynh Trung Hieu" };
 
 const CoursePage = () => {
   const { id } = useParams();
+  const {
+    data: course,
+    pending: coursePending,
+    error: courseError,
+  } = useAPI({
+    path: "/api/course/:id",
+    params: { id },
+  });
 
   const {
     data: participants,
@@ -45,20 +53,26 @@ const CoursePage = () => {
     params: { id },
   });
 
-  if (participantsError || contentsError || exercisesError) {
+  if (participantsError || contentsError || exercisesError || courseError) {
     return <Errorpage />;
   }
 
-  if (participantsPending || contentsPending || exercisesPending) {
+  if (
+    participantsPending ||
+    contentsPending ||
+    exercisesPending ||
+    coursePending
+  ) {
     return <LoadingPage />;
   }
+  console.log(course);
 
   return (
     <div className="relative flex flex-col h-screeb">
       <NavbarStudent></NavbarStudent>
       <StudentCourseName
         name={course.name}
-        teacher={course.teacher}
+        teacher={course.lecturer.name}
       ></StudentCourseName>
       <div className="flex-grow">
         <StudentNavCourse
@@ -89,7 +103,7 @@ const CoursePage = () => {
                 const link = "/exercise/" + exercise._id;
                 return (
                   <div>
-                    <Link to={link}>
+                    <Link to={link} state={{ id }}>
                       <ExerciseSection exercise={exercise}></ExerciseSection>
                     </Link>
                   </div>

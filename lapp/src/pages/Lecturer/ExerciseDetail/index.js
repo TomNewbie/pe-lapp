@@ -35,7 +35,7 @@ const ExerciseDetail = () => {
   const exerciseId = id;
   const { data, pending, error, refresh } = useAPI({
     path: "/api/exercises/:id",
-    params: { id: exerciseId },
+    params: { id },
   });
   const {
     data: course,
@@ -43,7 +43,7 @@ const ExerciseDetail = () => {
     error: courseError,
   } = useAPI({
     path: "/api/course/:id",
-    params: { id: courseId },
+    params: { courseId },
   });
   // logic for modal
   const [editExerciseModal, setEditExerciseModal] = useState(false);
