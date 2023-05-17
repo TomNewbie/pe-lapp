@@ -250,7 +250,10 @@ const getStudentViewExercise = async (
       deadline: 1,
       _id: 1,
       solution: 1,
-    });
+      createdAt: 1,
+    })
+    .sort({ createdAt: -1 });
+  // console.log(exercises);
   if (exercises.length === 0) {
     return exercises;
   }
@@ -290,8 +293,10 @@ const getLecturerViewExercise = async (
       _id: 1,
       deadline: 1,
       submission_count: 1,
-    });
-  console.log(exercises);
+      createdAt: 1,
+    })
+    .sort({ createdAt: -1 });
+  // console.log(exercises);
 
   return exercises;
 };

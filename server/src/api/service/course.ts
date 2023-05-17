@@ -350,15 +350,21 @@ const getAllContent = async (
       as: "contentFile",
     })
     .project({
-      _id: 0,
+      _id: 1,
       contentFile: 1,
       // __v: 0,
-    });
+    })
+    .unwind("contentFile")
+    .sort({ "contentFile.createdAt": -1 })
+    .group({ _id: "$_id", contentFile: { $push: "$contentFile" } });
+  // console.log(res[0].contentFile);
   if (res.length === 0) {
     return CourseError.NOT_FOUND;
   }
+  // console.log();
   return res[0].contentFile;
 };
+getAllContent("6435878ffd053fc269ba4c89");
 const isInCourse = async (
   role: "student" | "lecturer",
   userId: string,
