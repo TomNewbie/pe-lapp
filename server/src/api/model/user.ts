@@ -22,13 +22,25 @@ const student = new Schema(
     },
     phone_number: {
       type: String,
+      validate: {
+        validator: function (v: string) {
+          return /^0\d{9}$/.test(v);
+        },
+      },
     },
     major: {
       type: String,
+      enum: ["CSE", "ECE", "BCE", "ME", "BFA", "BA", "ARC"],
     },
     intake: {
       type: Number,
       min: 2008,
+      max: 2023,
+      validate: {
+        validator: function (v: number) {
+          return Number.isInteger(v);
+        },
+      },
     },
   },
   { _id: false }
@@ -58,9 +70,15 @@ const lecturer = new Schema(
     },
     phone_number: {
       type: String,
+      validate: {
+        validator: function (v: string) {
+          return /^0\d{9}$/.test(v);
+        },
+      },
     },
     faculty: {
       type: String,
+      enum: ["Engineering", "Economics"],
     },
   },
   { _id: false }
