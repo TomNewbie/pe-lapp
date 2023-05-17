@@ -252,7 +252,7 @@ const getStudentViewExercise = async (
       solution: 1,
     });
   if (exercises.length === 0) {
-    return Exercise_ErrorType.NOT_FOUND;
+    return exercises;
   }
   const filterExercises = exercises.map((exercise) => {
     if (exercise.solution.length === 0) {
@@ -292,9 +292,7 @@ const getLecturerViewExercise = async (
       submission_count: 1,
     });
   console.log(exercises);
-  if (exercises.length === 0) {
-    return Exercise_ErrorType.NOT_FOUND;
-  }
+
   return exercises;
 };
 // console.log("asdasdasd");

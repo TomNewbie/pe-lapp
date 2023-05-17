@@ -23,10 +23,6 @@ const getAllExercises = async (req: AuthRequest, res: Response) => {
   } else {
     result = await exerciseService.getStudentViewExercise(courseId, userId);
   }
-  if (result === Exercise_ErrorType.NOT_FOUND) {
-    res.status(404).send(`Exercise not found in course ${courseId}`);
-    return;
-  }
   res.status(200).json(result);
 };
 
