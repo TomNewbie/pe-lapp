@@ -46,34 +46,8 @@ const ProfileTeacherMe = ({ id }) => {
     setPhoneNumber(storePhoneNumber);
   };
 
-  const validateInput = (faculty, phoneNumber) => {
-    const isWhiteSpace = (str) => {
-      return str == null || str.trim() === "";
-    };
-
-    if (!isWhiteSpace(faculty)) {
-      const allowedFaculties = ["Engineering", "Economics"];
-      if (!allowedFaculties.find((elmt) => elmt === faculty)) {
-        const msg = "Please provide a valid faculty";
-        alert(msg);
-        throw new Error(`Invalid major: ${faculty}`);
-      }
-    }
-
-    if (!isWhiteSpace(phoneNumber)) {
-      const phoneNumberRegex = /^0\d{9}$/;
-      if (!phoneNumberRegex.test(phoneNumber)) {
-        const msg =
-          "Please provide a phone number that starts with 0 and have 10 digits";
-        alert(msg);
-        throw new Error(`Invalid phone number: ${phoneNumber}`);
-      }
-    }
-  };
-
   const updateProfile = async () => {
     try {
-      validateInput(faculty, phoneNumber);
       // Update the profile with new values
       await updateUserProfile({
         faculty: faculty,
@@ -82,16 +56,21 @@ const ProfileTeacherMe = ({ id }) => {
       console.log("Profile updated successfully");
       refreshProfileData();
     } catch (error) {
-      console.error("Error updating profile", error);
+      throw error;
     }
   };
   const handleSave = async () => {
-    await updateProfile();
-    // Update the stored values
-    setStoreFaculty(faculty);
-    setStorePhoneNumber(phoneNumber);
-    // Hide the edit mode
-    setShow(false);
+    try {
+      // Update the stored values
+      await updateProfile();
+      setStoreFaculty(faculty);
+      setStorePhoneNumber(phoneNumber);
+      // Hide the edit mode
+      setShow(false);
+    } catch (error) {
+      alert("Please provide valid input");
+      console.error("Error updating profile", error);
+    }
   };
 
   return (

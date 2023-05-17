@@ -51,58 +51,8 @@ const ProfileStudentMe = ({ id }) => {
     setPhoneNumber(storePhoneNumber);
   };
 
-  const validateInput = (major, intake, phoneNumber) => {
-    const isWhiteSpace = (str) => {
-      return str == null || str.trim() === "";
-    };
-
-    const isNumeric = (str) => {
-      if (typeof str === "number") return true;
-      if (typeof str != "string") return false; // we only process strings!
-      return (
-        !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
-        !isNaN(parseFloat(str))
-      ); // ...and ensure strings of whitespace fail
-    };
-
-    if (!isWhiteSpace(major)) {
-      const allowedMajors = ["CSE", "ECE", "BCE", "ME", "BFA", "BA", "ARC"];
-      if (!allowedMajors.find((elmt) => elmt === major)) {
-        const msg = "Please provide a valid major";
-        alert(msg);
-        throw new Error(`Invalid major: ${major}`);
-      }
-    }
-
-    if (!isWhiteSpace(String(intake))) {
-      const minIntake = 2008;
-      const maxIntake = 2023;
-      const validateIntake = Number(intake);
-      if (
-        !isNumeric(intake) ||
-        validateIntake < minIntake ||
-        validateIntake > maxIntake
-      ) {
-        const msg = `Please provide an intake between ${minIntake} and ${maxIntake}`;
-        alert(msg);
-        throw new Error(`Invalid intake: ${intake}`);
-      }
-    }
-
-    if (!isWhiteSpace(phoneNumber)) {
-      const phoneNumberRegex = /^0\d{9}$/;
-      if (!phoneNumberRegex.test(phoneNumber)) {
-        const msg =
-          "Please provide a phone number that starts with 0 and have 10 digits";
-        alert(msg);
-        throw new Error(`Invalid phone number: ${phoneNumber}`);
-      }
-    }
-  };
-
   const updateProfile = async () => {
     try {
-      validateInput(major, intake, phoneNumber);
       // Update the profile with new values
       await updateUserProfile({
         major: major,
@@ -125,6 +75,7 @@ const ProfileStudentMe = ({ id }) => {
       // Hide the edit mode
       setShow(false);
     } catch (error) {
+      alert("Please provide valid input");
       console.error("Error updating profile", error);
     }
   };
