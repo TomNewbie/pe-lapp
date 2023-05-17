@@ -76,7 +76,6 @@ function App() {
             path="/exercise/:id"
             element={role === "student" ? <Exercise /> : <ExerciseLecturer />}
           ></Route>
-
           <Route path="/lecturers" element={<Lecturers />}></Route>
         </Route>
 

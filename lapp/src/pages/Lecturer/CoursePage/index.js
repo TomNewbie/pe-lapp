@@ -17,6 +17,7 @@ import { useState } from "react";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
 import EditPost from "../../../components/PopUp/EditPost";
+import EditExercise from "../../../components/PopUp/EditExercise";
 
 /** Need to fetch:
  - const course: { name: string; semester: string;}
@@ -94,7 +95,6 @@ const CoursePage = () => {
   const [studentModal, setStudentModal] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
   const [editContent, setEditContent] = useState([]);
-  const [exerciseId, setExerciseId] = useState();
 
   const handleClick = (index) => {
     setActiveTab(index);
@@ -243,20 +243,22 @@ const CoursePage = () => {
                 text={"+ Create"}
                 handleButton={toggleExerciseModal}
               ></CustomButton>
-              {exercises && (
+              {exercises ? (
                 <div className="flex flex-col mt-8 mb-16 divide-y">
                   {exercises.map((exercise) => {
                     return (
                       <div>
                         <Assignment
+                          courseId={id}
                           exercise={exercise}
                           exerciseId={exercise._id}
-                          onChangeExercise={exercisesRefresh}
                         />
                       </div>
                     );
                   })}
                 </div>
+              ) : (
+                <div></div>
               )}
             </div>
           }

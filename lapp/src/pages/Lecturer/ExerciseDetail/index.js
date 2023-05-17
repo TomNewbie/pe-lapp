@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Notification,
   NavbarLecturer,
   TeacherCourseName,
   RecordTable,
@@ -8,9 +7,10 @@ import {
   Footer,
 } from "../../../components";
 import { PostAnnEx } from "../../../components";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
+import EditExercise from "../../../components/PopUp/EditExercise";
 
 /** Need to fetch:
  * course:
@@ -24,58 +24,6 @@ import { Errorpage, LoadingPage } from "../../common";
  */
 
 const course = { name: "Programming exercise", semester: "SS2023" };
-const notification = {
-  name: "Mock test 1",
-  maxpoints: 100,
-  duedate: "00:00 30/4/2023",
-  content:
-    "This is the exercise for this week. You have to submit it on time. If you have any question, please feel free to contact me.",
-  Files: [{ name: "Probability" }, { name: "Statistic" }],
-};
-const students = [
-  {
-    name: "Le Hoang Kim Thanh",
-    id: 18047,
-    submittime: "12:00 28/4/2023",
-    status: "missing",
-    file: null,
-    grade: null,
-  },
-  {
-    name: "Pham Nguyen Dan Quynh",
-    id: 1010101010,
-    submittime: "11:00 28/4/2023",
-    status: "on-time",
-    file: ["DanQuynh.pdf", "DanQuynh.pdf", "DanQuynh.pdf"],
-    grade: 9,
-  },
-];
-const numOfSubmission = (student) => {
-  students.reduce((a, student) => {
-    return a + student.file ? 1 : 0;
-  }, 0);
-};
-const sumScore = (student) => {
-  students.reduce((a, student) => {
-    return a + student.grade ? student.grade : 0;
-  }, 0);
-};
-
-const averageScore = (student) => {
-  return sumScore(student) / numOfSubmission(student);
-};
-
-const convertDate = (timestamp) => {
-  const date = new Date(timestamp);
-
-  const month = date.toLocaleString("en-US", { month: "long" });
-  const year = date.getFullYear();
-  const hour = date.getHours();
-
-  const formattedDate = `${month} ${year} ${hour}:00`;
-
-  return formattedDate;
-};
 
 /**Component that displays the details of a exercise,
  * including the exercise name, due date, maximum points,
@@ -83,13 +31,18 @@ const convertDate = (timestamp) => {
  * It also allows the lecturer to edit and delete the exercise,
  * view the submission records of the students, and edit the records. */
 const ExerciseDetail = () => {
+  const location = useLocation();
+  const courseId = location.state?.courseId;
+
+  console.log("Previous of Previous Link:", courseId);
   const { id } = useParams();
-  const { data, pending, error } = useAPI({
+  const { data, pending, error, refresh } = useAPI({
     path: "/api/exercises/:id",
     params: { id },
   });
   // logic for modal
   const [exerciseModal, setExerciseModal] = useState(false);
+  const [editExerciseModal, setEditExerciseModal] = useState(false);
 
   const toggleExerciseModal = () => {
     const body = document.body;
@@ -99,6 +52,16 @@ const ExerciseDetail = () => {
       body.classList.add("modal-open");
     }
     setExerciseModal(!exerciseModal);
+  };
+  const toggleEditExerciseModal = () => {
+    const body = document.body;
+    if (editExerciseModal) {
+      body.classList.remove("modal-open");
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      body.classList.add("modal-open");
+    }
+    setEditExerciseModal(!editExerciseModal);
   };
 
   if (error) {
@@ -128,6 +91,14 @@ const ExerciseDetail = () => {
 
   return (
     <div class="relative text-[#1B1C1E] flex flex-col bg-[#FFFAF0]">
+      {editExerciseModal && (
+        <EditExercise
+          handleClose={toggleEditExerciseModal}
+          courseId={12}
+          onUpdateExercise={refresh}
+          editExerciseId={id}
+        ></EditExercise>
+      )}
       <div>
         {exerciseModal && (
           <PostAnnEx
