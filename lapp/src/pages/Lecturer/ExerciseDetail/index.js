@@ -73,16 +73,19 @@ const ExerciseDetail = () => {
   }, 0);
   const averageScore = sumScore / numOfSubmission;
   const convertDate = (timestamp) => {
+    if (!timestamp) return "N/A";
     const date = new Date(timestamp);
 
     const month = date.toLocaleString("en-US", { month: "long" });
+    const day = date.getDate();
     const year = date.getFullYear();
     const hour = date.getHours();
 
-    const formattedDate = `${month} ${year} ${hour}:00`;
+    const formattedDate = `${month} ${day}, ${year} ${hour}:00`;
 
     return formattedDate;
   };
+
   const deadline = convertDate(data.deadline);
   const handleDelete = async () => {
     deleteExercise(exerciseId)
@@ -96,7 +99,7 @@ const ExerciseDetail = () => {
         alert("Error deleting exercise:" + error);
       });
   };
-  console.log(course);
+  console.log(data);
 
   return (
     <div class="relative text-[#1B1C1E] flex flex-col bg-[#FFFAF0]">
@@ -182,14 +185,6 @@ const ExerciseDetail = () => {
       ) : (
         <div></div>
       )}
-
-      <div class="flex place-content-center py-8">
-        <CustomButton
-          variant={"filled"}
-          className={"px-8 py-0"}
-          text={"Edit record"}
-        ></CustomButton>
-      </div>
 
       <Footer></Footer>
     </div>

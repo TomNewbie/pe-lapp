@@ -2,42 +2,56 @@ const RecordTable = ({ data, deadline }) => {
   if (!data) {
     return null;
   }
-  const findStatus = () => {
-    const submitDate = new Date(data.submit_time);
-    const deadlineDate = new Date(deadline);
-    if (submitDate > deadlineDate || !submitDate) {
-      return "missing";
-    } else {
-      return "ontime";
-    }
-  };
   const convertDate = (timestamp) => {
+    if (!timestamp) return "N/A";
     const date = new Date(timestamp);
 
     const month = date.toLocaleString("en-US", { month: "long" });
+    const day = date.getDate();
     const year = date.getFullYear();
     const hour = date.getHours();
 
-    const formattedDate = `${month} ${year} ${hour}:00`;
+    const formattedDate = `${month} ${day}, ${year} ${hour}:00`;
 
     return formattedDate;
   };
 
-  const status = findStatus();
+  const findStatus = (submit) => {
+    const submitDate = new Date(submit);
+    const deadlineDate = new Date(deadline);
+    if (isNaN(submitDate.getTime())) {
+      console.log(submitDate + "deadline: " + deadlineDate + "un");
+
+      return "unsubmit";
+    } else {
+      if (submitDate > deadlineDate) {
+        console.log(submitDate + "deadline: " + deadlineDate + "missing");
+
+        return "missing";
+      } else {
+        console.log(submitDate + "deadline: " + deadlineDate + "ontime");
+
+        return "ontime";
+      }
+    }
+  };
+
   const index = data
     ? data.map((d) => {
-        const submittime = convertDate(d.submit_time);
+        const submitConvert = convertDate(d.submit_time);
+        const submittime = d.submit_time;
+        const status = findStatus(submittime);
         return (
           <tr>
             <td class="px-8 py-2 border border-slate-300">{d.student.name}</td>
             <td class="px-6 py-4 border border-slate-300">{d.student.id}</td>
-            <td class="px-6 py-4 border border-slate-300">{submittime}</td>
+            <td class="px-6 py-4 border border-slate-300">{submitConvert}</td>
             <td
               class={
-                status === "on-time"
-                  ? "px-6 py-4 text-center text-[#1B1C1E] border border-slate-300"
-                  : status === "missing"
+                status === "unsubmit"
                   ? "text-[#7F1734] text-center border border-slate-300"
+                  : status === "ontime"
+                  ? "px-6 py-4 text-center text-[#267c2d] border border-slate-300"
                   : "text-[#FBA70E] text-center border border-slate-300"
               }
             >
