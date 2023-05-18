@@ -11,6 +11,7 @@ import mongoose, { Types } from "mongoose";
 import { fileService } from "../service/files";
 import { FileType } from "../../utils/types";
 import { FileRequest } from "./file";
+import { queryToNumber } from "../../utils";
 const getAllExercises = async (req: AuthRequest, res: Response) => {
   const { id: courseId } = req.params;
   const { role, _id: userId } = req.user!;
@@ -147,7 +148,16 @@ const getGrades = async (req: AuthRequest, res: Response) => {
     return res.sendStatus(401);
   }
 
-  const result = await exerciseService.getGrades({ lecturerId, courseId });
+  const { s, n } = req.query;
+  const options = {
+    start: queryToNumber(s),
+    num: queryToNumber(n),
+  };
+
+  const result = await exerciseService.getGrades(
+    { lecturerId, courseId },
+    options
+  );
   if (result === Exercise_ErrorType.NOT_FOUND) {
     return res
       .status(404)

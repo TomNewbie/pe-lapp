@@ -419,14 +419,19 @@ type GetGradesResponse = {
     grade: (number | null)[];
   }[];
 };
+type GetGradesOptions = {
+  start?: number;
+  num?: number;
+};
 
-const getGrades = async ({
-  lecturerId,
-  courseId,
-}: QueryCourseId): Promise<
-  Exercise_ErrorType.NOT_FOUND | GetGradesResponse
-> => {
+const getGrades = async (
+  { lecturerId, courseId }: QueryCourseId,
+  { start: s = 0, num: n = 0 }: GetGradesOptions = {}
+): Promise<Exercise_ErrorType.NOT_FOUND | GetGradesResponse> => {
   if (!isValidObjectId(courseId)) return Exercise_ErrorType.NOT_FOUND;
+
+  const start = Math.max(0, s); // in case is negative
+  const num = Math.max(0, n); // in case is negative
 
   const [grades] = await Course.aggregate()
     .match({ _id: new Types.ObjectId(courseId), lecturer_id: lecturerId })
@@ -435,6 +440,11 @@ const getGrades = async ({
       localField: "_id",
       foreignField: "course",
       as: "exercises",
+    })
+    .addFields({
+      participants: {
+        $slice: ["$participants", start, num || { $size: "$participants" }],
+      },
     })
     .lookup({
       from: "students",
