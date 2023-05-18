@@ -67,7 +67,9 @@ const ExerciseDetail = () => {
     return <LoadingPage />;
   }
 
-  const numOfSubmission = data.solutions.length;
+  const numOfSubmission = data.solutions?.reduce((a, solution) => {
+    return a + (solution.file ? 1 : 0);
+  }, 0);
   const sumScore = data.solutions?.reduce((a, solution) => {
     return a + (solution.grade ? solution.grade : 0);
   }, 0);
@@ -99,7 +101,6 @@ const ExerciseDetail = () => {
         alert("Error deleting exercise:" + error);
       });
   };
-  console.log(data);
 
   return (
     <div class="relative text-[#1B1C1E] flex flex-col bg-[#FFFAF0]">
@@ -181,6 +182,8 @@ const ExerciseDetail = () => {
           class="px-10"
           data={data.solutions}
           deadline={data.deadline}
+          exerciseId={id}
+          onUpdateGrade={refresh}
         ></RecordTable>
       ) : (
         <div></div>

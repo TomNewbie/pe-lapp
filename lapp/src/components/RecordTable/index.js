@@ -1,7 +1,14 @@
-const RecordTable = ({ data, deadline }) => {
+import React, { useState } from "react";
+import { gradeStudentSolution } from "../../services/course/exercise";
+
+const RecordTable = ({ data, deadline, exerciseId, onUpdateGrade }) => {
+  const [editingGradeId, setEditingGradeId] = useState(""); // State to track the ID of the grade being edited
+  const [editedGrade, setEditedGrade] = useState(""); // State to hold the edited grade value
+
   if (!data) {
     return null;
   }
+
   const convertDate = (timestamp) => {
     if (!timestamp) return "N/A";
     const date = new Date(timestamp);
@@ -16,11 +23,33 @@ const RecordTable = ({ data, deadline }) => {
     return formattedDate;
   };
 
+  const zeboi = (d) => {
+    setEditingGradeId(false);
+    if (!(editedGrade >= 0 && editedGrade <= 100)) {
+      alert("Grade must be in between 0 and 100");
+      return;
+    }
+    gradeStudentSolution(exerciseId, d.student.id, {
+      grade: editedGrade,
+    })
+      .then(() => {
+        alert("edit succefully");
+        setEditedGrade("");
+        onUpdateGrade();
+      })
+      .catch((e) => {
+        console.log(e);
+        setEditedGrade("");
+        setEditingGradeId("");
+        alert("fail to edit");
+      });
+  };
+
   const findStatus = (submit) => {
     const submitDate = new Date(submit);
     const deadlineDate = new Date(deadline);
     if (isNaN(submitDate.getTime())) {
-      console.log(submitDate + "deadline: " + deadlineDate + "un");
+      // console.log(submitDate + "deadline: " + deadlineDate + "un");
 
       return "unsubmit";
     } else {
@@ -29,7 +58,7 @@ const RecordTable = ({ data, deadline }) => {
 
         return "missing";
       } else {
-        console.log(submitDate + "deadline: " + deadlineDate + "ontime");
+        // console.log(submitDate + "deadline: " + deadlineDate + "ontime");
 
         return "ontime";
       }
@@ -41,39 +70,54 @@ const RecordTable = ({ data, deadline }) => {
         const submitConvert = convertDate(d.submit_time);
         const submittime = d.submit_time;
         const status = findStatus(submittime);
+
         return (
           <tr>
-            <td class="px-8 py-2 border border-slate-300">{d.student.name}</td>
-            <td class="px-6 py-4 border border-slate-300">{d.student.id}</td>
-            <td class="px-6 py-4 border border-slate-300">{submitConvert}</td>
+            <td class="py-2 border border-slate-300 text-center ">
+              {d.student.name}
+            </td>
+            <td class="py-4 border border-slate-300 text-center">
+              {d.student.id}
+            </td>
+            <td class="py-4 border border-slate-300 text-center">
+              {submitConvert}
+            </td>
             <td
               class={
                 status === "unsubmit"
                   ? "text-[#7F1734] text-center border border-slate-300"
                   : status === "ontime"
-                  ? "px-6 py-4 text-center text-[#267c2d] border border-slate-300"
+                  ? "py-4 text-center text-[#267c2d] border border-slate-300"
                   : "text-[#FBA70E] text-center border border-slate-300"
               }
             >
               {status}
             </td>
-            <td class="px-2 py-2  border border-slate-300">
+            <td class="py-2 border border-slate-300 justify-center">
               <div>
                 {d.file ? (
                   d.file.map((file, index) => (
                     <div key={index}>
-                      <a href={file.url}>
-                        <div className="flex px-3 py-2 mb-1 border border-black col rounded-2xl">
-                          <img
-                            src="/notification/upload.svg"
-                            alt=""
-                            className="w-9 h-9"
-                          ></img>
-                          <div className="ml-8 mr-4 text-3xl font-semibold">
-                            {file.name}
+                      <div
+                        key={file.url}
+                        className="flex justify-center flex-shrink-0"
+                      >
+                        <a href={file.url}>
+                          <div className="flex px-2 py-3 border w-56 border-[#530619] rounded-2xl">
+                            <img
+                              src="/notification/upload.svg"
+                              alt=""
+                              className="w-9 h-9"
+                            />
+                            <div
+                              className="ml-3 text-3xl font-semibold truncate text-[#530619]"
+                              title={file.name}
+                            >
+                              {file.name}
+                            </div>
                           </div>
-                        </div>
-                      </a>
+                        </a>
+                      </div>
                     </div>
                   ))
                 ) : (
@@ -81,36 +125,68 @@ const RecordTable = ({ data, deadline }) => {
                 )}
               </div>
             </td>
-            <td class="px-6 py-4 text-center border border-slate-300">
-              {d.grade ? <span>{d.grade}</span> : <span>N/A</span>}
+            <td
+              className="py-4 text-center border border-slate-300 hover:bg-[#F4C2C2]/40"
+              onMouseEnter={() => {
+                setEditingGradeId(d.student.id);
+                // setEditedGrade(d.grade);
+              }}
+              onClick={() => {
+                setEditingGradeId(d.student.id);
+                // setEditedGrade(d.grade);
+              }}
+            >
+              {editingGradeId === d.student.id && d.file ? (
+                <input
+                  type="text"
+                  pattern="\d*"
+                  placeholder={d.grade}
+                  className="w-2/3 text-center"
+                  onChange={(e) => setEditedGrade(e.target.value)}
+                  onBlur={() => zeboi(d)}
+                  maxLength="3"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") zeboi(d);
+                  }}
+                  onMouseLeave={() => {
+                    if (!editedGrade) {
+                      setEditingGradeId("");
+                    }
+                  }}
+                />
+              ) : (
+                <span>{d.grade ? d.grade : "N/A"}</span>
+              )}
             </td>
           </tr>
         );
       })
     : null;
   return (
-    <div class="flex flex-col h-full pb-2 px-10 text-[30px] ">
+    <div class="flex flex-col h-full py-16 px-10 text-[30px]">
       <div class="flex-grow overflow-auto">
-        <table class="relative w-full border-collapse border border-slate-500">
+        <table
+          class="relative w-full border-collapse border border-slate-500"
+          style={{ tableLayout: "fixed" }}
+        >
           <thead>
             <tr class="h-fit">
-              <th class="sticky top-0 px-6 py-3 border border-slate-300 text-[#7F1734] bg-[#F4C2C2]/40">
+              <th class="sticky top-0 py-3 border border-slate-300 text-[#7F1734] bg-[#F4C2C2]/40">
                 Name
               </th>
-              <th class="sticky top-0 px-6 py-3 border border-slate-300 text-[#7F1734] bg-[#F4C2C2]/40">
+              <th class="sticky top-0 py-3 border border-slate-300 text-[#7F1734] bg-[#F4C2C2]/40">
                 ID
               </th>
-              <th class="sticky top-0 px-6 py-3 border border-slate-300 text-[#7F1734] bg-[#F4C2C2]/40">
+              <th class="sticky top-0 py-3 border border-slate-300 text-[#7F1734] bg-[#F4C2C2]/40">
                 Submit time
               </th>
-              <th class="sticky top-0 px-6 py-3 border border-slate-300 text-[#7F1734] bg-[#F4C2C2]/40">
+              <th class="sticky top-0 py-3 border border-slate-300 text-[#7F1734] bg-[#F4C2C2]/40">
                 Status
               </th>
-
-              <th class="sticky top-0 px-6 py-3 border border-slate-300 text-[#7F1734] bg-[#F4C2C2]/40">
+              <th class="sticky top-0 py-3 border border-slate-300 text-[#7F1734] bg-[#F4C2C2]/40">
                 File
               </th>
-              <th class="sticky top-0 px-6 py-3 border border-slate-300 text-[#7F1734] bg-[#F4C2C2]/40">
+              <th class="sticky top-0 py-3 border border-slate-300 text-[#7F1734] bg-[#F4C2C2]/40">
                 Grade
               </th>
             </tr>
