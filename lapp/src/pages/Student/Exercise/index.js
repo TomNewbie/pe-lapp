@@ -26,7 +26,7 @@ const ExerciseDetail = () => {
 
   const [selectedFiles, setSelectedFiles] = useState([]);
 
-  const { data, pending, error } = useAPI({
+  const { data, pending, error, refresh } = useAPI({
     path: "/api/exercises/:id",
     params: { id },
   });
@@ -120,6 +120,7 @@ const ExerciseDetail = () => {
               handleSubmit={() => {
                 console.log("submit");
               }}
+              onSubmit={refresh}
             ></SubmitEx>
           </div>
         </div>

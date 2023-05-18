@@ -84,7 +84,9 @@ const CoursePage = () => {
                   })}
                 </div>
               ) : (
-                <div></div>
+                <div className="text-4xl text-center text-red-400">
+                  There is no announcement
+                </div>
               )}
             </div>
           }
@@ -98,17 +100,30 @@ const CoursePage = () => {
           }
           tab3={
             <div className="flex flex-col space-y-6 mt-8 mb-16 w-[1000px] min-h-[350px]">
-              {exercises.map((exercise) => {
-                const id = exercise._id;
-                console.log(exercise);
-                return (
-                  <div>
-                    <Link to={`/exercise/${id}`} state={{ courseId: courseId }}>
-                      <ExerciseSection exercise={exercise}></ExerciseSection>
-                    </Link>
-                  </div>
-                );
-              })}
+              {exercises.length !== 0 ? (
+                <div>
+                  {exercises.map((exercise) => {
+                    const id = exercise._id;
+                    console.log(exercise);
+                    return (
+                      <div>
+                        <Link
+                          to={`/exercise/${id}`}
+                          state={{ courseId: courseId }}
+                        >
+                          <ExerciseSection
+                            exercise={exercise}
+                          ></ExerciseSection>
+                        </Link>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="text-4xl text-center text-red-400">
+                  There is no exercise
+                </div>
+              )}
             </div>
           }
         ></StudentNavCourse>
