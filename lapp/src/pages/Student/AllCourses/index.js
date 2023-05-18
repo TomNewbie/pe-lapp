@@ -75,7 +75,9 @@ const AllCoursesStudent = () => {
           })}
         </div>
       ) : (
-        <div>You did not join any courses</div>
+        <div className="text-4xl text-center text-red-400">
+          You did not join any courses
+        </div>
       )}
 
       <div className="mt-auto">
