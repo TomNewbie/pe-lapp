@@ -4,7 +4,7 @@ import { createSolution } from "../../../services/course/exercise";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../../pages/common";
 
-const SubmitEx = ({ status, exerciseId }) => {
+const SubmitEx = ({ status, exerciseId, onSubmit }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const { data, pending, error } = useAPI({
@@ -38,6 +38,7 @@ const SubmitEx = ({ status, exerciseId }) => {
     try {
       await createSolution(exerciseId, { files: selectedFiles });
       alert("Solution created successfully!");
+      onSubmit();
     } catch (error) {
       alert("Failed to create solution:" + error);
     }
@@ -52,24 +53,29 @@ const SubmitEx = ({ status, exerciseId }) => {
 
         <div className="flex flex-col items-center space-y-4">
           <div className="grid bg-[#F4C2C2]/30 rounded-xl px-6">
-            <label htmlFor="fileInput" className="mb-4 custom-file-input w-52">
-              <input
-                id="fileInput"
-                type="file"
-                onChange={handleFileChange}
-                multiple
-                className="hidden"
-              />
-              <div className="flex justify-center p-2 mt-4 text-3xl border-2 border-black rounded-xl">
-                <img
-                  class="w-10 h-10 place-self-center hover:bg-[#9F5F5F]/30 rounded-full"
-                  src="/PostAnnEx/Upload.png"
-                  alt=""
+            {!data.submitted && (
+              <label
+                htmlFor="fileInput"
+                className="mb-4 custom-file-input w-52"
+              >
+                <input
+                  id="fileInput"
+                  type="file"
+                  onChange={handleFileChange}
+                  multiple
+                  className="hidden"
                 />
-                <span className="ml-2">Choose Files</span>
-              </div>
-            </label>
-            <div className="flex flex-col gap-3 mb-4 w-52">
+                <div className="flex justify-center p-2 mt-4 text-3xl border-2 border-black rounded-xl">
+                  <img
+                    class="w-10 h-10 place-self-center hover:bg-[#9F5F5F]/30 rounded-full"
+                    src="/PostAnnEx/Upload.png"
+                    alt=""
+                  />
+                  <span className="ml-2">Choose Files</span>
+                </div>
+              </label>
+            )}
+            <div className="flex flex-col gap-3 mt-4 mb-4 w-52">
               {selectedFiles.map((file, index) => (
                 <div
                   key={index}
@@ -94,15 +100,16 @@ const SubmitEx = ({ status, exerciseId }) => {
               ))}
             </div>
           </div>
-
-          <div className="grid justify-center">
-            <CustomButton
-              variant="filled"
-              className="px-5 pt-1 pb-0.75"
-              text="Submit"
-              handleButton={handleSubmit}
-            />
-          </div>
+          {!data.submitted && (
+            <div className="grid justify-center">
+              <CustomButton
+                variant="filled"
+                className="px-5 pt-1 pb-0.75"
+                text="Submit"
+                handleButton={handleSubmit}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

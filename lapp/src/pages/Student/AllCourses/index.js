@@ -63,7 +63,7 @@ const AllCoursesStudent = () => {
 
       <div className="mt-8 ml-16 text-7xl">ALL COURSES</div>
 
-      {courses.length !== 0 && (
+      {courses.length !== 0 ? (
         <div className="flex-grow bg-[#F48F98]/30 grid grid-cols-4 grid-rows-2 mb-16 gap-x-2 gap-y-8 mx-16 rounded-2xl px-24 py-4">
           {courses.map((course) => {
             const link = "/course/" + course._id;
@@ -74,6 +74,8 @@ const AllCoursesStudent = () => {
             );
           })}
         </div>
+      ) : (
+        <div>You did not join any courses</div>
       )}
 
       <div className="mt-auto">
