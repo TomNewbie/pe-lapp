@@ -21,6 +21,7 @@ router.post(
   solutionController.submitSolution
 );
 router.get("/course/:id/exercises", exerciseController.getAllExercises);
+router.get("/course/:id/exercises/grade", exerciseController.getGrades);
 router.get(
   "/exercises/:id",
   // exerciseController.verifyAuthorize,

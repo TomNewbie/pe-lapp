@@ -1,7 +1,8 @@
-import mongoose, { Types, isValidObjectId } from "mongoose";
+import { Types, isValidObjectId } from "mongoose";
 import { Exercise, ExerciseType } from "../model/exercise";
-import { Solution, SolutionType } from "../model/solution";
 import { FileType } from "../../utils/types";
+import { QueryCourseId } from "./course";
+import { Course } from "../model/course";
 
 const create = async (
   exercise: Omit<ExerciseType, "createdAt" | "updatedAt">
@@ -398,6 +399,116 @@ const addNewFiles = async (exerciseId: string, files: FileType[]) => {
     { $addToSet: { files: files } }
   );
 };
+
+type GetGradesResponse = {
+  /**
+   * all exercise name
+   */
+  exercises: {
+    _id: string;
+    name: string;
+  }[];
+  students: {
+    name: string;
+    id: string;
+    /**
+     * all the grade corresponding to the exercise
+     * the order of grade[] will similar to the exercise_name[]
+     * if the grade[i] of exercise_name[i] is not set grade[i] will be null, i is index of the array
+     */
+    grade: (number | null)[];
+  }[];
+};
+
+const getGrades = async ({
+  lecturerId,
+  courseId,
+}: QueryCourseId): Promise<
+  Exercise_ErrorType.NOT_FOUND | GetGradesResponse
+> => {
+  if (!isValidObjectId(courseId)) return Exercise_ErrorType.NOT_FOUND;
+
+  const [grades] = await Course.aggregate()
+    .match({ _id: new Types.ObjectId(courseId), lecturer_id: lecturerId })
+    .lookup({
+      from: "exercises",
+      localField: "_id",
+      foreignField: "course",
+      as: "exercises",
+    })
+    .lookup({
+      from: "students",
+      localField: "participants",
+      foreignField: "_id",
+      as: "students",
+    })
+    .lookup({
+      from: "solutions",
+      let: {
+        exercises: "$exercises._id",
+        students: "$students._id",
+      },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $and: [
+                { $in: ["$_id.exercise", "$$exercises"] },
+                { $in: ["$_id.student", "$$students"] },
+              ],
+            },
+          },
+        },
+      ],
+      as: "solutions",
+    })
+    .project({
+      _id: 0,
+      exercises: { _id: 1, name: 1 },
+      students: {
+        $map: {
+          input: "$students",
+          as: "student",
+          in: {
+            id: "$$student._id",
+            name: "$$student.name",
+            grade: {
+              $map: {
+                input: "$exercises._id",
+                as: "exercise",
+                in: {
+                  $getField: {
+                    field: "grade",
+                    input: {
+                      $arrayElemAt: [
+                        {
+                          $filter: {
+                            input: "$solutions",
+                            cond: {
+                              $and: [
+                                { $eq: ["$$this._id.exercise", "$$exercise"] },
+                                {
+                                  $eq: ["$$this._id.student", "$$student._id"],
+                                },
+                              ],
+                            },
+                          },
+                        },
+                        0,
+                      ],
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+  return grades ?? Exercise_ErrorType.NOT_FOUND;
+};
+
 export const exerciseService = {
   create,
   verifyAuthorize,
@@ -410,4 +521,5 @@ export const exerciseService = {
   getAllFilePath,
   updateExercise,
   addNewFiles,
+  getGrades,
 };

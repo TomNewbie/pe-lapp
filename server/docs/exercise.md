@@ -252,6 +252,7 @@ Get all grades of students in all exercises in the course `:id`
 
 - 200 -> Return json
 - 401 -> Unauthorized (student)
+- 404 -> Cannot find course "`id`" created by you
 
 ```ts
 {

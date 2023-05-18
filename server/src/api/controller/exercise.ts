@@ -138,6 +138,25 @@ const verifyAuthorize = async (
   }
   next();
 };
+
+const getGrades = async (req: AuthRequest, res: Response) => {
+  const { _id: lecturerId, role } = req.user!;
+  const { id: courseId } = req.params;
+
+  if (role === "student") {
+    return res.sendStatus(401);
+  }
+
+  const result = await exerciseService.getGrades({ lecturerId, courseId });
+  if (result === Exercise_ErrorType.NOT_FOUND) {
+    return res
+      .status(404)
+      .send(`Cannot find course "${courseId}" created by you`);
+  }
+
+  res.json(result);
+};
+
 export const exerciseController = {
   getAllExercises,
   createExercise,
@@ -145,4 +164,5 @@ export const exerciseController = {
   update,
   getDetail,
   verifyAuthorize,
+  getGrades,
 };
