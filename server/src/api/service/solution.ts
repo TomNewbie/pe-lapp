@@ -4,7 +4,7 @@ import { Exercise } from "../model/exercise";
 import { Solution } from "../model/solution";
 import { Exercise_ErrorType } from "./exercise";
 
-const createSolution = async (
+const submitSolution = async (
   studentId: string,
   exerciseId: string,
   file: FileType[]
@@ -69,7 +69,7 @@ const verifyAuthorize = async (studentId: string, exerciseId: string) => {
 //   };
 // verifyAuthorize("17232", "645bd242b0f0e5f82d1ad856");
 export const solutionService = {
-  createSolution,
+  submitSolution,
   addGrade,
   verifyAuthorize,
 };

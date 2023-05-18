@@ -210,7 +210,7 @@ Delete exercise by id. All student solution related to that exercise will be del
 
 # [POST] /api/exercises/:id/
 
-Create solution
+Submit solution
 
 ## Request
 
