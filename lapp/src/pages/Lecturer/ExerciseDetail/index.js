@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   NavbarLecturer,
   TeacherCourseName,
@@ -11,6 +11,8 @@ import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
 import EditExercise from "../../../components/PopUp/EditExercise";
 import { deleteExercise } from "../../../services/course/exercise";
+import { Doughnut } from "react-chartjs-2";
+import { dataSubmit } from "../../../chart/data";
 
 /** Need to fetch:
  * course:
@@ -49,6 +51,7 @@ const ExerciseDetail = () => {
   const [editExerciseModal, setEditExerciseModal] = useState(false);
   const [exercise, setExercise] = useState([]);
 
+  // console.log(data);
   const toggleEditExerciseModal = () => {
     const body = document.body;
     if (editExerciseModal) {
@@ -70,6 +73,7 @@ const ExerciseDetail = () => {
   const numOfSubmission = data.solutions?.reduce((a, solution) => {
     return a + (solution.file ? 1 : 0);
   }, 0);
+
   const sumScore = data.solutions?.reduce((a, solution) => {
     return a + (solution.grade ? solution.grade : 0);
   }, 0);
@@ -101,7 +105,35 @@ const ExerciseDetail = () => {
         alert("Error deleting exercise:" + error);
       });
   };
-
+  const onTime = data.solutions?.reduce((a, solution) => {
+    if (
+      solution.file.length > 0 &&
+      new Date(solution.submit_time) <= new Date(data.deadline)
+    ) {
+      // console.log(
+      //   "nani" + new Date(solution.submit_time) <= new Date(solution.deadline)
+      // );
+      return a + 1;
+    }
+    return a;
+  }, 0);
+  const noSubmit = data.solution?.reduce((a, solution) => {
+    if (solution.file.length === 0) {
+      return a + 1;
+    }
+    return a;
+  }, 0);
+  const late = data.solutions?.reduce((a, solution) => {
+    if (
+      solution.file.length > 0 &&
+      new Date(solution.submit_time) > new Date(data.deadline)
+    ) {
+      return a + 1;
+    }
+    return a;
+  }, 0);
+  console.log("ontime " + onTime);
+  console.log("ontime " + onTime);
   return (
     <div class="relative text-[#1B1C1E] flex flex-col bg-[#FFFAF0]">
       {editExerciseModal && (
@@ -118,6 +150,10 @@ const ExerciseDetail = () => {
       {/* Course name */}
       <div>
         <TeacherCourseName course={course}></TeacherCourseName>
+        <div className="w-30 h-30">
+          {" "}
+          <Doughnut data={dataSubmit(onTime, noSubmit, late)} />
+        </div>
       </div>
       {/* Exercise details */}
 
