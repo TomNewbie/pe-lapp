@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "LAPP - OpenAPI 3.0",
-    "description": "Welcome to the API documentation for our project! This documentation provides detailed information about the available endpoints, request/response formats, and authentication requirements for our API.\n\nAll question please don't ask us, we scared.",
+    "description": "Welcome to the API documentation for our project! This documentation provides detailed information about the available endpoints, request/response formats, and authentication requirements for our API.\n\nPlease note that the \"Try it out\" feature is disabled for our API documentation. Our API is specifically designed for internal usage within our application, and it is not intended for integration into other projects or external services.\n\nAll question please don't ask us, we scared.",
     "version": "1.0.11"
   },
   "servers": [
