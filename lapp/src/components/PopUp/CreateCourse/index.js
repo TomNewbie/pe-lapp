@@ -27,9 +27,9 @@ const CreateCourse = ({ handleClose, onCreateCourse }) => {
       const response = await createCourse(fields);
       const { courseId } = response;
       onCreateCourse();
-      console.log("Course created successfully! Course ID:", courseId);
+      alert("Course created successfully! Course ID:", courseId);
     } catch (error) {
-      console.error("Failed to create course:", error);
+      alert("Failed to create course:" + error);
     }
     handleClose();
   };

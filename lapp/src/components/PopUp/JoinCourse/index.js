@@ -8,11 +8,11 @@ const JoinCourse = ({ handleClose, onJoinCourse }) => {
   const handleJoinCourse = () => {
     joinCourse(courseCode)
       .then(() => {
-        console.log("Course joined successfully!");
+        alert("Course joined successfully!");
         onJoinCourse();
       })
       .catch((error) => {
-        console.error("Failed to join course:", error);
+        alert("Failed to join course:" + error);
       }); // Log the course code
     handleClose();
   };

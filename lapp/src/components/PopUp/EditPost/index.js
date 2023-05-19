@@ -46,7 +46,6 @@ const EditPost = ({ handleClose, courseId, editContent, onUpdateContent }) => {
       .then(() => {
         alert("Course content updated successfully");
         // Additional code after successful update
-        console.log(fields);
         onUpdateContent();
       })
       .catch((error) => {
