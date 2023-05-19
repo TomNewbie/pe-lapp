@@ -30,7 +30,7 @@ const Assignment = ({ exercise, exerciseId, courseId }) => {
               alt=""
             />
             <div class="text-left">
-              <p className="text-4xl truncate">{exercise.name}</p>
+              <p className="text-4xl truncate w-96">{exercise.name}</p>
               <p>{exercise.submission_count} submissions</p>
             </div>
           </button>

@@ -66,6 +66,9 @@ const EditExercise = ({
 
     handleClose();
   };
+
+  const initialDate = new Date(deadline);
+  const formattedDate = initialDate.toISOString().split("T")[0];
   return (
     <div className="absolute z-20 flex items-center justify-center w-full h-screen bg-black/60">
       <div class="flex flex-col justify-between space-y-3 px-5 py-2 w-2/3 h-fit bg-[#FFFCF7] text-[#1B1C1E] rounded-xl shadow-xl place-items-center text-3xl">
@@ -79,10 +82,10 @@ const EditExercise = ({
           }}
         ></input>
         <input
-          type="text"
+          type="date"
           placeholder="Enter deadline here"
           class="bg-[#9F5F5F]/30 rounded-xl px-3 w-full text-3xl"
-          value={deadline}
+          value={formattedDate}
           onChange={(event) => {
             setDeadline(event.target.value);
           }}
