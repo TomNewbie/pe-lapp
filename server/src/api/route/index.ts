@@ -5,8 +5,10 @@ import { courseRouter } from "./course";
 import { contentRouter } from "./content";
 import { FileRequest, fileController } from "../controller/file";
 import { exerciseRouter } from "./exercise";
+import { docsRouter } from "./docs";
 
 const router = Router();
+router.use(docsRouter)
 router.post(
   "/test",
   fileController.getFileFromUser,
