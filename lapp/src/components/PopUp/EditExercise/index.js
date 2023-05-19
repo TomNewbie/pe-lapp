@@ -40,7 +40,6 @@ const EditExercise = ({
       removedFile.url &&
       !newlySelectedFiles.includes(removedFile)
     ) {
-      console.log(removedFile);
       setRemovedFiles([...removedFiles, removedFile.url]); // Add the URL of the removed file
     }
   };
@@ -67,8 +66,25 @@ const EditExercise = ({
     handleClose();
   };
 
-  const initialDate = new Date(deadline);
-  const formattedDate = initialDate.toISOString().split("T")[0];
+  const formatDate = (date) => {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    let month = (d.getMonth() + 1).toString();
+    let day = d.getDate().toString();
+
+    // Add leading zeros if month or day is a single digit
+    if (month.length === 1) {
+      month = "0" + month;
+    }
+    if (day.length === 1) {
+      day = "0" + day;
+    }
+
+    return `${year}-${month}-${day}`;
+  };
+
+  const formattedDate = deadline ? formatDate(deadline) : "";
+
   return (
     <div className="absolute z-20 flex items-center justify-center w-full h-screen bg-black/60">
       <div class="flex flex-col justify-between space-y-3 px-5 py-2 w-2/3 h-fit bg-[#FFFCF7] text-[#1B1C1E] rounded-xl shadow-xl place-items-center text-3xl">

@@ -22,7 +22,7 @@ const JoinCourse = ({ handleClose, onJoinCourse }) => {
   };
 
   return (
-    <div className="absolute flex items-center justify-center w-full h-full bg-black/60">
+    <div className="absolute z-30 flex items-center justify-center w-full h-full bg-black/60">
       <div className="flex flex-col justify-between space-y-4 px-5 py-2 w-[800px] h-fit bg-[#FFFCF7] rounded-xl shadow-xl place-items-center border">
         <p className="mt-2 text-6xl">Enter Course Code</p>
         <div className="pt-8">
