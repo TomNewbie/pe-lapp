@@ -107,7 +107,7 @@ const ExerciseDetail = () => {
   };
   const onTime = data.solutions?.reduce((a, solution) => {
     if (
-      solution.file.length > 0 &&
+      solution.file &&
       new Date(solution.submit_time) <= new Date(data.deadline)
     ) {
       // console.log(
@@ -117,23 +117,24 @@ const ExerciseDetail = () => {
     }
     return a;
   }, 0);
-  const noSubmit = data.solution?.reduce((a, solution) => {
-    if (solution.file.length === 0) {
+  const noSubmit = data.solutions?.reduce((a, solution) => {
+    if (!solution.file) {
       return a + 1;
     }
     return a;
   }, 0);
   const late = data.solutions?.reduce((a, solution) => {
     if (
-      solution.file.length > 0 &&
+      solution.file &&
       new Date(solution.submit_time) > new Date(data.deadline)
     ) {
       return a + 1;
     }
     return a;
   }, 0);
-  console.log("ontime " + onTime);
-  console.log("ontime " + onTime);
+  // console.log("ontime " + onTime);
+  // console.log("late " + late);
+  // console.log("nosubmit " + noSubmit);
   return (
     <div class="relative text-[#1B1C1E] flex flex-col bg-[#FFFAF0]">
       {editExerciseModal && (
