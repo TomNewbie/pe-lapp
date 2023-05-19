@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import CustomButton from "../../CustomButton";
-import { createSolution } from "../../../services/course/exercise";
+import { submitSolution } from "../../../services/course/exercise";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../../pages/common";
 
@@ -36,7 +36,7 @@ const SubmitEx = ({ status, exerciseId, onSubmit }) => {
 
   const handleSubmit = async () => {
     try {
-      await createSolution(exerciseId, { files: selectedFiles });
+      await submitSolution(exerciseId, { files: selectedFiles });
       alert("Solution created successfully!");
       onSubmit();
     } catch (error) {

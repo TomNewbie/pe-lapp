@@ -54,7 +54,7 @@ const verifyAuthorize = async (
 
   next();
 };
-const createSolution = async (req: FileRequest, res: Response) => {
+const submitSolution = async (req: FileRequest, res: Response) => {
   const studentId = req.user!._id;
   const { id: exerciseId } = req.params;
   const files = req.firebase as FileType[];
@@ -62,7 +62,7 @@ const createSolution = async (req: FileRequest, res: Response) => {
     res.status(404).send("Missing file");
     return;
   }
-  await solutionService.createSolution(studentId, exerciseId, files);
+  await solutionService.submitSolution(studentId, exerciseId, files);
   res.sendStatus(201);
 };
-export const solutionController = { addGrade, createSolution, verifyAuthorize };
+export const solutionController = { addGrade, submitSolution, verifyAuthorize };

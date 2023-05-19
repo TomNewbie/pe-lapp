@@ -62,7 +62,7 @@ export const deleteExercise = async (exerciseId: string) => {
   await apiRequest(`/api/exercises/${exerciseId}`, { method: "DELETE" });
 };
 
-export const createSolution = async (
+export const submitSolution = async (
   exerciseId: string,
   fields: {
     files: File[] | FileList;

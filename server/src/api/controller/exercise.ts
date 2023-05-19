@@ -11,6 +11,7 @@ import mongoose, { Types } from "mongoose";
 import { fileService } from "../service/files";
 import { FileType } from "../../utils/types";
 import { FileRequest } from "./file";
+import { queryToNumber } from "../../utils";
 const getAllExercises = async (req: AuthRequest, res: Response) => {
   const { id: courseId } = req.params;
   const { role, _id: userId } = req.user!;
@@ -138,6 +139,34 @@ const verifyAuthorize = async (
   }
   next();
 };
+
+const getGrades = async (req: AuthRequest, res: Response) => {
+  const { _id: lecturerId, role } = req.user!;
+  const { id: courseId } = req.params;
+
+  if (role === "student") {
+    return res.sendStatus(401);
+  }
+
+  const { s, n } = req.query;
+  const options = {
+    start: queryToNumber(s),
+    num: queryToNumber(n),
+  };
+
+  const result = await exerciseService.getGrades(
+    { lecturerId, courseId },
+    options
+  );
+  if (result === Exercise_ErrorType.NOT_FOUND) {
+    return res
+      .status(404)
+      .send(`Cannot find course "${courseId}" created by you`);
+  }
+
+  res.json(result);
+};
+
 export const exerciseController = {
   getAllExercises,
   createExercise,
@@ -145,4 +174,5 @@ export const exerciseController = {
   update,
   getDetail,
   verifyAuthorize,
+  getGrades,
 };

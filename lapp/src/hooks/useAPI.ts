@@ -469,6 +469,62 @@ export function useAPI(
       }>;
     }
 >;
+/**
+ * A hook for calling an API using the fetch API internally.
+ * @param url an object to be converted into a url string. This object will be
+ * parsed into a `string` so it does not need to be wrapped with `useMemo` like
+ * `request` does.
+ * @param request the `RequestInit` object to be passed into the `fetch` API.
+ * This object, if provided, **must** be wrapped with `useMemo` or be a
+ * non-changing reference to an object to prevent passing in a new object on
+ * every render, which forces the internal effect to be run on every render.
+ * This can create a loop in the hook (the api is called on mount; if responsed
+ * with a json object, states in the hook are set, thus rerender the component;
+ * if on rerender, a new `RequestInit` is passed to the hook, the effect is run
+ * again, calling the api, receiving a new json object, setting states, rerender
+ * and repeat the loop) and this is not the desired behavior.
+ * See {@link RequestInit}.
+ * @returns an object holding the state of the request (pending, error or data),
+ * along with a function for rerunning the request.
+ */
+export function useAPI(
+  url: {
+    /** Get all grades of students in all exercises in the course `:id` */
+    path: "/api/course/:id/exercises/grade";
+    params: { id: string };
+    searchParams: {
+      /**
+       * query a list starting at the `s + 1`-th student (0-based index;
+       * defaults to 0)
+       */
+      s: number;
+      /**
+       * number of students to return in a list. If `n` is 0, return ALL
+       * students.
+       */
+      n: number;
+    };
+  },
+  request?: { method?: "GET" }
+): Response<{
+  /**
+   * all exercise name
+   */
+  exercises: {
+    _id: string;
+    name: string;
+  }[];
+  students: {
+    name: string;
+    id: string;
+    /**
+     * all the grade corresponding to the exercise
+     * the order of grade[] will similar to the exercise_name[]
+     * if the grade[i] of exercise_name[i] is not set grade[i] will be null, i is index of the array
+     */
+    grade: (number | null)[];
+  }[];
+}>;
 
 // =============================================================================
 // Implementation

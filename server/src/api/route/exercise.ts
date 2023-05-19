@@ -18,9 +18,10 @@ router.post(
   solutionController.verifyAuthorize,
   fileController.getFileFromUser,
   fileController.upload,
-  solutionController.createSolution
+  solutionController.submitSolution
 );
 router.get("/course/:id/exercises", exerciseController.getAllExercises);
+router.get("/course/:id/exercises/grade", exerciseController.getGrades);
 router.get(
   "/exercises/:id",
   // exerciseController.verifyAuthorize,

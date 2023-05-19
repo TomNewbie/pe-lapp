@@ -210,7 +210,7 @@ Delete exercise by id. All student solution related to that exercise will be del
 
 # [POST] /api/exercises/:id/
 
-Create solution
+Submit solution
 
 ## Request
 
@@ -241,7 +241,7 @@ Get all grades of students in all exercises in the course `:id`
 - `start`
   query a list starting at the `start + 1`-th student (0-based index; defaults to 0)
 - `num`
-  number of students to return in a list. If `num` is 0, return ALL students,
+  number of students to return in a list. If `num` is 0, return ALL students.
 
 ## Request
 
@@ -251,7 +251,8 @@ Get all grades of students in all exercises in the course `:id`
 ## Response
 
 - 200 -> Return json
-- 401 -> Unauthorize (student)
+- 401 -> Unauthorized (student)
+- 404 -> Cannot find course "`id`" created by you
 
 ```ts
 {

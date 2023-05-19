@@ -189,7 +189,7 @@ const create = async ({
   }
 };
 
-type QueryCourseId = {
+export type QueryCourseId = {
   lecturerId: string;
   courseId: string;
 };
