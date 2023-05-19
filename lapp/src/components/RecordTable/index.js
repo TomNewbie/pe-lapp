@@ -51,16 +51,16 @@ const RecordTable = ({ data, deadline, exerciseId, onUpdateGrade }) => {
     if (isNaN(submitDate.getTime())) {
       // console.log(submitDate + "deadline: " + deadlineDate + "un");
 
-      return "unsubmit";
+      return "Not submit";
     } else {
       if (submitDate > deadlineDate) {
-        console.log(submitDate + "deadline: " + deadlineDate + "missing");
+        // console.log(submitDate + "deadline: " + deadlineDate + "missing");
 
-        return "missing";
+        return "Late";
       } else {
         // console.log(submitDate + "deadline: " + deadlineDate + "ontime");
 
-        return "ontime";
+        return "Ontime";
       }
     }
   };

@@ -84,7 +84,7 @@ const remove = async (req: AuthRequest, res: Response) => {
   res.sendStatus(204);
 };
 const update = async (req: FileRequest, res: Response) => {
-  const { name, description } = req.body;
+  const { name, description, deadline } = req.body;
   let { remove } = req.body;
   const { id } = req.params;
   // if user dont remove anything remove will become undefined
@@ -94,6 +94,7 @@ const update = async (req: FileRequest, res: Response) => {
     {
       name,
       description,
+      deadline,
     },
     remove
   );
