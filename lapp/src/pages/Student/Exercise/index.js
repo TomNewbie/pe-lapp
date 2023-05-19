@@ -9,6 +9,7 @@ import {
 import { useLocation, useParams } from "react-router-dom";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
+import Link from "antd/es/typography/Link";
 
 /** Need to fetch: 
  * course: { name: string; teacher: string;}
@@ -90,7 +91,7 @@ const ExerciseDetail = () => {
               </div>
               <div className="flex flex-row ml-4 space-x-4 place-content-between ">
                 {data.exercise_files?.map((file) => (
-                  <a href={file.url}>
+                  <a href={file.url} target="_blank" rel="noreferrer">
                     {/* Uploaded file section */}
                     <div className="flex px-2 py-3 border border-[#530619] w-96 rounded-2xl">
                       <img

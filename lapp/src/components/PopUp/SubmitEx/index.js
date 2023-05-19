@@ -3,6 +3,7 @@ import CustomButton from "../../CustomButton";
 import { submitSolution } from "../../../services/course/exercise";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../../pages/common";
+import Link from "antd/es/typography/Link";
 
 const SubmitEx = ({ status, exerciseId, onSubmit }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -77,26 +78,30 @@ const SubmitEx = ({ status, exerciseId, onSubmit }) => {
             )}
             <div className="flex flex-col gap-3 mt-4 mb-4 w-52">
               {selectedFiles.map((file, index) => (
-                <div
-                  key={index}
-                  className="flex px-2 py-3 border border-[#530619] w-54 rounded-2xl"
-                  title={file.name}
-                >
-                  <img
-                    src="/notification/upload.svg"
-                    alt=""
-                    className="w-9 h-9"
-                  />
-                  <div className="ml-3 text-3xl font-semibold truncate text-[#530619]">
-                    {file.name}
-                  </div>
-                  <button
-                    className="ml-auto text-[#530619] hover:text-red-500"
-                    onClick={() => handleRemoveFile(index)}
+                <a href={file.url} target="_blank" rel="noreferrer">
+                  <div
+                    key={index}
+                    className="flex px-2 py-3 border border-[#530619] w-54 rounded-2xl"
+                    title={file.name}
                   >
-                    Remove
-                  </button>
-                </div>
+                    <img
+                      src="/notification/upload.svg"
+                      alt=""
+                      className="w-9 h-9"
+                    />
+                    <div className="ml-3 text-3xl font-semibold truncate text-[#530619]">
+                      {file.name}
+                    </div>
+                    {!data.submitted && (
+                      <button
+                        className="ml-auto text-[#530619] hover:text-red-500"
+                        onClick={() => handleRemoveFile(index)}
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                </a>
               ))}
             </div>
           </div>

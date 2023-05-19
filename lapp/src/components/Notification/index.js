@@ -33,7 +33,7 @@ const Notification = ({
   const fileSection =
     content.files?.map((file) => (
       <div key={file.url} className="flex-shrink-0">
-        <a href={file.url}>
+        <a href={file.url} target="_blank" rel="noreferrer">
           <div className="flex px-2 py-3 border w-96 border-[#530619] rounded-2xl">
             <img src="/notification/upload.svg" alt="" className="w-9 h-9" />
             <div

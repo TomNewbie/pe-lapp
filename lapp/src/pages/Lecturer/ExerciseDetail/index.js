@@ -105,35 +105,35 @@ const ExerciseDetail = () => {
         alert("Error deleting exercise:" + error);
       });
   };
-  const onTime = data.solutions?.reduce((a, solution) => {
-    if (
-      solution.file.length > 0 &&
-      new Date(solution.submit_time) <= new Date(data.deadline)
-    ) {
-      // console.log(
-      //   "nani" + new Date(solution.submit_time) <= new Date(solution.deadline)
-      // );
-      return a + 1;
-    }
-    return a;
-  }, 0);
-  const noSubmit = data.solution?.reduce((a, solution) => {
-    if (solution.file.length === 0) {
-      return a + 1;
-    }
-    return a;
-  }, 0);
-  const late = data.solutions?.reduce((a, solution) => {
-    if (
-      solution.file.length > 0 &&
-      new Date(solution.submit_time) > new Date(data.deadline)
-    ) {
-      return a + 1;
-    }
-    return a;
-  }, 0);
-  console.log("ontime " + onTime);
-  console.log("ontime " + onTime);
+  // const onTime = data.solutions?.reduce((a, solution) => {
+  //   if (
+  //     solution.file.length > 0 &&
+  //     new Date(solution.submit_time) <= new Date(data.deadline)
+  //   ) {
+  //     // console.log(
+  //     //   "nani" + new Date(solution.submit_time) <= new Date(solution.deadline)
+  //     // );
+  //     return a + 1;
+  //   }
+  //   return a;
+  // }, 0);
+  // const noSubmit = data.solution?.reduce((a, solution) => {
+  //   if (solution.file.length === 0) {
+  //     return a + 1;
+  //   }
+  //   return a;
+  // }, 0);
+  // const late = data.solutions?.reduce((a, solution) => {
+  //   if (
+  //     solution.file.length > 0 &&
+  //     new Date(solution.submit_time) > new Date(data.deadline)
+  //   ) {
+  //     return a + 1;
+  //   }
+  //   return a;
+  // }, 0);
+  // console.log("ontime " + onTime);
+  // console.log("ontime " + onTime);
   return (
     <div class="relative text-[#1B1C1E] flex flex-col bg-[#FFFAF0]">
       {editExerciseModal && (
@@ -152,7 +152,7 @@ const ExerciseDetail = () => {
         <TeacherCourseName course={course}></TeacherCourseName>
         <div className="w-30 h-30">
           {" "}
-          <Doughnut data={dataSubmit(onTime, noSubmit, late)} />
+          {/* <Doughnut data={dataSubmit(onTime, noSubmit, late)} /> */}
         </div>
       </div>
       {/* Exercise details */}
