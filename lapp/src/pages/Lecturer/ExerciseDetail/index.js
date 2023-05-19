@@ -151,8 +151,7 @@ const ExerciseDetail = () => {
       {/* Course name */}
       <div>
         <TeacherCourseName course={course}></TeacherCourseName>
-        <div className="w-30 h-30">
-          {" "}
+        <div className="flex w-96 h-96">
           <Doughnut data={dataSubmit(onTime, noSubmit, late)} />
         </div>
       </div>
