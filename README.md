@@ -2,11 +2,11 @@
 vgupe2023_team2
 
 
-# Table of contents
-1. [Introduction](#introduction)
-3. [How to use LAPP](#howto)
-4. [Additional document](#addiDoc)
-5. [Members](#members)
+## Table of contents
+- [Introduction](#introduction)
+- [How to use LAPP](#howto)
+- [Additional document](#addiDoc)
+- [Members](#members)
 
 ## Introduction <a name="introduction"></a>
 [LAPP](https://lapp.fly.dev/) - an advanced e-learning application designed to enhance the educational experience for both students and teachers. With [LAPP](https://lapp.fly.dev/), teachers can effortlessly create and manage courses, share materials, interact with students, and streamline the grading process. Students can access their courses, engage in collaborative learning, submit assignments. The platform prioritizes simplicity, accessibility, and effective communication to foster a conducive learning environment.
@@ -18,6 +18,9 @@ To use our learning management system - [LAPP](https://lapp.fly.dev/), you just 
 ## Additional document <a name="addiDoc"></a>
 - This application draws inspiration from Google Classroom
 - Reference documents:
+    -  [Notion]( https://www.notion.so/kimthanh3001/Programming-exercise-d57211965361401d9b55b67aa3f244c2?pvs=4)
+    - [Figma](https://www.figma.com/file/j8tUM7RsajRidYXfPevXfX/LAPP?type=design&node-id=0%3A1&t=W9BHI5PeTJMDZ4kZ-1)
+    - [Presentation](https://www.canva.com/design/DAFjIwdxMJM/_-1U09DW2l-COhrZKG-0XQ/view?utm_content=DAFjIwdxMJM&utm_campaign=designshare&utm_medium=link&utm_source=homepage_design_menu) 
     - Ian Sommerville (2015), Software Engineering (10th ed.), ISBN 978-0133943030, Pearson.
     - Software Requirements Specification (SRS)
     - Software Design Specification (SDS)
