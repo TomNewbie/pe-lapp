@@ -1,0 +1,2283 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "LAPP - OpenAPI 3.0",
+    "description": "Welcome to the API documentation for our project! This documentation provides detailed information about the available endpoints, request/response formats, and authentication requirements for our API.\n\nAll question please don't ask us, we scared.",
+    "version": "1.0.11"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    },
+    {
+      "url": "lapp.fly.dev",
+      "variables": {},
+      "description": "Yes"
+    }
+  ],
+  "paths": {
+    "/api/course/{id}": {
+      "patch": {
+        "tags": [
+          "course"
+        ],
+        "summary": "Update an existing course",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "description": "Update an existing course by Id",
+        "operationId": "updateCourse",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Name",
+            "in": "query",
+            "description": "name of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "picture",
+            "in": "query",
+            "description": "picture of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "semester",
+            "in": "query",
+            "description": "semester of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existing course",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Course"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Course"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Course"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Cannot find course created by you"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "course"
+        ],
+        "summary": "Join a course",
+        "description": "Join a course by id",
+        "operationId": "JoinCourse",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Joined"
+          },
+          "400": {
+            "description": "Already joined"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Course not found"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "course"
+        ],
+        "summary": "Get details of a course",
+        "description": "Get a course detail",
+        "operationId": "getACourseDetail",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/course/{id}/contents": {
+      "get": {
+        "tags": [
+          "content"
+        ],
+        "summary": "Get all of a course content",
+        "description": "get a course content",
+        "operationId": "getAllCourseContent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StudentView"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TeacherView"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/view/{file_path}": {
+      "get": {
+        "tags": [
+          "content"
+        ],
+        "summary": "Viewing or downloading the file",
+        "description": "Viewing or downloading the file",
+        "operationId": "ViewOrDownloadFile",
+        "parameters": [
+          {
+            "name": "file_path",
+            "in": "path",
+            "description": "path of the file",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A PDF file",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/course/{id}/": {
+      "post": {
+        "tags": [
+          "content"
+        ],
+        "summary": "Create content with specific course id",
+        "description": "Create course content",
+        "operationId": "createCourseContent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Title?",
+            "in": "query",
+            "description": "name of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "picture",
+            "in": "query",
+            "description": "picture of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "semester",
+            "in": "query",
+            "description": "semester of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existing course",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseContent"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseContent"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseContent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Missing information to create"
+          },
+          "403": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Course not found"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/course": {
+      "post": {
+        "tags": [
+          "course"
+        ],
+        "summary": "Create a new course",
+        "description": "Add a new course to the list of courses",
+        "operationId": "addCourse",
+        "requestBody": {
+          "description": "Create a new pet in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCourse"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCourse"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCourse"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "courseId": {
+                      "type": "string",
+                      "description": "The course ID."
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "courseId": {
+                      "type": "string",
+                      "description": "The course ID."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "course"
+        ],
+        "summary": "Get the courses of user",
+        "description": "get a user's courses",
+        "operationId": "getUserCourses",
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "description": "Indicate the number the list starting at, default 0",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "num",
+            "in": "query",
+            "description": "number of courses to return in a list, 0 to return all",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Search/filter keywords",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "The sort order",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CoursesOfStudent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CoursesOfLecturer"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/course/{id}/content/{course_content_id}": {
+      "delete": {
+        "tags": [
+          "content"
+        ],
+        "summary": "Delete a course content",
+        "description": "delete a course content",
+        "operationId": "deleteCourseContent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "course_content_id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/404Content"
+                    },
+                    {
+                      "$ref": "#/components/schemas/404Course"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "content"
+        ],
+        "summary": "Update a course content",
+        "description": "update a course content",
+        "operationId": "updateCourseContent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "course_content_id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Title?",
+            "in": "query",
+            "description": "name of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "picture",
+            "in": "query",
+            "description": "picture of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "semester",
+            "in": "query",
+            "description": "semester of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existing course",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseContent"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseContent"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseContent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Missing information to update"
+          },
+          "403": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/404Content"
+                    },
+                    {
+                      "$ref": "#/components/schemas/404Course"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/course/{id}/participants": {
+      "get": {
+        "tags": [
+          "participant"
+        ],
+        "summary": "Get all participant of a course",
+        "description": "get all course participant",
+        "operationId": "getAllCourseParticipant",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetParticipants"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/course/{id}/participants/{studentId}": {
+      "post": {
+        "tags": [
+          "participant"
+        ],
+        "summary": "Lecturer add student to their course",
+        "description": "add student to course",
+        "operationId": "addStudent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "studentId",
+            "in": "path",
+            "description": "ID of the student",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "Already joined"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Cannot find course created by you"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "participant"
+        ],
+        "summary": "Lecturer remove student from their course",
+        "description": "remove student from course",
+        "operationId": "removeStudent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "studentId",
+            "in": "path",
+            "description": "ID of the student",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/404Student"
+                    },
+                    {
+                      "$ref": "#/components/schemas/404CourseId"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/course/{id}/exercises": {
+      "get": {
+        "tags": [
+          "exercise"
+        ],
+        "summary": "Get all of an exercise info",
+        "description": "get an exercise info",
+        "operationId": "getExerciseInfo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StudentExercise"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TeacherExercise"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "exercise"
+        ],
+        "summary": "Create a new exercise",
+        "description": "Add a new exercise",
+        "operationId": "addExercise",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Create a exercise",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewExercise"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/NewExercise"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/NewExercise"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "Missing info"
+          },
+          "401": {
+            "description": "Unauthorized (Student)"
+          },
+          "404": {
+            "description": "Course not found"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/exercise/{id}": {
+      "get": {
+        "tags": [
+          "exercise"
+        ],
+        "summary": "Get an exercise detail",
+        "description": "get an exercise detail",
+        "operationId": "getExerciseDetail",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StudentExerciseDetail"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TeacherExerciseDetail"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User not join course to see exercise"
+          },
+          "404": {
+            "description": "Exercise not found"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "exercise"
+        ],
+        "summary": "Update an exercise content",
+        "description": "update an exercise content",
+        "operationId": "updateExerciseContent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Title?",
+            "in": "query",
+            "description": "name of the exercise",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Deadline?",
+            "in": "query",
+            "description": "Deadline of the exercise",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "Description?",
+            "in": "query",
+            "description": "description about exercise",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "files?",
+            "in": "query",
+            "description": "Exercise file",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/File"
+            }
+          },
+          {
+            "name": "removed?",
+            "in": "query",
+            "description": "semester of the course",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "url[]"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Unauthorized (Student)"
+          },
+          "404": {
+            "description": "Exercise not found"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "exercise"
+        ],
+        "summary": "Lecturer delete their exercise by id",
+        "description": "Delete exercise",
+        "operationId": "DeleteExercise",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Exercise not found"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "exercise"
+        ],
+        "summary": "Create solution",
+        "description": "Create a solution",
+        "operationId": "CreateSolution",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "files",
+            "in": "query",
+            "description": "Solution file",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/File"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Unauthorized (Student)"
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/404Exercise"
+                    },
+                    {
+                      "$ref": "#/components/schemas/404File"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/exercises/{id}/students/{id}": {
+      "patch": {
+        "tags": [
+          "exercise"
+        ],
+        "summary": "Update a student grade",
+        "description": "update a student grade",
+        "operationId": "AddStudentGrade",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the exercise",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Grade?",
+            "in": "query",
+            "description": "Grade of the student (from 0 to 100)",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Unauthorized (Student)"
+          },
+          "404": {
+            "description": "Solution not found"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/course/{id}/exercises/grade": {
+      "get": {
+        "tags": [
+          "exercise"
+        ],
+        "summary": "Get all student grade",
+        "description": "Get all grades of students in all exercises in the course",
+        "operationId": "getAllStudentGrade",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "List start at this number (default 0)",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "num",
+            "in": "query",
+            "description": "Number of students to return in a list (if 0 then return all)",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllGrade"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (student)"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/user/info": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user info",
+        "description": "get a user's info",
+        "operationId": "getUserInfo",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StudentInfo"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LecturerInfo"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/user/profile": {
+      "patch": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user profile",
+        "description": "update a user's profile",
+        "operationId": "updateUserProfile",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/StudentUpdate"
+                  },
+                  {
+                    "$ref": "#/components/schemas/LecturerUpdate"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "Invalid Input"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/student/{id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get student profile",
+        "description": "get a student profile",
+        "operationId": "getStudentProfile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudentProfile"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/lecturer/{id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get lecturer profile",
+        "description": "get a lecturer profile",
+        "operationId": "getLecturerProfile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the course",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LecturerProfile"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/lecturers": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get all lecturers",
+        "description": "get all lecturers",
+        "operationId": "getAllLecturer",
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "description": "Indicate the number the list starting at, default 0",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "num",
+            "in": "query",
+            "description": "number of lecturers to return in a list, 0 to return all except the first",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LecturerProfile"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Redirect user",
+        "description": "Redirect the user to the Google OAuth page for logging into their account",
+        "operationId": "LoginRedirect",
+        "parameters": [
+          {
+            "name": "redirect_path",
+            "in": "query",
+            "description": "the path to redirect to after successful authentication (defaults to /)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "/"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LecturerProfile"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    },
+    "/api/auth/logout": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logout",
+        "description": "logout a user",
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CourseContent": {
+        "type": "object",
+        "properties": {
+          "title?": {
+            "type": "string"
+          },
+          "file": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          },
+          "body?": {
+            "type": "string"
+          }
+        }
+      },
+      "StudentView": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "picture": {
+            "type": "string"
+          },
+          "teacher_name": {
+            "type": "string"
+          },
+          "contents": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/Contents"
+            }
+          },
+          "body": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2023-04-16",
+            "format": "date",
+            "pattern": "YYYY-MM-DD",
+            "minLength": 0,
+            "maxLength": 10
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date",
+            "example": "2023-04-17",
+            "pattern": "YYYY-MM-DD",
+            "minLength": 0,
+            "maxLength": 10
+          }
+        }
+      },
+      "TeacherView": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "picture": {
+            "type": "string"
+          },
+          "semester": {
+            "type": "string"
+          },
+          "teacher_name": {
+            "type": "string"
+          },
+          "contents": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/Contents"
+            }
+          },
+          "body": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2023-04-16",
+            "format": "date",
+            "pattern": "YYYY-MM-DD",
+            "minLength": 0,
+            "maxLength": 10
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date",
+            "example": "2023-04-17",
+            "pattern": "YYYY-MM-DD",
+            "minLength": 0,
+            "maxLength": 10
+          }
+        }
+      },
+      "GetParticipants": {
+        "type": "object",
+        "properties": {
+          "Lecturer": {
+            "type": "array",
+            "xml": {
+              "name": "user",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/Users"
+            }
+          },
+          "Students": {
+            "type": "array",
+            "xml": {
+              "name": "user",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/Users"
+            }
+          }
+        }
+      },
+      "Exercise": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Users": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "string"
+          }
+        }
+      },
+      "Student": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          }
+        }
+      },
+      "Students": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "grade": {
+            "type": "number"
+          }
+        }
+      },
+      "Teacher": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Contents": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "file?": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          }
+        }
+      },
+      "File": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "404Content": {
+        "type": "object",
+        "properties": {
+          "404": {
+            "type": "string",
+            "example": "Course content not found"
+          }
+        }
+      },
+      "404Course": {
+        "type": "object",
+        "properties": {
+          "404": {
+            "type": "string",
+            "example": "Course not found"
+          }
+        }
+      },
+      "404Student": {
+        "type": "object",
+        "properties": {
+          "404": {
+            "type": "string",
+            "example": "Student not found in course"
+          }
+        }
+      },
+      "404CourseId": {
+        "type": "object",
+        "properties": {
+          "404": {
+            "type": "string",
+            "example": "Cannot find course created by you"
+          }
+        }
+      },
+      "404Exercise": {
+        "type": "object",
+        "properties": {
+          "404": {
+            "type": "string",
+            "example": "Exercise not found"
+          }
+        }
+      },
+      "404File": {
+        "type": "object",
+        "properties": {
+          "404": {
+            "type": "string",
+            "example": "Missing file"
+          }
+        }
+      },
+      "NewCourse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "picture?": {
+            "type": "array",
+            "xml": {
+              "wrapped": true
+            },
+            "items": {
+              "type": "string",
+              "xml": {
+                "name": "photoUrl"
+              }
+            }
+          },
+          "semester?": {
+            "type": "string"
+          }
+        }
+      },
+      "Course": {
+        "type": "object",
+        "properties": {
+          "name?": {
+            "type": "string"
+          },
+          "description?": {
+            "type": "string"
+          },
+          "picture?": {
+            "type": "array",
+            "xml": {
+              "wrapped": true
+            },
+            "items": {
+              "type": "string",
+              "xml": {
+                "name": "photoUrl"
+              }
+            }
+          },
+          "semester?": {
+            "type": "string"
+          },
+          "content?": {
+            "type": "string"
+          }
+        }
+      },
+      "Courses": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "semester?": {
+            "type": "string"
+          }
+        }
+      },
+      "CourseDetail": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "semester?": {
+            "type": "string"
+          },
+          "picture": {
+            "type": "string"
+          },
+          "lecturer": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/Teacher"
+            }
+          }
+        }
+      },
+      "StudentExercise": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date"
+          },
+          "grade": {
+            "type": "number"
+          },
+          "submitted?": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TeacherExercise": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date"
+          },
+          "submission_count": {
+            "type": "number"
+          },
+          "participant_count": {
+            "type": "number"
+          }
+        }
+      },
+      "StudentExerciseDetail": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date"
+          },
+          "grade?": {
+            "type": "number"
+          },
+          "submitted": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          },
+          "exercise_files": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          },
+          "solution_file?": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          }
+        }
+      },
+      "TeacherExerciseDetail": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date"
+          },
+          "description": {
+            "type": "string"
+          },
+          "exercise_files": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          },
+          "solutions": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/SolutionsFile"
+            }
+          }
+        }
+      },
+      "SolutionsFile": {
+        "type": "object",
+        "properties": {
+          "student": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/Student"
+            }
+          },
+          "submit_time": {
+            "type": "string",
+            "format": "date"
+          },
+          "file": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          },
+          "grade?": {
+            "type": "number"
+          }
+        }
+      },
+      "NewExercise": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date"
+          },
+          "file": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "CoursesOfStudent": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "semester?": {
+            "type": "string"
+          },
+          "picture": {
+            "type": "array",
+            "xml": {
+              "wrapped": true
+            },
+            "items": {
+              "type": "string",
+              "xml": {
+                "name": "photoUrl"
+              }
+            }
+          },
+          "lecturer_name": {
+            "type": "string"
+          }
+        }
+      },
+      "CoursesOfLecturer": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "semester?": {
+            "type": "string"
+          },
+          "picture": {
+            "type": "array",
+            "xml": {
+              "wrapped": true
+            },
+            "items": {
+              "type": "string",
+              "xml": {
+                "name": "photoUrl"
+              }
+            }
+          },
+          "participant_count": {
+            "type": "string"
+          }
+        }
+      },
+      "StudentInfo": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "example": "student"
+          }
+        }
+      },
+      "LecturerInfo": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "example": "lecturer"
+          }
+        }
+      },
+      "StudentUpdate": {
+        "type": "object",
+        "properties": {
+          "major?": {
+            "type": "string"
+          },
+          "intake?": {
+            "type": "number"
+          },
+          "phone_number?": {
+            "type": "string"
+          }
+        }
+      },
+      "LecturerUpdate": {
+        "type": "object",
+        "properties": {
+          "faculty?": {
+            "type": "string"
+          },
+          "phone_number?": {
+            "type": "string"
+          }
+        }
+      },
+      "StudentProfile": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "string"
+          },
+          "phone_number?": {
+            "type": "string"
+          },
+          "major?": {
+            "type": "string"
+          },
+          "intake?": {
+            "type": "number"
+          }
+        }
+      },
+      "LecturerProfile": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "string"
+          },
+          "phone_number?": {
+            "type": "string"
+          },
+          "faculty?": {
+            "type": "string"
+          },
+          "course": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/Courses"
+            }
+          }
+        }
+      },
+      "AllGrade": {
+        "type": "object",
+        "properties": {
+          "exercise": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/Exercise"
+            }
+          },
+          "students": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/Students"
+            }
+          }
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "##default"
+        }
+      }
+    },
+    "securitySchemes": {
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "access_token"
+      }
+    }
+  }
+}
