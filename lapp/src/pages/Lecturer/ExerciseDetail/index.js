@@ -150,82 +150,95 @@ const ExerciseDetail = () => {
       <NavbarLecturer />
       {/* Course name */}
       <div>
-        <TeacherCourseName course={course}></TeacherCourseName>
-        <div className="flex w-96 h-96">
-          <Doughnut data={dataSubmit(onTime, noSubmit, late)} />
-        </div>
+        <TeacherCourseName course={course} />
       </div>
-      {/* Exercise details */}
+{/* Exercise details */}
+      <div className="flex flex-col space-y-8 px-20">
+        <p className="text-bold text-7xl text-center mt-8">{data.name}</p>
 
-      <div class="flex flex-col space-y-8 px-20">
-        <p class="text-bold text-7xl text-center mt-8">{data.name}</p>
-        {/* Button */}
-        <div class="flex flex-row items-center justify-around ">
+        <div className="flex flex-row items-center justify-around">
           <CustomButton
-            variant={"filled"}
-            className={"px-8 py-0 border-[#CC6666] "}
-            text={"Edit"}
+            variant="filled"
+            className="px-8 py-0 border-[#CC6666]"
+            text="Edit"
             handleButton={() => {
               toggleEditExerciseModal();
               setExercise(data);
             }}
-          ></CustomButton>
-          <Link to={`/course/` + courseId}>
+          />
+          <Link to={`/course/${courseId}`}>
             <CustomButton
-              variant={"border"}
-              className={"px-8 py-0"}
-              text={"Delete"}
+              variant="border"
+              className="px-8 py-0"
+              text="Delete"
               handleButton={handleDelete}
-            ></CustomButton>
+            />
           </Link>
         </div>
 
-        <div class="flex flex-row justify-between text-[37px] px-10">
-          <p>100 points</p>
-          <p>Due date: {deadline}</p>
-        </div>
-        <div className="flex justify-center">
-          <div className="bg-[#F4C2C2]/30 rounded-3xl w-3/4 h-auto pt-4 pb-6">
-            <div className="flex flex-col ml-4 space-y-4">
-              <div className="text-3xl font-light">{data.description}</div>
+        <div className="flex flex-row">
+          <div className="w-2/3">
+            <div className="flex flex-row justify-between text-[37px] px-10">
+              <p>100 points</p>
+              <p>Due date: {deadline}</p>
             </div>
-            <div className="flex flex-row ml-4 space-x-4">
-              {data.exercise_files?.map((file) => (
-                <a href={file.url}>
-                  <div className="flex px-2 py-3 border border-black w-fit rounded-2xl">
-                    <img
-                      src="/notification/upload.svg"
-                      alt=""
-                      className="w-9 h-9"
-                    ></img>
-                    <div className="ml-3 text-3xl font-semibold">
-                      {file.name}
-                    </div>
-                  </div>
-                </a>
-              ))}
+            <div className="flex justify-center">
+              <div className="bg-[#F4C2C2]/30 rounded-3xl w-3/4 h-auto pt-4 pb-6">
+                <div className="flex flex-col ml-4 space-y-4">
+                  <div className="text-3xl font-light">{data.description}</div>
+                </div>
+                <div className="flex flex-row ml-4 space-x-4">
+                  {data.exercise_files?.map((file) => (
+                    <a href={file.url} key={file.name}>
+                      <div className="flex px-2 py-3 border border-black w-fit rounded-2xl">
+                        <img
+                          src="/notification/upload.svg"
+                          alt=""
+                          className="w-9 h-9"
+                        />
+                        <div className="ml-3 text-3xl font-semibold">
+                          {file.name}
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-row justify-between text-[37px] text-center px-8 w-1/3 tracking-tight">
+            <div className="bg-[#E8BFAE]/50 rounded-3xl w-44 h-36 flex flex-col items-center justify-center space-y-8">
+              <p className="text-8xl h-8">{numOfSubmission} </p>
+              <p className="">Submissions</p>
+            </div>
+            <div className="bg-[#F4DACD]/70 rounded-3xl w-44 h-36 flex flex-col items-center justify-center space-y-8 ">
+              <div className="text-8xl  h-8">{averageScore}</div>
+              <p className="">Average score</p>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="flex flex-row justify-between text-[37px] px-10">
-          <p>Number of submissions: {numOfSubmission}</p>
-          <p>Average score: {averageScore}</p>
+      <div>
+        <div className="flex w-96 h-96 px-12">
+          <Doughnut data={dataSubmit(onTime, noSubmit, late)} />
         </div>
       </div>
+
       {data.solutions ? (
         <RecordTable
-          class="px-10"
+          className="px-10"
           data={data.solutions}
           deadline={data.deadline}
           exerciseId={id}
           onUpdateGrade={refresh}
-        ></RecordTable>
+        />
       ) : (
         <div></div>
       )}
 
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 };
