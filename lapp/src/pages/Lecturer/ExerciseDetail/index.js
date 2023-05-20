@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   NavbarLecturer,
   TeacherCourseName,
@@ -11,8 +11,10 @@ import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
 import EditExercise from "../../../components/PopUp/EditExercise";
 import { deleteExercise } from "../../../services/course/exercise";
-import { Doughnut } from "react-chartjs-2";
-import { dataSubmit, options } from "../../../chart/data";
+import { Bar, Doughnut } from "react-chartjs-2";
+import { dataSubmit } from "../../../chart/data";
+import { BarChart } from "../../../chart/Bar";
+import { BarElement, CategoryScale, Chart, LinearScale } from "chart.js";
 
 /** Need to fetch:
  * course:
@@ -69,7 +71,46 @@ const ExerciseDetail = () => {
   if (pending || coursePending) {
     return <LoadingPage />;
   }
+  const grades = data.solutions?.reduce((a, s) => {
+    if (!s.grade) {
+      return a;
+    }
+    return [...a, s.grade];
+  }, []);
 
+  const gradeGroups = [[], [], []];
+  grades.forEach((grade) => {
+    if (grade >= 0 && grade <= 50) {
+      gradeGroups[0].push(grade);
+    } else if (grade > 50 && grade <= 80) {
+      gradeGroups[1].push(grade);
+    } else if (grade > 80 && grade <= 100) {
+      gradeGroups[2].push(grade);
+    }
+  });
+
+  Chart.register(CategoryScale, LinearScale, BarElement);
+
+  const chartData = {
+    labels: ["0-50", "50-80", "80-100"],
+    datasets: [
+      {
+        label: "Grades",
+        data: [gradeGroups[0], gradeGroups[1], gradeGroups[2]],
+        backgroundColor: [
+          "rgb(255, 99, 132)",
+          "rgb(54, 162, 235)",
+          "rgb(255, 205, 86)",
+        ],
+        hoverOffset: 4,
+        borderWidth: 1,
+        barThinkness: 50,
+      },
+    ],
+    options: {
+      animateRotate: false,
+    },
+  };
   const numOfSubmission = data.solutions?.reduce((a, solution) => {
     return a + (solution.file ? 1 : 0);
   }, 0);
@@ -132,9 +173,7 @@ const ExerciseDetail = () => {
     }
     return a;
   }, 0);
-  // console.log("ontime " + onTime);
-  // console.log("late " + late);
-  // console.log("nosubmit " + noSubmit);
+
   return (
     <div class="relative text-[#1B1C1E] flex flex-col bg-[#FFFAF0]">
       {editExerciseModal && (
@@ -246,6 +285,30 @@ const ExerciseDetail = () => {
               }}
             />
           </div>
+        </div>
+        <div className="flex px-12 flex-grow-1">
+          <BarChart
+            chartData={chartData}
+            options={{
+              plugins: {
+                legend: {
+                  labels: {
+                    font: {
+                      size: 15,
+                    },
+                  },
+                },
+                title: {
+                  display: true,
+                  text: "Piechart for submission",
+                  font: {
+                    size: 15,
+                  },
+                  align: "center",
+                },
+              },
+            }}
+          />
         </div>
       </div>
 
