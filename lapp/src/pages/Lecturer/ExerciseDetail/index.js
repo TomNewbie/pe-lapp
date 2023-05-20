@@ -12,7 +12,7 @@ import { Errorpage, LoadingPage } from "../../common";
 import EditExercise from "../../../components/PopUp/EditExercise";
 import { deleteExercise } from "../../../services/course/exercise";
 import { Doughnut } from "react-chartjs-2";
-import { dataSubmit } from "../../../chart/data";
+import { dataSubmit, options } from "../../../chart/data";
 
 /** Need to fetch:
  * course:
@@ -150,9 +150,33 @@ const ExerciseDetail = () => {
       <NavbarLecturer />
       {/* Course name */}
       <div>
-        <TeacherCourseName course={course} />
+        <TeacherCourseName course={course}></TeacherCourseName>
+        <div className="w-96 h-96">
+          <Doughnut
+            data={dataSubmit(onTime, noSubmit, late)}
+            options={{
+              plugins: {
+                legend: {
+                  labels: {
+                    font: {
+                      size: 15,
+                    },
+                  },
+                },
+                title: {
+                  display: true,
+                  text: "HGelldasdasdo",
+                  font: {
+                    size: 15,
+                  },
+                  align: "center",
+                },
+              },
+            }}
+          />
+        </div>
       </div>
-{/* Exercise details */}
+      {/* Exercise details */}
       <div className="flex flex-col space-y-8 px-20">
         <p className="text-bold text-7xl text-center mt-8">{data.name}</p>
 
@@ -222,7 +246,7 @@ const ExerciseDetail = () => {
 
       <div>
         <div className="flex w-96 h-96 px-12">
-          <Doughnut data={dataSubmit(onTime, noSubmit, late)} />
+          {/* <Doughnut data={dataSubmit(onTime, noSubmit, late)} /> */}
         </div>
       </div>
 

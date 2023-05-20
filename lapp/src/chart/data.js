@@ -1,15 +1,13 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 export const dataSubmit = (submit, notSubmit, late) => {
-  console.log(submit);
-  console.log("awqeqwewqe");
   return {
-    labels: ["Submit", "Not Submit", "Late"],
+    labels: ["On time", "Not Submit", "Late"],
     datasets: [
       {
-        label: "Submission",
+        label: "Number",
         data: [submit, notSubmit, late],
         backgroundColor: [
           "rgb(255, 99, 132)",
@@ -19,8 +17,5 @@ export const dataSubmit = (submit, notSubmit, late) => {
         hoverOffset: 4,
       },
     ],
-    options: {
-      animateRotate: false,
-    },
   };
 };
