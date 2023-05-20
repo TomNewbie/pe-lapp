@@ -113,7 +113,7 @@ const ExerciseDetail = () => {
         {/* Grading & submit exercise section */}
         <div className="flex flex-col items-center mb-16">
           <div>
-            <CommentSection grade={comment.grade}></CommentSection>
+            <CommentSection grade={data.grade}></CommentSection>
           </div>
           <div>
             <SubmitEx
