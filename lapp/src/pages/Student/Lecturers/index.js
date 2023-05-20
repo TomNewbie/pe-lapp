@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 
 function copyToClipboard(email) {
   navigator.clipboard.writeText(email);
+  alert("The email is copied to your clipboard: " + email);
 }
 
 // Component renders a list of lecturers grouped by faculty, with each lecturer's name and email address.

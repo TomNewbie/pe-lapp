@@ -4,6 +4,7 @@ import { removeCourseParticipant } from "../../services/course/participant";
 import { useAuth } from "../auth";
 function copyToClipboard(email) {
   navigator.clipboard.writeText(email);
+  alert("The email is copied to your clipboard: " + email);
 }
 const Participants = ({
   lecturer,
