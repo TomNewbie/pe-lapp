@@ -151,34 +151,10 @@ const ExerciseDetail = () => {
       {/* Course name */}
       <div>
         <TeacherCourseName course={course}></TeacherCourseName>
-        <div className="w-96 h-96">
-          <Doughnut
-            data={dataSubmit(onTime, noSubmit, late)}
-            options={{
-              plugins: {
-                legend: {
-                  labels: {
-                    font: {
-                      size: 15,
-                    },
-                  },
-                },
-                title: {
-                  display: true,
-                  text: "HGelldasdasdo",
-                  font: {
-                    size: 15,
-                  },
-                  align: "center",
-                },
-              },
-            }}
-          />
-        </div>
       </div>
       {/* Exercise details */}
-      <div className="flex flex-col space-y-8 px-20">
-        <p className="text-bold text-7xl text-center mt-8">{data.name}</p>
+      <div className="flex flex-col px-20 space-y-8">
+        <p className="mt-8 text-center text-bold text-7xl">{data.name}</p>
 
         <div className="flex flex-row items-center justify-around">
           <CustomButton
@@ -233,11 +209,11 @@ const ExerciseDetail = () => {
 
           <div className="flex flex-row justify-between text-[37px] text-center px-8 w-1/3 tracking-tight">
             <div className="bg-[#E8BFAE]/50 rounded-3xl w-44 h-36 flex flex-col items-center justify-center space-y-8">
-              <p className="text-8xl h-8">{numOfSubmission} </p>
+              <p className="h-8 text-8xl">{numOfSubmission} </p>
               <p className="">Submissions</p>
             </div>
             <div className="bg-[#F4DACD]/70 rounded-3xl w-44 h-36 flex flex-col items-center justify-center space-y-8 ">
-              <div className="text-8xl  h-8">{averageScore}</div>
+              <div className="h-8 text-8xl">{averageScore}</div>
               <p className="">Average score</p>
             </div>
           </div>
@@ -245,8 +221,31 @@ const ExerciseDetail = () => {
       </div>
 
       <div>
-        <div className="flex w-96 h-96 px-12">
-          {/* <Doughnut data={dataSubmit(onTime, noSubmit, late)} /> */}
+        <div className="flex w-full h-auto px-12">
+          <div className="w-96 h-96">
+            <Doughnut
+              data={dataSubmit(onTime, noSubmit, late)}
+              options={{
+                plugins: {
+                  legend: {
+                    labels: {
+                      font: {
+                        size: 15,
+                      },
+                    },
+                  },
+                  title: {
+                    display: true,
+                    text: "Piechart for submission",
+                    font: {
+                      size: 15,
+                    },
+                    align: "center",
+                  },
+                },
+              }}
+            />
+          </div>
         </div>
       </div>
 
