@@ -3,8 +3,6 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const dataSubmit = (submit, notSubmit, late) => {
-  console.log(submit);
-  console.log("awqeqwewqe");
   return {
     labels: ["Submit", "Not Submit", "Late"],
     datasets: [
