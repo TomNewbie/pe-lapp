@@ -95,7 +95,7 @@ const ExerciseDetail = () => {
   const sumScore = data.solutions?.reduce((a, solution) => {
     return a + (solution.grade ? solution.grade : 0);
   }, 0);
-  const averageScore = sumScore / numOfSubmission;
+  const averageScore = (sumScore / numOfSubmission).toFixed(2);
   const convertDate = (timestamp) => {
     if (!timestamp) return "N/A";
     const date = new Date(timestamp);
