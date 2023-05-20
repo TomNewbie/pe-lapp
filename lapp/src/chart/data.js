@@ -2,9 +2,9 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
-export const dataSubmit = (submit, notSubmit, late) => {
+export const dataSubmit = (submit, notSubmit, late, label1, label2, label3) => {
   return {
-    labels: ["On time", "Not Submit", "Late"],
+    labels: [label1, label2, label3],
     datasets: [
       {
         label: "Number",

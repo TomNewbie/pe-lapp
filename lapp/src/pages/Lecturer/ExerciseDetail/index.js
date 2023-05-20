@@ -81,13 +81,14 @@ const ExerciseDetail = () => {
   const gradeGroups = [[], [], []];
   grades.forEach((grade) => {
     if (grade >= 0 && grade <= 50) {
-      gradeGroups[0].push(grade);
+      gradeGroups[0]++;
     } else if (grade > 50 && grade <= 80) {
-      gradeGroups[1].push(grade);
+      gradeGroups[1]++;
     } else if (grade > 80 && grade <= 100) {
-      gradeGroups[2].push(grade);
+      gradeGroups[2]++;
     }
   });
+  console.log(gradeGroups);
 
   Chart.register(CategoryScale, LinearScale, BarElement);
 
@@ -118,7 +119,8 @@ const ExerciseDetail = () => {
   const sumScore = data.solutions?.reduce((a, solution) => {
     return a + (solution.grade ? solution.grade : 0);
   }, 0);
-  const averageScore = sumScore / numOfSubmission;
+  const averageScore = (sumScore / numOfSubmission).toFixed(2);
+
   const convertDate = (timestamp) => {
     if (!timestamp) return "N/A";
     const date = new Date(timestamp);
@@ -260,8 +262,8 @@ const ExerciseDetail = () => {
       </div>
 
       <div>
-        <div className="flex w-full h-auto px-12">
-          <div className="w-96 h-96">
+        <div className="flex justify-center mt-8">
+          <div className="w-96">
             <Doughnut
               data={dataSubmit(onTime, noSubmit, late)}
               options={{
@@ -285,30 +287,30 @@ const ExerciseDetail = () => {
               }}
             />
           </div>
-        </div>
-        <div className="flex px-12 flex-grow-1">
-          <BarChart
-            chartData={chartData}
-            options={{
-              plugins: {
-                legend: {
-                  labels: {
-                    font: {
-                      size: 15,
+          <div className="chart-container">
+            <BarChart
+              chartData={chartData}
+              options={{
+                plugins: {
+                  legend: {
+                    labels: {
+                      font: {
+                        size: 15,
+                      },
                     },
                   },
-                },
-                title: {
-                  display: true,
-                  text: "Piechart for submission",
-                  font: {
-                    size: 15,
+                  title: {
+                    display: true,
+                    text: "Barchart for grading",
+                    font: {
+                      size: 30,
+                    },
+                    align: "center",
                   },
-                  align: "center",
                 },
-              },
-            }}
-          />
+              }}
+            />
+          </div>
         </div>
       </div>
 

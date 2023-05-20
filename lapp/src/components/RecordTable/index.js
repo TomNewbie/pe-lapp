@@ -70,6 +70,7 @@ const RecordTable = ({ data, deadline, exerciseId, onUpdateGrade }) => {
         const submitConvert = convertDate(d.submit_time);
         const submittime = d.submit_time;
         const status = findStatus(submittime);
+        console.log(d.grade);
 
         return (
           <tr>
@@ -139,7 +140,7 @@ const RecordTable = ({ data, deadline, exerciseId, onUpdateGrade }) => {
               {editingGradeId === d.student.id && d.file ? (
                 <input
                   type="text"
-                  pattern="\d*"
+                  // pattern="\d*"
                   placeholder={d.grade}
                   className="w-2/3 text-center"
                   onChange={(e) => setEditedGrade(e.target.value)}
@@ -155,7 +156,7 @@ const RecordTable = ({ data, deadline, exerciseId, onUpdateGrade }) => {
                   }}
                 />
               ) : (
-                <span>{d.grade ? d.grade : "N/A"}</span>
+                <span>{!isNaN(d.grade) ? d.grade : "N/A"}</span>
               )}
             </td>
           </tr>
