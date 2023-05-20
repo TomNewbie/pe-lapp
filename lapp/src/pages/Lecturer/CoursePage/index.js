@@ -280,10 +280,7 @@ const CoursePage = () => {
           // Grade tab
           tab4={
             <div className="min-h-[370px] px-10 w-[1440px] mt-4">
-              <OverallGrade
-                students={studentGrade}
-                exercises={exercises}
-              ></OverallGrade>
+              <OverallGrade courseId={id}></OverallGrade>
             </div>
           }
         ></TeacherNavCourse>
