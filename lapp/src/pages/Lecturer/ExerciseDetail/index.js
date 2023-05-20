@@ -11,10 +11,8 @@ import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
 import EditExercise from "../../../components/PopUp/EditExercise";
 import { deleteExercise } from "../../../services/course/exercise";
-import { Bar, Doughnut } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import { dataSubmit } from "../../../chart/data";
-import { BarChart } from "../../../chart/Bar";
-import { BarElement, CategoryScale, Chart, LinearScale } from "chart.js";
 
 /** Need to fetch:
  * course:
@@ -90,28 +88,6 @@ const ExerciseDetail = () => {
   });
   console.log(gradeGroups);
 
-  Chart.register(CategoryScale, LinearScale, BarElement);
-
-  const chartData = {
-    labels: ["0-50", "50-80", "80-100"],
-    datasets: [
-      {
-        label: "Grades",
-        data: [gradeGroups[0], gradeGroups[1], gradeGroups[2]],
-        backgroundColor: [
-          "rgb(255, 99, 132)",
-          "rgb(54, 162, 235)",
-          "rgb(255, 205, 86)",
-        ],
-        hoverOffset: 4,
-        borderWidth: 1,
-        barThinkness: 50,
-      },
-    ],
-    options: {
-      animateRotate: false,
-    },
-  };
   const numOfSubmission = data.solutions?.reduce((a, solution) => {
     return a + (solution.file ? 1 : 0);
   }, 0);
@@ -119,8 +95,7 @@ const ExerciseDetail = () => {
   const sumScore = data.solutions?.reduce((a, solution) => {
     return a + (solution.grade ? solution.grade : 0);
   }, 0);
-  const averageScore = (sumScore / numOfSubmission).toFixed(2);
-
+  const averageScore = sumScore / numOfSubmission;
   const convertDate = (timestamp) => {
     if (!timestamp) return "N/A";
     const date = new Date(timestamp);
@@ -265,7 +240,14 @@ const ExerciseDetail = () => {
         <div className="flex justify-center mt-8">
           <div className="w-96">
             <Doughnut
-              data={dataSubmit(onTime, noSubmit, late)}
+              data={dataSubmit(
+                onTime,
+                noSubmit,
+                late,
+                "On time",
+                "Not Submit",
+                "Late"
+              )}
               options={{
                 plugins: {
                   legend: {
@@ -287,9 +269,16 @@ const ExerciseDetail = () => {
               }}
             />
           </div>
-          <div className="chart-container">
-            <BarChart
-              chartData={chartData}
+          <div className="w-96">
+            <Doughnut
+              data={dataSubmit(
+                gradeGroups[0],
+                gradeGroups[1],
+                gradeGroups[2],
+                "0-50",
+                "50-80",
+                "80-100"
+              )}
               options={{
                 plugins: {
                   legend: {
@@ -301,9 +290,9 @@ const ExerciseDetail = () => {
                   },
                   title: {
                     display: true,
-                    text: "Barchart for grading",
+                    text: "Piechart for grading",
                     font: {
-                      size: 30,
+                      size: 15,
                     },
                     align: "center",
                   },
