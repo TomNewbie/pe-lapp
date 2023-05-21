@@ -7,12 +7,9 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8080"
-    },
-    {
       "url": "lapp.fly.dev",
       "variables": {},
-      "description": "Yes"
+      "description": "Our server"
     }
   ],
   "paths": {
@@ -21,13 +18,13 @@
         "tags": [
           "course"
         ],
-        "summary": "Update an existing course",
+        "summary": "Patch an existing course",
         "security": [
           {
             "cookieAuth": []
           }
         ],
-        "description": "Update an existing course by Id",
+        "description": "Patch an existing course by Id",
         "operationId": "updateCourse",
         "parameters": [
           {
@@ -38,37 +35,10 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "Name",
-            "in": "query",
-            "description": "name of the course",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "picture",
-            "in": "query",
-            "description": "picture of the course",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "semester",
-            "in": "query",
-            "description": "semester of the course",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
           }
         ],
         "requestBody": {
-          "description": "Update an existing course",
+          "description": "Patch an existing course",
           "content": {
             "application/json": {
               "schema": {
@@ -119,7 +89,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Joined"
+            "description": "Created"
           },
           "400": {
             "description": "Already joined"
@@ -183,7 +153,7 @@
           "content"
         ],
         "summary": "Get all of a course content",
-        "description": "get a course content",
+        "description": "get aall course content from courseId",
         "operationId": "getAllCourseContent",
         "parameters": [
           {
@@ -201,21 +171,28 @@
             "description": "OK",
             "content": {
               "application/json": {
+                "schema": {  
+                  "$ref": "#/components/schemas/ContentId"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/StudentView"
+                      "$ref": "#/components/schemas/404Course"
                     },
                     {
-                      "$ref": "#/components/schemas/TeacherView"
+                      "$ref": "#/components/schemas/404Join"
                     }
                   ]
                 }
               }
             }
-          },
-          "404": {
-            "description": "Course not found"
           }
         },
         "security": [
@@ -225,49 +202,7 @@
         ]
       }
     },
-    "/api/view/{file_path}": {
-      "get": {
-        "tags": [
-          "content"
-        ],
-        "summary": "Viewing or downloading the file",
-        "description": "Viewing or downloading the file",
-        "operationId": "ViewOrDownloadFile",
-        "parameters": [
-          {
-            "name": "file_path",
-            "in": "path",
-            "description": "path of the file",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A PDF file",
-            "content": {
-              "application/pdf": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Course not found"
-          }
-        },
-        "security": [
-          {
-            "cookieAuth": []
-          }
-        ]
-      }
-    },
-    "/api/course/{id}/": {
+    "/api/course/{id}/content": {
       "post": {
         "tags": [
           "content"
@@ -284,37 +219,10 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "Title?",
-            "in": "query",
-            "description": "name of the course",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "picture",
-            "in": "query",
-            "description": "picture of the course",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "semester",
-            "in": "query",
-            "description": "semester of the course",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
           }
         ],
         "requestBody": {
-          "description": "Update an existing course",
+          "description": "Create course content",
           "content": {
             "application/json": {
               "schema": {
@@ -338,13 +246,27 @@
             "description": "OK"
           },
           "400": {
-            "description": "Missing information to create"
+            "description": "Missing title, body"
           },
           "403": {
             "description": "Unauthorized"
           },
           "404": {
-            "description": "Course not found"
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/404Course"
+                    },
+                    {
+                      "$ref": "#/components/schemas/404Header"
+                    }
+                  ]
+                }
+              }
+            }
           }
         },
         "security": [
@@ -519,7 +441,7 @@
             "description": "ID of the course",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -531,7 +453,7 @@
             "description": "Unauthorized"
           },
           "404": {
-            "description": "Not found",
+            "description": "Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -579,33 +501,6 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "Title?",
-            "in": "query",
-            "description": "name of the course",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "picture",
-            "in": "query",
-            "description": "picture of the course",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "semester",
-            "in": "query",
-            "description": "semester of the course",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
           }
         ],
         "requestBody": {
@@ -639,7 +534,7 @@
             "description": "Unauthorized"
           },
           "404": {
-            "description": "Not found",
+            "description": "Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -649,6 +544,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/404Course"
+                    },
+                    {
+                      "$ref": "#/components/schemas/404Header"
                     }
                   ]
                 }
@@ -669,7 +567,7 @@
           "participant"
         ],
         "summary": "Get all participant of a course",
-        "description": "get all course participant",
+        "description": "Get all the participant of a selected course",
         "operationId": "getAllCourseParticipant",
         "parameters": [
           {
@@ -743,7 +641,21 @@
             "description": "Unauthorized"
           },
           "404": {
-            "description": "Cannot find course created by you"
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/404StudentSys"
+                    },
+                    {
+                      "$ref": "#/components/schemas/404Course"
+                    }
+                  ]
+                }
+              }
+            }
           }
         },
         "security": [
@@ -787,7 +699,7 @@
             "description": "Unauthorized"
           },
           "404": {
-            "description": "Not found",
+            "description": "Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -862,7 +774,7 @@
         "tags": [
           "exercise"
         ],
-        "summary": "Create a new exercise",
+        "summary": "Create an exercise",
         "description": "Add a new exercise",
         "operationId": "addExercise",
         "parameters": [
@@ -908,7 +820,21 @@
             "description": "Unauthorized (Student)"
           },
           "404": {
-            "description": "Course not found"
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/404Course"
+                    },
+                    {
+                      "$ref": "#/components/schemas/404Header"
+                    }
+                  ]
+                }
+              }
+            }
           }
         },
         "security": [
@@ -972,8 +898,8 @@
         "tags": [
           "exercise"
         ],
-        "summary": "Update an exercise content",
-        "description": "update an exercise content",
+        "summary": "Edit exercise",
+        "description": "Edit exercise by specify id",
         "operationId": "updateExerciseContent",
         "parameters": [
           {
@@ -984,55 +910,29 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "Title?",
-            "in": "query",
-            "description": "name of the exercise",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Deadline?",
-            "in": "query",
-            "description": "Deadline of the exercise",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "date"
-            }
-          },
-          {
-            "name": "Description?",
-            "in": "query",
-            "description": "description about exercise",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "files?",
-            "in": "query",
-            "description": "Exercise file",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/File"
-            }
-          },
-          {
-            "name": "removed?",
-            "in": "query",
-            "description": "semester of the course",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "url[]"
-            }
           }
         ],
+        "requestBody": {
+          "description": "Edit an exercise",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExerciseUpdate"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ExerciseUpdate"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/ExerciseUpdate"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Ok"
@@ -1041,7 +941,21 @@
             "description": "Unauthorized (Student)"
           },
           "404": {
-            "description": "Exercise not found"
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/404Exercise"
+                    },
+                    {
+                      "$ref": "#/components/schemas/404Header"
+                    }
+                  ]
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1054,8 +968,8 @@
         "tags": [
           "exercise"
         ],
-        "summary": "Lecturer delete their exercise by id",
-        "description": "Delete exercise",
+        "summary": "Delete exercise",
+        "description": "Lecturer delete their exercise by id",
         "operationId": "DeleteExercise",
         "parameters": [
           {
@@ -1089,9 +1003,9 @@
         "tags": [
           "exercise"
         ],
-        "summary": "Create solution",
-        "description": "Create a solution",
-        "operationId": "CreateSolution",
+        "summary": "Submit solution",
+        "description": "Submit a solution",
+        "operationId": "Submitsolution",
         "parameters": [
           {
             "name": "id",
@@ -1101,17 +1015,27 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "files",
-            "in": "query",
-            "description": "Solution file",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/File"
-            }
           }
         ],
+        "requestBody": {
+          "description": "Submit a solution",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolutionFile"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/SolutionFile"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/SolutionFile"
+              }
+            }
+          },
         "responses": {
           "200": {
             "description": "Ok"
@@ -1120,7 +1044,7 @@
             "description": "Unauthorized (Student)"
           },
           "404": {
-            "description": "Not found",
+            "description": "Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -1130,6 +1054,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/404File"
+                    },
+                    {
+                      "$ref": "#/components/schemas/404Header"
                     }
                   ]
                 }
@@ -1149,8 +1076,8 @@
         "tags": [
           "exercise"
         ],
-        "summary": "Update a student grade",
-        "description": "update a student grade",
+        "summary": "Add student grade",
+        "description": "Add grade for student solution",
         "operationId": "AddStudentGrade",
         "parameters": [
           {
@@ -1161,17 +1088,29 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "Grade?",
-            "in": "query",
-            "description": "Grade of the student (from 0 to 100)",
-            "required": true,
-            "schema": {
-              "type": "number"
-            }
           }
         ],
+        "requestBody": {
+          "description": "Add student grade",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Grade"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Grade"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Grade"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Ok"
@@ -1180,7 +1119,21 @@
             "description": "Unauthorized (Student)"
           },
           "404": {
-            "description": "Solution not found"
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/404Solution"
+                    },
+                    {
+                      "$ref": "#/components/schemas/404Header"
+                    }
+                  ]
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1240,6 +1193,9 @@
           },
           "401": {
             "description": "Unauthorized (student)"
+          },
+          "404": {
+            "description": "Cannot find course created by you"
           }
         },
         "security": [
@@ -1519,9 +1475,6 @@
       "CourseContent": {
         "type": "object",
         "properties": {
-          "title?": {
-            "type": "string"
-          },
           "file": {
             "type": "array",
             "xml": {
@@ -1532,8 +1485,40 @@
               "$ref": "#/components/schemas/File"
             }
           },
-          "body?": {
+          "title": {
             "type": "string"
+          },
+          "body": {
+            "type": "string"
+          }
+        }
+      },
+      "ContentId": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "file?": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          },
+          "body": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date"
           }
         }
       },
@@ -1762,12 +1747,39 @@
           }
         }
       },
+      "404Header": {
+        "type": "object",
+        "properties": {
+          "404": {
+            "type": "string",
+            "example": "Wrong content-type header"
+          }
+        }
+      },
+      "404Solution": {
+        "type": "object",
+        "properties": {
+          "404": {
+            "type": "string",
+            "example": "Solution not found"
+          }
+        }
+      },
       "404Student": {
         "type": "object",
         "properties": {
           "404": {
             "type": "string",
             "example": "Student not found in course"
+          }
+        }
+      },
+      "404StudentSys": {
+        "type": "object",
+        "properties": {
+          "404": {
+            "type": "string",
+            "example": "Student not found on our system (They may not have registered or have not logged in the first time in our app yet)"
           }
         }
       },
@@ -1795,6 +1807,15 @@
           "404": {
             "type": "string",
             "example": "Missing file"
+          }
+        }
+      },
+      "404Join": {
+        "type": "object",
+        "properties": {
+          "404": {
+            "type": "string",
+            "example": "You are not join course"
           }
         }
       },
@@ -1827,9 +1848,6 @@
           "name?": {
             "type": "string"
           },
-          "description?": {
-            "type": "string"
-          },
           "picture?": {
             "type": "array",
             "xml": {
@@ -1843,9 +1861,6 @@
             }
           },
           "semester?": {
-            "type": "string"
-          },
-          "content?": {
             "type": "string"
           }
         }
@@ -1908,6 +1923,38 @@
             "type": "boolean"
           }
         }
+      },
+      "ExerciseUpdate": {
+        "type": "object",
+        "properties": {
+          "name?": {
+            "type": "string"
+          },
+          "deadline?": {
+            "type": "string",
+            "format": "date"
+          },
+          "removed?": {
+            "type": "string"
+          },
+          "file?": {
+            "type": "array",
+            "xml": {
+              "name": "files",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          }
+        }
+      },
+      "Grade": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "number"
+          }
       },
       "TeacherExercise": {
         "type": "object",
@@ -2003,6 +2050,14 @@
             "items": {
               "$ref": "#/components/schemas/SolutionsFile"
             }
+          }
+        }
+      },
+      "SolutionFile": {
+        "type": "object",
+        "properties": {
+          "files": {
+            "type": "string"
           }
         }
       },
@@ -2280,4 +2335,6 @@
       }
     }
   }
+  }
+}
 }
