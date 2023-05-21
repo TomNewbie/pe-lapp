@@ -1,18 +1,31 @@
 import { useAPI } from "../../hooks/useAPI";
 import { usePage } from "../../hooks/usePage";
+import { Errorpage, LoadingPage } from "../../pages/common";
 
 const OverallGrade = ({ courseId: id }) => {
   const { pageObj, nextPage, prevPage, page } = usePage({ size: 10 });
-  const { data } = useAPI({
+  const { data, error, pending } = useAPI({
     path: "/api/course/:id/exercises/grade",
     params: { id },
     searchParams: pageObj,
   });
+  if (error) {
+    console.log(error);
+    return <Errorpage />;
+  }
+  if (pending) {
+    return <LoadingPage />;
+  }
+
+  const totalStudents = data.students?.length;
+  const totalPage = (totalStudents / 10).toFixed(0);
 
   const exercise = data?.exercises?.map?.((ex) => (
     <th className="py-3 border border-slate-300 bg-[#F4C2C2]/40 pl-4">
-      <div className="flex flex-row justify-center">
-        <div className="py-4  text-[#7F1734] text-[35px]">{ex.name}</div>
+      <div className="flex flex-row justify-center w-36 ">
+        <div className="py-4  text-[#7F1734] text-[35px] truncate">
+          {ex.name}
+        </div>
       </div>
     </th>
   ));
@@ -71,13 +84,12 @@ const OverallGrade = ({ courseId: id }) => {
         </table>
       </div>
       {/* Pagination */}
-      <div className="flex justify-center space-x-10 text-7xl">
+      <div className="flex justify-center mt-8 space-x-10 text-7xl">
         <button onClick={prevPage} disabled={page === 1}>
           {"<"}
         </button>
         <div> {page}</div>
-
-        <button onClick={nextPage} disabled={page === 1}>
+        <button onClick={nextPage} disabled={page === totalPage - 1}>
           {">"}
         </button>
       </div>
