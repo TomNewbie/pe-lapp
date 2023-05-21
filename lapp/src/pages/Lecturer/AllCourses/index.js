@@ -86,7 +86,7 @@ const AllCoursesLecturer = () => {
           className="border-[#B02B3B] border-4 box-border px-2 h-9 pb-8 leading-9 rounded-xl hover:border-slate-500 text-dongle text-4xl ml-4 bg-[#ffffff] shadow-lg text-[#1B1C1E]"
           onClick={toggleCreateModal}
         >
-          + Create class
+          + Create course
         </button>
       </div>
 
