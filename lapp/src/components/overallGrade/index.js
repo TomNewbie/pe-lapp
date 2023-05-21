@@ -1,4 +1,3 @@
-import { Dropdown } from "../../components";
 import { useAPI } from "../../hooks/useAPI";
 import { usePage } from "../../hooks/usePage";
 
@@ -11,16 +10,9 @@ const OverallGrade = ({ courseId: id }) => {
   });
 
   const exercise = data?.exercises?.map?.((ex) => (
-    <th className="py-3 border border-slate-300 bg-[#F4C2C2]/40 text-left pl-4 text-[30px]">
-      <div className="relative flex flex-row">
-        <div>
-          <div className="text-[#9F5F5F]/80 font-light">{ex.duedate}</div>
-          <div className="text-[#7F1734]">{ex.name}</div>
-          <div className="text-[#9F5F5F]/80 font-light">___ out of 10</div>
-        </div>
-        <div className="absolute right-0 ">
-          <Dropdown></Dropdown>
-        </div>
+    <th className="py-3 border border-slate-300 bg-[#F4C2C2]/40 pl-4">
+      <div className="flex flex-row justify-center">
+        <div className="py-4  text-[#7F1734] text-[35px]">{ex.name}</div>
       </div>
     </th>
   ));
@@ -55,7 +47,7 @@ const OverallGrade = ({ courseId: id }) => {
   });
 
   return (
-    <div class="flex flex-col">
+    <div class="flex flex-col pt-8">
       <div class="flex-grow overflow-auto">
         <table class="relative w-full border-collapse border  ">
           <thead>
@@ -77,13 +69,17 @@ const OverallGrade = ({ courseId: id }) => {
           </thead>
           <tbody class="divide-y">{index}</tbody>
         </table>
-
-        {/* Pagination */}
+      </div>
+      {/* Pagination */}
+      <div className="flex justify-center space-x-10 text-7xl">
         <button onClick={prevPage} disabled={page === 1}>
           {"<"}
         </button>
-        {page}
-        <button onClick={nextPage}>{">"}</button>
+        <div> {page}</div>
+
+        <button onClick={nextPage} disabled={page === 1}>
+          {">"}
+        </button>
       </div>
     </div>
   );

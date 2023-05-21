@@ -56,9 +56,16 @@ const Notification = ({
           </div>
         </div>
       )}
-      <div className="flex flex-col ml-4 space-y-4">
-        <div className="text-5xl font-bold">{content.title}</div>
-        <div className="text-3xl font-light">{content.body}</div>
+      <div className="flex flex-col w-[800px] ml-4 space-y-4">
+        <div className="w-full overflow-hidden text-5xl font-bold text-clip">
+          {content.title}
+        </div>
+        <div
+          className="w-full overflow-hidden text-3xl font-light text-clip"
+          title={content.body}
+        >
+          {content.body}
+        </div>
         {content.files && (
           <div className="flex flex-wrap gap-3">{fileSection}</div>
         )}

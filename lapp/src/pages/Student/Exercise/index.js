@@ -72,9 +72,11 @@ const ExerciseDetail = () => {
 
       {/* Instruction part */}
       <div class="flex flex-row items-start justify-around mx-16 flex-grow">
-        <div class="">
+        <div>
           <div class=" flex flex-col px-2">
-            <p class="text-bold text-7xl text-left">{data.name}</p>
+            <p class="text-bold text-7xl text-left truncate w-[800px]">
+              {data.name}
+            </p>
             <div class="flex flex-row justify-between text-[37px]">
               <p>100 points</p>
               <p>{deadline}</p>

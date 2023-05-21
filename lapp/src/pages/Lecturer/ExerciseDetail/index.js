@@ -112,16 +112,18 @@ const ExerciseDetail = () => {
 
   const deadline = convertDate(data.deadline);
   const handleDelete = async () => {
-    deleteExercise(exerciseId)
-      .then(() => {
-        // Handle successful deletion of course content
-        alert("Exercise deleted successfully.");
-        refresh();
-      })
-      .catch((error) => {
-        // Handle error during course content deletion
-        alert("Error deleting exercise:" + error);
-      });
+    if (window.confirm("Do you sure you want to delete?")) {
+      deleteExercise(exerciseId)
+        .then(() => {
+          // Handle successful deletion of course content
+          alert("Exercise deleted successfully.");
+          refresh();
+        })
+        .catch((error) => {
+          // Handle error during course content deletion
+          alert("Error deleting exercise:" + error);
+        });
+    }
   };
   const onTime = data.solutions?.reduce((a, solution) => {
     if (
@@ -170,7 +172,12 @@ const ExerciseDetail = () => {
       </div>
       {/* Exercise details */}
       <div className="flex flex-col px-20 space-y-8">
-        <p className="mt-8 text-center text-bold text-7xl">{data.name}</p>
+        <p
+          className="mt-8 overflow-hidden text-center text-bold text-7xl text-clip"
+          title={data.name}
+        >
+          {data.name}
+        </p>
 
         <div className="flex flex-row items-center justify-around">
           <CustomButton
@@ -212,7 +219,7 @@ const ExerciseDetail = () => {
                           alt=""
                           className="w-9 h-9"
                         />
-                        <div className="ml-3 text-3xl font-semibold">
+                        <div className="ml-3 overflow-hidden text-3xl font-semibold text-clip">
                           {file.name}
                         </div>
                       </div>

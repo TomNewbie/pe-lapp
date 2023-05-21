@@ -33,7 +33,9 @@ const Dropdown = ({ onDelete, onEdit, noDelete = false }) => {
                 <div
                   className="flex flex-row mt-3 hover:text-[#B02B3B] cursor-pointer"
                   onClick={() => {
-                    onDelete();
+                    if (window.confirm("Do you sure you want to delete?")) {
+                      onDelete();
+                    }
                     setActive(false);
                   }}
                 >
