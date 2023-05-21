@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 const StudentNavCourse = ({ tab1, tab2, tab3 }) => {
   const [activeTab, setActiveTab] = useState(1);
   const handleClick = (index) => {
     setActiveTab(index);
+    sessionStorage.setItem("activeTab", index.toString());
   };
+
+  useEffect(() => {
+    // Retrieve the active tab index from local storage
+    const storedActiveTab = sessionStorage.getItem("activeTab");
+    if (storedActiveTab) {
+      setActiveTab(parseInt(storedActiveTab));
+    }
+
+    // Clear the stored active tab index when navigating away from the page
+    return () => {
+      sessionStorage.removeItem("activeTab");
+    };
+  }, []);
+
   return (
     <div className="grid h-full justify-items-center">
       {/* Tab link */}

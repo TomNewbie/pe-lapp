@@ -64,7 +64,6 @@ const CoursePage = () => {
   ) {
     return <LoadingPage />;
   }
-  console.log(course);
 
   return (
     <div className="relative flex flex-col h-screeb">
