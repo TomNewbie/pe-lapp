@@ -46,7 +46,7 @@ const CoursecardTeacher = ({ course, handleEdit }) => {
         </div>
       </Link>
       <div className="dropdown-container">
-        <Dropdown onDelete={handleDelete} onEdit={handleEdit} />
+        <Dropdown noDelete={true} onDelete={handleDelete} onEdit={handleEdit} />
       </div>
     </div>
   );

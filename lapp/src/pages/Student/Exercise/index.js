@@ -9,7 +9,6 @@ import {
 import { useLocation, useParams } from "react-router-dom";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
-import Link from "antd/es/typography/Link";
 
 /** Need to fetch: 
  * course: { name: string; teacher: string;}
@@ -17,15 +16,12 @@ import Link from "antd/es/typography/Link";
   duedate: string; content: string; Files: { name: string;  }[];}
 * comment: { grade: number; content: string;}
  */
-const comment = { grade: 100, content: "Very good!" };
 
 // The component renders a page displaying information about a particular exercise, including the exercise name, maximum points, due date, announcement, and a comment section for student view.
 const ExerciseDetail = () => {
   const location = useLocation();
   const courseId = location.state?.courseId;
   const { id } = useParams();
-
-  const [selectedFiles, setSelectedFiles] = useState([]);
 
   const { data, pending, error, refresh } = useAPI({
     path: "/api/exercises/:id",
