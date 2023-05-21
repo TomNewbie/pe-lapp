@@ -60,6 +60,10 @@ const PostAnnEx = ({
     }
     handleClose();
   };
+  const isButtonDisabled =
+    (type === "exercise" &&
+      (title === "" || content === "" || duedate === "")) ||
+    (type !== "exercise" && (title === "" || content === ""));
   return (
     <div className="absolute z-20 flex items-center justify-center w-full h-screen bg-black/60">
       <div class="flex flex-col justify-between space-y-3 px-5 py-2 w-2/3 h-fit bg-[#FFFCF7] text-[#1B1C1E] rounded-xl shadow-xl place-items-center text-3xl">
@@ -133,12 +137,14 @@ const PostAnnEx = ({
         </div>
 
         <div class=" flex flex-row justify-center space-x-48 w-full text-xl pb-2">
-          <CustomButton
-            variant={"filled"}
-            text={"Post"}
-            className={"px-5 pt-1 pb-0.75"}
-            handleButton={handleSubmit}
-          ></CustomButton>
+          {!isButtonDisabled && (
+            <CustomButton
+              variant={"filled"}
+              text={"Post"}
+              className={"px-5 pt-1 pb-0.75"}
+              handleButton={handleSubmit}
+            ></CustomButton>
+          )}
           <CustomButton
             variant={"border"}
             text={"Cancel"}

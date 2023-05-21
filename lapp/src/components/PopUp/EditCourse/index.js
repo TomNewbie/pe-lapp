@@ -21,6 +21,10 @@ const EditCourse = ({ handleClose, onEditCourse, editCourse }) => {
     setPicture(editCourse.picture);
     setSemester(editCourse.semester);
   }, [editCourse]);
+  const isButtonDisabled =
+    courseName === editCourse.name &&
+    picture === editCourse.picture &&
+    semester === editCourse.semester;
   const handleUpdateCourse = () => {
     const fields = {
       name: courseName,
@@ -96,12 +100,14 @@ const EditCourse = ({ handleClose, onEditCourse, editCourse }) => {
         </div>
 
         <div className="flex flex-row py-8 space-x-20">
-          <CustomButton
-            variant={"filled"}
-            className={"px-8 py-0"}
-            text={"Update"}
-            handleButton={handleUpdateCourse}
-          />
+          {!isButtonDisabled && (
+            <CustomButton
+              variant={"filled"}
+              className={"px-8 py-0"}
+              text={"Update"}
+              handleButton={handleUpdateCourse}
+            />
+          )}
           <CustomButton
             variant={"filled"}
             className={"px-8 py-0"}

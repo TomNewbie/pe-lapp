@@ -80,9 +80,14 @@ const ProfileStudentMe = ({ id }) => {
     }
   };
 
+  const isFormChanged =
+    major !== storeMajor ||
+    intake !== storeIntake ||
+    phoneNumber !== storePhoneNumber;
+
   return (
     <div className="h-full bg-[#FFFAF0]">
-      <div className="grid grid-cols-7 items-center h-full pt-10 bg-[#FFFAF0] pb-14">
+      <div className="grid grid-cols-7 items-center h-full pt-10 bg-[#FFFAF0] pb-16">
         <div className="flex flex-row justify-center col-span-2">
           <img
             src={infoData.avatar || "/ProfileTeacher/avatar.png"}
@@ -158,7 +163,7 @@ const ProfileStudentMe = ({ id }) => {
       </div>
 
       {!show ? (
-        <div className="flex self-start justify-center mt-6 mb-14">
+        <div className="flex self-start justify-center mt-6 mb-8">
           <button
             onClick={() => setShow(true)}
             className="p-4 h-12 text-white text-center text-4xl bg-[#B02B3B]/70 border border-[#560319] px-10 py-2 rounded-xl hover:bg-[#CC6666]/40"
@@ -168,12 +173,14 @@ const ProfileStudentMe = ({ id }) => {
         </div>
       ) : (
         <div className="flex self-start justify-center mt-6 mb-10">
-          <button
-            className="bg-[#CC6666] opacity-80 px-10 rounded-xl text-3xl text-[#1B1C1E] border hover:border-slate-500 font-dongle"
-            onClick={handleSave}
-          >
-            Save
-          </button>
+          {isFormChanged && (
+            <button
+              className="bg-[#CC6666] opacity-80 px-10 rounded-xl text-3xl text-[#1B1C1E] border hover:border-slate-500 font-dongle"
+              onClick={handleSave}
+            >
+              Save
+            </button>
+          )}
           <button
             className="border-[#B02B3B] border-4 box-border w-28 h-9 pb-8 rounded-xl hover:border-slate-500 text-3xl ml-4 bg-[#ffffff] drop-shadow-[0_4px_1px_rgba(0,0,0,0.25)] text-[#1B1C1E]"
             onClick={handleCancel}

@@ -73,6 +73,9 @@ const ProfileTeacherMe = ({ id }) => {
     }
   };
 
+  const isFormModified =
+    phoneNumber !== storePhoneNumber || faculty !== storeFaculty;
+
   return (
     <div className="h-full bg-[#FFFAF0] min-h-screen">
       <div className="grid grid-cols-7 items-center h-full pt-10 bg-[#FFFAF0] pb-8 flex-grow">
@@ -133,7 +136,10 @@ const ProfileTeacherMe = ({ id }) => {
           <p className="mb-6">All courses:</p>
           <div className="divide-y divide-solid divide-[#000000] w-[40rem]">
             {infoData.courses.map((course) => (
-              <div className="flex flex-row justify-between font-dongle font-normal not-italic text-4xl text-[#1B1C1E]">
+              <div
+                key={`${course.name}-${course.semester}`}
+                className="flex flex-row justify-between font-dongle font-normal not-italic text-4xl text-[#1B1C1E]"
+              >
                 <p>{course.name}</p>
                 <p>{course.semester}</p>
               </div>
@@ -153,12 +159,14 @@ const ProfileTeacherMe = ({ id }) => {
         </div>
       ) : (
         <div className="flex self-start justify-center mt-6 mb-10">
-          <button
-            className="bg-[#CC6666] opacity-80 px-10 rounded-xl text-3xl text-[#1B1C1E] border hover:border-slate-500 font-dongle"
-            onClick={handleSave}
-          >
-            Save
-          </button>
+          {isFormModified && (
+            <button
+              className="bg-[#CC6666] opacity-80 px-10 rounded-xl text-3xl text-[#1B1C1E] border hover:border-slate-500 font-dongle"
+              onClick={handleSave}
+            >
+              Save
+            </button>
+          )}
           <button
             className="border-[#B02B3B] border-4 box-border w-28 h-9 pb-8 rounded-xl hover:border-slate-500 text-3xl ml-4 bg-[#ffffff] drop-shadow-[0_4px_1px_rgba(0,0,0,0.25)] text-[#1B1C1E]"
             onClick={handleCancel}

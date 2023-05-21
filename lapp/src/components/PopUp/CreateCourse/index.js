@@ -15,6 +15,8 @@ const CreateCourse = ({ handleClose, onCreateCourse }) => {
   const [courseName, setCourseName] = useState("");
   const [picture, setPicture] = useState("");
   const [semester, setSemester] = useState("");
+  const isButtonDisabled =
+    courseName === "" || semester === "" || picture === "";
 
   const handleCreateCourse = async () => {
     try {
@@ -90,12 +92,14 @@ const CreateCourse = ({ handleClose, onCreateCourse }) => {
         </div>
 
         <div className="flex flex-row py-8 space-x-20">
-          <CustomButton
-            variant={"filled"}
-            className={"px-8 py-0"}
-            text={"Create"}
-            handleButton={handleCreateCourse}
-          />
+          {!isButtonDisabled && (
+            <CustomButton
+              variant={"filled"}
+              className={"px-8 py-0"}
+              text={"Create"}
+              handleButton={handleCreateCourse}
+            />
+          )}
           <CustomButton
             variant={"filled"}
             className={"px-8 py-0"}

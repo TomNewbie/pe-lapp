@@ -35,6 +35,8 @@ const SubmitEx = ({ status, exerciseId, onSubmit }) => {
     setSelectedFiles(updatedFiles);
   };
 
+  const isButtonDisabled = selectedFiles.length === 0;
+
   const handleSubmit = async () => {
     try {
       await submitSolution(exerciseId, { files: selectedFiles });
@@ -105,7 +107,7 @@ const SubmitEx = ({ status, exerciseId, onSubmit }) => {
               ))}
             </div>
           </div>
-          {!data.submitted && (
+          {!data.submitted && !isButtonDisabled && (
             <div className="grid justify-center">
               <CustomButton
                 variant="filled"

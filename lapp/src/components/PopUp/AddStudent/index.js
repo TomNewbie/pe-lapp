@@ -18,6 +18,7 @@ const AddStudent = ({ handleClose, courseId, onAddStudent }) => {
   const handleInputChange = (event) => {
     setStudentId(event.target.value); // Update the course code state
   };
+  const isButtonDisabled = studentId === "";
   return (
     <div className="absolute flex items-center justify-center w-full h-screen bg-black/60">
       <div class="w-[800px] h-fit flex flex-col justify-between space-y-4 px-5 py-2 bg-[#FFFCF7] rounded-xl shadow-xl place-items-center text-[#1B1C1E] border">
@@ -29,12 +30,14 @@ const AddStudent = ({ handleClose, courseId, onAddStudent }) => {
           onChange={handleInputChange}
         ></input>
         <div className="flex flex-row pt-8 space-x-20">
-          <CustomButton
-            variant={"filled"}
-            className={"px-8 py-0"}
-            text={"Add"}
-            handleButton={handleAddStudent}
-          ></CustomButton>
+          {!isButtonDisabled && (
+            <CustomButton
+              variant={"filled"}
+              className={"px-8 py-0"}
+              text={"Add"}
+              handleButton={handleAddStudent}
+            ></CustomButton>
+          )}
           <CustomButton
             variant={"filled"}
             className={"px-8 py-0"}
