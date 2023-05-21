@@ -12,7 +12,7 @@ import {
   AddStudent,
 } from "../../../components";
 import { Participants, Assignment, PostAnnEx } from "../../../components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAPI } from "../../../hooks/useAPI";
 import { Errorpage, LoadingPage } from "../../common";
 import EditPost from "../../../components/PopUp/EditPost";
@@ -32,21 +32,6 @@ import EditPost from "../../../components/PopUp/EditPost";
 - const studentGrade: {name: string;id: string;total: string;detailGrade: number[];}[]
 - const classcode: string
  */
-
-const studentGrade = [
-  {
-    name: "A",
-    id: "12345",
-    total: "2",
-    detailGrade: [10, 8],
-  },
-  {
-    name: "B",
-    id: "45678",
-    total: "1",
-    detailGrade: [7, 8],
-  },
-];
 
 /**This component displays a course page for a lecturer, with four tabs: General, Exercise, Participants, and Grade. */
 const CoursePage = () => {
@@ -96,7 +81,22 @@ const CoursePage = () => {
 
   const handleClick = (index) => {
     setActiveTab(index);
+    sessionStorage.setItem("activeTab", index.toString());
   };
+
+  useEffect(() => {
+    // Retrieve the active tab index from local storage
+    const storedActiveTab = sessionStorage.getItem("activeTab");
+    if (storedActiveTab) {
+      setActiveTab(parseInt(storedActiveTab));
+    }
+
+    // Clear the stored active tab index when navigating away from the page
+    return () => {
+      sessionStorage.removeItem("activeTab");
+    };
+  }, []);
+
   if (participantsError) {
     console.log(participantsError);
     return <Errorpage />;
