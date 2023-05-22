@@ -345,7 +345,10 @@
             "cookieAuth": []
           }
         ]
-      },
+      }
+    },
+    
+    "/api/courses": {
       "get": {
         "tags": [
           "course"
@@ -1956,7 +1959,8 @@
           "name": {
             "type": "number"
           }
-      },
+      }
+    },
       "TeacherExercise": {
         "type": "object",
         "properties": {
@@ -2335,6 +2339,5 @@
         "name": "access_token"
       }
     }
-  }
   }
 } 
