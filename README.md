@@ -18,6 +18,7 @@ To use our learning management system - [LAPP](https://lapp.fly.dev/), you just 
 ## Additional document <a name="addiDoc"></a>
 - This application draws inspiration from Google Classroom
 - Reference documents:
+    -  [API-Swagger]( https://lapp.fly.dev/api/docs/)
     -  [Notion]( https://www.notion.so/kimthanh3001/Programming-exercise-d57211965361401d9b55b67aa3f244c2?pvs=4)
     - [Figma](https://www.figma.com/file/j8tUM7RsajRidYXfPevXfX/LAPP?type=design&node-id=0%3A1&t=W9BHI5PeTJMDZ4kZ-1)
     - [Presentation](https://www.canva.com/design/DAFjIwdxMJM/_-1U09DW2l-COhrZKG-0XQ/view?utm_content=DAFjIwdxMJM&utm_campaign=designshare&utm_medium=link&utm_source=homepage_design_menu) 
