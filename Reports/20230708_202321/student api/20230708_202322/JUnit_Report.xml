@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="student api" time="3.205" tests="2" failures="0" errors="0">
+   <testsuite name="student api" tests="2" failures="0" errors="0" time="3.205" skipped="0" timestamp="2023-07-08 20:23:25" hostname="tho.phan - localhost" id="Test Suites/student api">
+      <properties>
+         <property name="deviceName" value=""/>
+         <property name="devicePlatform" value=""/>
+         <property name="logFolder" value="/Users/tho.phan/git/pe-lapp/Reports/20230708_202321/student api/20230708_202322"/>
+         <property name="logFiles" value="/Users/tho.phan/git/pe-lapp/Reports/20230708_202321/student api/20230708_202322/execution0.log"/>
+         <property name="attachments" value=""/>
+         <property name="hostName" value="tho.phan - localhost"/>
+         <property name="hostAddress" value="192.168.0.100"/>
+         <property name="os" value="Mac OS X 64bit"/>
+         <property name="katalonVersion" value="8.6.5.208"/>
+      </properties>
+      <testcase name="Test Cases/Get All Course" time="2.554" classname="Test Cases/Get All Course" status="PASSED">
+         <system-out><![CDATA[2023-07-08 20:23:26 - [TEST_CASE][PASSED] - Test Cases/Get All Course: Test Cases/Get All Course
+
+2023-07-08 20:23:26 - [TEST_STEP][PASSED] - response = sendRequest(findTestObject("GET all courses")): Send request successfully
+
+2023-07-08 20:23:28 - [MESSAGE][INFO] - HAR: /Users/tho.phan/git/pe-lapp/Reports/20230708_202321/student api/20230708_202322/requests/main/0.har
+
+2023-07-08 20:23:28 - [MESSAGE][PASSED] - Send request successfully
+
+2023-07-08 20:23:28 - [TEST_STEP][PASSED] - verifyResponseStatusCode(response, 200): Verify response status code successfully
+
+2023-07-08 20:23:28 - [MESSAGE][PASSED] - Verify response status code successfully]]></system-out>
+         <system-err><![CDATA[]]></system-err>
+      </testcase>
+      <testcase name="Test Cases/PATCH user profile" time="0.355" classname="Test Cases/PATCH user profile" status="PASSED">
+         <system-out><![CDATA[2023-07-08 20:23:28 - [TEST_CASE][PASSED] - Test Cases/PATCH user profile: Test Cases/PATCH user profile
+
+2023-07-08 20:23:28 - [TEST_STEP][PASSED] - response = sendRequest(findTestObject("PATCH user profile", ["major":"CSE", "phone_number":"0912345678", "intake":"2020"])): Send request successfully
+
+2023-07-08 20:23:29 - [MESSAGE][INFO] - HAR: /Users/tho.phan/git/pe-lapp/Reports/20230708_202321/student api/20230708_202322/requests/main/1.har
+
+2023-07-08 20:23:29 - [MESSAGE][PASSED] - Send request successfully
+
+2023-07-08 20:23:29 - [TEST_STEP][PASSED] - verifyResponseStatusCode(response, 200): Verify response status code successfully
+
+2023-07-08 20:23:29 - [MESSAGE][PASSED] - Verify response status code successfully]]></system-out>
+         <system-err><![CDATA[]]></system-err>
+      </testcase>
+      <system-out><![CDATA[2023-07-08 20:23:25 - [TEST_SUITE][PASSED] - student api: Test Cases/PATCH user profile]]></system-out>
+      <system-err><![CDATA[]]></system-err>
+   </testsuite>
+</testsuites>

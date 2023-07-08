@@ -1,0 +1,10 @@
+Suite/Test/Step Name,Browser,Description,Tag,Start time,End time,Duration,Status
+student api,,,,2023-07-08 20:23:25,2023-07-08 20:23:29,3.205s,PASSED
+,,,,,,,
+Test Cases/Get All Course,,,,2023-07-08 20:23:26,2023-07-08 20:23:28,2.554s,PASSED
+"response = sendRequest(findTestObject(""GET all courses""))",,,,2023-07-08 20:23:26,2023-07-08 20:23:28,2.205s,PASSED
+"verifyResponseStatusCode(response, 200)",,,,2023-07-08 20:23:28,2023-07-08 20:23:28,0.013s,PASSED
+,,,,,,,
+Test Cases/PATCH user profile,,,,2023-07-08 20:23:28,2023-07-08 20:23:29,0.355s,PASSED
+"response = sendRequest(findTestObject(""PATCH user profile"", [""major"":""CSE"", ""phone_number"":""0912345678"", ""intake"":""2020""]))",,,,2023-07-08 20:23:28,2023-07-08 20:23:29,0.182s,PASSED
+"verifyResponseStatusCode(response, 200)",,,,2023-07-08 20:23:29,2023-07-08 20:23:29,0.003s,PASSED
